@@ -1,0 +1,54 @@
+[rhel-7-dvd]
+baseurl = http://content.example.com/rhel7.6/x86_64/dvd
+enabled = true
+gpgcheck = false
+name = Remote classroom copy of RHEL DVD
+
+[rhel-server-rhscl-7-rpms]
+baseurl = http://content.example.com/ocp4.0/x86_64/rhelrhscl
+enabled = true
+gpgcheck = false
+name = Remote classroom copy of RHSCL
+
+[rhel-7-server-datapath-rpms]
+baseurl = http://content.example.com/ocp4.0/x86_64/rheladditional/rhel-7-fast-datapath-rpms
+enabled = true
+gpgcheck = false
+name = Remote classroom copy of RHEL 7.6 Datapath Packages
+
+[rhel-7-server-ansible-26]
+baseurl = http://content.example.com/ocp4.0/x86_64/rheladditional/rhel-7-server-ansible-2.6-rpms
+enabled = true
+gpgcheck = false
+name = Remote classroom copy of RHEL 7.6 Ansible Packages
+
+[rhel-7-server-extras-rpms]
+baseurl = http://content.example.com/ocp4.0/x86_64/rheladditional/rhel-7-server-extras-rpms
+enabled = true
+gpgcheck = false
+name = Remote classroom copy of RHEL 7.6 Extra Packages
+
+[rhel-7-server-common-rpms]
+baseurl = http://content.example.com/ocp4.0/x86_64/rheladditional/rhel-7-server-rh-common-rpms
+enabled = true
+gpgcheck = false
+name = Remote classroom copy of RHEL 7.6 Common Packages
+
+[rhel-7-server-supplementary]
+baseurl = http://content.example.com/ocp4.0/x86_64/rhelsupplementary
+enabled = true
+gpgcheck = false
+name = Remote classroom copy of RHEL 7.6 Supplementary Packages
+
+[rhel-7-server-optional-rpms]
+baseurl = http://content.example.com/ocp4.0/x86_64/rhelopt
+enabled = true
+gpgcheck = false
+name = Remote classroom copy of RHEL 7.6 Optional Packages
+
+[rhel-7-server-updates]
+baseurl = http://content.example.com/ocp4.0/x86_64/rhelupdates
+enabled = true
+gpgcheck = false
+name = Remote classroom copy of RHEL 7.6 Updates
+

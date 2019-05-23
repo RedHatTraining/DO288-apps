@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewpot" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+</head>
+<body ng-app="BuildsApp" ng-controller="BuildController">
+
+    <div class="container">
+        <header><h1>Builds for Managers</h1></header>
+        <table class="table table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Developer</th>
+                    <th>Project</th>
+                    <th>Git Project</th>
+
+                </tr>
+            </thead>
+            <tbody ng-repeat="b in builds">
+                <tr>
+                    <td>{{getDate(b.date)  | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{b.developersName}}</td>
+                    <td>{{b.project}}</td>
+                    <td>{{b.gitUrl}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular/app.js"></script>
+    <script type="text/javascript" src="js/angular/controller/build_controller.js"></script>
+    <script type="text/javascript" src="js/angular/service/build_service.js"></script>
+
+</body>
+</html>

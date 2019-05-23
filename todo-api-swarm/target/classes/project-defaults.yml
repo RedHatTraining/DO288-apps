@@ -1,0 +1,13 @@
+swarm:
+  datasources:
+    jdbc-drivers:
+      com.mysql:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        xa-datasource-class-name: com.mysql.jdbc.jdbc2.optional.MysqlXADataSource
+        driver-module-name: com.mysql
+    data-sources:
+      MySQLDS:
+        driver-name: com.mysql
+        connection-url: jdbc:mysql://${env.DATABASE_SVC_HOSTNAME}:3306/${env.DATABASE_NAME}
+        user-name: ${env.DATABASE_USER}
+        password: ${env.DATABASE_PASSWORD}
