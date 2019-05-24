@@ -1,2 +1,2 @@
-# Use the do288-httpd-parent image as base
-FROM docker.io/rallred/do288-httpd-parent
+# Use the httpd-parent image as base
+FROM quay.io/redhattraining/httpd-parent
