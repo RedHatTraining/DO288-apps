@@ -1,4 +1,4 @@
-FROM   registry.access.redhat.com/ubi8/ubi:8.0
+FROM   FROM registry.redhat.io/ubi8/ubi
 
 MAINTAINER   Red Hat Training <training@redhat.com>
 
@@ -7,8 +7,8 @@ ENV	  JAVA_OPTIONS -Xmx512m
 
 
 # Install the Java runtime, create a user for running the app, and set permissions
-RUN   dnf install -y --noplugins java-1.8.0-openjdk-headless && \
-      dnf clean all --noplugins -y && \
+RUN   yum install -y -disableplugin=subscription-manager java-1.8.0-openjdk-headless && \
+      yum clean all -disableplugin=subscription-manager -y && \
       useradd wildfly && \
       mkdir -p /opt/app-root/bin
 
