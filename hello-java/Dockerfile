@@ -13,7 +13,7 @@ RUN   yum install -y --disableplugin=subscription-manager java-1.8.0-openjdk-hea
       mkdir -p /opt/app-root/bin
 
 # Copy the runnable fat JAR to the container.
-ADD   https://github.com/RedHatTraining/DO288-apps/releases/download/1.0/hello-swarm.jar /opt/app-root/bin/
+ADD   https://github.com/RedHatTraining/DO288-apps/releases/download/OCP-4.1-1/hello-java.jar /opt/app-root/bin/
 
 COPY  run-app.sh /opt/app-root/bin/
 
