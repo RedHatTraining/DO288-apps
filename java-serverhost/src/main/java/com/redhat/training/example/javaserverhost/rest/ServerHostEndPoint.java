@@ -1,4 +1,4 @@
-package com.redhat.training.example.swarmhelloworld.rest;
+package com.redhat.training.example.javaserverhost.rest;
 
 
 import javax.ws.rs.Path;
@@ -13,8 +13,14 @@ public class ServerHostEndPoint {
 
 	@GET
 	@Produces("text/plain")
-	public Response doGet() throws Exception {
-		String host = InetAddress.getLocalHost().getHostName();
+	public Response doGet() {
+		String host = "";
+		try {
+			host = InetAddress.getLocalHost().getHostName();
+		}
+		 catch (Exception e) {
+            e.printStackTrace();
+        }
 		return Response.ok("I am running on server "+host+" Version 1.0 \n").build();
 	}
 }
