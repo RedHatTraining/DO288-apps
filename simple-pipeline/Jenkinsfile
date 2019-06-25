@@ -1,6 +1,3 @@
-// NOTE, the "pipeline" directive/closure from the declarative pipeline syntax needs to include, or be nested outside,
-// any "openshift" directive/closure from the OpenShift Client Plugin for Jenkins.  Otherwise, the declarative pipeline engine
-// will not be fully engaged.
 pipeline {
     options {
         // set a timeout of 30 minutes for this pipeline
@@ -8,8 +5,7 @@ pipeline {
     }
     agent {
       node {
-        // run this simple pipeline on jenkins 'master' node
-        label 'master'
+        // TODO: run this simple pipeline on jenkins 'master' node
       }
     }
 
@@ -27,20 +23,9 @@ pipeline {
             }
         }
 
-        stage('stage 2') {
-            steps {
-                // you can execute regular shell commands here
-                sh 'echo hello from stage 2!'
-            } // steps
-        } // stage
+        // TODO: ADD A STAGE THAT SAYS HELLO
 
-        stage('manual approval') {
-            steps {
-                timeout(time: 60, unit: 'MINUTES') {
-                    input message: "Move to stage 3?"
-                } // input
-            } //steps
-        } // stage
+        // TODO: ADD AN APPROVAL STAGE
 
         stage('stage 3') {
             steps {
