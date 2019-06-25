@@ -1,0 +1,52 @@
+// NOTE, the "pipeline" directive/closure from the declarative pipeline syntax needs to include, or be nested outside,
+// any "openshift" directive/closure from the OpenShift Client Plugin for Jenkins.  Otherwise, the declarative pipeline engine
+// will not be fully engaged.
+pipeline {
+    options {
+        // set a timeout of 30 minutes for this pipeline
+        timeout(time: 30, unit: 'MINUTES')
+    }
+    agent {
+      node {
+        // run this simple pipeline on jenkins 'master' node
+        label 'master'
+      }
+    }
+
+    stages {
+
+        stage('stage 1') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+                                echo "stage 1: using project: ${openshift.project()} in cluster ${openshift.cluster()}"
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('stage 2') {
+            steps {
+                // you can execute regular shell commands here
+                sh 'echo hello from stage 2!'
+            } // steps
+        } // stage
+
+        stage('manual approval') {
+            steps {
+                timeout(time: 60, unit: 'MINUTES') {
+                    input message: "Move to stage 3?"
+                } // input
+            } //steps
+        } // stage
+
+        stage('stage 3') {
+            steps {
+                sh 'echo hello from stage 3!. This is the last stage...'
+            } // steps
+        } // stage
+
+    } // stages
+} // pipeline
