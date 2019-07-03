@@ -38,7 +38,6 @@ pipeline {
             steps {
                 echo '### Running unit tests ###'
                 sh 'cd books; npm test'
-                junit 'books/reports/server/mocha/test-results.xml'
             }
         }
 

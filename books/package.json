@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./exec/www",
-    "test": "export MOCHA_FILE='reports/server/mocha/test-results.xml' && IP=0.0.0.0 PORT=3030 node_modules/.bin/nyc --reporter=text node_modules/.bin/mocha tests/*_test.js -R mocha-junit-reporter",
+    "test": "IP=0.0.0.0 PORT=3030 node_modules/.bin/mocha tests/*_test.js",
     "lint": "node_modules/.bin/eslint . --ext .js"
   },
   "dependencies": {
