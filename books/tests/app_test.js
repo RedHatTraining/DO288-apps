@@ -31,7 +31,7 @@ describe('Books App routes test', () => {
 
   it('GET to /authors should return 200', (done) => {
     chai.request(reqServer)
-      .get('/author')
+      .get('/authors')
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.text).to.include('James_Joyce');
