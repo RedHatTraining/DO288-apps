@@ -113,7 +113,7 @@ pipeline {
                    '''
 
                 echo '### Creating a new app in Staging ###'
-                // TODO: Create a new app in staging
+                // TODO: Create a new app in staging and expose the service
             }
         }
 
