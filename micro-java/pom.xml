@@ -28,10 +28,11 @@
 		<version.war.plugin>2.5</version.war.plugin>
                 <!--
 		<version.fabric8.plugin>3.1.80.redhat-000019</version.fabric8.plugin>
+                -->
+                <!--
 		<version.fabric8.plugin>3.5.38</version.fabric8.plugin>
                 -->
 		<version.fabric8.plugin>4.1.0</version.fabric8.plugin>
-
 		<!-- maven-compiler-plugin -->
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
