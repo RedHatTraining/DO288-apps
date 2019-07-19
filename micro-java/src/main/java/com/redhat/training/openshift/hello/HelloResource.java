@@ -19,7 +19,7 @@ public class HelloResource {
       	if (message == null) {
       	  response = "Hello world from host "+hostname+"\n";
       	} else {
-      	  response = "Hello world from host ["+hostname+"].";
+      	  response = "Hello world from host ["+hostname+"].\n";
       	  response += "Message received = "+message+"\n";
         }
         return response;
