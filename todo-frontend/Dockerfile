@@ -11,13 +11,13 @@ RUN yum install -y --disableplugin=subscription-manager --nodocs \
   nginx nginx-mod-http-perl
 RUN yum clean all
 
-ADD nginx.conf /etc/nginx/
+COPY nginx.conf /etc/nginx/
 
 RUN touch /run/nginx.pid
 RUN chgrp -R nginx /var/log/nginx /run/nginx.pid
 RUN chmod -R g+rwx /var/log/nginx /run/nginx.pid
   
-ADD src/ /usr/share/nginx/html
+COPY src/ /usr/share/nginx/html
 
 EXPOSE 8080
 
