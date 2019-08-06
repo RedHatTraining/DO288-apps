@@ -12,95 +12,68 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM       registry.access.redhat.com/rhel7:7.6
-MAINTAINER Red Hat Training
+FROM registry.access.redhat.com/ubi8/ubi
 
-
-# Atomic Labels
 LABEL name="Nexus Repository Manager" \
-      vendor="Sonatype" \
-      version="3.6.0-02" \
-      release="3.6.0" \
+      vendor=Sonatype \
+      version="3.18.0-01" \
+      release="3.18.0" \
       url="https://sonatype.com" \
       summary="The Nexus Repository Manager server \
+          with universal support for popular component formats." \
+      description="The Nexus Repository Manager server \
           with universal support for popular component formats." \
       run="docker run -d --name NAME \
           -p 8081:8081 \
           IMAGE" \
-      stop="docker stop NAME"
-
-# OpenShift Labels
-LABEL io.k8s.description="The Nexus Repository Manager server \
+      stop="docker stop NAME" \
+      com.sonatype.license="Apache License, Version 2.0" \
+      com.sonatype.name="Nexus Repository Manager base image" \
+      io.k8s.description="The Nexus Repository Manager server \
           with universal support for popular component formats." \
       io.k8s.display-name="Nexus Repository Manager" \
       io.openshift.expose-services="8081:8081" \
-io.openshift.tags="Sonatype,Nexus,Repository Manager"
-
-LABEL com.sonatype.license="Apache License, Version 2.0"
-
-COPY help.1 uid_entrypoint /
-
-COPY licenses /licenses
+      io.openshift.tags="Sonatype,Nexus,Repository Manager"
 
 
-RUN rpm --rebuilddb && \
-  yum install -y \
-  curl tar createrepo java-1.8.0-openjdk-devel \
-  && yum clean all
+ARG NEXUS_VERSION=3.18.0-01
+ARG NEXUS_DOWNLOAD_URL=https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-unix.tar.gz
+ARG NEXUS_DOWNLOAD_SHA256_HASH=e1d9d84d8b169b2f6c735e7db35e3310cf9e242da12b4af83da4e3618acfc99e
 
-
-# Install Nexus
+# configure nexus runtime
 ENV SONATYPE_DIR=/opt/sonatype
-ENV NEXUS_DATA=/nexus-data \
-    NEXUS_HOME=${SONATYPE_DIR}/nexus \
-    NEXUS_VERSION=3.6.0-02 \
-    SONATYPE_WORK=${SONATYPE_DIR}/sonatype-work \
+ENV NEXUS_HOME=${SONATYPE_DIR}/nexus \
+    NEXUS_DATA=/nexus-data \
     NEXUS_CONTEXT='' \
-    USER_NAME=nexus \
-    USER_UID=200
+    SONATYPE_WORK=${SONATYPE_DIR}/sonatype-work \
+    DOCKER_TYPE='rh-docker'
 
-# Install Nexus and Configure Nexus Runtime Environment
-RUN mkdir -p ${NEXUS_HOME} && \
-    curl --fail --silent --location --retry 3 \
-      http://content.example.com/ocp3.6/x86_64/installers/nexus-${NEXUS_VERSION}-unix.tar.gz \
-      | gunzip \
-      | tar x -C ${NEXUS_HOME} --strip-components=1 nexus-${NEXUS_VERSION} && \
-    chown -R root:root ${NEXUS_HOME} && \
-    \
-    sed \
-      -e '/^nexus-context/ s:$:${NEXUS_CONTEXT}:' \
-      -i ${NEXUS_HOME}/etc/nexus-default.properties && \
-    \
-    useradd -l -u ${USER_UID} -r -g 0 -m -d ${NEXUS_DATA} -s /sbin/no-login \
-            -c "${USER_NAME} application user" ${USER_NAME} && \
-            mkdir -p ${NEXUS_DATA}/etc ${NEXUS_DATA}/log ${NEXUS_DATA}/tmp ${SONATYPE_WORK} && \
-            ln -s ${NEXUS_DATA} ${SONATYPE_WORK}/nexus3 && \
-            chown -R ${USER_NAME}:0 ${NEXUS_DATA} && \
-            chmod -R g+rw ${NEXUS_DATA} /etc/passwd && \
-            chmod ug+x /uid_entrypoint && \
-            find ${NEXUS_DATA} -type d -exec chmod g+x {} +
+ARG NEXUS_REPOSITORY_MANAGER_COOKBOOK_VERSION="release-0.5.20190212-155606.d1afdfe"
+ARG NEXUS_REPOSITORY_MANAGER_COOKBOOK_URL="https://github.com/sonatype/chef-nexus-repository-manager/releases/download/${NEXUS_REPOSITORY_MANAGER_COOKBOOK_VERSION}/chef-nexus-repository-manager.tar.gz"
+
+ADD solo.json.erb /var/chef/solo.json.erb
+
+# Install using chef-solo
+# Chef version locked to avoid needing to accept the EULA on behalf of whomever builds the image
+RUN yum install -y --disableplugin=subscription-manager hostname procps \
+    && curl -L https://www.getchef.com/chef/install.sh | bash -s -- -v 14.12.9 \
+    && /opt/chef/embedded/bin/erb /var/chef/solo.json.erb > /var/chef/solo.json \
+    && chef-solo \
+       --recipe-url ${NEXUS_REPOSITORY_MANAGER_COOKBOOK_URL} \
+       --json-attributes /var/chef/solo.json \
+    && rpm -qa *chef* | xargs rpm -e \
+    && rm -rf /etc/chef \
+    && rm -rf /opt/chefdk \
+    && rm -rf /var/cache/yum \
+    && rm -rf /var/chef \
+    && yum clean all
 
 VOLUME ${NEXUS_DATA}
 
-#Configure probes scripts
-COPY probes/liveness.sh /usr/local/bin/liveness.sh
-COPY probes/readiness.sh /usr/local/bin/readiness.sh
-
-RUN chmod 775 /usr/local/bin/liveness.sh && \
-    chmod 775 /usr/local/bin/readiness.sh
-
-# arbitrary uid recognition at runtime - for OpenShift deployments
-RUN sed "s@${USER_NAME}:x:${USER_UID}:@${USER_NAME}:x:\${USER_ID}:@g" /etc/passwd > /etc/passwd.template
-
-# Supply non variable to USER command ${USER_NAME}
-USER 200
-WORKDIR ${NEXUS_HOME}
-
-ENV JAVA_MAX_MEM=1200m \
-    JAVA_MIN_MEM=1200m
-
 EXPOSE 8081
+USER nexus
 
-ENTRYPOINT [ "/uid_entrypoint" ]
-CMD ["bin/nexus", "run"]
+ENV INSTALL4J_ADD_VM_PARAMS="-Xms1200m -Xmx1200m -XX:MaxDirectMemorySize=2g -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs"
 
+ENTRYPOINT ["/uid_entrypoint.sh"]
+CMD ["sh", "-c", "${SONATYPE_DIR}/start-nexus-repository-manager.sh"]
