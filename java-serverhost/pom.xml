@@ -3,6 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <repositories>
 	<repository>
+		<id>my-repo1</id>
+      		<name>your custom repo</name>
 		<url>http://repository.jboss.org/nexus/content/groups/public/</url>
 	</repository>
   </repositories>
