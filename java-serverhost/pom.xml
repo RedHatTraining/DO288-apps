@@ -2,12 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <repositories>
-	<repository>
-		<id>my-repo1</id>
-      		<name>your custom repo</name>
-		<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-	</repository>
-  </repositories>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.redhat.training.example</groupId>
   <artifactId>java-serverhost</artifactId>
