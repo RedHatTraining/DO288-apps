@@ -25,11 +25,6 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
-		<dependency>
-  			<groupId>org.glassfish</groupId>
-  			<artifactId>javax.el</artifactId>
-		 	<version>3.0.1-b08</version>
-		</dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -42,6 +37,7 @@
 			<groupId>io.thorntail</groupId>
 			<artifactId>jaxrs</artifactId>
 		</dependency>
+
 	</dependencies>
 
   <build>
