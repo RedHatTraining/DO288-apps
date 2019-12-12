@@ -12,7 +12,7 @@ pipeline {
     environment {
         DEV_PROJECT = "dermawan2019-book-dev"
         STAGE_PROJECT = "dermawan2019-book-stage"
-        APP_GIT_URL = "https://github.com/dermawan2019/DO288-apps"
+        APP_GIT_URL = "https://github.com/rudyde/DO288-apps"
         NEXUS_SERVER = "http://nexus-common.apps.ocp-eu1.prod.nextcle.com/repository/nodejs"
 
         // DO NOT CHANGE THE GLOBAL VARS BELOW THIS LINE
