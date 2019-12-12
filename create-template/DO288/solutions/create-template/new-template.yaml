@@ -1,0 +1,10 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: quotes
+  annotations:
+    openshift.io/display-name: Quotes Application
+    description: The Quotes application provides an HTTP API that returns a random, funny quote.
+    iconClass: icon-php
+    tags: php,mysql
+objects:
