@@ -1,0 +1,23 @@
+{
+    "kind": "BuildConfig",
+    "apiVersion": "build.openshift.io/v1",
+    "metadata": {
+        "name": "custom-pipeline"
+    },
+    "spec": {
+        "source": {
+            "type": "Git",
+            "git": {
+                "uri": "https://github.com/youruser/DO288-apps.git",
+                "ref": "custom-pipeline"
+            },
+            "contextDir": "books"
+        },
+        "strategy": {
+            "type": "JenkinsPipeline",
+            "jenkinsPipelineStrategy": {
+                "jenkinsfilePath": "jenkins/Jenkinsfile"
+            }
+        }
+    }
+}
