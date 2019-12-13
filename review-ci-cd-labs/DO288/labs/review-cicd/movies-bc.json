@@ -1,0 +1,22 @@
+{
+    "kind": "BuildConfig",
+    "apiVersion": "build.openshift.io/v1",
+    "metadata": {
+        "name": "movies-pipeline"
+    },
+    "spec": {
+        "source": {
+            "type": "Git",
+            "git": {
+                "uri": "https://github.com/youruser/DO288-apps",
+                "ref": "review-cicd"
+            },
+            "contextDir": "movies"
+        },
+        "strategy": {
+            "type": "JenkinsPipeline",
+            "jenkinsPipelineStrategy": {
+            }
+        }
+    }
+}
