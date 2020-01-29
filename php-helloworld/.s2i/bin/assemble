@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "HOORAY! MY OWN BUILD PROCESS!"
+
+/usr/libexec/s2i/assemble
+
+echo "DOING SOME HOUSEKEEPING."
+
