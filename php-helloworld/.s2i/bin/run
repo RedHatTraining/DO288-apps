@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "DOING SOMETHING EXTRA BEFORE STARTUP"
+
+exec /usr/libexec/s2i/run
