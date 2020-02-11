@@ -1,0 +1,262 @@
+    1  lab-configure.
+    2  .
+    3  lab-configure
+    4  git clone https://github.com/lutfigaranti/DO288-apps
+    5  oc --help
+    6  oc new-app --help
+    7  clear
+    8  ls
+    9  cd D0288-apps
+   10  cd DO288-apps
+   11  git status
+   12  head README.md
+   13  oc get all
+   14  cd ..
+   15  lab docker build start
+   16  sudo lab docker build start
+   17  sudo lab docker-build start
+   18  cd DO288-apps
+   19  git checkout master
+   20  git checkout -b docker-build
+   21  git push
+   22  git push -u origin docker-build
+   23  cat ubi-echo/Dockerfile
+   24  source /usr/local/etc/ocp4.config
+   25  oc login -u ${RHT_OCP4_DEV_USER} -p  ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+   26  oc new-project ${RHT_OCP4_DEV_USER}-docker-build
+   27  oc new-app --name echo https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#docker-build --context-dir ubi-echo
+   28  oc get all
+   29  oc logs -f bc/echo
+   30  oc status
+   31  oc get pod
+   32  lab-configure
+   33  git clone https://github.com/lutfigaranti/DO288-apps
+   34  oc --help
+   35  oc new-app --help
+   36  clear
+   37  ls
+   38  cd D0288-apps
+   39  cd DO288-apps
+   40  git status
+   41  head README.md
+   42  oc get all
+   43  cd ..
+   44  lab docker build start
+   45  sudo lab docker build start
+   46  sudo lab docker-build start
+   47  cd DO288-apps
+   48  git checkout master
+   49  git checkout -b docker-build
+   50  git push
+   51  git push -u origin docker-build
+   52  cat ubi-echo/Dockerfile
+   53  source /usr/local/etc/ocp4.config
+   54  oc login -u ${RHT_OCP4_DEV_USER} -p  ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+   55  oc new-project ${RHT_OCP4_DEV_USER}-docker-build
+   56  oc new-app --name echo https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#docker-build --context-dir ubi-echo
+   57  oc get all
+   58  oc logs -f bc/echo
+   59  oc status
+   60  oc get pod
+   61  1
+   62  c describe bc echo
+   63  oc describe bc echo
+   64  oc describe is  echo
+   65  oc describe dc echo
+   66  cd ubi-echo/
+   67  git commit -a -m 'Add a counter'
+   68  git push
+   69  cd ~
+   70  oc start-build echo
+   71  oc logs -f bc/echo
+   72  oc status
+   73  oc get pod
+   74  oc logs echo-2-gm88l | head -n 3
+   75  git commit -a -m 'Add a counter'
+   76  oc describe is echo
+   77  oc delete all -l app=echo
+   78  oc get all
+   79  lab docker-build finish
+   80  clear
+   81  lab deploy-image start
+   82  grep RHT_OCP4_WILDCARD_DOMAIN /usr/local/etc/ocp4.config RHT_OCP4_WILDCARD_DOMAIN=apps.ocp-eu2.prod.nextcle.com
+   83  ls
+   84  oc status
+   85  lab deploy-image start
+   86  oc status
+   87  oc new-app --help
+   88  clear
+   89  oc new-app --help
+   90  lab build-template start
+   91  ls
+   92  cd DO288-apps/
+   93  git clone
+   94  git status
+   95  git revert
+   96  git reset
+   97  git status
+   98  lab build-template start
+   99  ls
+  100  wai
+  101  pwd
+  102  git pull
+  103  ls quotes
+  104  less ~/DO288-apps/quotes/get.php
+  105  odmsn
+  106  source /usr/local/etc/ocp4.config
+  107  ooc
+  108  oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+  109  lab-configure
+  110  oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+  111  asdasd
+  112  ls
+  113  oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API; git status; sdf
+  114  oc login
+  115  oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API; git status; sdf
+  116  oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API
+  117  oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+  118  source /usr/local/etc/ocp4.config
+  119  oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+  120  oc whoami 
+  121  oc status
+  122  oc get templates -n openshift | grep php | grep mysql
+  123  oc new-project ${RHT_OCP4_DEV_USER}-common
+  124  oc status
+  125  oc create -f ~/DO288/labs/build-template/php-mysql-ephemeral.json
+  126  ls
+  127  oc create -f ~/DO288-apps/labs/build-template/php-mysql-ephemeral.json
+  128  oc new-project osman
+  129  oc get pod
+  130  oc delete project ${RHT_OCP4_DEV_USER}-common
+  131  lab build-template finish
+  132  lab build-template start
+  133  oc whoami
+  134  oc status
+  135  oc log
+  136  oc logs
+  137  oc logs -h
+  138  oc logs -l mysql
+  139  clear
+  140  lab source-build start
+  141  git reset
+  142  cd DO288-apps/
+  143  git reset
+  144  lab source-build start
+  145  ls
+  146  git clone https://github.com/lutfigaranti/DO288-apps
+  147  lab source-build start
+  148  clear
+  149  oc new project ${RHT_OCP4_DEV_USER}-source-build
+  150  oc new-project ${RHT_OCP4_DEV_USER}-source-build
+  151  oc new-project ${RHT_OCP4_DEV_USER-source-build
+  152  oc new-project ${RHT_OCP4_DEV_USER}-source-build
+  153  source /usr/local/etc/ocp4.config
+  154  oc whoami
+  155  oc new-project ${RHT_OCP4_DEV_USER}-source-build
+  156  cd DO288-apps/
+  157  git checkout -b source-build
+  158  git push -u origin source-build
+  159  clear
+  160  oc new-app --name greet --build-env npm_config_registry= http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#source-build --context-dir nodejs-helloworld
+  161  oc new-app --name greet --build-env npm_config_registry= http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/lutfigaranti/DO288-apps#source-build --context-dir nodejs-helloworld
+  162  oc new-app --name greet  nodejs:10~https://github.com/lutfigaranti/DO288-apps#source-build --context-dir nodejs-helloworld
+  163  oc status
+  164  oc logs -f bc/greet
+  165  lab-configure
+  166  oc delete -l greet
+  167  oc delete all -l greet
+  168  oc status
+  169  oc delete all -l app=greet
+  170  oc new-app --name greet --build-env npm_config_registry= http://nexus-common.apps.cluster.ocp-eu2.prod.nextcle.com/repository/nodejs nodejs:10~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#source-build --context-dir nodejs-helloworld
+  171  oc new-app --name greet --build-env npm_config_registry= http://nexus-common.apps.cluster.ocp-eu2.prod.nextcle.com/repository/nodejs nodejs:10~https://github.com/lutfigaranti/DO288-apps#source-build --context-dir nodejs-helloworld
+  172  ls
+  173  clear
+  174  oc new-app --name greet --build-env npm_config_registry= http://nexus-common.apps.cluster.ocp-eu2.prod.nextcle.com/repository/nodejs nodejs:10~https://github.com/lutfigaranti/DO288-apps#source-build 
+  175  clear
+  176  oc new-app --name greet --build-env npm_config_registry=http://nexus-common.apps.cluster.ocp-eu2.prod.nextcle.com/repository/nodejs nodejs:10~https://github.com/lutfigaranti/DO288-apps#source-build --context-dir nodejs-helloworld
+  177  oc status
+  178  oc start-build --follow bc/greet
+  179  oc status
+  180  oc start-build --follow bc/greet
+  181  clear
+  182  cler
+  183  .
+  184  osman
+  185  cd DO288-apps/
+  186  python -m json.tool nodejs-helloworld/package.json
+  187  lab source-build grade
+  188  oc start-build
+  189  oc start-build --follow bc/greet
+  190  python -m json.tool nodejs-helloworld/package.json
+  191  git pull
+  192  oc start-build --follow bc/greet
+  193  oc logs --follow bc/greet
+  194  lab-configure
+  195  oc status
+  196  oc start-build --follow bc/greet
+  197  lab container-build start
+  198  cd DO288
+  199  git status
+  200  git init
+  201  git push
+  202  git status
+  203  git add .
+  204  git commit -m 'init'
+  205  git push
+  206  cd DO288
+  207  git status
+  208  git remote add origin https://github.com/lutfigaranti/DO288.git
+  209  git push -u origin master
+  210  cd ..
+  211  osman
+  212  sour
+  213  source /usr/local/etc/ocp4.config
+  214  ls
+  215  cd DO288-apps/
+  216  git checkout master
+  217  git checkout -b container-build
+  218  git push -u origin container-build
+  219  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  220  osman
+  221  oc new-project lutfio-garantibbva-com-tr-container-build
+  222  oc new-app 
+  223  oc new-project lutfio-garantibbva-com-tr-container-build
+  224  oc new-app 
+  225  oc new-project lutfio-garantibbva-com-tr-container-build
+  226  oc new-app 
+  227  osman
+  228  oc new-app --name hola https://github.com/lutfigaranti/DO288-apps#contaner-build --context-dir container-build
+  229  oc new-app --name hola https://github.com/lutfigaranti/DO288-apps#container-build --context-dir container-build
+  230  oc get pods
+  231  oc start-build --follow bc/hola
+  232  oc get pods
+  233  oc expose svc/hola
+  234  oc get route
+  235  curl Hola-lutfio-garantibbva-com-tr-container-build.apps.ocp-eu2.prod.nextcle.com
+  236  oc get pods
+  237  oc logs hola-2xk2vm
+  238  oc logs hola-2-xk2vm
+  239  osman
+  240  sudo
+  241  sudo nano /etc/httpd/conf/httpd.conf
+  242  vim /etc/httpd/conf/httpd.conf
+  243  oc start-build --follow bc/hola
+  244  echo 'osman'
+  245  echo 'osman' | base62
+  246  echo 'osman' | base64
+  247  oc logs hola-2-xk2vm
+  248  oc get pods
+  249  oc logs hola-3-bkhrv
+  250  oc logs bc/hola
+  251  osman
+  252  lab app-config start
+  253  cd DO288-apps/
+  254  git checkout master
+  255  git checkout -b app-config
+  256  git push -u origin app-config
+  257  source /usr/local/etc/ocp4.config
+  258  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  259  oc new-project lutfio-garantibbva-com-tr-app-config
+  260  oc new-app --name myapp --build-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/lutfigaranti/DO288-apps#app-config --context-dir app-config
+  261  history
+  262  history > history.txt
