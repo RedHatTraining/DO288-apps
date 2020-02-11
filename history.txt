@@ -341,3 +341,35 @@
   341  history ->history.txt
   342  history -> history.txt
   343  history > history.txt
+  344  git status
+  345  git add .
+  346  git commit -m 'history'
+  347  git push
+  348  git pull
+  349  git push
+  350  oc whoami
+  351  oc whoami -t
+  352  clear
+  353  podman login -u $(oc whoami) -p $(oc whoami -t) route
+  354  lab expose-registry start
+  355  oc get pods
+  356  oc get all
+  357  oc delete all -l app=sleep
+  358  oc new-app --name sleep --docker-image=https://quay.io/repository/lutfigaranti/ubi-sleep:1.0
+  359  oc new-app --name sleep --docker-image quay.io/repository/lutfigaranti/ubi-sleep:1.0
+  360  oc new-app --name sleep --docker-image quay.io/lutfigaranti/ubi-sleep:1.0
+  361  oc get all
+  362  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  363  oc get route -n openshift-image-registry
+  364  echo ${INTERNAL_REGISTRY}
+  365  INTERNAL_REGISTRY=$( oc get route default-route -n openshift-image-registry -o jsonpath='{.spec.host}' )
+  366  echo ${INTERNAL_REGISTRY}
+  367  oc new-project lutfio-garantibbva-com-tr-common
+  368  TOKEN=$(oc whoami -t)
+  369  skopeo copy --dest-creds=lutfio-garantibbva-com-tr:${TOKEN} oci:/home/student/DO288/labs/expose-registry/ubi-info docker://${INTERNAL_REGISTRY}/lutfio-garantibbva-com-tr-common/ubi-info:1.0
+  370  oc get is
+  371  sudo podman login -u lutfio-garantibbva-com-tr -p ${TOKEN} $NTERNAL_REGISTRY}
+  372  sudo podman login -u lutfio-garantibbva-com-tr -p ${TOKEN} ${INTERNAL_REGISTRY}
+  373  sudo podman pull ${INTERNAL_REGISTRY}/lutfio-garantibbva-com-tr-common/ubi-info:1.0
+  374  sudo podman run --name info ${INTERNAL_REGISTRY}/lutfio-garantibbva-com-tr-common/ubi-info:1.0
+  375  history > history.txt
