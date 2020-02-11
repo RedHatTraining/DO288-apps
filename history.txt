@@ -373,3 +373,33 @@
   373  sudo podman pull ${INTERNAL_REGISTRY}/lutfio-garantibbva-com-tr-common/ubi-info:1.0
   374  sudo podman run --name info ${INTERNAL_REGISTRY}/lutfio-garantibbva-com-tr-common/ubi-info:1.0
   375  history > history.txt
+  376  git add .
+  377  git commit -m 'history'
+  378  git push
+  379  cleat
+  380  clear
+  381  oc get is -n openshift -o name
+  382  oc describe is nodejs -n openshift
+  383  echo ${INTERNAL_REGISTRY}
+  384  oc get -o jsonpath
+  385  oc get -o jsonpath='{.spec.host}'
+  386  oc get route -o jsonpath='{.spec.host}'
+  387  oc get route default-route -o jsonpath='{.spec.host}'
+  388  clear
+  389  lab image-steam start
+  390  lab image-stream start
+  391  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  392  source /usr/local/etc/ocp4.config
+  393  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  394  skopeo inspect docket://quay.io/redhattraining/hello-world-nginx
+  395  skopeo inspect docker://quay.io/redhattraining/hello-world-nginx
+  396  oc import-image hello-world --confirm --from quay.io/redhattraining/hello-world-nginx
+  397  oc get istag
+  398  oc describe is hello-world
+  399  oc new-project lutfio-garantibbva-com-tr-image-stream
+  400  oc new-app --name hello -i $
+  401  oc new-app --name hello -i lutfio-garantibbva-com-tr-common/hello-world
+  402  oc get pod
+  403  oc expose svc/hello
+  404  oc get route
+  405  history > history.txt
