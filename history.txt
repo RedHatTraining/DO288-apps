@@ -260,3 +260,84 @@
   260  oc new-app --name myapp --build-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/lutfigaranti/DO288-apps#app-config --context-dir app-config
   261  history
   262  history > history.txt
+  263  git status
+  264  git add .
+  265  git commit -m 'history'
+  266  git push
+  267  oc logs -f bc/myapp
+  268  oc get pods
+  269  oc expose svc/myapp
+  270  oc get route
+  271  curl myapp-lutfio-garantibbva-com-tr-container-build.apps.ocp-eu2.prod.nextcle.com
+  272  oc create configmap myappconf --from-literal APP_MSG="Text message"
+  273  oc describe cm/myappconf
+  274  oc create secret generic myappfilesec --from-file /home/student/DO288-apps/app-config/myapp.sec
+  275  oc get secret/myappfilesec -o json
+  276  oc set env dc/myapp --from configmap/myappconf
+  277  oc set volume dc/myapp --add -t secret -m /opt/app-root/secure --name myappsec-vol --secret-name myappfilesec
+  278  oc status
+  279  oc get pods
+  280  oc rsh my-app-3-tcwrf env | grep APP_MSG
+  281  oc rsh myapp-3-tcwrf env | grep APP_MSG
+  282  oc edit cm/myappconf
+  283  oc describe cm/myappconf
+  284  oc rollout latest dc/myapp
+  285  oc get pods
+  286  oc edit cm/myappconf
+  287  oc rollout latest dc/myapp
+  288  oc get pods
+  289  history > history.txt
+  290  git commit -am 'history'
+  291  git push
+  292  oc edit cm/myappconf
+  293  oc get pods
+  294  curl myapp-lutfio-garantibbva-com-tr-container-build.apps.ocp-eu2.prod.nextcle.com
+  295  curl custom-lutfio-garantibbva-com-tr-container-build.apps.ocp-eu2.prod.nextcle.com
+  296  oc get pods
+  297  oc get pods -l cusotm
+  298  oc get pods -l custom
+  299  oc get pods --help
+  300  oc get pods
+  301  oc start-build -f bc/custom
+  302  oc start-build --follow bc/custom
+  303  oc get pods
+  304  oc start-build --follow dc/custom
+  305  oc logs dc/custom
+  306  oc get pods
+  307  oc start-build --follow bc/custom
+  308  lab external-registry start
+  309  source /usr/local/etc/ocp4.config
+  310  podman login -u lutfigaranti quay.io
+  311  skopeo copy oci:/home/student/DO288/labs/external-registry/ubi-sleep docker://quay.io/lutfigaranti/ubi-sleep:1.0
+  312  cd ..
+  313  cd DO288
+  314  git status
+  315  git commit -am 'add external'
+  316  git add .
+  317  git commit -am 'add external'
+  318  git push
+  319  podman search quay.io/ubi-sleep
+  320  skopeo inspect docker://quay.io/lutfigaranti/ubi-sleep:1.0
+  321  sudo podman run -d --name sleep quay.io/lutfigaranti/ubi-sleep:1.0
+  322  podman login -u lutfigaranti quay.io
+  323  sudo podman run -d --name sleep quay.io/lutfigaranti/ubi-sleep:1.0
+  324  sudo podman ps
+  325  sudo podman run -d --name sleep quay.io/lutfigaranti/ubi-sleep:1.0
+  326  sudo podman ps
+  327  sudo podman logs sleep
+  328  sudo podman stop sleep
+  329  sudo podman rm sleep
+  330  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  331  oc new-project lutfio-garantibbva-com-tr-external-registry
+  332  oc new-app --name sleep --docker-image quay.io/lutfigaranti/ubi-sleep:1.0
+  333  oc create secret generic quayio --from-file .dockerconfigjson=${XDG_RUNTIME_DIR}/containers/auth.json --type kubernates.io/dockerconfigjson
+  334  oc secrets link defauuuuuuult quayio --for pull
+  335  oc secrets link default quayio --for pull
+  336  oc new-app --name sleep --docker-image quay.io/lutfigaranti/ubi-sleep:1.0
+  337  oc get pod
+  338  oc log sleep-1-fkbjc
+  339  cd ..
+  340  cd DO288-apps/
+  341  history ->history.txt
+  342  history -> history.txt
+  343  history > history.txt

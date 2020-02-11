@@ -1,0 +1,14 @@
+{
+  "name": "custom-app",
+  "version": "1.0.0",
+  "description": "A simple Node.js app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "express": "4.14.x"
+  }
+}
