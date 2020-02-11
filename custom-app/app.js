@@ -2,7 +2,7 @@ var express = require('express');
 app = express();
 
 // read in the APP_MSG env var
-var msg = 'Hello custom app';
+var msg = 'Hello custom app third build';
 
 var response;
 
