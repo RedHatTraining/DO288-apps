@@ -260,3 +260,30 @@
   260  oc new-app --name myapp --build-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/lutfigaranti/DO288-apps#app-config --context-dir app-config
   261  history
   262  history > history.txt
+  263  git status
+  264  git add .
+  265  git commit -m 'history'
+  266  git push
+  267  oc logs -f bc/myapp
+  268  oc get pods
+  269  oc expose svc/myapp
+  270  oc get route
+  271  curl myapp-lutfio-garantibbva-com-tr-container-build.apps.ocp-eu2.prod.nextcle.com
+  272  oc create configmap myappconf --from-literal APP_MSG="Text message"
+  273  oc describe cm/myappconf
+  274  oc create secret generic myappfilesec --from-file /home/student/DO288-apps/app-config/myapp.sec
+  275  oc get secret/myappfilesec -o json
+  276  oc set env dc/myapp --from configmap/myappconf
+  277  oc set volume dc/myapp --add -t secret -m /opt/app-root/secure --name myappsec-vol --secret-name myappfilesec
+  278  oc status
+  279  oc get pods
+  280  oc rsh my-app-3-tcwrf env | grep APP_MSG
+  281  oc rsh myapp-3-tcwrf env | grep APP_MSG
+  282  oc edit cm/myappconf
+  283  oc describe cm/myappconf
+  284  oc rollout latest dc/myapp
+  285  oc get pods
+  286  oc edit cm/myappconf
+  287  oc rollout latest dc/myapp
+  288  oc get pods
+  289  history > history.txt
