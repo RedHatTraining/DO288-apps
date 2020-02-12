@@ -403,3 +403,105 @@
   403  oc expose svc/hello
   404  oc get route
   405  history > history.txt
+  406  git add .
+  407  git commit -m 'history'
+  408  git push
+  409  clear
+  410  lab manage-builds start
+  411  git checkout master 
+  412  git pull
+  413  git checkout -b manage-builds
+  414  git push -u origin manage-builds
+  415  source /usr/local/etc/ocp4.config
+  416  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  417  oc new-project lutfio-garantibbva-com-tr-manage-builds
+  418  oc new-app --name jhost --build-env MAVEN_MIRROR_URL=http://${RHT_OCP4_NEXUS_SERVER}/repository/java -i redhat-openjdk18-openshift:1.5 https://github.com/lutfigaranti/DO288-apps#manage-builds --context-dir java-serverhost
+  419  oc logs-f bc/jhost
+  420  oc logs -f bc/jhost
+  421  oc get pods
+  422  oc logs -f bc/jhost
+  423  oc get pods
+  424  oc expose svc/jhost
+  425  oc get route
+  426  oc start-build bc/jhost
+  427  oc cancel-build bc/jhost
+  428  oc start-build bc/jhost
+  429  oc get builds
+  430  lab trigger-builds start
+  431  source /usr/local/etc/ocp4.config
+  432  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  433  oc new-project lutfio-garantibbva-com-tr-trigger-builds
+  434  podman login -u lutfigaranti quay.io
+  435  cd /home/student/DO288/labs/trigger-builds
+  436  skopeo copy docker-archive:php-70-rhel7-original.tar.gz docker://quay.io/${RHT_OCP4_QUAY_USER}/php-70-rhel7:latest
+  437  oc create secret generic quay-register --from-file .dockerconfigjson=${DG_RUNTIME_DIR}/containers/auth.json --type kubernetes.io/dockerconfigjson
+  438  oc create secret generic quay-register --from-file .dockerconfigjson=${XDG_RUNTIME_DIR}/containers/auth.json --type kubernetes.io/dockerconfigjson
+  439  oc secrets link builder quay-registry
+  440  oc create secret generic quay-registry --from-file .dockerconfigjson=${XDG_RUNTIME_DIR}/containers/auth.json --type kubernetes.io/dockerconfigjson
+  441  oc secrets link builder quay-registry
+  442  oc import-image php --from quay.io/${RHT_OCP4_QUAY_USER}/php-70-rhel7 --confirm
+  443  oc new-app --name trigger php~http://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir trigger-builds
+  444  oc logs -f bc/trigger
+  445  oc get builds
+  446  oc describe bc/trigger | grep Trigered
+  447  oc logs -f bc/trigger
+  448  oc describe bc/trigger | grep Trigered
+  449  oc get builds
+  450  oc get pods
+  451  oc describe bc/trigger | grep Trigered
+  452  skopeo copy docker-archive:php-70-rhel7-newer.tar.gz docker://quay.io/${RHT_OCP4_QUAY_USER}/php-70-rhel7:latest
+  453  oc import-image php
+  454  oc get builds
+  455  oc describe build trigger-2 | grep cause
+  456  oc expose svc trigger
+  457  lab post-commit start
+  458  cd ..
+  459  git status
+  460  git add .
+  461  git commit -m 'add labs'
+  462  git push
+  463  git status
+  464  git add .
+  465  git rm .
+  466  git add -a
+  467  git add -A
+  468  git status
+  469  git commit -m 'delete tar'
+  470  git push
+  471  source /usr/local/etc/ocp4.config
+  472  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  473  oc new-project lutfio-garantibbva-com-tr-post-commit
+  474  oc stats
+  475  oc status
+  476  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  477  oc project lutfio-garantibbva-com-tr-post-commit
+  478  oc new-app --name hook php:7.0~http://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir post-commit
+  479  oc logs -f bc/hook
+  480  git reset --soft HEAD~1
+  481  git status
+  482  git reset HEAD 
+  483  git status
+  484  git checkout --
+  485  git status
+  486  git reset --soft HEAD~1
+  487  git status
+  488  git reset HEAD 
+  489  git status
+  490  git add .
+  491  git commit -m 'add files'
+  492  git push
+  493  oc logs -f bc/hook
+  494  cd labs/post-commit
+  495  create-hook.sh
+  496  ~/DO288/labs/post-commit/create-hook.sh
+  497  oc descrie bc/hook | grep Post
+  498  oc describe bc/hook | grep Post
+  499  oc start-build -f bc/hook
+  500  oc start-build bc/hook -F
+  501  oc set env bc/hook DEVELOPER="Osman"
+  502  oc set env bc/hook --list
+  503  oc start-build bc/hook -F
+  504  oc get route/builds-for-managers  -o jsonpath='{.spec.host}{"\n"}'
+  505  cd ..
+  506  cd DO288-apps/
+  507  history > history.txt
