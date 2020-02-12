@@ -341,3 +341,167 @@
   341  history ->history.txt
   342  history -> history.txt
   343  history > history.txt
+  344  git status
+  345  git add .
+  346  git commit -m 'history'
+  347  git push
+  348  git pull
+  349  git push
+  350  oc whoami
+  351  oc whoami -t
+  352  clear
+  353  podman login -u $(oc whoami) -p $(oc whoami -t) route
+  354  lab expose-registry start
+  355  oc get pods
+  356  oc get all
+  357  oc delete all -l app=sleep
+  358  oc new-app --name sleep --docker-image=https://quay.io/repository/lutfigaranti/ubi-sleep:1.0
+  359  oc new-app --name sleep --docker-image quay.io/repository/lutfigaranti/ubi-sleep:1.0
+  360  oc new-app --name sleep --docker-image quay.io/lutfigaranti/ubi-sleep:1.0
+  361  oc get all
+  362  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  363  oc get route -n openshift-image-registry
+  364  echo ${INTERNAL_REGISTRY}
+  365  INTERNAL_REGISTRY=$( oc get route default-route -n openshift-image-registry -o jsonpath='{.spec.host}' )
+  366  echo ${INTERNAL_REGISTRY}
+  367  oc new-project lutfio-garantibbva-com-tr-common
+  368  TOKEN=$(oc whoami -t)
+  369  skopeo copy --dest-creds=lutfio-garantibbva-com-tr:${TOKEN} oci:/home/student/DO288/labs/expose-registry/ubi-info docker://${INTERNAL_REGISTRY}/lutfio-garantibbva-com-tr-common/ubi-info:1.0
+  370  oc get is
+  371  sudo podman login -u lutfio-garantibbva-com-tr -p ${TOKEN} $NTERNAL_REGISTRY}
+  372  sudo podman login -u lutfio-garantibbva-com-tr -p ${TOKEN} ${INTERNAL_REGISTRY}
+  373  sudo podman pull ${INTERNAL_REGISTRY}/lutfio-garantibbva-com-tr-common/ubi-info:1.0
+  374  sudo podman run --name info ${INTERNAL_REGISTRY}/lutfio-garantibbva-com-tr-common/ubi-info:1.0
+  375  history > history.txt
+  376  git add .
+  377  git commit -m 'history'
+  378  git push
+  379  cleat
+  380  clear
+  381  oc get is -n openshift -o name
+  382  oc describe is nodejs -n openshift
+  383  echo ${INTERNAL_REGISTRY}
+  384  oc get -o jsonpath
+  385  oc get -o jsonpath='{.spec.host}'
+  386  oc get route -o jsonpath='{.spec.host}'
+  387  oc get route default-route -o jsonpath='{.spec.host}'
+  388  clear
+  389  lab image-steam start
+  390  lab image-stream start
+  391  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  392  source /usr/local/etc/ocp4.config
+  393  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  394  skopeo inspect docket://quay.io/redhattraining/hello-world-nginx
+  395  skopeo inspect docker://quay.io/redhattraining/hello-world-nginx
+  396  oc import-image hello-world --confirm --from quay.io/redhattraining/hello-world-nginx
+  397  oc get istag
+  398  oc describe is hello-world
+  399  oc new-project lutfio-garantibbva-com-tr-image-stream
+  400  oc new-app --name hello -i $
+  401  oc new-app --name hello -i lutfio-garantibbva-com-tr-common/hello-world
+  402  oc get pod
+  403  oc expose svc/hello
+  404  oc get route
+  405  history > history.txt
+  406  git add .
+  407  git commit -m 'history'
+  408  git push
+  409  clear
+  410  lab manage-builds start
+  411  git checkout master 
+  412  git pull
+  413  git checkout -b manage-builds
+  414  git push -u origin manage-builds
+  415  source /usr/local/etc/ocp4.config
+  416  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  417  oc new-project lutfio-garantibbva-com-tr-manage-builds
+  418  oc new-app --name jhost --build-env MAVEN_MIRROR_URL=http://${RHT_OCP4_NEXUS_SERVER}/repository/java -i redhat-openjdk18-openshift:1.5 https://github.com/lutfigaranti/DO288-apps#manage-builds --context-dir java-serverhost
+  419  oc logs-f bc/jhost
+  420  oc logs -f bc/jhost
+  421  oc get pods
+  422  oc logs -f bc/jhost
+  423  oc get pods
+  424  oc expose svc/jhost
+  425  oc get route
+  426  oc start-build bc/jhost
+  427  oc cancel-build bc/jhost
+  428  oc start-build bc/jhost
+  429  oc get builds
+  430  lab trigger-builds start
+  431  source /usr/local/etc/ocp4.config
+  432  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  433  oc new-project lutfio-garantibbva-com-tr-trigger-builds
+  434  podman login -u lutfigaranti quay.io
+  435  cd /home/student/DO288/labs/trigger-builds
+  436  skopeo copy docker-archive:php-70-rhel7-original.tar.gz docker://quay.io/${RHT_OCP4_QUAY_USER}/php-70-rhel7:latest
+  437  oc create secret generic quay-register --from-file .dockerconfigjson=${DG_RUNTIME_DIR}/containers/auth.json --type kubernetes.io/dockerconfigjson
+  438  oc create secret generic quay-register --from-file .dockerconfigjson=${XDG_RUNTIME_DIR}/containers/auth.json --type kubernetes.io/dockerconfigjson
+  439  oc secrets link builder quay-registry
+  440  oc create secret generic quay-registry --from-file .dockerconfigjson=${XDG_RUNTIME_DIR}/containers/auth.json --type kubernetes.io/dockerconfigjson
+  441  oc secrets link builder quay-registry
+  442  oc import-image php --from quay.io/${RHT_OCP4_QUAY_USER}/php-70-rhel7 --confirm
+  443  oc new-app --name trigger php~http://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir trigger-builds
+  444  oc logs -f bc/trigger
+  445  oc get builds
+  446  oc describe bc/trigger | grep Trigered
+  447  oc logs -f bc/trigger
+  448  oc describe bc/trigger | grep Trigered
+  449  oc get builds
+  450  oc get pods
+  451  oc describe bc/trigger | grep Trigered
+  452  skopeo copy docker-archive:php-70-rhel7-newer.tar.gz docker://quay.io/${RHT_OCP4_QUAY_USER}/php-70-rhel7:latest
+  453  oc import-image php
+  454  oc get builds
+  455  oc describe build trigger-2 | grep cause
+  456  oc expose svc trigger
+  457  lab post-commit start
+  458  cd ..
+  459  git status
+  460  git add .
+  461  git commit -m 'add labs'
+  462  git push
+  463  git status
+  464  git add .
+  465  git rm .
+  466  git add -a
+  467  git add -A
+  468  git status
+  469  git commit -m 'delete tar'
+  470  git push
+  471  source /usr/local/etc/ocp4.config
+  472  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  473  oc new-project lutfio-garantibbva-com-tr-post-commit
+  474  oc stats
+  475  oc status
+  476  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  477  oc project lutfio-garantibbva-com-tr-post-commit
+  478  oc new-app --name hook php:7.0~http://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir post-commit
+  479  oc logs -f bc/hook
+  480  git reset --soft HEAD~1
+  481  git status
+  482  git reset HEAD 
+  483  git status
+  484  git checkout --
+  485  git status
+  486  git reset --soft HEAD~1
+  487  git status
+  488  git reset HEAD 
+  489  git status
+  490  git add .
+  491  git commit -m 'add files'
+  492  git push
+  493  oc logs -f bc/hook
+  494  cd labs/post-commit
+  495  create-hook.sh
+  496  ~/DO288/labs/post-commit/create-hook.sh
+  497  oc descrie bc/hook | grep Post
+  498  oc describe bc/hook | grep Post
+  499  oc start-build -f bc/hook
+  500  oc start-build bc/hook -F
+  501  oc set env bc/hook DEVELOPER="Osman"
+  502  oc set env bc/hook --list
+  503  oc start-build bc/hook -F
+  504  oc get route/builds-for-managers  -o jsonpath='{.spec.host}{"\n"}'
+  505  cd ..
+  506  cd DO288-apps/
+  507  history > history.txt
