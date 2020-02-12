@@ -1,0 +1,70 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: null
+  generation: 1
+  labels:
+    app: hello-s2i
+  name: hello-s2i
+  selfLink: /apis/apps.openshift.io/v1/namespaces/lutfio-garantibbva-com-tr-apache-s2i/deploymentconfigs/hello-s2i
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: hello-s2i
+    deploymentconfig: hello-s2i
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        app: hello-s2i
+        deploymentconfig: hello-s2i
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/lutfio-garantibbva-com-tr-apache-s2i/hello-s2i@sha256:e775b91bd1f668a89234f3f91c67778fa08ec16deabee4ee7f0a9afe9713211e
+        imagePullPolicy: Always
+        name: hello-s2i
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - hello-s2i
+      from:
+        kind: ImageStreamTag
+        name: hello-s2i:latest
+        namespace: lutfio-garantibbva-com-tr-apache-s2i
+    type: ImageChange
+status:
+  availableReplicas: 0
+  latestVersion: 0
+  observedGeneration: 0
+  replicas: 0
+  unavailableReplicas: 0
+  updatedReplicas: 0

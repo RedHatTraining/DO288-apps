@@ -1,0 +1,268 @@
+apiVersion: v1
+items:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-02-12T11:28:09Z"
+    generation: 1
+    labels:
+      app: hello-s2i
+    name: hello-s2i
+    namespace: lutfio-garantibbva-com-tr-apache-s2i
+    resourceVersion: "45939308"
+    selfLink: /apis/image.openshift.io/v1/namespaces/lutfio-garantibbva-com-tr-apache-s2i/imagestreams/hello-s2i
+    uid: bf39f7c7-4d8a-11ea-bb71-0a580a800037
+  spec:
+    lookupPolicy:
+      local: false
+  status:
+    dockerImageRepository: image-registry.openshift-image-registry.svc:5000/lutfio-garantibbva-com-tr-apache-s2i/hello-s2i
+    publicDockerImageRepository: default-route-openshift-image-registry.apps.ocp-eu2.prod.nextcle.com/lutfio-garantibbva-com-tr-apache-s2i/hello-s2i
+    tags:
+    - items:
+      - created: "2020-02-12T11:29:56Z"
+        dockerImageReference: image-registry.openshift-image-registry.svc:5000/lutfio-garantibbva-com-tr-apache-s2i/hello-s2i@sha256:e775b91bd1f668a89234f3f91c67778fa08ec16deabee4ee7f0a9afe9713211e
+        generation: 1
+        image: sha256:e775b91bd1f668a89234f3f91c67778fa08ec16deabee4ee7f0a9afe9713211e
+      tag: latest
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/image.dockerRepositoryCheck: "2020-02-12T11:25:31Z"
+    creationTimestamp: "2020-02-12T11:25:31Z"
+    generation: 1
+    name: s2i-do288-httpd
+    namespace: lutfio-garantibbva-com-tr-apache-s2i
+    resourceVersion: "45935767"
+    selfLink: /apis/image.openshift.io/v1/namespaces/lutfio-garantibbva-com-tr-apache-s2i/imagestreams/s2i-do288-httpd
+    uid: 60b6d2c8-4d8a-11ea-ad29-0a580a81014e
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations: null
+      from:
+        kind: DockerImage
+        name: quay.io/lutfigaranti/s2i-do288-httpd
+      generation: 1
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: image-registry.openshift-image-registry.svc:5000/lutfio-garantibbva-com-tr-apache-s2i/s2i-do288-httpd
+    publicDockerImageRepository: default-route-openshift-image-registry.apps.ocp-eu2.prod.nextcle.com/lutfio-garantibbva-com-tr-apache-s2i/s2i-do288-httpd
+    tags:
+    - items:
+      - created: "2020-02-12T11:25:31Z"
+        dockerImageReference: quay.io/lutfigaranti/s2i-do288-httpd@sha256:11b0e311de9644f460e9ab000e853277b1dc3a0efcbcb2b76dea0babf5b186f0
+        generation: 1
+        image: sha256:11b0e311de9644f460e9ab000e853277b1dc3a0efcbcb2b76dea0babf5b186f0
+      tag: latest
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-02-12T11:28:09Z"
+    labels:
+      app: hello-s2i
+    name: hello-s2i
+    namespace: lutfio-garantibbva-com-tr-apache-s2i
+    resourceVersion: "45937797"
+    selfLink: /apis/build.openshift.io/v1/namespaces/lutfio-garantibbva-com-tr-apache-s2i/buildconfigs/hello-s2i
+    uid: bf400f0c-4d8a-11ea-ad29-0a580a81014e
+  spec:
+    failedBuildsHistoryLimit: 5
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: hello-s2i:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      contextDir: html-helloworld
+      git:
+        uri: https://github.com/lutfigaranti/DO288-apps
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: s2i-do288-httpd:latest
+          namespace: lutfio-garantibbva-com-tr-apache-s2i
+      type: Source
+    successfulBuildsHistoryLimit: 5
+    triggers:
+    - github:
+        secret: oB-SxzIE5uHCOTb9vqJC
+      type: GitHub
+    - generic:
+        secret: QJon02ElK89hJHrDyR-x
+      type: Generic
+    - type: ConfigChange
+    - imageChange:
+        lastTriggeredImageID: quay.io/lutfigaranti/s2i-do288-httpd@sha256:11b0e311de9644f460e9ab000e853277b1dc3a0efcbcb2b76dea0babf5b186f0
+      type: ImageChange
+  status:
+    lastVersion: 1
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-02-12T11:28:09Z"
+    generation: 2
+    labels:
+      app: hello-s2i
+    name: hello-s2i
+    namespace: lutfio-garantibbva-com-tr-apache-s2i
+    resourceVersion: "45939710"
+    selfLink: /apis/apps.openshift.io/v1/namespaces/lutfio-garantibbva-com-tr-apache-s2i/deploymentconfigs/hello-s2i
+    uid: bf46ecc3-4d8a-11ea-ad29-0a580a81014e
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      app: hello-s2i
+      deploymentconfig: hello-s2i
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: hello-s2i
+          deploymentconfig: hello-s2i
+      spec:
+        containers:
+        - image: image-registry.openshift-image-registry.svc:5000/lutfio-garantibbva-com-tr-apache-s2i/hello-s2i@sha256:e775b91bd1f668a89234f3f91c67778fa08ec16deabee4ee7f0a9afe9713211e
+          imagePullPolicy: Always
+          name: hello-s2i
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - hello-s2i
+        from:
+          kind: ImageStreamTag
+          name: hello-s2i:latest
+          namespace: lutfio-garantibbva-com-tr-apache-s2i
+        lastTriggeredImage: image-registry.openshift-image-registry.svc:5000/lutfio-garantibbva-com-tr-apache-s2i/hello-s2i@sha256:e775b91bd1f668a89234f3f91c67778fa08ec16deabee4ee7f0a9afe9713211e
+      type: ImageChange
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-02-12T11:30:18Z"
+      lastUpdateTime: "2020-02-12T11:30:18Z"
+      message: Deployment config has minimum availability.
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-02-12T11:30:22Z"
+      lastUpdateTime: "2020-02-12T11:30:22Z"
+      message: replication controller "hello-s2i-1" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: "True"
+      type: Progressing
+    details:
+      causes:
+      - type: ConfigChange
+      message: config change
+    latestVersion: 1
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    unavailableReplicas: 0
+    updatedReplicas: 1
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-02-12T11:28:09Z"
+    labels:
+      app: hello-s2i
+    name: hello-s2i
+    namespace: lutfio-garantibbva-com-tr-apache-s2i
+    resourceVersion: "45937793"
+    selfLink: /api/v1/namespaces/lutfio-garantibbva-com-tr-apache-s2i/services/hello-s2i
+    uid: bf4c7bb2-4d8a-11ea-b885-0291a5e64340
+  spec:
+    clusterIP: 172.30.78.142
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: hello-s2i
+      deploymentconfig: hello-s2i
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: "2020-02-12T11:32:06Z"
+    labels:
+      app: hello-s2i
+    name: hello-s2i
+    namespace: lutfio-garantibbva-com-tr-apache-s2i
+    resourceVersion: "45941175"
+    selfLink: /apis/route.openshift.io/v1/namespaces/lutfio-garantibbva-com-tr-apache-s2i/routes/hello-s2i
+    uid: 4c7388c0-4d8b-11ea-893b-0a580a820091
+  spec:
+    host: hello-s2i-lutfio-garantibbva-com-tr-apache-s2i.apps.ocp-eu2.prod.nextcle.com
+    port:
+      targetPort: 8080-tcp
+    subdomain: ""
+    to:
+      kind: Service
+      name: hello-s2i
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: "2020-02-12T11:32:06Z"
+        status: "True"
+        type: Admitted
+      host: hello-s2i-lutfio-garantibbva-com-tr-apache-s2i.apps.ocp-eu2.prod.nextcle.com
+      routerCanonicalHostname: apps.ocp-eu2.prod.nextcle.com
+      routerName: default
+      wildcardPolicy: None
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
