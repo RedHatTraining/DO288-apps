@@ -128,7 +128,8 @@ pipeline {
 			oc new-app --name books -i books:stage
 			oc expose svc/${APP_NAME}
             
-		   '''}
+		   '''
+		}
         }
 
         stage('Wait for deployment in Staging') {
@@ -146,7 +147,7 @@ pipeline {
 			    }
 			}
 
-                        echo "Deployment to Staging env is complete. Access the app at the URL http://${routeHost}."
+                    echo "Deployment to Staging env is complete. Access the app at the URL http://${routeHost}."
                     }
                 }
             }
