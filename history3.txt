@@ -626,7 +626,7 @@
   626  oc import-image s2i-do288-httpd --from quay.io/${RHT_OCP4_QUAY_USER}/s2i-do288-httpd --confirm
   627  oc get is
   628  oc new-app --name hello-s2i s2i-do288-httpd:2.4~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir=html-helloworld
-  629  oc new-app --name hello-s2i s2i-do288-httpd~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir=html-helloworld
+  629* oc new-app --name probes s2i-do288-httpd~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir=html-helloworld
   630  oc logs -f bc/hello-s2i
   631  oc get pods
   632  oc expose svc hello-s2i
@@ -641,3 +641,107 @@
   641  cd ..
   642  cd DO288-apps/
   643  history > history3.txt
+  644  git add .
+  645  git commit -m 'history'
+  646  git push
+  647  oc get pods
+  648  oc get bc/hello-s2i export > buildyaml
+  649  oc get hello-s2i export > buildyaml
+  650  oc export bc/hello-s2i > buildyaml
+  651  oc get svc/hello -o json --export > services.yaml
+  652  oc get svc/hello-s2i -o json --export > services.yaml
+  653  oc get templates -n openshift | grep php
+  654  oc get templates cakephp-mysl-example -n openshift -o yaml | more
+  655  oc get templates cakephp-mysl-example -o yaml | more
+  656  oc get templates cakephp-mysql-example -n openshift -o yaml | more
+  657  oc get dc/hello-s2i -o yaml --export > dchello.yaml
+  658  ls
+  659  oc get -o yaml --export id,bc,dc,svc,route > mytemplate.yaml
+  660  oc get -o yaml --export is,bc,dc,svc,route > mytemplate.yaml
+  661  vim mytemplate.yaml 
+  662  lab create-template start
+  663  git status
+  664  git add .
+  665  git commit -m 'add file'
+  666  git push
+  667  lab create-template start
+  668  git pull
+  669  source /usr/local/etc/ocp4.config
+  670  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  671  oc project lutfio-garantibbva-com-tr-quotes-dev
+  672  oc status
+  673  oc get pvc
+  674  cd ..
+  675  oc get -o yaml --export is > /tmp/is.yaml
+  676  cp /tmp/is.yml /tmp/is-clean.yaml
+  677  oc get -o yaml --export is > /tmp/is.yaml
+  678  cp /tmp/is.yml /tmp/is-clean.yaml
+  679  cp /tmp/is.yaml /tmp/is-clean.yaml
+  680  oc get -o yaml --export bc  > /tmp/bc.yaml
+  681  oc get -o yaml --export dc  > /tmp/dc.yaml
+  682  cp /tmp/bc.yaml /tmp/bc-clean.yaml
+  683  cp /tmp/dc.yaml /tmp/dc-clean.yaml
+  684  oc get -o yaml --export svc  > /tmp/svc.yaml
+  685  cp /tmp/svc.yaml /tmp/svc-clean.yaml
+  686  oc get -o yaml --export route  > /tmp/route.yaml
+  687  cp /tmp/route.yaml /tmp/route-clean.yaml
+  688  oc get -o yaml --export pvc  > /tmp/pvc.yaml
+  689  cp /tmp/pvc.yaml /tmp/pvc-clean.yaml
+  690  ls
+  691  cp ~/quotes-template-clean.yaml ~/quotes-template.yaml
+  692  ls
+  693  cd DO288
+  694  git status
+  695  git add .
+  696  git push -m 'add file'
+  697  git commit -m 'add file'
+  698  git push
+  699  oc new-project lutfio-garantibbva-com-tr-myquotes
+  700  oc new-app --file=quotess-template.yaml
+  701  oc new-app --file=quotes-template.yaml
+  702  cd ..
+  703  oc new-app --file=quotes-template.yaml
+  704  oc get pods
+  705  ~/DO288/labs/create-template/populate-db.sh
+  706  clear
+  707  lab probes start
+  708  source /usr/local/etc/ocp4.config
+  709  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  710  oc new-project lutfio-garantibbva-com-tr-probes
+  711  oc new-app --name probes --build-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs  nodejs:10~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir probes
+  712  oc get pods
+  713  oc expose svc probes
+  714  curl -i http://probes-lutfio-garantibbva-com-tr-probes.apps.ocp-eu2.prod.nextcle.com/healtz
+  715  curl -i probes-lutfio-garantibbva-com-tr-probes.apps.ocp-eu2.prod.nextcle.com/healtz
+  716  curl -i probes-lutfio-garantibbva-com-tr-probes.apps.ocp-eu2.prod.nextcle.com
+  717  curl probes-lutfio-garantibbva-com-tr-probes.apps.ocp-eu2.prod.nextcle.com
+  718  curl  probes-lutfio-garantibbva-com-tr-probes.apps.ocp-eu2.prod.nextcle.com/healtz
+  719  oc set probe dc/probes --liveness --get-url=http://:8080/healthz  --initial-delay-seconds=2 --timeout-seconds=2
+  720  oc set probe dc/probes --readiness --get-url=http://:8080/ready  --initial-delay-seconds=2 --timeout-seconds=2
+  721  oc descrive dc/probes
+  722  oc describe dc/probes
+  723  oc get pods
+  724  oc logs -f dc/probes
+  725  ~/DO288/labs/probes/kill.sh
+  726  oc logs -f dc/probes
+  727  oc get pods
+  728  oc logs -f dc/probes
+  729  lab review-template start
+  730  cp ~/DO288/labs/review-template/todo-template.yaml ~/todo-template.yaml
+  731  ls
+  732  cp ~/DO288/labs/review-template/oc-new-app.sh ~/oc-new-app.sh
+  733  cat oc-new-app.sh 
+  734  vim oc-new-app.sh 
+  735  source /usr/local/etc/ocp4.config
+  736  oc login -u lutfio-garantibbva-com-tr  -p 4f167ef07765472193e0 https://api.ocp-eu2.prod.nextcle.com:6443
+  737  oc new-project ${RHT_OCP4_DEV_USER}-review-template
+  738   ~/oc-new-app.sh
+  739  cat oc-new-app.sh 
+  740  vim oc-new-app.sh 
+  741   ~/oc-new-app.sh
+  742  oc get pods
+  743  lab review-template grade
+  744  cd DO288-apps/
+  745  ls
+  746  git status
+  747  history > history3.txt
