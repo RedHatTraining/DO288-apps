@@ -5,16 +5,16 @@ pipeline {
     }
     agent {
       node {
-        //TODO: Add label for the Maven jenkins agent
+        label 'maven'
       }
     }
 
     environment {
         //TODO: Customize these variables for your environment
-        DEV_PROJECT = "youruser-movies-dev"
-        STAGE_PROJECT = "youruser-movies-stage"
-        APP_GIT_URL = "https://github.com/youruser/DO288-apps"
-        NEXUS_SERVER = "http://nexus-common.apps.cluster.domain.example.com/repository/java"
+        DEV_PROJECT = "wim-vantomme-movies-dev"
+        STAGE_PROJECT = "wim-vantomme-movies-stage"
+        APP_GIT_URL = "https://github.com/wim-vantomme/DO288-apps"
+        NEXUS_SERVER = "http://nexus-common.apps.ocp-eu2.prod.nextcle.com/repository/java"
 
         // DO NOT CHANGE THE GLOBAL VARS BELOW THIS LINE
         APP_NAME = "movies"
@@ -81,13 +81,29 @@ pipeline {
                       }
                     }
                 }
+		sh '''
+			oc project ${STAGE_PROJECT}
+			oc new-app --name ${APP_NAME}:latest
+			oc expose svc/${APP_NAME} 
+		   '''
                 // TODO: Create a new OpenShift application based on the ${APP_NAME}:latest image stream
                 // TODO: Expose the ${APP_NAME} service for external access
             }
         }
 
         stage('Wait for deployment in DEV env') {
-            //TODO: Watch deployment until pod is in 'Running' state
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject( "${DEV_PROJECT}" ) {
+                            openshift.selector("dc", "${APP_NAME}").related('pods').untilEach(1) {
+                                return (it.object().status.phase == "Running")
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
         stage('Promote to Staging Env') {
@@ -97,6 +113,7 @@ pipeline {
                 }
                 script {
                     openshift.withCluster() {
+		    openshift.tag("${DEV_PROJECT}/${APP_NAME}:latest", "${STAGE_PROJECT}/${APP_NAME}:stage")
                     // TODO: Tag the ${APP_NAME}:latest image stream in the dev env as ${APP_NAME}:stage in staging
                     }
                 }
@@ -113,6 +130,11 @@ pipeline {
                    '''
 
                 echo '### Creating a new app in Staging ###'
+		sh '''
+			oc project ${STAGE_PROJECT}
+			oc new-app ${APP_NAME} -i ${APP_NAME}:stage
+			oc expose svc/${APP_NAME}
+		   '''
                 // TODO: Create a new app in staging and expose the service
             }
         }
