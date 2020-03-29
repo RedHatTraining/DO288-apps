@@ -12,6 +12,6 @@ LABEL io.k8s.decription="A basic Apache HTTP server child image, uses ONBUILD" \
 RUN sed -i "s/listen 80/listen 8080/g" /etc/httpd/conf/httpd.conf
 
 RUN chgrp -R 0 /var/log/httpd /var/run/httpd && \
-    chown -R g=u /var/log/httpd /var/run/https
+    chown -R g=u /var/log/httpd /var/run/httpd
 
 USER 1001
