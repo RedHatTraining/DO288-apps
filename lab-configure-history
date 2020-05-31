@@ -1,0 +1,6 @@
+lab-configure
+git clone https://github.com/mclarkson78/DO288-apps.git
+cd DO288-apps/
+git remote set-url origin https://USER:TOKEN@github.com/USER/DO288-apps.git
+git pull
+git status
