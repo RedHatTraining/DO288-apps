@@ -1,0 +1,10 @@
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+    labels:
+      app: quotesapi
+    name: quotesapi
+  spec:
+    lookupPolicy:
+      local: false
