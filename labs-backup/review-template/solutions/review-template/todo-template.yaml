@@ -1,0 +1,275 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  annotations:
+    openshift.io/display-name: Todo Application
+    description: The Todo application provides an HTTP API back-end and an Angular front-end.
+    iconClass: icon-nodejs
+    tags: nodejs,mysql
+  name: todo
+objects:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+    labels:
+      app: todoapp
+    name: todoapp
+  spec:
+    lookupPolicy:
+      local: false
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+    labels:
+      app: todoapp
+    name: todoapp
+  spec:
+    failedBuildsHistoryLimit: 5
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: todoapp:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      contextDir: todo-single
+      git:
+        uri: ${APP_GIT_URL}
+      type: Git
+    strategy:
+      sourceStrategy:
+        env:
+        - name: npm_config_registry
+          value: ${NPM_PROXY}
+        from:
+          kind: ImageStreamTag
+          name: nodejs:8
+          namespace: openshift
+      type: Source
+    successfulBuildsHistoryLimit: 5
+    triggers:
+    - github:
+        secret: ${SECRET}
+      type: GitHub
+    - generic:
+        secret: ${SECRET}
+      type: Generic
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+    labels:
+      app: todoapp
+    name: todoapp
+  spec:
+    replicas: 1
+    selector:
+      app: todoapp
+      deploymentconfig: todoapp
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+        labels:
+          app: todoapp
+          deploymentconfig: todoapp
+      spec:
+        containers:
+        - env:
+          - name: DATABASE_NAME
+            value: tododb
+          - name: DATABASE_PASSWORD
+            value: ${PASSWORD}
+          - name: DATABASE_SVC
+            value: tododb
+          - name: DATABASE_USER
+            value: todoapp
+          - name: DATABASE_INIT
+            value: ${CLEAN_DATABASE}
+          imagePullPolicy: Always
+          name: todoapp
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - todoapp
+        from:
+          kind: ImageStreamTag
+          name: todoapp:latest
+      type: ImageChange
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+    labels:
+      app: tododb
+    name: tododb
+  spec:
+    replicas: 1
+    selector:
+      app: tododb
+      deploymentconfig: tododb
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+        labels:
+          app: tododb
+          deploymentconfig: tododb
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_DATABASE
+            value: tododb
+          - name: MYSQL_PASSWORD
+            value: ${PASSWORD}
+          - name: MYSQL_USER
+            value: todoapp
+          imagePullPolicy: IfNotPresent
+          name: tododb
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/mysql/data
+            name: tododb-volume-1
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: tododb-volume-1
+          emptyDir: {}
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - tododb
+        from:
+          kind: ImageStreamTag
+          name: mysql:5.7
+          namespace: openshift
+      type: ImageChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+    labels:
+      app: todoapp
+    name: todoapp
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: todoapp
+      deploymentconfig: todoapp
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+    labels:
+      app: tododb
+    name: tododb
+  spec:
+    ports:
+    - name: 3306-tcp
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      app: tododb
+      deploymentconfig: tododb
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    labels:
+      app: todoapp
+    name: todoapp
+  spec:
+    host: ${HOSTNAME}
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: todoapp
+      weight: 100
+    wildcardPolicy: None
+parameters:
+- name: APP_GIT_URL
+  displayName: Aplication source Git URL
+  description: Git URL where application source is stored
+  required: true
+- name: HOSTNAME
+  displayName: Aplication Hostname
+  description: FQDN of the route that gives access the application
+  required: true
+- name: NPM_PROXY
+  displayName: Npm proxy server URL
+  description: URL to a server that provides npm dependencies
+  required: true
+- name: SECRET
+  displayName: Webhook Secret
+  description: Secret for webhooks
+  generate: expression
+  from: '[a-zA-Z0-9]{40}'
+- name: PASSWORD
+  displayName: Database Password
+  description: Password to access the database
+  generate: expression
+  from: '[a-zA-Z0-9]{16}'
+- name: CLEAN_DATABASE
+  displayName: Initialize the database
+  description: If 'true', the database is cleaned when the application starts.
+  required: true
+  value: "true"

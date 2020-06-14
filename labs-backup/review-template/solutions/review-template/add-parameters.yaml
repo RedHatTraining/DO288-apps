@@ -1,0 +1,11 @@
+- name: PASSWORD
+  displayName: Database Password
+  description: Password to access the database
+  generate: expression
+  from: '[a-zA-Z0-9]{16}'
+- name: CLEAN_DATABASE
+  displayName: Initialize the database
+  description: If 'true', the database is cleaned when the application starts.
+  required: true
+  value: "true"
+
