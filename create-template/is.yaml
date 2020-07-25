@@ -1,0 +1,72 @@
+apiVersion: v1
+items:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: "2020-07-25T01:33:32Z"
+    generation: 1
+    labels:
+      app: quotesapi
+    name: quotesapi
+    namespace: dannielchiang-quotes-dev
+    resourceVersion: "147480703"
+    selfLink: /apis/image.openshift.io/v1/namespaces/dannielchiang-quotes-dev/imagestreams/quotesapi
+    uid: d971367c-ce16-11ea-a88d-0a580a800002
+  spec:
+    lookupPolicy:
+      local: false
+  status:
+    dockerImageRepository: image-registry.openshift-image-registry.svc:5000/dannielchiang-quotes-dev/quotesapi
+    publicDockerImageRepository: default-route-openshift-image-registry.apps.ocp-ap3.prod.nextcle.com/dannielchiang-quotes-dev/quotesapi
+    tags:
+    - items:
+      - created: "2020-07-25T01:36:06Z"
+        dockerImageReference: image-registry.openshift-image-registry.svc:5000/dannielchiang-quotes-dev/quotesapi@sha256:ba7cded4381d15febfd617e90c905c494760ae1e0f9b467364118db6f8cb0206
+        generation: 1
+        image: sha256:ba7cded4381d15febfd617e90c905c494760ae1e0f9b467364118db6f8cb0206
+      tag: latest
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/image.dockerRepositoryCheck: "2020-07-25T01:32:50Z"
+    creationTimestamp: "2020-07-25T01:32:50Z"
+    generation: 2
+    name: quotesdb
+    namespace: dannielchiang-quotes-dev
+    resourceVersion: "147478808"
+    selfLink: /apis/image.openshift.io/v1/namespaces/dannielchiang-quotes-dev/imagestreams/quotesdb
+    uid: c07545d6-ce16-11ea-a9e2-0a580a810002
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations: null
+      from:
+        kind: DockerImage
+        name: image-registry.openshift-image-registry.svc:5000/openshift/mysql:5.7
+      generation: 2
+      importPolicy: {}
+      name: "5.7"
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: image-registry.openshift-image-registry.svc:5000/dannielchiang-quotes-dev/quotesdb
+    publicDockerImageRepository: default-route-openshift-image-registry.apps.ocp-ap3.prod.nextcle.com/dannielchiang-quotes-dev/quotesdb
+    tags:
+    - conditions:
+      - generation: 2
+        lastTransitionTime: "2020-07-25T01:32:50Z"
+        message: 'Internal error occurred: Get https://image-registry.openshift-image-registry.svc:5000/v2/:
+          x509: certificate signed by unknown authority'
+        reason: InternalError
+        status: "False"
+        type: ImportSuccess
+      items: null
+      tag: "5.7"
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

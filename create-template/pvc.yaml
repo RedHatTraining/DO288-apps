@@ -1,0 +1,37 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+      volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/aws-ebs
+      volume.kubernetes.io/selected-node: ip-10-0-150-250.ap-southeast-1.compute.internal
+    creationTimestamp: "2020-07-25T01:32:50Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    name: quotesdb-claim
+    namespace: dannielchiang-quotes-dev
+    resourceVersion: "147478920"
+    selfLink: /api/v1/namespaces/dannielchiang-quotes-dev/persistentvolumeclaims/quotesdb-claim
+    uid: c0e3531a-ce16-11ea-b480-06f2a67a1b16
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 300Mi
+    storageClassName: gp2
+    volumeMode: Filesystem
+    volumeName: pvc-c0e3531a-ce16-11ea-b480-06f2a67a1b16
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 1Gi
+    phase: Bound
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
