@@ -58,3 +58,8 @@ nb-configuration.xml
 ## OS X
 ##########################
 .DS_Store
+
+##########################
+## VisualStudio Code
+##########################
+.vscode
