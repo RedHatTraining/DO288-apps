@@ -33,8 +33,7 @@ pipeline {
 		      input message: "Move to stage 3?"
 		    }
 	 	 }
-	}
-	 } 
+	} 
         // TODO: ADD A STAGE THAT SAYS HELLO
 
         // TODO: ADD AN APPROVAL STAGE
