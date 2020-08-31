@@ -4,4 +4,3 @@ metadata:
   name: env-config
 data:
   APP_MSG: sample external configuration
-
