@@ -1,0 +1,233 @@
+Chapter 1. Deploying and Managing Applications on an OpenShift Cluster
+Log in to OpenShift as the developer user and password redhat
+$ oc login -u developer -p redhat <master-url>
+Create a new project called docker-build
+$ oc new-project docker-build
+Create a new application called 'echo' from the Dockerfile project (git repo: http://services.lab.example.com/rhel7-echo)
+$ oc new-app --name echo --insecure-registry http://services.lab.example.com/rhel7-echo
+Follow the build logs from app named echo
+$ oc logs -f bc/echo
+Review the build configuration named echo
+$ oc describe bc echo
+Review the image stream named echo
+$ oc describe is echo
+Review the deployment configuration named echo
+$ oc describe dc echo
+Start a new OpenShift build of the echo application
+$ oc start-build echo
+Delete all application resources with label 'app=echo'
+$ oc delete all -l app=echo
+Create an image stream that points to the Apache HTTP Server container image in the registry (registry.lab.example.com:5000/do288/apache-httpd)
+$ oc import-image apache-httpd --confirm --from registry.lab.example.com:5000/do288/apache-httpd --insecure
+Search for a template that uses PHP and MySQL. OpenShift provides a template based on the CakePHP framework
+$ oc get templates -n openshift | grep php | grep mysql
+Load a custom template
+$ oc create -f  <path-to-file/php-mysql-ephemeral.json>
+Review the template incl. parameters
+$ oc describe template php-mysql-ephemeral
+(Troubleshooting) verify that the application pod is connected to the correct database pod (1). Get endpoint from service
+$ oc describe svc quotesdb | grep Endpoints
+(Troubleshooting) verify that the application pod is connected to the correct database pod (2). Get IP from pod
+$ oc describe pod <pod-id> | grep IP
+(Troubleshooting) verify that the application pod is connected to the correct database pod (3). Verify the database pod login credentials
+$ oc describe pod <pod-id> | grep -A 4 Environment
+(Troubleshooting) verify that the application pod is connected to the correct database pod (4). Verify the database connection parameters in the application pod
+$ oc describe pod <pod-id> | grep -A 5 Environment
+(Troubleshooting) verify that the application pod is connected to the correct database pod (5). Verify that the application pod can reach the database pod
+$ oc rsh <pod-id> bash -c 'curl $DATABASE_SERVICE_NAME:3306'
+Copy the SQL script to the database pod
+$ oc cp <local-path/quote.sql> <pod-id>:<remote-path/quote.sql>
+Run the SQL script inside the database pod
+$ oc rsh -t <pod-id>       (in new terminal) mysql -u$MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE < <remote-path/quote.sql>
+Create a new application called hello with build environment npm_config_registry http://services.lab.example.com:8081/nexus/content/groups/nodejs from repo http://services.lab.example.com/nodejs-helloworld
+$ oc new-app --name hello --build-env npm_config_registry=http://services.lab.example.com:8081/nexus/content/groups/nodejs http://services.lab.example.com/nodejs-helloworld
+Start a new build of the hello application and follow its logs
+$ oc start-build --follow bc/hello
+Expose the application to external access http://hello.apps.lab.example.com
+$ oc expose svc/hello --hostname hello.apps.lab.example.com
+If you have any further questions, please contact sellep@de.ibm.com
+
+
+Chapter 2. Designing Containerized Applications for OpenShift
+Create a new service account named test-serviceaccount
+$ oc create serviceaccount test-serviceaccount
+Modify the deployment configuration 'demoapp' for the application to use the new service account
+$ oc patch dc/demo-app --patch '{"spec":{"template":{"spec":{"serviceAccountName": "test-serviceaccount"}}}}'
+Add the 'test-serviceaccount' service account to the anyuid SCC to run using a fixed userid in the container (as admin)
+$ oc adm policy add-scc-to-user anyuid -z test-serviceaccount
+(Troubleshooting) Change the Dockerfile for the child container to run on an OpenShift cluster (1). Expose port to not privileged port (that is, ports below 1024)
+$ EXPOSE 8080 \ LABEL io.openshift.expose-services="8080:http" 
+(Troubleshooting) Change the Dockerfile for the child container to run on an OpenShift cluster (2). Change the port number in the Apache HTTP Server configuration file from 80 to 8080
+$ RUN sed -i "s/Listen 80/Listen 8080/g" /etc/httpd/conf/httpd.conf
+(Troubleshooting) Change the Dockerfile for the child container to run on an OpenShift cluster (3). Change the group ID and permissions of the folders where the web server process reads and writes files
+$ RUN chgrp -R 0 /var/log/httpd /var/run/httpd && chmod -R g=u /var/log/httpd /var/run/httpd
+(Troubleshooting) Change the Dockerfile for the child container to run on an OpenShift cluster (4). Add a USER instruction for an unprivileged user.
+$ USER 1001
+Create a new configuration map resource called myappconf. Store a key called APP_MSG with the value 'Test Message' in this configuration map:
+$ oc create configmap myappconf --from-literal APP_MSG="Test Message"
+Create a secret called myappfilesec from a file
+$ oc create secret generic myappfilesec --from-file /home/student/app-config/myapp.sec
+Verify the contents of the secret
+$ oc get secret/myappfilesec -o json
+Add the configuration map 'myappconf' as env to the deployment configuration called myapp
+$ oc set env dc/myapp --from configmap/myappconf
+Add the secret 'myfilesec' as volume 'myappsec-vol' to the deployment configuration called myapp
+$ oc set volume dc/myapp --add -t secret -m /opt/app-root/secure --name myappsec-vol --secret-name myappfilesec
+Use the oc rsh command to inspect the environment variables in the container 'myapp'
+$ oc rsh <myapp-pod-id> env | grep APP_MSG
+Edit the configmap called myappconf
+$ oc edit configmap/myappconf
+Rollout the new config map changes to app called myapp
+$ oc rollout latest dc/myapp
+
+
+Chapter 3. Publishing Enterprise Container Images
+Copy a container image from the myimage OCI-formatted folder to the insecure registry at registry.example.com
+$ skopeo copy --dest-tls-verify=false oci:myimage docker://registry.example.com/myimage
+Delete the myimage container image from the insecure registry at registry.example.com
+$ skopeo delete --tls-verify=false docker://registry.example.com/myimage
+Install the docker-distribution and skopeo packages
+$ sudo yum install docker-distribution skopeo
+Configures the local firewall to allow access to the local container image registry and open port 5000
+$ firewall-cmd --zone=trusted --add-port 5000/tcp --permanent \  firewall-cmd --reload
+Start and enable the docker-distribution service
+$ sudo systemctl start docker-distribution \ sudo systemctl enable docker-distribution
+Verify that the docker-distribution service starts without errors
+$ sudo systemctl status docker-distribution
+(Troubleshooting) Configure the local Docker daemon to use the standalone registry as an insecure registry (1). Add the standalone registry host and port to the INSECURE_REGISTRY environment variable in the Docker daemon configuration
+$ /etc/sysconfig/docker: INSECURE_REGISTRY='--insecure-registry registry.lab.example.com:5000 --insecure-registry workstation.lab.example.com:5000'
+Restart the Docker daemon
+$ sudo systemctl restart docker
+Deploy an application named 'sleep' from the container image in the standalone registry
+$ oc new-app --name sleep --docker-image workstation.lab.example.com:5000/rhel7-sleep --insecure-registry
+Delete all containers from the local Docker daemon
+$ docker rm $(docker ps -aq)
+Delete all container images from the local Docker daemon
+$ docker rmi -f $(docker images -aq)
+Delete the container image 'rhel7-sleep' from the standalone registry
+$ skopeo delete --tls-verify=false docker://workstation.lab.example.com:5000/rhel7-sleep
+Allow a user to pull and push images from the internal registry
+$ oc adm policy add-role-to-user system:registry user_name \ oc adm policy add-role-to-user system:image-builder user_name
+Get the Doker token to log in the internal Docker registry
+$ export TOKEN=$(oc whoami -t)
+Authenticate the local Docker daemon to the OpenShift internal registry via Docker
+$ docker login -u myuser -p $TOKEN myregistry.example.com
+Authenticate the local Docker daemon to the OpenShift internal registry via Skopeo
+$ skopeo copy --creds=myuser:$TOKEN docker://myregistry.example.com/...
+Allow the project app_project to pull container images from the project img_project
+$ oc policy add-role-to-group -n img_project system:image-puller system:serviceaccounts:app_project
+Create the image stream that points to the hello-world-nginx container image from the insecure, external registry at registry.lab.example.com:5000
+$ oc import-image hello-world --confirm --from registry.lab.example.com:5000/hello-world-nginx --insecure
+Deploy an application using the image stream 'hello-world' as the input source
+$ oc new-app --name hello -i hello-world
+
+
+Chapter 4. Building Applications
+Start a new build manually
+$ oc start-build name
+Start a running build manually
+$ oc cancel-build name
+Edit the build configuration resource and add the BUILD_LOGLEVEL environment variable
+$ oc set env bc/name BUILD_LOGLEVEL="4"
+Add an image change trigger to a build configuration
+$ oc set triggers bc/name --from-image=project/image:tag
+Remove an image change trigger from a build configuration
+$ oc set triggers bc/name --from-image=project/image:tag --remove
+Verify that an image change trigger is defined as part of the build configuration named 'trigger'
+$ oc describe bc/trigger | grep Triggered
+Update the php image stream to fetch the metadata for the new container image by an image import
+$ oc import-image php:latest 
+Configure a Post-commit Build Hook command by using the exec system call
+$ oc set build-hook bc/name --post-commit --command -- bundle exec rake test --verbose
+Configure a Post-commit Build Hook shell script
+$ oc set build-hook bc/name --post-commit --script="curl http://api.com/user/${USER}"
+List env variables of the build configuration called 'simple'
+$ oc set env bc simple --list
+Add the env variable npm_config_registry with the value http://services.lab.example.com:8081/nexus/content/groups/nodejs to the build config 'simple
+$ oc set env bc simple npm_config_registry=http://services.lab.example.com:8081/nexus/content/groups/nodejs
+Start a new build of app called simple and follow the logs
+$ oc start-build simple -F
+Get the generic webhook URL that starts a new build of build called 'simple'
+$ oc describe bc simple
+
+Chapter 5. Customizing Source-to-Image Builds
+Create a new application called hello from sources in Git. Ensure that the application uses the rhscl/httpd24-rhel7 builder image called httpd
+$ oc new-app --name hello httpd~http://services.lab.example.com/s2i-scripts
+Install the source-to-image package, which provides the s2i command-line tool
+$ sudo yum install source-to-image
+Create template files for theS2I builder image
+$ s2i create <imageName> <destination>
+Build a S2I builder image from your current directory
+$ docker build -t builder_image .
+To test the S2I builder image locally, build an application container image using the s2i build command
+$ s2i build test/test-app/ <s2i image> <app img name>
+Run the created container as a random user with the -u flag to simulate running as a random user on an OpenShift cluster
+$ docker run --name test -u 1234 -p 8080:8080 -d s2i-sample-app
+Tag the builder image
+$ docker tag <s2i image> <new named tag s2i image>
+Push the builder image to the classroom private registry
+$ docker push <new s2i image tag>
+Create an image stream by importing the S2I builder image from the private registry
+$ oc import-image <is name> --from <external registry><image-name> --confirm --insecure
+Create an image stream called 's2i-do288-httpd' by importing the S2I builder image called ' s2i-do288-httpd' from the classroom private registry
+$ oc import-image s2i-do288-httpd --from registry.lab.example.com:5000/s2i-do288-httpd --confirm --insecure
+Create a new application called hello from sources in Git using the created S2I builder image s2i-do288-httpd
+$ oc new-app --name hello s2i-do288-httpd~http://services.lab.example.com/html-helloworld
+Delete the s2i-do288-httpd image from the classroom private registry:
+$ skopeo delete --tls-verify=false docker://registry.lab.example.com:5000/s2i-do288-httpd
+Print the creation date of the build within an assemble script
+$ DATE=`date "+%b %d, %Y @ %H:%M %p"` \ echo "Page built on $DATE" >> ./info.html
+
+Chapter 6. Creating Applications from OpenShift Templates
+Exports a template for all sets of pods in the current project
+$ oc export is,bc,dc,svc,route --as-template > mytemplate.yml
+List the top-level attributes for that resource type 'routes'
+$ oc explain routes
+Deploy an application from a template file with parameter PARAM1 and PARAM2
+$ oc new-app --file mytemplate.yaml -p PARAM1=value1 -p PARAM2=value2
+Add a template to OpenShift
+$ oc create -f myresourcelist.yaml
+
+Chapter 7. Managing Application Deployments
+Disable the configuration change triggers for the deployment 'mysql'
+$ oc set triggers dc/mysql --from-config --remove
+erify that the default deployment strategy for the MySQL application is Rolling
+$ oc describe dc/mysql | grep 'Strategy:'
+Change the default deployment strategy of deployment called 'mysql' to 'Recreate'
+$ oc patch dc/mysql --patch '{"spec":{"strategy":{"type":"Recreate"}}}'
+Remove the rollingParams attribute from the deployment configuration 'mysql'
+$ oc patch dc/mysql --type=json -p='[{"op":"remove", "path": "/spec/strategy/rollingParams"}]'
+Force a new deployment to the deployment called 'mysql'
+$ oc rollout latest dc/mysql
+View the history of deployments for a specific deployment configuration
+$ oc rollout history dc/name
+Access details about a specific deployment
+$ oc rollout history dc/name --revision=1
+Cancel the current deployment
+$ oc rollout cancel dc/name
+Retry a deployment that failed
+$ oc rollout retry dc/name
+Roll back a deployment
+$ oc rollback dc/name
+Re-enable image change triggers
+$ oc set triggers dc/name --auto
+Scale the number of pods in a deployment to 3
+$ oc scale dc/name --replicas=3
+Set a deployment trigger for a deployment configuratio of type ImageChange trigger
+$ oc set triggers dc/name --from-image=myproject/origin-ruby-sample:latest -c <your-container>
+
+Chapter 8. Migrating Applications to OpenShift
+Define an external service called 'tododb' based on 'services.lab.example.com'
+$ oc create service externalname tododb --external-name services.lab.example.com
+Get external endpoints
+$ oc get endpoints 
+Build and deploy an application with the Fabric8 Maven plug-in
+$ mvn fabric8:deploy
+Use the MySQL client to connect to the todo database on the MariaDB server instance on the services VM. Use the todoapp user and use redhat as the password
+$ mysql -hservices -utodoapp -predhat todo
+Within the mysql DB: Inspect the Item table data
+$ select * from Item;
+
+Chapter 9. Comprehensive Review: Red Hat OpenShift Development I: Containerizing Applications
+will follow
+$ will follow

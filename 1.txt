@@ -1,0 +1,198 @@
+Al comando oc new-app può essere passato l'attributo -strategy per determinare quale strategia di deploy adottare per esempio quando in un repository ci sono sia il docker file che il pom.xml
+Si puo taggare un'immagine del registro interno di redhat come "jee" cosi se passo un url git solo con il pom.xml, openshift utilizzerà quella immagine
+La build si può creare non solo con il comando oc new-app ma anche con il comando oc create -f nomedelfile.yaml oppure json
+Sulla build si possono configurare dei trigger, per gestire i vari eventi che avvengono sulle immagini, sul codice ecc. per startare la build in automatico e altro
+I trigger sono di due tipi:
+Image change triggers - Quando cambia un'immagine, scatta il trigger che fa rebuild
+Webhook triggers - Consistono in HTTP API endpoints che startano una nuova build (per lanciare l'API devi inserire nell'url un secret che si ottiene con: oc get bc simple -o jsonpath="{.spec.triggers[*].generic.secret}{'\n'}" )
+Le probe sono le sonde che puoi mettere sulle applicazioni e sono di due tipi: Readiness Probe e Liveness Probe
+Sulla deployment config ci sono dei trigger che scattano quando cambia un'immaggine oppure quando cambia la deploy config.
+Nella deploy config si possono anche indicare le misure della ram e della cpu del pod
+
+source /usr/local/etc/ocp4.config
+
+GIT CLONARE UN REPOSITORY
+git clone https://github.com/angeloemme80/DO288-apps.git
+
+GIT CREARE UN NUOVO BRANCHES
+git checkout -b custom-s2i
+git push -u origin source-build
+
+GIT COMMIT
+git commit -a -m 'Fixed'
+git add src/main/fabric8/*
+
+
+LOGGARSI a openshift
+oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+
+CREARE NUOVO PROGETTO 
+oc new-project ${RHT_OCP4_DEV_USER}-todo-migrate
+
+CREARE APP
+oc new-app --name greet --build-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#source-build --context-dir nodejs-helloworld
+oc new-app --name elvis https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#design-container --context-dir hello-java
+oc new-app --name elvis https://github.com/angeloemme80/demo-spring-boot
+oc new-app --name greet s2i-do288-go~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#custom-s2i --context-dir=go-hello
+oc new-app --name scale php:7.0~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#manage-deploy --context-dir php-scale
+oc new-app --name info -i ${RHT_OCP4_DEV_USER}-common/php-info
+oc new-app ${APP_NAME}:latest -n ${DEV_PROJECT}
+oc new-app --name frontend -e BACKEND_HOST=api.example.com -i ${RHT_OCP4_DEV_USER}-review-common/todo-frontend
+oc new-app --name tododb -e MYSQL_USER=todoapp -e MYSQL_PASSWORD=mypass -e MYSQL_DATABASE=todo --docker-image registry.access.redhat.com/rhscl/mysql-57-rhel7
+oc new-app ${RHT_OCP4_DEV_USER}-review-common/todoapp -p PASSWORD=redhat -p CLEAN_DATABASE=false -p HOSTNAME=todoui-${RHT_OCP4_DEV_USER}.${RHT_OCP4_WILDCARD_DOMAIN} -p BACKEND=todoapi-${RHT_OCP4_DEV_USER}.${RHT_OCP4_WILDCARD_DOMAIN}
+oc new-app --template ${RHT_OCP4_DEV_USER}-common/php-mysql-ephemeral -p NAME=quotesapi -p APPLICATION_DOMAIN=quote-${RHT_OCP4_DEV_USER}.${RHT_OCP4_WILDCARD_DOMAIN}
+
+
+REBUILDARE APP
+oc start-build --follow bc/greet
+oc start-build elvis
+
+VEDERE IL LOG della BUILD CONFIGURATION
+oc logs -f bc/greet
+
+VEDERE IL LOG della APPLICAZIONE
+oc logs greet-1-npssp
+
+ESPORRE IL SERVIZIO SU UNA ROTTA
+oc expose svc/elvis
+oc expose svc/${APP_NAME} -n ${DEV_PROJECT}
+
+OTTENERE LA ROTTA
+oc get route
+oc get route/jenkins -o jsonpath='{.spec.host}{"\n"}'
+
+CREARE UN CONFIGMAP
+oc create cm appconfig --from-literal APP_MSG="Elvis lives"
+oc create cm todoapp --from-literal init=true
+oc create cm appconfig --from-literal DATABASE_USER="todoapp" --from-literal DATABASE_PASSWORD="redhat123" --from-literal DATABASE_SVC_HOSTNAME="tododb" --from-literal DATABASE_NAME="todo"
+
+CREARE UN SECRET per quay.io (per poter importare l'immagine in un imagestream)
+oc create secret generic quayio --from-file .dockerconfigjson=${XDG_RUNTIME_DIR}/containers/auth.json --type kubernetes.io/dockerconfigjson
+oc create secret generic nshift --from-file .dockerconfigjson=${XDG_RUNTIME_DIR}/containers/auth.json --type kubernetes.io/dockerconfigjson
+oc create secret generic tododb --from-literal user=todoapp --from-literal password=mypass
+
+LINKARE UN SECRET (abilita il builder ad usare il secret)
+oc secrets link builder quayio
+
+AGGIUNGERE IL CONFIGMAP o IL SECRET ALLA DEPLOYMENTCONFIGURATION
+oc set env dc/elvis --from cm/appconfig
+oc set env dc/backend --prefix DATABASE_ --from cm/todoapp
+oc set env dc/backend --prefix DATABASE_ --from secret/tododb (imposta variabili d'ambiente a partire dal secret indicato e aggiungento il prefisso indicato)
+
+MODIFICARE UNA ENV DEL BUILDCONFIG
+oc set env bc simple npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs
+
+APRIRE UNA SHELL SUL POD
+oc rsh elvis-3-ks1np
+
+LOGIN A QUAY.IO
+podman login -u ${RHT_OCP4_QUAY_USER} quay.io
+sudo podman login -u ${RHT_OCP4_QUAY_USER} quay.io (sudo quando poi bisogna fare il sudo skopeo su quay.io)
+sudo podman login -u ${RHT_OCP4_DEV_USER} -p ${TOKEN} ${INTERNAL_REGISTRY} (LOGIN NEL REGISTRY INTERNO DI OPENSHIFT)
+
+PUSH SU QUAY.IO da immagini verso quay.io
+skopeo copy oci:/home/student/php-info docker://quay.io/angeloemme/php-info
+sudo skopeo copy containers-storage:localhost/s2i-do288-go docker://quay.io/${RHT_OCP4_QUAY_USER}/s2i-do288-go
+skopeo copy --dest-creds=${RHT_OCP4_DEV_USER}:${TOKEN} oci:/home/student/DO288/labs/expose-registry/ubi-info docker://${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}-common/ubi-info:1.0
+
+INSPECT su QUAY.IO
+skopeo inspect docker://quay.io/angeloemme/php-info
+
+CREARE IMAGESTREAM E IMPORTARE L'IMMAGINE
+oc import-image php-info --confirm --reference-policy local --from quay.io/angeloemme/php-info
+oc import-image s2i-do288-go --confirm --from quay.io/${RHT_OCP4_QUAY_USER}/s2i-do288-go 
+oc import-image redhat-openjdk-18/openjdk18-openshift --from=registry.redhat.io/redhat-openjdk-18/openjdk18-openshift --confirm
+
+GRANT sui progetti OPENSHIFT (ad esempio per concedere i permessi di pulling di un'immagine dentro l'imagestream da un progetto ad un'altro)
+oc policy add-role-to-group -n ${RHT_OCP4_DEV_USER}-common system:image-puller system:serviceaccounts:${RHT_OCP4_DEV_USER}-expose-image
+oc policy add-role-to-group -n ${RHT_OCP4_DEV_USER}-review-common system:image-puller system:serviceaccounts:${RHT_OCP4_DEV_USER}-review-dockerfile
+oc policy add-role-to-group -n ${RHT_OCP4_DEV_USER}-review-common system:image-puller system:serviceaccounts:${RHT_OCP4_DEV_USER}-review-multicontainer
+oc policy add-role-to-user edit system:serviceaccount:${RHT_OCP4_DEV_USER}-jenkins:jenkins -n ${RHT_OCP4_DEV_USER}-movies-dev
+oc policy add-role-to-user edit system:serviceaccount:${RHT_OCP4_DEV_USER}-jenkins:jenkins -n ${RHT_OCP4_DEV_USER}-movies-stage
+
+DESCRIVERE LE RISORSE: DEPLOYCONFIG, BUILDCONFIG, CONFIGMAP
+oc describe dc/elvis
+oc describe bc simple
+oc describe cm/appconfig
+oc describe is php -n openshift (descrive l'immagine php che sta nel registro openshift)
+
+OTTENERE IL SECRET DEL WEBHOOK
+oc get bc simple -o jsonpath="{.spec.triggers[*].generic.secret}{'\n'}"
+
+REBUILD ATTRAVERSO IL webhook URL
+curl -X POST -k ${RHT_OCP4_MASTER_API}/apis/build.openshift.io/v1/namespaces/${RHT_OCP4_DEV_USER}-build-app/buildconfigs/simple/webhooks/4R8kYYf3014kCSPcECmn/generic
+
+CREARE UN'IMMAGINE S2I CON PODMAN
+sudo podman build -t s2i-do288-go .
+sudo podman build -t s2i-go-app .
+
+CREARE UN CONTAINER CON PODMAN
+sudo podman run --name go-test -u 1234 -p 8080:8080 -d s2i-go-app
+
+STOPPARE UN CONTAINER CON PODMAN
+sudo podman stop go-test
+
+CREARE UN DOCKERFILE
+s2i build test/test-app/ s2i-do288-go  s2i-go-app --as-dockerfile /home/student/s2i-go-app/Dockerfile
+s2i build sorgente       builder_image tag_name (è un comando che simula la costruzione di un app a partire da un'immagine podman locale, in pratica fa la stessa cosa che fa openshift quando crea una nuova app, ma lo fa in locale)
+
+CREA LA STRUTTURA DI UN'IMMAGINE
+s2i create image_name directory
+s2i create s2i-do288-httpd s2i-do288-httpd
+
+ROLLBACK E ROLLOUT DELLA DEPLOY CONFIG
+oc rollback dc/scale
+oc rollout latest dc/tododb
+
+JENKINS DEPLOY
+oc new-app jenkins-ephemeral -p MEMORY_LIMIT=2048Mi
+
+CREARE LA BUILDCONFIG oppure UN TEMPLATE
+oc create -f ~/DO288/labs/review-cicd/movies-bc.json
+oc create -f todoapp.yaml
+
+CREARE UN SERVIZIO ESTERNO
+oc create service externalname tododb --external-name ${MYSQL_DB}
+
+COMANDI CON FABRIC8
+mvn fabric8:deploy
+mvn fabric8:resource-apply (applica le risorse create come ad esempio file .yaml di configuration map oppure di deployment configuration)
+
+
+Esercizio capitolo 1 (Problemi di sintassi nel package.json)
+Esercizio capitolo 2 (Problemi di permessi nel Dockrfile e aggiunta di un configmap)
+Esercizio capitolo 3 (Image stream e secret)
+Esercizio capitolo 4 (Problemi di sintassi, build configuration e Webhook triggers)
+Esercizio capitolo 5 (Creare un'immagine da zero, S2I, Podman, quay.io, secret e link al secret)
+Esercizio capitolo 6 (Creare tutte le risorse immagini ecc, tramite un Template)
+Esercizio capitolo 7 (Deployare app, modificare l'app e ristartare build dalla console e rollback del bc)
+Esercizio capitolo 8 (Jenkins pipeline)
+Esercizio capitolo 9 (Risorse esterne e fabric8 maven)
+
+// delete git branch locally
+git branch -d localBranchName
+
+// delete git branch remotely
+git push origin --delete remoteBranchName
+
+MODIFICARE I GRUPPI E PERMESSI NEL DOCKERFILE
+RUN chgrp -R 0 directory && \
+chmod -R g=u directory
+
+COPIARE UN FILE ALL'INTERNO DEL POD
+oc cp ~/DO288/labs/build-template/quote.sql quotesdb-1-hh2g9:/tmp/quote.sql
+
+oc port-forward tododb-1-dvcqm 30306:3306
+mysql -h127.0.0.1 -P30306 -utodoapp -predhat todo < ~/DO288/labs/review-multicontainer/todo.sql
+oc get templates -n openshift | grep php
+oc get template jenkins-ephemeral -n openshift -o yaml
+oc set triggers dc/mydcname --from-config --remove (disabilitare i trigger)
+oc set triggers dc/mydcname --from-config (abilitare i trigger)
+oc get -o yaml --export is,bc,dc,svc,route > mytemplate.yaml
+oc set probe --help
+
+- name: SECRET
+displayName: Webhook Secret
+description: Secret for webhooks
+generate: expression
+from: '[a-zA-Z0-9]{40}'
