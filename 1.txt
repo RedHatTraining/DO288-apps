@@ -32,7 +32,7 @@ oc new-project ${RHT_OCP4_DEV_USER}-todo-migrate
 CREARE APP
 oc new-app --name greet --build-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#source-build --context-dir nodejs-helloworld
 oc new-app --name elvis https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#design-container --context-dir hello-java
-oc new-app --name elvis https://github.com/angeloemme80/demo-spring-boot
+oc new-app --name angelo https://github.com/angeloemme80/demo-spring-boot
 oc new-app --name greet s2i-do288-go~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#custom-s2i --context-dir=go-hello
 oc new-app --name scale php:7.0~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps#manage-deploy --context-dir php-scale
 oc new-app --name info -i ${RHT_OCP4_DEV_USER}-common/php-info
@@ -190,6 +190,10 @@ oc set triggers dc/mydcname --from-config --remove (disabilitare i trigger)
 oc set triggers dc/mydcname --from-config (abilitare i trigger)
 oc get -o yaml --export is,bc,dc,svc,route > mytemplate.yaml
 oc set probe --help
+oc set build-hook bc/name --post-commit --command -- bundle exec rake test --verbose
+oc set build-hook bc/name --post-commit --script="curl http://api.com/user/${USER}"
+oc set build-hook bc/hook --post-commit --command -- bash -c "curl -s -S -i -X POST http://builds-for-managers-${RHT_OCP4_DEV_USER}-post-commit.${RHT_OCP4_WILDCARD_DOMAIN}/api/builds-f -d 'developer=\${DEVELOPER}&git=\${OPENSHIFT_BUILD_SOURCE}&project=\
+${OPENSHIFT_BUILD_NAMESPACE}'"
 
 - name: SECRET
 displayName: Webhook Secret
