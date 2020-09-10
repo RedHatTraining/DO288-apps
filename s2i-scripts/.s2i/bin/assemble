@@ -1,4 +1,6 @@
 
+/usr/libexec/s2i/assemble
+
 ######## CUSTOMIZATION STARTS HERE ############
 
 echo "---> Installing application source"
