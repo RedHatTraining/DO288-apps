@@ -1,6 +1,0 @@
-#!/bin/bash
-mkdir /var
-mkdir /var/www
-mkdir /var/www/html
-
-cp -Rf ./ /var/www/html
