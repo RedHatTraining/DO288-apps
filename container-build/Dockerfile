@@ -2,7 +2,7 @@
 FROM quay.io/redhattraining/httpd-parent
 
 
-RUN chgrp -R 0 /some/directory && \
-    chmod -R g=u /some/directory
+RUN chgrp -R 0 /run/httpd && \
+    chmod -R g=u /run/httpd
 
 USER 1001
