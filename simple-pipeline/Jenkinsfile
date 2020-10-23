@@ -23,6 +23,20 @@ pipeline {
                 }
             }
         }
+      
+        stage('stage 2') {
+            steps {
+                sh 'echo hello from stage 2!'
+            }
+        }
+         
+        stage('manual approval') {
+ 	    steps {
+   		timeout(time: 60, unit: 'MINUTES') {
+		  input message: "Move to stage 3?"
+    		}
+            }
+	}
 
         // TODO: ADD A STAGE THAT SAYS HELLO
 
