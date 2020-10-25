@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+echo "---> Copying source HTML files to web server root..."
+#cp -Rf /tmp/src/. /usr/share/nginx/html/
+
