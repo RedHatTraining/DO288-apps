@@ -23,5 +23,6 @@ EXPOSE 8080
 
 USER 1001 
 
-# Run the fat JAR si lo cambie
+# Run the fat JAR 
+# otro commentario
 CMD   /opt/app-root/bin/run-app.sh
