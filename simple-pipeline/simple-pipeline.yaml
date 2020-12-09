@@ -1,0 +1,9 @@
+spec:
+  source:
+    contextDir: simple-pipeline
+    git:
+      uri: "https://github.com/andrewbos/DO288-apps"
+      ref: "simple-pipeline"
+  strategy:
+    jenkinsPipelineStrategy:
+    type: JenkinsPipeline
