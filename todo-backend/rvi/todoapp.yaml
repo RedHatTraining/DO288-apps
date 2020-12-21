@@ -1,0 +1,412 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: todoapp
+objects:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+    labels:
+      app: backend
+    name: backend
+  spec:
+    lookupPolicy:
+      local: false
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+    labels:
+      app: tododb
+    name: tododb
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+      from:
+        kind: DockerImage
+        name: ${DATABASE_IMAGE}
+      name: latest
+      referencePolicy:
+        type: Source
+- apiVersion: v1
+  data:
+    init: "false"
+  kind: ConfigMap
+  metadata:
+    name: todoapp
+- apiVersion: v1
+  data:
+    password: bXlwYXNz
+    user: dG9kb2FwcA==
+  kind: Secret
+  metadata:
+    name: tododb
+  type: Opaque
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+    labels:
+      app: backend
+    name: backend
+  spec:
+    failedBuildsHistoryLimit: 5
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: backend:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      contextDir: ${BACK_END_CTXDIR}
+      git:
+        ref: ${BACK_END_BRANCH}
+        uri: ${BACK_END_REPO}
+      type: Git
+    strategy:
+      sourceStrategy:
+        env:
+        - name: npm_config_registry
+          value: ${NPM_PROXY}
+        from:
+          kind: ImageStreamTag
+          name: nodejs:12
+          namespace: openshift
+      type: Source
+    successfulBuildsHistoryLimit: 5
+    triggers:
+    - github:
+        secret: ${SECRET}
+      type: GitHub
+    - generic:
+        secret: ${SECRET}
+      type: Generic
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+    labels:
+      app: backend
+    name: backend
+  spec:
+    replicas: 1
+    selector:
+      app: backend
+      deploymentconfig: backend
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+        labels:
+          app: backend
+          deploymentconfig: backend
+      spec:
+        containers:
+        - env:
+          - name: DATABASE_NAME
+            value: todo
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: tododb
+          - name: DATABASE_SVC
+            value: tododb
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                key: user
+                name: tododb
+          - name: DATABASE_INIT
+            valueFrom:
+              configMapKeyRef:
+                key: init
+                name: todoapp
+          imagePullPolicy: Always
+          name: backend
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - backend
+        from:
+          kind: ImageStreamTag
+          name: backend:latest
+      type: ImageChange
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+    labels:
+      app: tododb
+    name: tododb
+  spec:
+    replicas: 1
+    selector:
+      app: tododb
+      deploymentconfig: tododb
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+        labels:
+          app: tododb
+          deploymentconfig: tododb
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_DATABASE
+            value: todo
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: tododb
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                key: user
+                name: tododb
+          imagePullPolicy: Always
+          name: tododb
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/mysql/data
+            name: tododb-volume-1
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir: {}
+          name: tododb-volume-1
+    test: false
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - tododb
+        from:
+          kind: ImageStreamTag
+          name: tododb:latest
+      type: ImageChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+    labels:
+      app: backend
+    name: backend
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: backend
+      deploymentconfig: backend
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+    labels:
+      app: tododb
+    name: tododb
+  spec:
+    ports:
+    - name: 3306-tcp
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      app: tododb
+      deploymentconfig: tododb
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    labels:
+      app: backend
+    name: backend
+  spec:
+    host: backend-sspv-us-ibm-com-review-service.apps.na45.prod.nextcle.com
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: backend
+      weight: 100
+    wildcardPolicy: None
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+    labels:
+      app: frontend
+    name: frontend
+  spec:
+    replicas: 1
+    selector:
+      app: frontend
+      deploymentconfig: frontend
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+        labels:
+          app: frontend
+          deploymentconfig: frontend
+      spec:
+        containers:
+        - env:
+          - name: BACKEND_HOST
+            value: api.example.com
+          imagePullPolicy: Always
+          name: frontend
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - frontend
+        from:
+          kind: ImageStreamTag
+          name: todo-frontend:latest
+          namespace: sspv-us-ibm-com-review-common
+      type: ImageChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+    labels:
+      app: frontend
+    name: frontend
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: frontend
+      deploymentconfig: frontend
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    labels:
+      app: frontend
+    name: frontend
+  spec:
+    host: frontend-sspv-us-ibm-com-review-dockerfile.apps.na45.prod.nextcle.com
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: frontend
+      weight: 100
+    wildcardPolicy: None
+parameters:
+- displayName: MySQL server container image full name (with registry)
+  name: DATABASE_IMAGE
+  required: true
+  value: registry.access.redhat.com/rhscl/mysql-57-rhel7
+- displayName: To Do List back-end Git repository URL
+  name: BACK_END_REPO
+  required: true
+  value: https://github.com/ashburnvaasi/DO288-apps
+- displayName: To Do List back-end project root folder
+  name: BACK_END_CTXDIR
+  required: true
+  value: todo-backend
+- displayName: Git branch to build the To Do List back-end
+  name: BACK_END_BRANCH
+  required: true
+  value: master
+- displayName: Npm modules repository URL
+  name: NPM_PROXY
+  required: true
+  value: http://nexus-common.apps.na45.prod.nextcle.com/repository/nodejs
+- displayName: Secret for webhooks
+  name: SECRET
+  required: true
+- displayName: MySQL database password for the todoapp user
+  name: PASSWORD
+  required: true
+- displayName: Host name to acccess the To Do List front-end web application
+  name: HOSTNAME
+  required: true
+- displayName: Host name to acccess the To Do List back-end HTTP API
+  name: BACKEND
+  required: true
+
