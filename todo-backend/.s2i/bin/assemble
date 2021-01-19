@@ -4,6 +4,7 @@ echo "Performing the S2I build..."
 
 #TODO: add call to the standard S2I assemble script
 /usr/libexec/s2i/assemble
+
 rc=$?
 
 if [ $rc -eq 0 ]; then
