@@ -24,7 +24,7 @@ server.listen(port, function (err) {
     if (err)
         console.error(err);
     else
-        console.log('App is ready at : ' + port);
+        console.log('App is ready at port: ' + port);
 });
 
 
