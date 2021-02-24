@@ -1,5 +1,5 @@
 FROM registry.access.redhat.com/ubi8:8.0
-MAINTAINER emilia_bartolini_81
+
 LABEL version="1.0" \ 
       description="To Do List application front-end" \
       creationDate="2017-12-25" \
