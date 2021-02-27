@@ -10,8 +10,14 @@ config_s2i
 
 ######## CUSTOMIZATION STARTS HERE ############
 
+echo "Actual absolute path"
+pwd
+
+echo "Actual sources"
+ls /tmp/src
+
 echo "---> Installing application source"
-cp -Rf /tmp/src/*.html ./
+cp -Rfv /tmp/src/*.html ./
 
 DATE=`date "+%b %d, %Y @ %H:%M %p"`
 
