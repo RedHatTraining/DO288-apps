@@ -13,8 +13,13 @@ config_s2i
 echo "Actual absolute path"
 pwd
 
+<<<<<<< HEAD
 echo "Actual sources"
 ls /tmp/src
+=======
+echo "Actual extracted files"
+ls -R /tmp
+>>>>>>> 69ba107279bbf306728311a545f129efc1f600e7
 
 echo "---> Installing application source"
 cp -Rfv /tmp/src/*.html ./
@@ -22,8 +27,8 @@ cp -Rfv /tmp/src/*.html ./
 DATE=`date "+%b %d, %Y @ %H:%M %p"`
 
 echo "---> Creating info page"
-echo "Page built on $DATE" >> ./info.html
-echo "Proudly served by Apache HTTP Server version $HTTPD_VERSION" >> ./info.html
+echo "Page built on $DATE" >> info.html
+echo "Proudly served by Apache HTTP Server version $HTTPD_VERSION" >> info.html
 
 ######## CUSTOMIZATION ENDS HERE ############
 
