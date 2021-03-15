@@ -1,0 +1,61 @@
+Cloning "https://github.com/rikar/DO288-apps" ...
+	Commit:	dff7180e5fa0cc2f8294f52dccf5b9d3cff960f6 (error 500 registry)
+	Author:	Student User <student@workstation.lab.example.com>
+	Date:	Mon Mar 15 09:21:54 2021 -0400
+Replaced Dockerfile FROM image quay.io/redhattraining/httpd-parent
+Caching blobs under "/var/cache/blobs".
+
+Pulling image quay.io/redhattraining/httpd-parent@sha256:998847647613fa38fd6641953a4a3a8dd5a986211988a5f99f29ba47d3308895 ...
+Getting image source signatures
+Copying blob sha256:6a5240d60dc4e1ade0d103badb2a897e8103ebf0ebe08350cd582bbc9671cc7a
+Copying blob sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
+Copying blob sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
+Copying blob sha256:787f47dbeaac926cc8c927a48e8a84fc97e05fbd1c08a4c9c4ddcaddfd87e2f7
+Copying blob sha256:08b8c9fdec444ba23c764be2e8c24e1526d664dc72339af2429dc66fbfefe850
+Copying blob sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
+Copying blob sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
+Copying blob sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
+Copying blob sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4
+Copying blob sha256:408208567b9aab11c5265eadd4cbc9c890d73d74ffcdaf3e2309aaef12cd9394
+Writing manifest to image destination
+Storing signatures
+STEP 1: FROM quay.io/redhattraining/httpd-parent@sha256:998847647613fa38fd6641953a4a3a8dd5a986211988a5f99f29ba47d3308895
+STEP 2: COPY src/ ${DOCROOT}/
+--> ca3c0ae1b44
+STEP 3: ENV "OPENSHIFT_BUILD_NAME"="hola-1" "OPENSHIFT_BUILD_NAMESPACE"="rdeleon-uy-ibm-com-container-build" "OPENSHIFT_BUILD_SOURCE"="https://github.com/rikar/DO288-apps" "OPENSHIFT_BUILD_REFERENCE"="container-build" "OPENSHIFT_BUILD_COMMIT"="dff7180e5fa0cc2f8294f52dccf5b9d3cff960f6"
+--> fb7cefec871
+STEP 4: LABEL "io.openshift.build.commit.author"="Student User \u003cstudent@workstation.lab.example.com\u003e" "io.openshift.build.commit.date"="Mon Mar 15 09:21:54 2021 -0400" "io.openshift.build.commit.id"="dff7180e5fa0cc2f8294f52dccf5b9d3cff960f6" "io.openshift.build.commit.message"="error 500 registry" "io.openshift.build.commit.ref"="container-build" "io.openshift.build.name"="hola-1" "io.openshift.build.namespace"="rdeleon-uy-ibm-com-container-build" "io.openshift.build.source-context-dir"="container-build" "io.openshift.build.source-location"="https://github.com/rikar/DO288-apps"
+STEP 5: COMMIT temp.builder.openshift.io/rdeleon-uy-ibm-com-container-build/hola-1:96a271a6
+--> 4768a57a13b
+4768a57a13bf51395f4d9526d960d5a09faf28a746bd4e595385adb54463fafe
+
+Pushing image image-registry.openshift-image-registry.svc:5000/rdeleon-uy-ibm-com-container-build/hola:latest ...
+Getting image source signatures
+Copying blob sha256:9cf06ce477a97211cab21aac53db85d98010578f027bcf07a136eaf824913eab
+Copying blob sha256:6a5240d60dc4e1ade0d103badb2a897e8103ebf0ebe08350cd582bbc9671cc7a
+Copying blob sha256:787f47dbeaac926cc8c927a48e8a84fc97e05fbd1c08a4c9c4ddcaddfd87e2f7
+Copying blob sha256:408208567b9aab11c5265eadd4cbc9c890d73d74ffcdaf3e2309aaef12cd9394
+Copying blob sha256:08b8c9fdec444ba23c764be2e8c24e1526d664dc72339af2429dc66fbfefe850
+Successfully pushed image-registry.openshift-image-registry.svc:5000/rdeleon-uy-ibm-com-container-build/hola:latest
+Warning: Push failed, retrying in 5s ...
+Getting image source signatures
+Copying blob sha256:9cf06ce477a97211cab21aac53db85d98010578f027bcf07a136eaf824913eab
+Copying blob sha256:408208567b9aab11c5265eadd4cbc9c890d73d74ffcdaf3e2309aaef12cd9394
+Copying blob sha256:6a5240d60dc4e1ade0d103badb2a897e8103ebf0ebe08350cd582bbc9671cc7a
+Copying blob sha256:787f47dbeaac926cc8c927a48e8a84fc97e05fbd1c08a4c9c4ddcaddfd87e2f7
+Copying blob sha256:08b8c9fdec444ba23c764be2e8c24e1526d664dc72339af2429dc66fbfefe850
+Successfully pushed image-registry.openshift-image-registry.svc:5000/rdeleon-uy-ibm-com-container-build/hola:latest
+Warning: Push failed, retrying in 5s ...
+Getting image source signatures
+Copying blob sha256:9cf06ce477a97211cab21aac53db85d98010578f027bcf07a136eaf824913eab
+Copying blob sha256:408208567b9aab11c5265eadd4cbc9c890d73d74ffcdaf3e2309aaef12cd9394
+Copying blob sha256:787f47dbeaac926cc8c927a48e8a84fc97e05fbd1c08a4c9c4ddcaddfd87e2f7
+Copying blob sha256:08b8c9fdec444ba23c764be2e8c24e1526d664dc72339af2429dc66fbfefe850
+Copying blob sha256:6a5240d60dc4e1ade0d103badb2a897e8103ebf0ebe08350cd582bbc9671cc7a
+Successfully pushed image-registry.openshift-image-registry.svc:5000/rdeleon-uy-ibm-com-container-build/hola:latest
+Warning: Push failed, retrying in 5s ...
+Registry server Address: 
+Registry server User Name: serviceaccount
+Registry server Email: serviceaccount@example.org
+Registry server Password: <<non-empty>>
+error: build error: Failed to push image: error copying layers and metadata from "containers-storage:[overlay@/var/lib/containers/storage+/var/run/containers/storage:overlay.imagestore=/var/lib/shared]image-registry.openshift-image-registry.svc:5000/rdeleon-uy-ibm-com-container-build/hola:latest" to "docker://image-registry.openshift-image-registry.svc:5000/rdeleon-uy-ibm-com-container-build/hola:latest": Error writing blob: Error initiating layer upload to /v2/rdeleon-uy-ibm-com-container-build/hola/blobs/uploads/ in image-registry.openshift-image-registry.svc:5000: received unexpected HTTP status: 500 Internal Server Error
