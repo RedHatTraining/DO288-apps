@@ -5,9 +5,9 @@ MAINTAINER Red Hat Training <training@redhat.com>
 # DocumentRoot for Apache
 ENV DOCROOT=/var/www/html
 
-RUN   yum install -y --no-docs --disableplugin=subscription-manager httpd && \
-      yum clean all --disableplugin=subscription-manager -y && \
-            echo "Hello from the httpd-parent container!" > ${DOCROOT}/index.html
+RUN yum install -y --no-docs --disableplugin=subscription-manager httpd && \
+    yum clean all --disableplugin=subscription-manager -y && \
+    echo "Hello from the httpd-parent container!" > ${DOCROOT}/index.html
 
 # Allows child images to inject their own content into DocumentRoot
 ONBUILD COPY src/ ${DOCROOT}/
