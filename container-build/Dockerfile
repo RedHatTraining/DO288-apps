@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/ubi:8.0 1
+FROM registry.access.redhat.com/ubi8/ubi:8.0
 
 MAINTAINER Red Hat Training <training@redhat.com>
 
@@ -10,7 +10,7 @@ RUN   yum install -y --no-docs --disableplugin=subscription-manager httpd && \
             echo "Hello from the httpd-parent container!" > ${DOCROOT}/index.html
 
 # Allows child images to inject their own content into DocumentRoot
-ONBUILD COPY src/ ${DOCROOT}/ 4
+ONBUILD COPY src/ ${DOCROOT}/
 
 EXPOSE 8080
 
