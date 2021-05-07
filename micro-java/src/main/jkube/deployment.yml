@@ -11,12 +11,6 @@ spec:
     type: Rolling
   template:
     metadata:
-      annotations:
-        app.openshift.io/vcs-ref: master
-        jkube.io/git-url: git@github.com:maudemor/DO288-apps.git
-        app.openshift.io/vcs-uri: git@github.com:maudemor/DO288-apps.git
-        jkube.io/git-commit: 3bffad109a77ebd72831d8f791c38df68db28e60
-        jkube.io/git-branch: master
       labels:
         app: micro-java
         provider: jkube
@@ -24,14 +18,14 @@ spec:
         group: com.redhat.training.openshift.hello
     spec:
       containers:
-      - envFrom:
-          - configMapRef:
-              name: configmap-hello
-        env:
+      - env:
         - name: KUBERNETES_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        envFrom:
+          - configMapRef:
+              name: configmap-hello
         image: micro-java:latest
         imagePullPolicy: IfNotPresent
         name: quarkus
