@@ -6,6 +6,9 @@ pom.xml.versionsBackup
 release.properties
 
 mvnw*
+.mvn/
+# VS Code
+.vscode/
 
 # Eclipse
 .project
