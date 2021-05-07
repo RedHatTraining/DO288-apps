@@ -108,6 +108,19 @@
         <groupId>org.eclipse.jkube</groupId>
         <artifactId>openshift-maven-plugin</artifactId>
         <version>1.2.0</version>
+        <configuration>
+          <resources>
+            <configMap>
+              <name>configmap-hello</name>
+              <entries>
+                <entry>
+                  <name>APP_MSG</name>
+                  <value>My custom application message.</value>
+                </entry>
+              </entries>
+            </configMap>
+          </resources>
+        </configuration>
       </plugin>
     </plugins>
   </build>
