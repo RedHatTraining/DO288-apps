@@ -14,7 +14,7 @@ spec:
       labels:
         app: micro-java
         provider: jkube
-        version: 1.0.0-SNAPSHOT
+        version: 1.0
         group: com.redhat.training.openshift.hello
     spec:
       containers:
@@ -26,7 +26,7 @@ spec:
         envFrom:
           - configMapRef:
               name: configmap-hello
-        image: micro-java:latest
+        image: micro-java:1.0
         imagePullPolicy: IfNotPresent
         name: quarkus
         ports:
