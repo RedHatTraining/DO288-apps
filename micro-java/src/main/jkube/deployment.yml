@@ -1,20 +1,26 @@
-spec:
-  replicas: 1
-  revisionHistoryLimit: 2
-  selector:
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
     app: micro-java
     provider: jkube
+    version: "1.0"
     group: com.redhat.training.openshift.hello
-  strategy:
-    rollingParams:
-      timeoutSeconds: 3600
-    type: Rolling
+  name: micro-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: micro-java
+      provider: jkube
+      group: com.redhat.training.openshift.hello
   template:
     metadata:
       labels:
         app: micro-java
         provider: jkube
-        version: 1.0
+        version: "1.0"
         group: com.redhat.training.openshift.hello
     spec:
       containers:
@@ -23,9 +29,6 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        envFrom:
-          - configMapRef:
-              name: configmap-hello
         image: micro-java:1.0
         imagePullPolicy: IfNotPresent
         name: quarkus
@@ -33,3 +36,11 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
+        - containerPort: 9779
+          name: prometheus
+          protocol: TCP
+        - containerPort: 8778
+          name: jolokia
+          protocol: TCP
+        securityContext:
+          privileged: false
