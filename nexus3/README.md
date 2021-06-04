@@ -1,7 +1,7 @@
-This Dockerfile is a combination of the two Dockerfiles (locked at the commit):
+This Dockerfile is a combination of the two Dockerfiles:
 
-* https://github.com/sonatype/docker-nexus3/blob/37a9fcd2b9b7f13d3ca486981732168f98b12199/Dockerfile
-* https://github.com/sonatype/docker-nexus3/blob/37a9fcd2b9b7f13d3ca486981732168f98b12199/Dockerfile.rh.el
+* https://github.com/sonatype/docker-nexus3/blob/3.30.1/Dockerfile
+* https://github.com/sonatype/docker-nexus3/blob/3.30.1/Dockerfile.rh.el
 
 Both Dockerfiles use Chef recipes to install Nexus.  These Chef recipes are
 downloaded during the build by the Dockerfile.
