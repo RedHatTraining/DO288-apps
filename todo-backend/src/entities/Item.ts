@@ -37,9 +37,9 @@ export const TodoItem = sequelize.define<TodoItemInstance>(
 );
 
 // (re-)creates table (NOT database)
-if (process.env.DATABASE_INIT === "true") {
-  TodoItem.sync({ force: true });
-}
+// if (process.env.DATABASE_INIT === "true") {
+TodoItem.sync({ force: true });
+// }
 
 export async function createTodoItem(todoItem: TodoItemCreationAttributes) {
   return TodoItem.create(todoItem).then((item) => item.get());

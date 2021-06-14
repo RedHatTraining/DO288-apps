@@ -1,5 +1,5 @@
 import cookieParser from "cookie-parser";
-import express, { Request, Response } from "express";
+import express from "express";
 import "express-async-errors";
 import cors from "cors";
 import { Sequelize } from "sequelize";
@@ -27,17 +27,12 @@ sequelize
     console.error("Unable to connect to the database:", err);
   });
 
+app.get("/", (req, res) => {
+  res.send("OK");
+});
+
 // Add APIs
 app.use("/api", BaseRouter);
-
-// Print API errors
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: Error, req: Request, res: Response) => {
-  console.error(err, true);
-  return res.status(500).json({
-    error: err.message,
-  });
-});
 
 // Export express instance
 export default app;

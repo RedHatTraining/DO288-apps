@@ -40,7 +40,7 @@ spec:
             {{- end }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 3000
               protocol: TCP
           livenessProbe:
             httpGet:
