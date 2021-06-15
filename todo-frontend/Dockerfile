@@ -3,7 +3,8 @@ FROM registry.access.redhat.com/ubi8/nodejs-14 AS appbuild
 LABEL version="1.0"
 LABEL description="To Do List application builder"
 
-ENV REACT_APP_API_HOST=http://localhost:3000
+# ENV REACT_APP_API_HOST=http://localhost:3000
+ENV REACT_APP_API_HOST=""
 
 USER 0
 
