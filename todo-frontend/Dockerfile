@@ -22,7 +22,7 @@ LABEL description="To Do List application front-end"
 LABEL creationDate="2017-12-25"
 LABEL updatedDate="2021-05-19"
 
-COPY nginx.conf /etc/nginx/
+COPY .s2i/nginx/nginx.conf /etc/nginx/
 COPY --from=appbuild /tmp/todo-frontend/build /usr/share/nginx/html
 
 EXPOSE 8080
