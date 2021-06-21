@@ -2,7 +2,7 @@ const express = require("express");
 const axios = require("axios");
 
 const port = Number(process.env.PORT || 8080);
-const apiHost = (process.env.API_HOST = "localhost:3000");
+const apiHost = process.env.API_HOST || "localhost:3000";
 
 const app = express();
 
