@@ -20,6 +20,7 @@ app.get("/items", async (req, res) => {
     console.log("items:", items);
     res.render("items", { items });
   } catch (err) {
+    console.error(err);
     res.status(500).send(err.message);
   }
 });
