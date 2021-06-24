@@ -18,17 +18,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const sequelize = new Sequelize(dbConnectionOptions);
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch((err) => {
-    console.error("Unable to connect to the database:", err);
-  });
 
 app.get("/", (req, res) => {
-  res.send("OK");
+  sequelize
+    .authenticate()
+    .catch((err) => {
+      console.error("Unable to connect to the database:", err);
+      res.status(500).send("Unable to connect to the database:" + err);
+    })
+    .then(() => {
+      res.send("OK");
+    });
 });
 
 // Add APIs
