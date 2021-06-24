@@ -17,18 +17,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+let canary = true;
+
 const sequelize = new Sequelize(dbConnectionOptions);
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
+  })
+  .catch((err) => {
+    canary = false;
+    console.error("Unable to connect to the database:", err);
+  });
 
 app.get("/", (req, res) => {
-  sequelize
-    .authenticate()
-    .catch((err) => {
-      console.error("Unable to connect to the database:", err);
-      res.status(500).send("Unable to connect to the database:" + err);
-    })
-    .then(() => {
-      res.send("OK");
-    });
+  if (canary) {
+    res.send("OK");
+  } else {
+    res.status(500).send("Experienced an error on startup.");
+  }
 });
 
 // Add APIs
