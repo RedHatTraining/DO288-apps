@@ -19,7 +19,7 @@ route.get('/', function(req, res) {
 route.get('/ready', function(req, res) {
       var now = Math.floor(Date.now() / 1000);
       var lapsed = now - started;
-      if (lapsed > 30 && ready) {
+      if (ready && (lapsed > 30)) {
         console.log('ping /ready => pong [ready]');
         res.send('Ready for service requests...\n');
       }
