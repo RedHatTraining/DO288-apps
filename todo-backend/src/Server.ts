@@ -1,5 +1,5 @@
 import cookieParser from "cookie-parser";
-import express, { Request, Response } from "express";
+import express from "express";
 import "express-async-errors";
 import cors from "cors";
 import { Sequelize } from "sequelize";
@@ -17,6 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+let canary = true;
+
 const sequelize = new Sequelize(dbConnectionOptions);
 sequelize
   .authenticate()
@@ -24,20 +26,20 @@ sequelize
     console.log("Connection has been established successfully.");
   })
   .catch((err) => {
+    canary = false;
     console.error("Unable to connect to the database:", err);
   });
 
+app.get("/", (req, res) => {
+  if (canary) {
+    res.send("OK");
+  } else {
+    res.status(500).send("Experienced an error on startup.");
+  }
+});
+
 // Add APIs
 app.use("/api", BaseRouter);
-
-// Print API errors
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: Error, req: Request, res: Response) => {
-  console.error(err, true);
-  return res.status(500).json({
-    error: err.message,
-  });
-});
 
 // Export express instance
 export default app;
