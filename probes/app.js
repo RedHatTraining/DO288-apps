@@ -18,7 +18,9 @@ route.get('/', function(req, res) {
 
 // A route that returns readiness status
 route.get('/ready', function(req, res) {
-      if (ready) {
+      var now = Math.floor(Date.now() / 1000);
+      var lapsed = now - started;
+      if (lapsed > 30 && ready) {
         console.log('ping /ready => pong [ready]');
         res.send(`${os.hostname()}: Ready for service requests...\n`);
       }
@@ -69,5 +71,6 @@ route.route('/flip').get(function(req, res) {
 
 app.listen(port, ip);
 console.log('nodejs server running on http://%s:%s', ip, port);
+var started = Math.floor(Date.now() / 1000);
 
 module.exports = app;
