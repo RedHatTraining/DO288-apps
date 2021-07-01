@@ -1,5 +1,6 @@
 var express = require('express'),
-    app     = express();
+    app     = express(),
+    os      = require('os');
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
@@ -13,7 +14,7 @@ app.use('/', route);
 
 // A route that says hello
 route.get('/', function(req, res) {
-    res.send('Hello! This is the index page for the app.\n');
+    res.send(`Response from ${os.hostname()} \n`);
 });
 
 // A route that returns readiness status
