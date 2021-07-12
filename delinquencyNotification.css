@@ -1,0 +1,131 @@
+﻿/*.delinqeuntAccountLightBoxForBRF.delinquentContentTitle {
+    font-family:"bellslim_mediumregular", Helvetica, Arial, sans-serif;
+    font-size: 25px
+}*/
+
+/*Delinquency View - Notifications*/
+.delinquent-view {
+    padding-bottom: 10px
+}
+
+.fr .delinquent-view .toolTipWrapper{
+    position: absolute;
+    padding: 14px 0 0 66px;
+}
+
+.fr .delinquent-view .text{
+    width: 150px;
+}
+
+.notificationBox {
+    margin: 0px 0 20px 0;
+}
+
+.notificationBox .autoOverflow {
+    overflow: auto
+}
+
+.notificationBox .imageHolder {
+    display: inline-block;
+    vertical-align: top
+}
+
+.notificationBox .alertImage {
+    display: block;
+    margin-top:12px
+}
+.notificationBox .alertImageMiddle{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.notificationBox .textHolderSmall {
+    margin-left: 5px; 
+    display: inline-block
+}
+
+.notificationBox .textHolder {
+    margin-left: 33px;
+}
+
+.notificationBox .noMarginBottom {
+    margin-bottom: 0px
+}
+
+
+.notificationBox .paymentButton {
+    margin: 0px 15px 5px 25px
+}
+
+
+.notificationBox .noMargin {
+    margin: 0px
+}
+
+.notificationBox .noMarginTop {
+    margin-top: 0px
+}
+.paddingBottom10 {
+    padding-bottom: 10px
+}
+
+.warningTextHolder {
+    display: inline-block; 
+    padding-left: 6px;
+}
+
+.vAlignBottom {
+    vertical-align: bottom;
+}
+
+.delinqeuntBRFAccountLightBox .caption {
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.delinqeuntBRFAccountLightBox .caption p {
+    display: inline-block; 
+    margin-left: 10px; 
+    width: 90%;
+    line-height: normal
+}
+
+.inlineBlock {
+    display: inline-block;
+}
+
+.displayBlock {
+    display: block
+}
+.delinqeuntBRFAccountLightBox .payAmount {
+    margin: 16px 0px;
+    line-height: normal;
+}
+
+.delinqeuntBRFAccountLightBox .buttonHolder {
+    margin-top: 25px;
+}
+
+.delinqeuntBRFAccountLightBox .immediatePayment {
+    margin: 21px 0px 5px 0px;
+}
+
+.delinqeuntAccountPopup .lightBoxLarge{
+    width: 750px
+}
+
+.delinqeuntAccountPopup .alertImage{
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+.delinqeuntAccountPopup .alertImageMiddle{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.delinqeuntAccountPopup .title{
+    display: inline-block; 
+    margin-left: 10px;
+    width: 90%;
+}

@@ -1,0 +1,102 @@
+!(function (t, e) { "function" == typeof define && define.amd ? define([], e(t)) : "object" == typeof exports ? module.exports = e(t) : t.rightHeight = e(t) })("undefined" != typeof global ? global : this.window || this.global, (function (t) { "use strict"; var e, n, o, r = {}, i = "querySelector" in document && "addEventListener" in t, c = { selector: "[data-right-height]", selectorContent: "[data-right-height-content]", before: function () { }, after: function () { } }, l = function (t, e, n) { if ("[object Object]" === Object.prototype.toString.call(t)) for (var o in t) Object.prototype.hasOwnProperty.call(t, o) && e.call(n, t[o], o, t); else for (var r = t.length - 1; r >= 0; r--) e.call(n, t[r], r, t) }, u = function () { var t = {}, e = !1, n = 0, o = arguments.length; "[object Boolean]" === Object.prototype.toString.call(arguments[0]) && (e = arguments[0], n++); for (; n < o; n++) { var r = arguments[n]; !(function (n) { for (var o in n) Object.prototype.hasOwnProperty.call(n, o) && (e && "[object Object]" === Object.prototype.toString.call(n[o]) ? t[o] = u(!0, t[o], n[o]) : t[o] = n[o]) })(r) } return t }, a = function (t) { if ("function" == typeof t) return "interactive" === document.readyState || "complete" === document.readyState ? t() : void document.addEventListener("DOMContentLoaded", t, !1) }, f = function (t, e) { for (Element.prototype.matches || (Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.webkitMatchesSelector || function (t) { for (var e = (this.document || this.ownerDocument).querySelectorAll(t), n = e.length; --n >= 0 && e.item(n) !== this;); return n > -1 }) ; t && t !== document; t = t.parentNode) { if (t.hasAttribute("data-right-height-active")) return !1; if (t.matches(e.selectorContent)) return !0 } return !1 }, h = function (t, e) { var n = []; return l(t, (function (t) { f(t.parentNode, e) || n.push(t) })), n }, s = function (t) { var e = 0; if (t.offsetParent) do { e += t.offsetTop, t = t.offsetParent } while (t); return e >= 0 ? e : 0 }, p = function (t) { if (t.length < 2) return !0; var e = t[0], n = t[1]; return !(!e || !n) && s(e) - s(n) != 0 }, d = function (t) { t.style.height = "", t.style.minHeight = "" }, y = function (e, n) { return parseInt(t.getComputedStyle(e).height, 10) > parseInt(n, 10) && (n = t.getComputedStyle(e).height), n }, g = function (t, e) { t.style.height = e }; r.adjustContainerHeight = function (t, n) { var o = u(e || c, n || {}), r = t.querySelectorAll(o.selectorContent); r = h(r, o); var i = p(r), a = "0"; o.before(t), l(r, (function (t) { d(t) })), i || (l(r, (function (t) { a = y(t, a) })), l(r, (function (t) { g(t, a) }))), o.after(t) }; var m = function (t, n) { var o = u(e || c, n || {}); t = document.querySelectorAll(o.selector), l(t, (function (t, e) { t.setAttribute("data-right-height-active", !0), r.adjustContainerHeight(t, o), t.removeAttribute("data-right-height-active") })) }, v = function () { o || (o = setTimeout((function () { o = null, m(n, e) }), 66)) }; return r.destroy = function () { e && (l(n, (function (t) { var n = t.querySelectorAll(e.selectorContent); l(n, (function (t) { d(t) })) })), t.removeEventListener("resize", v, !1), e = null, n = null, o = null) }, r.init = function (o) { i && (r.destroy(), e = u(c, o || {}), a((function () { m(n, o) })), t.addEventListener("resize", v, !1)) }, r }));
+//rightHeight.init();
+
+
+$(document).ready(function () {
+    initEventDelegateListeners();
+
+    $.fn.extend({
+        equalHeights: function () {
+            var top = 0;
+            var row = [];
+            var classname = ('equalHeights' + Math.random()).replace('.', '');
+            $(this).each(function () {
+                var thistop = $(this).offset().top;
+                if (thistop > top) {
+                    $('.' + classname).removeClass(classname);
+                    top = thistop;
+                }
+                $(this).addClass(classname);
+                $(this).height('auto');
+                var h = (Math.max.apply(null, $('.' + classname).map(function () { return $(this).height(); }).get()));
+                $('.' + classname).height(h);
+            }).removeClass(classname);
+        }
+    });
+
+    $(function () {
+        $(window).resize(function () {
+            $('.eqHeight').equalHeights();
+            if ($('sameHeightCo')) {
+                $('.sameHeightCo').equalHeights();
+            }
+
+
+
+        }).trigger('resize');
+    });
+
+    //var $li = $(".colGroup.bord4 ul li");
+    //var maxHeight = $li.map(function () {
+    //    return $(this).height();
+    //}).get();
+    //$li.height(Math.max.apply(this, maxHeight));
+});
+
+function initEventDelegateListeners() {
+    var $body = $('body');
+
+    if (!$body.hasClass('init-event-delegate')) {
+        $body.addClass('init-event-delegate');
+
+        $('body').on('keydown', '.click-on-space-or-enter-delegate', function (e) {
+            var keyCode = e.which || e.keyCode || 0;
+
+            if (32 === keyCode || 13 === keyCode) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.click();
+            }
+        });
+
+        $('body').on('keydown', '.click-on-space-delegate', function (e) {
+            if (32 === (e.which || e.keyCode || 0)) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.click();
+            }
+        });
+    }
+}
+
+$(document).ready(function () {
+    var i = 0, j = 0;
+    $('.colGroup.bord4 ul li').each(function () {
+        j = $(this).outerHeight();
+        if (i < j)
+            i = j;
+    });
+    $('.colGroup.bord4 ul li').each(function () {
+        $(this).height(i);
+       
+    });
+});
+
+
+$(document).ready(function () {
+    $('input[type="checkbox"].cartInp').click(function () {
+        $(this).parents().toggleClass("activatedDivs");
+        $('.col-eq').colequalizer();
+    });
+    $('header').addClass('MYLHeaderFocusOutline');
+});
+
+function fn_LemonLighBoxCloseOverride(divId) {
+    var objDiv = document.getElementById(divId);
+    if (objDiv != null) {
+        //DIV > div(lblTitle) > div(padder) & <a>
+        var varCloseBtn = $(objDiv).find('.lbTitle').find('.lightBoxCloseJs');
+        if (varCloseBtn.html() != null)
+            varCloseBtn.html('<i class="icon-close-x" aria-hidden="true" style="font-weight:bolder;"></i>');
+    }
+}

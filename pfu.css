@@ -1,0 +1,390 @@
+﻿
+.lightBoxWrap,
+.dcx_select_options,
+.ids_ToolTip {
+    z-index: 500;
+}
+
+.lightBox_Overlay {
+    z-index: 490;
+}
+
+table {
+    border-collapse: collapse;
+}
+    
+.product_usage_details .usage_data_table {
+    overflow-x: auto;
+}
+
+.product_usage_details th,
+.flex_tier_pricing th {
+    border-top: 1px solid #d6d6d6;
+    border-left: 1px solid #d6d6d6;
+}
+
+.product_usage_details th .icon3 {
+    top: 47%;
+    right: 15px;
+}
+
+.product_usage_details td,
+.flex_tier_pricing td {
+    border-left: 1px solid #d6d6d6;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.product_usage_details th:first-child,
+.product_usage_details td:first-child,
+.flex_tier_pricing th:first-child,
+.flex_tier_pricing td:first-child {
+    border-left: none;
+}
+
+.product_usage_details td .toolTipWrapper {
+    margin-top: -3px;
+}
+
+.product_usage_details td .toolTipWrapper > .vSpacer5 > .floatR {
+    margin-top: -10px;
+}
+
+.product_usage_details td .tooltip_content {
+    white-space: normal;
+}
+
+/* Billing Period */
+
+.disabledOption span {
+    color: #c1c1c1;
+}
+
+.disabledOption:hover .button_MM {
+    background-color: #f2f2f2;
+}
+
+/* Page header */
+
+.header_billing_period_selector .dropDown {
+    margin-top: -7px;
+}
+
+/* Usage Details view */
+
+.product_usage_details label {
+    line-height: 20px;
+    vertical-align: bottom;
+}
+
+.product_usage_details #timePeriod_from_date,
+.product_usage_details #timePeriod_to_date {
+    line-height: 22px;
+    background: #fff url(../../common/all_languages/all_regions/skin/datepicker_calendar.png) no-repeat 70px 1px;
+    border: 1px solid #000;
+}
+
+#number_called {
+    line-height: 22px;
+}
+
+.loading_section,
+.error_section {
+    top: 50%;
+    left: 50%;
+    z-index: 100;
+}
+
+.product_usage_details .disabled_dd {
+    position: relative;
+}
+
+.product_usage_details .disabled_dd:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    opacity: 0.2;
+}
+
+/* Billing Cycle */
+
+.move_marker_left {
+    right: 0;
+}
+
+.move_marker_left + span {
+    left: 100%;
+}
+
+.move_marker_right {
+    right: -1px;
+}
+
+.billing_cycle > span {
+    z-index: 200;
+}
+
+.billing_cycle > span:hover {
+    z-index: 220;
+}
+
+.notification {
+    background: transparent url(../../common/all_languages/all_regions/skin/pfu/icon_tooltip.png) no-repeat left top;
+}
+
+/* Usage Bar */
+
+.usage_breakdown {
+    overflow: hidden;
+}
+
+.usage_breakdown.open {
+    overflow: visible;
+}
+
+.usage_breakdown .product_usage {
+    visibility: hidden;
+}
+
+.usage_breakdown.open .product_usage {
+    visibility: visible;
+}
+
+.shared_usage_bar {
+    width: 670px;
+}
+
+.shared_usage_bar .nickname {
+    top: -14px;
+}
+
+.shared_usage_line_bullet {
+    background-position: left -1521px;
+    background-repeat: no-repeat;
+}
+
+.usage_bar {
+    margin-top: -5px;
+}
+
+/* Bar icons */
+      
+.icon_original,
+.icon_new {
+    top: -12px;
+    left: -13px;
+    z-index: 100;
+}
+
+.total_product_usage .icon_original,
+.total_product_usage .icon_new {
+    top: 0;
+}
+
+.icon_original {
+    background: url(../../common/all_languages/all_regions/skin/pfu/ico_original.png) no-repeat;
+}
+
+.icon_new {
+    background: url(../../common/all_languages/all_regions/skin/pfu/ico_new.png) no-repeat;
+}
+
+html[lang="fr"] .icon_original,
+html[lang="fr"] .icon_new {
+    background-position: bottom left;
+}
+
+.icon_unlimited_usage {
+    background: url(../../common/all_languages/all_regions/skin/pfu/unlimited_usage_bar.png) no-repeat;
+}
+
+/* Flex bar */
+
+.show_tier_bar:hover .hidden {
+    visibility: visible;
+}
+            
+.flex_bar .tier_label {
+    right: 0;
+    bottom: 0;
+    margin-right: -16px;
+}
+
+.flex_bar .tier_label.noMargin {
+    margin: 0;
+}
+
+.flex_bar .open_tier_details div {
+    top: -1px;
+    right: 0;
+}
+
+.flex_bar .total_usage_bar {
+    top: 9px;
+    visibility: hidden;
+}
+
+.flex_bar_details_opened .total_usage_bar {
+    visibility: visible;
+}
+      
+.flex_details .align_label_left {
+    left: 7px;
+    bottom: -3px;
+}
+
+.flex_details .align_label_right {
+    right: 7px;
+    bottom: -3px;
+}
+
+.flex_details .arrowBubbleUp,
+.flex_details .arrowBubbleUpVM {
+    margin-left: -15px;
+}
+
+/* Proration content */
+
+.proration_plan_details {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.proration_plan_details_header {
+    border-radius: 4px 4px 0 0;
+}
+
+.lightBoxContainer .hide-y-overflow {
+    overflow-y: hidden;
+}
+
+.proration_plans_details {
+    overflow-y: auto;
+}
+
+/* Tab zone popup */
+
+.tab-content,
+.tabs-menu-zone table {
+    width: 530px;
+}
+
+.tabs-menu-zone .not_selected .button_TL,
+.tabs-menu-zone .not_selected .button_BL {
+    visibility: hidden;
+}
+
+.tabs-menu-zone .not_selected .button_ML,
+.tabs-menu-zone .not_selected .button_MR,
+.tabs-menu-zone .not_selected .button_MM {
+    background: none;
+}
+
+.countryList {
+    border-right: none;
+    border-left: solid 1px #ddd;
+}
+
+/* Maintenance message */
+
+.maintenance_msg .headingType4 {
+    margin-top: 0;
+}
+
+/* Charts */
+
+.shared_monthly_trend_chart .shared_monthly_trend_chart_label,
+.non_shared_chart .non_shared_normal_use_label,
+.shared_daily_graph .shared_daily_usage_label {
+    display: block;
+}
+
+.row_bg {
+    border-top: 1px dashed #ccc;
+    border-bottom: 1px dashed #ccc;
+}
+
+.row_labels {
+    margin-top: -8px;
+}
+
+.chart_cols {
+    top: 0;
+}
+
+.chart_cols > div {
+    bottom: 0;
+}
+
+.chart_cols > div:hover {
+    z-index: 10;
+}
+
+.col_label {
+    top: 100%;
+}
+
+.col_label.center_label {
+    margin-left: -50%;
+}
+
+.col_label.txtRight {
+    right: 0;
+}
+
+.pfu_app .disable_chart .chart_rows .bgBlueDark,
+.pfu_app .disable_chart .chart_rows .bgRed {
+    background-color: #999;
+}
+
+.daily_usage .average_daily_usage,
+.average_monthly_usage {
+    display: block;
+}
+
+.daily_usage .average_monthly_usage {
+    display: none;
+}
+
+.tooltipIcon {
+    background: url('../../common/all_languages/all_regions/skin/pfu/tooltip_icon.png') no-repeat left top;
+}
+
+/* Helpers */
+
+.lineHeight18 {
+line-height: 18px;}
+
+.padding0 {
+padding: 0;}
+
+.vPadding12 {
+padding: 0 12px;}
+.vPadding24 {
+padding: 0 24px;}
+
+.vSpacer69 {
+width: 69px;}
+.vSpacer72 {
+width: 72px;}
+.vSpacer74 {
+width: 74px;}
+.vSpacer86 {
+width: 86px;}
+.vSpacer99 {
+width: 99px;}
+.vSpacer100 {    
+width: 100px;}
+.vSpacer103 {
+width: 103px;}
+.vSpacer105 {
+width: 105px;}
+.vSpacer180 {
+width: 180px;}
+.vSpacer191 {
+width: 191px;}
+
+.inline {
+display: inline-block;}

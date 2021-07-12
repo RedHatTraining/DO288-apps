@@ -1,0 +1,249 @@
+/* Latest update: 2016.June.27 */
+/* Last updated: 2016.July.12 */
+/* ieDeprecatedBrowserJS js */
+
+var ie7 = false, ie8 = false, ie9 = false, ie10 = false, ieCompView = false;
+
+if (navigator.appVersion.indexOf("MSIE 7") !== -1 && getCookieValue("DeprecatedBrowser") !== "true") {
+    if (document.documentMode == 7) {
+        ie7 = true
+    } else {
+        ieCompView = true
+    }
+}
+if (navigator.appVersion.indexOf("MSIE 8") !== -1 && getCookieValue("DeprecatedBrowser") !== "true") {
+    ie8 = true
+}
+if (navigator.appVersion.indexOf("MSIE 9") !== -1 && getCookieValue("DeprecatedBrowser") !== "true") {
+    ie9 = true
+}
+if (navigator.appVersion.indexOf("MSIE 10") !== -1 && getCookieValue("DeprecatedBrowser") !== "true") {
+    ie10 = true
+}
+
+if (ie8) {
+    window.onload = function () {
+        document.getElementById('deprecatedBrowserJs').style.display = 'block';
+        document.getElementById('ieCompViewJs').style.display = 'none';
+    }
+} else if (ie9) {
+    window.onload = function () {
+        document.getElementById('deprecatedBrowserJs').style.display = 'block';
+        document.getElementById('ieCompViewJs').style.display = 'none';
+    }
+} else if (ie10) {
+    window.onload = function () {
+        document.getElementById('deprecatedBrowserJs').style.display = 'block';
+        document.getElementById('ieCompViewJs').style.display = 'none';
+    }
+} else if (ie7) {
+    window.onload = function () {
+        document.getElementById('ieCompViewJs').style.display = 'block';
+        document.getElementById('deprecatedBrowserJs').style.display = 'none';
+    }
+} else if (ieCompView) {
+    window.onload = function () {
+        document.getElementById('ieCompViewJs').style.display = 'block';
+        document.getElementById('deprecatedBrowserJs').style.display = 'none';
+    }
+}
+
+// Function triggered when user closes the Deprecated Browser message
+function IsBrowserMessageClosedByUser() {
+    //alert('IsBrowserMessageClosedByUser');
+    setCookie("DeprecatedBrowser", "true");
+    if (typeof s_oTrackPage != "undefined") {
+        //alert("DeprecatedBrowser");
+        s_oTrackPage({
+            s_oAPT: "647-0-0",
+            s_oBTN: "IE browser upgrade close"
+        });
+    };
+}
+
+// Function triggered when user opts to upgrade the Browser
+function IsBrowserUpgradedByUser() {
+    //alert('IsBrowserUpgradedByUser');
+    if (typeof s_oTrackPage != "undefined") {
+        //alert("UpgradedBrowser");
+        s_oTrackPage({
+            s_oAPT: "647-0-0",
+            s_oBTN: "IE browser upgrade"
+        });
+    };
+}
+
+// Adds the value of the Deprecated Browser to the existing cookie (domain based)
+// The value is removed only when browser is closed and reopened
+function setCookie(cookieName, cookieValue) {
+    document.cookie = cookieName + "=" + cookieValue;
+}
+
+// Gets the value of the Deprecated Browser from the cookie (domain based)
+function getCookieValue(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+    //alert(document.cookie);
+    return value;
+}
+
+function addListener(element, event, fn) {
+    // Use addEventListener if available
+    if (element.addEventListener) {
+        element.addEventListener(event, fn, false);
+
+        // Otherwise use attachEvent, set this and event
+    } else if (element.attachEvent) {
+        element.attachEvent('on' + event, (function (el) {
+            return function () {
+                fn.call(el, window.event);
+            };
+        }(element)));
+
+        // Break closure and primary circular reference to element
+        element = null;
+    }
+}
+
+//jQuery(document).ready(function() {
+addListener(document, 'DOMContentLoaded', function () {
+
+    var ie7 = false, ie8 = false, ie9 = false, ie10 = false, ieCompView = false;
+
+    if (navigator.appVersion.indexOf("MSIE 7") !== -1 && getCookieValue("DeprecatedBrowser") !== "true") {
+        if (document.documentMode == 7) {
+            ie7 = true
+        } else {
+            ieCompView = true
+        }
+    }
+    if (navigator.appVersion.indexOf("MSIE 8") !== -1 && getCookieValue("DeprecatedBrowser") !== "true") {
+        ie8 = true
+    }
+    if (navigator.appVersion.indexOf("MSIE 9") !== -1 && getCookieValue("DeprecatedBrowser") !== "true") {
+        ie9 = true
+    }
+    if (navigator.appVersion.indexOf("MSIE 10") !== -1 && getCookieValue("DeprecatedBrowser") !== "true") {
+        ie10 = true
+    }
+
+    if (ie8) {
+        window.onload = function () {
+            document.getElementById('deprecatedBrowserJs').style.display = 'block';
+            document.getElementById('ieCompViewJs').style.display = 'none';
+        }
+    } else if (ie9) {
+        window.onload = function () {
+            document.getElementById('deprecatedBrowserJs').style.display = 'block';
+            document.getElementById('ieCompViewJs').style.display = 'none';
+        }
+    } else if (ie10) {
+        window.onload = function () {
+            document.getElementById('deprecatedBrowserJs').style.display = 'block';
+            document.getElementById('ieCompViewJs').style.display = 'none';
+        }
+    } else if (ie7) {
+        window.onload = function () {
+            document.getElementById('ieCompViewJs').style.display = 'block';
+            document.getElementById('deprecatedBrowserJs').style.display = 'none';
+        }
+    } else if (ieCompView) {
+        window.onload = function () {
+            document.getElementById('ieCompViewJs').style.display = 'block';
+            document.getElementById('deprecatedBrowserJs').style.display = 'none';
+        }
+    }
+
+    /*
+    jQuery('#upgradeBrowserBtn').on('click', function(event) {
+        event.stopPropagation();
+        IsBrowserUpgradedByUser();
+    });
+
+    jQuery('#oldBrowserMessage').on('click', function() {
+        IsBrowserMessageClosedByUser();
+    });
+	*/
+    addListener(document.getElementById('upgradeBrowserBtn'), 'click', function (event) {
+        event.stopPropagation();
+        IsBrowserUpgradedByUser();
+    });
+
+    addListener(document.getElementById('oldBrowserMessage'), 'click', function () {
+        IsBrowserMessageClosedByUser();
+    });
+
+    addListener(document.getElementById('compatibilityLearnMoreLink'), 'click', function (event) {
+        event.stopPropagation();
+        IsLearnMoreClickedByUser();
+    });
+
+    addListener(document.getElementById('compatibilityCloseButton'), 'click', function () {
+        IsCompatibilityBrowserMessageClosedByUser();
+    });
+
+    // Function triggered when user closes the Deprecated Browser message
+    function IsBrowserMessageClosedByUser() {
+        //alert('IsBrowserMessageClosedByUser');
+        setCookie("DeprecatedBrowser", "true");
+        if (typeof s_oTrackPage != "undefined") {
+            //alert("DeprecatedBrowser");
+            s_oTrackPage({
+                s_oAPT: "647-0-0",
+                s_oBTN: "IE browser upgrade close"
+            });
+        };
+    }
+
+    // Function triggered when user opts to upgrade the Browser
+    function IsBrowserUpgradedByUser() {
+        if (typeof s_oTrackPage != "undefined") {
+            s_oTrackPage({
+                s_oAPT: "647-0-0",
+                s_oBTN: "IE browser upgrade"
+            });
+        };
+    }
+
+
+
+    // Function triggered when user closes the Deprecated Browser message
+    function IsCompatibilityBrowserMessageClosedByUser() {
+        //alert('IsBrowserMessageClosedByUser');
+        setCookie("DeprecatedBrowser", "true");
+        if (typeof s_oTrackPage != "undefined") {
+            //alert("DeprecatedBrowser");
+            s_oTrackPage({
+                s_oAPT: "647-0-0",
+                s_oBTN: "IE compatibility view mode close"
+            });
+        };
+    }
+
+    // Function triggered when user click on learn more link
+    function IsLearnMoreClickedByUser() {
+        if (typeof s_oTrackPage != "undefined") {
+            s_oTrackPage({
+                s_oAPT: "647-0-0",
+                s_oBTN: "IE compatibility view mode learn more"
+            });
+        };
+    }
+
+    // Adds the value of the Deprecated Browser to the existing cookie (domain based)
+    // The value is removed only when browser is closed and reopened
+    function setCookie(cookieName, cookieValue) {
+        document.cookie = cookieName + "=" + cookieValue;
+    }
+
+    // Gets the value of the Deprecated Browser from the cookie (domain based)
+    function getCookieValue(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+        //alert(document.cookie);
+        return value;
+    }
+
+});

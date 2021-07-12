@@ -1,0 +1,1303 @@
+﻿/**
+ * Module: Product
+ * Provides functionality for all product components specific to the shop site.
+ * 
+ * @author [RSX Team @ Bell](http://rsxdeployment.azurewebsites.net/)
+ * @copyright Bell Canada 2015
+ */
+
+'use strict';
+var BELL = (function (bell, $) {
+
+    bell.legacy = bell.legacy || {};
+    bell.legacy.globalConenctor = {
+        autocomplete: null,
+        mapsURL: $("#gmapsURL").val(),
+        init: function () {
+
+            try {
+            var self = this;
+            this.$body = $('body');
+            this.$document = $(document);
+            this.$navAreasParent = $('.rsx-lgc-header-nav-areas');
+            this.$navAreas = $('.rsx-lgc-header-nav-areas li');
+            this.$navAreaFlyouts = $('.rsx-lgc-connector-lob-flyout');
+            this.$provinceSelectorButton = $('.js-current-province-header');
+            this.$provinceSelectorFlyout = $('.js-current-province-flyout-header');
+            this.$provinceSelectorButtonFooter = $('.js-current-province-footer');
+            this.$provinceSelectorFlyoutFooter = $('.js-current-province-flyout-footer');
+            this.$headerSearchField = $('#header-search');
+            this.$searchForm = $('.js-lgc-search-form');
+            this.$headerSearchFieldClearBtn = $('.rsx-lgc-header-search-clear');
+            this.$loginButton = $('#rsx-login-register-button');
+            this.$loginFlyout = $('.js-rsx-lgc-header-account-login-flyout');
+            this.$loggedInFlyout = $('.js-rsx-lgc-header-account-logged-in-flyout');
+            this.$loggedInButton = $('.js-lgc-button-logged-in');
+            this.$rememberLogin = $('.rsx-lgc-header-account-login-remember');
+            this.$rememberLoginAliant = $('.rsx-lgc-header-account-login-remember-myaccount');
+            this.$aliantConnectorSmbPopupLink = $('#ATLANTIC_SMALLBUSINESS_FEDERAL');
+            this.$aliantConnectorSmbPopup = $('.rsx-lgc-federal-bar-tooltip_ATLANTIC_SMALLBUSINESS_FEDERAL');
+            this.$aliantConnectorEnterprisePopupLink = $('#ATLANTIC_ENTERPRISE_FEDERAL');
+            this.$aliantConnectorEnterprisePopup = $('.rsx-lgc-federal-bar-tooltip_ATLANTIC_ENTERPRISE_FEDERAL');
+            this.$aliantConnectorCartPopupLink = $('.rsx-lgc-cart.rsx-lgc-icon');
+            this.$aliantConnectorCartPopup = $('.rsx-lgc-federal-bar-aliant-connector-tooltip_cart');
+
+            this.$storeLocatorButton = $('.js-store-locator-button');
+            this.$storeLocator = $('.js-store-locator-flyout');
+            this.$storeLocatorLink = this.$storeLocator.find('a');
+            this.$storeLocatorOpen = this.$storeLocator.find('button');
+            this.$storeLocatorOpenButtonBottom = this.$storeLocator.find(".js-open-store-locator");
+
+            this.$languageRegionBackdrop = $('#rsx-lgc-initial-lang-region-backdrop');
+            this.$socialItemWraps = $('.rsx-lgc-social-item-wrap');
+            this.$loginSubmitButton = $('#demoLoginJs_ec');
+            this.$loginSubmitButtonAliant = $('#demoLoginJs_ec__MyAccount');
+
+            this.$initialLangRegionLang = $('.rsx-lgc-initial-lang-region-lang');
+            this.$initialLangRegionRegion = $('.rsx-lgc-initial-lang-region-region');
+            this.$currentLanguage = $('.js-current-language');
+            this.$initLangRegion = $('#rsx-initial-lang-region');
+            this.$aliantLogoff = $(".js-connector-aliant-logoff");
+
+            //Items in this array will be closed when a click is registered outside them.
+            //index 0 in the arrays - item to be closed when clicked outside of
+            //inex 1 in the arrays - trigger element for the main item to open
+            this.$hideOnOutsideClick = [
+                [this.$provinceSelectorFlyout, this.$provinceSelectorButton],
+                [this.$provinceSelectorFlyoutFooter, this.$provinceSelectorButtonFooter],
+                [this.$loginFlyout, this.$loginButton],
+                [this.$storeLocator, this.$storeLocatorButton],
+                [this.$loggedInFlyout, this.$loggedInButton],
+                [this.$aliantConnectorSmbPopup, this.$aliantConnectorSmbPopupLink],
+                [this.$aliantConnectorEnterprisePopup, this.$aliantConnectorEnterprisePopupLink],
+                [this.$aliantConnectorCartPopup, this.$aliantConnectorCartPopupLink]
+            ]
+
+            this._updateCustomRadios(this.$provinceSelectorFlyout.find('input'));
+            this._updateCustomRadios(this.$provinceSelectorFlyoutFooter.find('input'));
+            this._updateCustomRadios(this.$initialLangRegionLang.find('input'));
+            this._updateCustomRadios(this.$initialLangRegionRegion.find('input'));
+
+            this.$provinceSelectorButton.bind('click', function () {
+                self.$provinceSelectorFlyout.toggleClass('rsx-active');
+            });
+
+            this.$aliantConnectorSmbPopupLink.on('click', function () {
+                self.$aliantConnectorSmbPopup.toggleClass('rsx-active');
+            });
+
+            this.$aliantConnectorEnterprisePopupLink.on('click', function () {
+                self.$aliantConnectorEnterprisePopup.toggleClass('rsx-active');
+            });
+
+            this.$aliantConnectorCartPopupLink.on('click', function () {
+                self.$aliantConnectorCartPopup.toggleClass('rsx-active');
+            });
+
+            this.$provinceSelectorButtonFooter.bind('click', function () {
+                self.$provinceSelectorFlyoutFooter.toggleClass('rsx-active');
+            });
+
+            this.$initialLangRegionLang.find('input').bind('click', function (e) {
+                var $this = $(this);
+                self._updateCustomRadios($this);
+            });
+
+            this.$initialLangRegionRegion.find('input').bind('click', function (e) {
+                var $this = $(this);
+                self._updateCustomRadios($this);
+            });
+
+            $('#header-search').bind('keyup', function () {
+                if ($(this).val().length > 0) {
+                    if (self.$headerSearchFieldClearBtn.is(':hidden')) {
+                        self.$headerSearchFieldClearBtn.show();
+                    }
+                } else {
+                    self.$headerSearchFieldClearBtn.hide();
+                }
+            });
+
+            this.$headerSearchFieldClearBtn.bind('click', function () {
+                $(this).hide();
+            });
+
+            this.$loginButton.bind('click', function () {
+                self.$loginFlyout.toggleClass('rsx-active');
+            });
+
+            this.$storeLocatorButton.bind('click', function () {
+                self.$storeLocator.toggleClass('rsx-active');
+            });
+
+            this.$loggedInButton.bind('click', function () {
+                self.$loggedInFlyout.toggleClass('rsx-active');
+            });
+
+            this.$languageRegionBackdrop.bind('click', function () {
+                self.$body.removeClass('rsx-init-lang-region-active');
+            });
+
+            this.$socialItemWraps.hover(
+                function () {
+                    $(this).find('.rsx-lgc-social-tooltip').addClass('rsx-active');
+                },
+                function () {
+                    $(this).find('.rsx-lgc-social-tooltip').removeClass('rsx-active');
+                }
+            );
+
+            this.$navAreas.hover(
+                function () {
+
+                    var $this = $(this),
+                        flyoutId = $this.data('associated-flyout'),
+                        flyout = self.$navAreaFlyouts.filter("#" + flyoutId);
+
+                    self.$navAreasParent.addClass('rsx-active');
+                    $('.rsx-connector-area.default').removeClass('defaultActive');
+                    $this.addClass('rsx-active');
+                    flyout.addClass('rsx-active');
+                },
+                function () {
+
+                    var $this = $(this),
+                        flyoutId = $this.data('associated-flyout'),
+                        flyout = self.$navAreaFlyouts.filter("#" + flyoutId);
+
+                    self.$navAreasParent.removeClass('rsx-active');
+                    $this.removeClass('rsx-active');
+                    flyout.removeClass('rsx-active');
+                    $('.rsx-connector-area.default').addClass('defaultActive');
+                }
+            );
+
+            this.$navAreaFlyouts.hover(
+                    function () {
+                        var $this = $(this),
+                            id = $this.attr('id'),
+                            $navArea = self.$navAreas.filter('[data-associated-flyout="' + id + '"]');
+
+                        self.$navAreasParent.addClass('rsx-active');
+                        $navArea.addClass('rsx-active');
+                        $('.rsx-connector-area.default').removeClass('defaultActive');
+                    },
+                    function () {
+                        var $this = $(this),
+                            id = $this.attr('id'),
+                            $navArea = self.$navAreas.filter('[data-associated-flyout="' + id + '"]');
+
+                        self.$navAreasParent.removeClass('rsx-active');
+                        $navArea.removeClass('rsx-active');
+                        $('.rsx-connector-area.default').addClass('defaultActive');
+                    }
+                );
+
+            this.$rememberLogin.find('input').bind('click', function () {
+                var $this = $(this),
+                    $label = $this.closest('label');
+
+                if ($this.is(':checked')) {
+                    $label.addClass('rsx-active');
+                } else {
+                    $label.removeClass('rsx-active');
+                }
+
+                console.log('Remember username: ' + $this.is(':checked'));
+            });
+
+            this.$loginSubmitButton.bind("click", function (e) {
+                self.doLoginEC(e);
+            });
+
+            this.$loginSubmitButtonAliant.on("click", function (e) {
+                self.doLoginEC(e);
+            });
+
+            this.$storeLocatorOpen.bind("click", this.openStoreLocator.bind(this));
+            this.$storeLocatorOpenButtonBottom.bind("click", this.openStoreLocator.bind(this));
+
+            this.$storeLocator.bind("keypress", this.keyPressStoreLocator.bind(this));
+
+            this.$currentLanguage.bind("click", function () {
+                self.saveLanguage($(this));
+            });
+
+            this.$initLangRegion.bind('submit', this.submitInitLangRegion.bind(this));
+            this.$searchForm.bind('submit', self.submitSearch);
+
+            this.$document.bind('click', function (e) {
+                $.each(self.$hideOnOutsideClick, function () {
+                    var $this = $(this);
+
+                    try {
+                        if (!$this[0].is(e.target) && $this[0].has(e.target).length === 0 &&
+                            !$this[1].is(e.target) && $this[1].has(e.target).length === 0) {
+                            if ($this[0].hasClass('rsx-active')) {
+                                $this[0].removeClass('rsx-active');
+                            }
+                        }
+                    } catch (e) {
+                        console.log("Current version of the jQuery is not supported %s", e);
+                    }
+                });
+            });
+        } catch (e) {
+                console.error("Error during initialization of legacy global connector %s", e);
+}
+
+            $(document).on('click', '.rsx-lgc-store-locator a', function () {
+                if (self.autocomplete === null) {
+                    $.ajax({
+                        dataType: "script",
+                        type: "GET",
+                        url: self.mapsURL
+                    }).done(self.initializeAutoComplete);
+                }
+            })
+
+            this.toggleLogin({
+                $login: $("#loginForm_ec"),
+                $fullname: $(".js-connector-customer-name"),
+                url: $("#LoginFormFlyout").closest(".rsx-lgc-connector-login-modal").data("user-src"),
+                cookie: self.getCookieValue("UserSession"),
+                field: "MyBellUserFullName"
+            });
+
+            this.toggleLogin({
+                $login: $("#loginForm_ec__MyAccount"),
+                $fullname: $(".js-connector-aliant-customer-name"),
+                url: $("#loginForm_ec__MyAccount").closest(".rsx-lgc-connector-login-modal").data("myaccount-user-src"),
+                cookie: self.getCookieValue("MyAccountUserFullName"),
+                field: "MyAccountUserFullName"
+            });
+
+            this.loginButtonText();
+
+            this.$aliantLogoff.on("click", function (e) {
+                e.preventDefault();
+
+                var orderLogoutURL = $(this).data('order-logout-url');
+                var logoutUrl = $(this).attr('href');
+
+                self.aliantLogoff(logoutUrl, orderLogoutURL);
+            });
+
+            this.bellCart();
+            this.aliantCart();
+        },
+
+        initializeAutoComplete: function () {
+            // Create the autocomplete object, restricting the search to geographical
+            // location types.
+            BELL.legacy.globalConenctor.autocomplete = new google.maps.places.Autocomplete(
+                /** @@type {!HTMLInputElement} */(document.getElementsByName('search')[0]),
+                { types: ['geocode'] });
+
+            // When the user selects an address from the dropdown, populate the address
+            // fields in the form.
+            BELL.legacy.globalConenctor.autocomplete.addListener('place_changed', function () { });
+        },
+
+        _updateCustomRadios: function ($radioInputs) {
+            var name = $radioInputs.attr('name');
+            $('input[name="' + name + '"]').parent().removeClass('rsx-active');
+            $('input[name="' + name + '"]:checked').parent().addClass('rsx-active');
+        },
+
+        keyPressStoreLocator: function (e) {
+            return true;
+        },
+
+        openStoreLocator: function () {
+            var locatorLink = this.$storeLocator.data("url");
+            if (locatorLink.length > 0) {
+                var $input = this.$storeLocator.find("input[name='search']");
+                var url = locatorLink + "?place=" + escape($input.val());
+                if (typeof s_oTrackPage !== "undefined") {
+                    s_oTrackPage({ s_oAPT: "887-2-1" });
+                }
+
+                var options = "";
+                jQuery('.store-locator-filter-checkbox:checked').each(function (idx, value) {
+                    options += $(value).attr('data-filter-name');
+                });
+
+                if (options) {
+                    url += "&option=" + escape(options);
+                }
+
+
+                window.location = url;
+            }
+
+            return false;
+        },
+
+        toggleLogin: function (e) {
+            try {
+                if (typeof e.url == "undefined" || e.url.length == 0) {
+                    // url for the user information is not defined, do nothing..
+                } else {
+                    if (e.$fullname.text().trim().length > 0) {
+                        // logged out state, we assume server rendered customer name, do nothing..
+                    } else {
+                        if (typeof e.cookie != "undefined" && e.cookie != null && e.cookie.length > 0) {
+                            // user is authenticated, transition to logged in state
+                            e.$login.addClass("hidden");
+                            e.$login.prev().removeClass("hidden");
+
+                            $.ajax({
+                                url: e.url + "?userSession=" + e.cookie,
+                                dataType: "json",
+                                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                                cache: false,
+                                type: "GET",
+                                success: function (data) {
+                                    if (typeof (data) != "undefined" && data != null && data != "") {
+                                        var json = data;
+
+                                        if (typeof data[e.field] == "undefined") {
+                                            try {
+                                                json = JSON.parse(data);
+                                            } catch (e) {
+                                                console.warn(e);
+                                            }
+                                        }
+
+                                        if (typeof json[e.field] != "undefined") {
+                                            // user is authenticated, transition to logged in state
+                                            e.$login.addClass("hidden");
+                                            e.$login.prev().removeClass("hidden");
+                                            e.$fullname.text(json[e.field]);
+                                        } else {
+                                            // user is not authenticated, do nothing..
+                                            console.error(json);
+                                        }
+                                    } else {
+                                        console.error("No user information received");
+                                    }
+                                },
+                                error: function (data) {
+                                    console.error("No user information received: ", data);
+                                }
+                            });
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Error getting " + e.field + " information: ", e);
+            }
+        },
+
+        loginButtonText: function () {
+            var button = $("#rsx-login-register-button");
+
+            var bellCookie = this.getCookieValue("UserSession");
+            var isAuthenticated = bellCookie != null && bellCookie.length > 0;
+
+            var myAccountCookie = this.getCookieValue("MyAccountUserFullName");
+            var isMyAccountAuthenticated = myAccountCookie != null && myAccountCookie.length > 0;
+
+            if (isAuthenticated && isMyAccountAuthenticated) {
+                button.text(button.data("text-logout"));
+            } else if (!isAuthenticated && !isMyAccountAuthenticated) {
+                button.text(button.data("text-login"));
+            } else {
+                button.text(button.data("text-login-logout"));
+            }
+        },
+
+        doLoginEC: function (e) {
+            if (e != null) {
+                e.preventDefault();
+            }
+            var $parentForm = $(e.currentTarget.form);
+            // look for parent
+            // add Parent variable in front of every selector.
+            var noUser = ($parentForm.find("[id*='USER']").val() === '');
+            var noPassword = ($parentForm.find("[id*='PASSWORD_ec']").val() === '');
+            var warning = '';
+            var omnitureError = '';
+
+            $parentForm.find("[id*='errorUser_ec']").addClass("hidden");
+            $parentForm.find("[id*='labelUser_ec']").removeClass("rsx-lgc-form-error");
+            $parentForm.find("[id*='errorMessage_ec']").addClass("hidden");
+            $parentForm.find("[id*='errorPassword_ec']").addClass("hidden");
+            $parentForm.find("[id*='labelPassword_ec']").removeClass("rsx-lgc-form-error");
+
+            if (noUser && noPassword) {
+                omnitureError = 'Login_err_04';
+                $parentForm.find("[id*='USER_ec']").focus();
+            }
+
+            if (noUser) {
+                $parentForm.find("[id*='errorUser_ec']").removeClass("hidden");
+                $parentForm.find("[id*='errorUser_ec']").addClass("rsx-lgc-form-error");
+                $parentForm.find("[id*='USER_ec']").closest(".rsx-form-group").addClass("rsx-lgc-form-error");
+                if (omnitureError === '') {
+                    $parentForm.find("[id*='USER_ec']").focus();
+                    omnitureError = 'Login_err_06';
+                }
+            }
+
+            if (noPassword) {
+                $parentForm.find("[id*='errorPassword_ec']").removeClass("hidden");
+                $parentForm.find("[id*='errorPassword_ec']").addClass("rsx-lgc-form-error");
+                $parentForm.find("[id*='PASSWORD_ec']").closest(".rsx-form-group").addClass("rsx-lgc-form-error");
+                if (omnitureError === '') {
+                    $parentForm.find("[id*='PASSWORD_ec']").focus();
+                    omnitureError = 'Login_err_05';
+                }
+            }
+
+            if (omnitureError !== '') {
+                if (typeof s_oTrackPage !== "undefined") {
+                    s_oTrackPage({
+                        s_oAPT: "657-2-2",
+                        s_oARS: omnitureError
+                    });
+                }
+                $parentForm.find("[id*='errorMessage_ec']").removeClass("hidden");
+            }
+            else {
+                if (typeof s_oTrackPage !== "undefined") {
+                    s_oTrackPage({
+                        s_oAPT: "657-1-0",
+                        s_oARS: ""
+                    });
+                }
+                this.setUserNameCookie($parentForm.find("[id*='USER_ec']").val());
+                $parentForm.find('#USER_ec').val(this.correctGID($parentForm.find('#USER_ec').val()));
+                $parentForm.submit();
+            }
+        },
+
+        Cookie: function (document, name, hours, path, domain, secure) {
+            // All the predefined properties of this object begin with 'jQuery'
+            // to distinguish them from other properties which are the values to
+            // be stored in the cookie.
+            this.jQuerydocument = document;
+            this.jQueryname = name;
+            if (hours)
+                this.jQueryexpiration = new Date((new Date()).getTime() + hours * 3600000);
+            else this.jQueryexpiration = null;
+            if (path) this.jQuerypath = path; else this.jQuerypath = null;
+            if (domain) this.jQuerydomain = domain; else this.jQuerydomain = null;
+            if (secure) this.jQuerysecure = true; else this.jQuerysecure = false;
+        },
+
+        //
+        // This function is the store() method of the Cookie object.
+        //
+        _Cookie_store: function () {
+            // First, loop through the properties of the Cookie object and
+            // put together the value of the cookie. Since cookies use the
+            // equals sign and semicolons as separators, we'll use colons
+            // and ampersands for the individual state variables we store
+            // within a single cookie value. Note that we escape the value
+            // of each state variable, in case it contains punctuation or other
+            // illegal characters.
+            var cookieval = "";
+
+            if (this.jQueryisSingleValue) {
+                cookieval = this.jQueryvalue;
+            }
+            else {
+                for (var prop in this) {
+                    // Ignore properties with names that begin with 'jQuery' and also methods.
+                    if ((prop.charAt(0) === 'jQuery') || ((typeof this[prop]) == 'function'))
+                        continue;
+                    if (cookieval !== "") cookieval += '&';
+                    cookieval += prop + ':' + escape(this[prop]);
+                }
+            }
+
+            // Now that we have the value of the cookie, put together the
+            // complete cookie string, which includes the name and the various
+            // attributes specified when the Cookie object was created.
+            var cookie = this.jQueryname + '=' + cookieval;
+            if (this.jQueryexpiration)
+                cookie += '; expires=' + this.jQueryexpiration.toGMTString();
+
+            if (this.jQuerypath) cookie += '; path=' + this.jQuerypath;
+
+            if (this.jQuerydomain) cookie += '; domain=' + this.jQuerydomain;
+
+            //    alert('domain: ' + this.jQuerydomain);
+            if (this.jQuerysecure) cookie += '; secure';
+
+            //    alert('cookie to be written: ' + cookie);
+            // Now store the cookie by setting the magic Document.cookie property.
+            this.jQuerydocument.cookie = cookie;
+        },
+        _Cookie_load: function () {
+            // First, get a list of all cookies that pertain to this document.
+            // We do this by reading the magic Document.cookie property.
+            var allcookies = this.jQuerydocument.cookie;
+            if (allcookies === "") return false;
+
+            // Now extract just the named cookie from that list.
+            var start = allcookies.indexOf(this.jQueryname + '=');
+            if (start === -1) return false;   // Cookie not defined for this page.
+            start += this.jQueryname.length + 1;  // Skip name and equals sign.
+            var end = allcookies.indexOf(';', start);
+            if (end === -1) end = allcookies.length;
+            var cookieval = allcookies.substring(start, end);
+
+            this.jQueryvalue = cookieval;   // Set the complete string to a variable that can be used later.
+
+
+            // Now that we've extracted the value of the named cookie, we've
+            // got to break that value down into individual state variable
+            // names and values. The name/value pairs are separated from each
+            // other by ampersands, and the individual names and values are
+            // separated from each other by colons. We use the split method
+            // to parse everything.
+            var a = cookieval.split('&');    // Break it into array of name/value pairs.
+            for (var i = 0; i < a.length; i++)  // Break each pair into an array.
+                a[i] = a[i].split(':');
+
+            // Now that we've parsed the cookie value, set all the names and values
+            // of the state variables in this Cookie object. Note that we unescape()
+            // the property value, because we called escape() when we stored it.
+            for (var j = 0; j < a.length; j++) {
+                this[a[j][0]] = unescape(a[j][1]);
+            }
+
+            // We're done, so return the success code.
+            return true;
+        },
+        _Cookie_remove: function () {
+            var cookie;
+            cookie = this.jQueryname + '=';
+            if (this.jQuerypath) cookie += '; path=' + this.jQuerypath;
+            if (this.jQuerydomain) cookie += '; domain=' + this.jQuerydomain;
+            cookie += '; expires=Fri, 02-Jan-1970 00:00:00 GMT';
+
+            this.jQuerydocument.cookie = cookie;
+        },
+        setUserNameCookie: function (username) {
+            if ($('form #element15_ec').is(':checked')) {
+                this.Set_Cookie("rememberMyBellUserName", username, this.expires, "/", ".luckymobile.ca");
+            }
+            else {
+                this.Set_Cookie("rememberMyBellUserName", username, this.today, "/", ".luckymobile.ca");
+            }
+        },
+        getUserNameCookie: function () {
+            var mybellUserName = this.getCookieValue("rememberMyBellUserName");
+
+            if (mybellUserName != null) {
+                return mybellUserName;
+            }
+            return "";
+        },
+        getCookieValue: function (name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+        },
+        Set_Cookie: function (name, value, expires, path, domain, secure) {
+            document.cookie = name + "=" + escape(value) + ((expires) ? ";expires=" + expires.toGMTString() : "") + ((path) ? ";path=" + path : "") + ((domain) ? ";domain=" + domain : "") + ((secure) ? ";secure" : "");
+        },
+        correctGID: function (aString) {
+            var newString = this.stripAccentString(aString);
+            return newString;
+        },
+        stripAccentString: function (aString) {
+            if (aString == null)
+                return null;
+
+            var charArray = aString.split('');
+            var newString = '';
+            var aChar = '';
+            var newChar = '';
+            for (var i = 0; i < charArray.length; i++) {
+                aChar = charArray[i];
+                newChar = this.stripAccentChar(aChar);
+                charArray[i] = newChar;
+            }
+
+            newString = charArray.join('');
+            return newString;
+        },
+        stripAccentChar: function (aChar) {
+            var specialChars = new Array(
+                                     String.fromCharCode(192),  // ?
+                                     String.fromCharCode(193),  // ?
+                                     String.fromCharCode(194),  // ?
+                                     String.fromCharCode(195),  // ?
+                                     String.fromCharCode(196),  // ?
+                                     String.fromCharCode(197),  // ?
+                                     String.fromCharCode(199),  // ?
+                                     String.fromCharCode(200),  // ?
+                                     String.fromCharCode(201),  // ?
+                                     String.fromCharCode(202),  // ?
+                                     String.fromCharCode(203),  // ?
+                                     String.fromCharCode(204),  // ?
+                                     String.fromCharCode(205),  // ?
+                                     String.fromCharCode(206),  // ?
+                                     String.fromCharCode(207),  // ?
+                                     String.fromCharCode(209),  // ?
+                                     String.fromCharCode(210),  // ?
+                                     String.fromCharCode(211),  // ?
+                                     String.fromCharCode(212),  // ?
+                                     String.fromCharCode(213),  // ?
+                                     String.fromCharCode(214),  // ?
+                                     String.fromCharCode(217),  // ?
+                                     String.fromCharCode(218),  // ?
+                                     String.fromCharCode(219),  // ?
+                                     String.fromCharCode(220),  // ?
+                                     String.fromCharCode(221),  // ?
+
+                                     String.fromCharCode(224),  // ?
+                                     String.fromCharCode(225),  // ?
+                                     String.fromCharCode(226),  // ?
+                                     String.fromCharCode(227),  // ?
+                                     String.fromCharCode(228),  // ?
+                                     String.fromCharCode(229),  // ?
+                                     String.fromCharCode(231),  // ?
+                                     String.fromCharCode(232),  // ?
+                                     String.fromCharCode(233),  // ?
+                                     String.fromCharCode(234),  // ?
+                                     String.fromCharCode(235),  // ?
+                                     String.fromCharCode(236),  // ?
+                                     String.fromCharCode(237),  // ?
+                                     String.fromCharCode(238),  // ?
+                                     String.fromCharCode(239),  // ?
+                                     String.fromCharCode(241),  // ?
+                                     String.fromCharCode(242),  // ?
+                                     String.fromCharCode(243),  // ?
+                                     String.fromCharCode(244),  // ?
+                                     String.fromCharCode(245),  // ?
+                                     String.fromCharCode(246),  // ?
+                                     String.fromCharCode(249),  // ?
+                                     String.fromCharCode(250),  // ?
+                                     String.fromCharCode(251),  // ?
+                                     String.fromCharCode(252),  // ?
+                                     String.fromCharCode(252),  // ?
+                                     String.fromCharCode(255)   // ?
+                                     );
+            var normalChars = new Array(
+                'A',
+                'A',
+                'A',
+                'A',
+                'A',
+                'A',
+                'C',
+                'E',
+                'E',
+                'E',
+                'E',
+                'I',
+                'I',
+                'I',
+                'I',
+                'N',
+                'O',
+                'O',
+                'O',
+                'O',
+                'O',
+                'U',
+                'U',
+                'U',
+                'U',
+                'Y',
+                'a',
+                'a',
+                'a',
+                'a',
+                'a',
+                'a',
+                'c',
+                'e',
+                'e',
+                'e',
+                'e',
+                'i',
+                'i',
+                'i',
+                'i',
+                'n',
+                'o',
+                'o',
+                'o',
+                'o',
+                'o',
+                'u',
+                'u',
+                'u',
+                'u',
+                'y',
+                'y'
+            );
+
+            var normalizer = new Object;
+
+            for (var i = 0; i < specialChars.length; i++) {
+                var sc = specialChars[i];
+                var nc = normalChars[i];
+                normalizer[sc] = nc;
+            }
+
+            var newChar = normalizer[aChar];
+            if ((newChar == null) || (newChar === ''))
+                return aChar;
+            else
+                return newChar;
+        },
+
+        saveLanguage: function ($language) {
+            var language = $language.data("alternative");
+            var vanityurl = $language.data("vanityurl");
+            this.setLanguageRegionCookieValue(language, null);
+
+            var langRegex = /(language=\w+)|(lang=\w+)/i;
+
+            if (vanityurl && vanityurl.length > 0) {
+                if (langRegex.test(vanityurl)) {
+                    window.location = vanityurl.replace(langRegex, "lang=" + language);
+                } else {
+                    window.location = vanityurl;
+                }
+            } else if (langRegex.test(location.href)) {
+                location.href = location.href.replace(langRegex, "lang=" + language);
+            } else {
+                window.location.reload();
+            }
+        },
+
+        saveProvince: function (province) {
+            var language = $(".js-current-language").data("language");
+            this.setLanguageRegionCookieValue(language, province);
+
+            var provRegex = /prov=\w+/;
+            if (provRegex.test(location.href)) {
+                location.href = location.href.replace(provRegex, "prov=" + province);
+            } else {
+                window.location.reload();
+            }
+        },
+
+        //e.g. setLanguageRegionCookieValue("EN", "ON") or setLanguageRegionCookieValue("EN", "ON",true)
+        //incase of supplying only one value i.e. province then other should be null
+        //e.g. setLanguageRegionCookieValue(null, "ON") //it will check cookie value first
+        //e.g. setLanguageRegionCookieValue("EN","ON",true) //will create new cookie without leveraging current browser cookies
+        setLanguageRegionCookieValue: function (lang, region, larsegmenttype, bIgnorePreviousCookie) {
+            var geminiCookieName = "gemini";
+            var cookieVal = bIgnorePreviousCookie == true ? null : this.getCookie(geminiCookieName);
+            var geminiCookieVal = this.getGeminiString(lang, region, cookieVal, larsegmenttype);
+            var hostname = window.location.hostname;
+            var domain = ".luckymobile.ca";
+            this.setCookie(geminiCookieName, geminiCookieVal, 90, domain);
+        },
+
+        getGeminiString: function (lang, region, cval, larsegmenttype) {
+            var retVal = "region=" + region + "|language=" + lang + "|province=" + region + "|LarSegmentType=" + larsegmenttype;
+            if (cval != null) {
+                var strSpl = cval.split('|');
+
+                if (region != null && region.length != 0) {
+                    strSpl[0] = "region=" + region;
+                    strSpl[2] = "province=" + region;
+                }
+
+                if (lang != null && lang.length != 0) {
+                    strSpl[1] = "language=" + lang;
+                }
+
+                if (larsegmenttype != null && larsegmenttype != undefined && larsegmenttype.length != 0) {
+                    strSpl[3] = "LarSegmentType=" + larsegmenttype;
+                }
+
+                retVal = strSpl[0] + "|" + strSpl[1] + "|" + strSpl[2] + "|" + strSpl[3];
+            }
+
+            return retVal;
+        },
+
+        setCookie: function (name, value, days, domain) {
+            var expires = "", date = new Date();
+
+            if (!days || isNaN(days)) {
+                days = 365;
+            }
+
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toGMTString();
+
+            var setCookieVal = name + "=" + value + expires + "; path=/";
+
+            if (domain) {
+                setCookieVal += "; domain=" + domain;
+            }
+
+            document.cookie = setCookieVal;
+        },
+
+        getCookie: function (name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length == 2) {
+                return parts.pop().split(";").shift();
+            }
+        },
+
+        submitInitLangRegion: function (event) {
+            event.preventDefault();
+
+            var lang = "EN";
+            var region = "ON";
+
+            lang = $("input[name='initial-lang']:checked").val();
+            region = $("input[name='initial-region']:checked").val();
+
+            var currLang = $("#hdn_currentLang").val();
+            var vanityURL = $("#hdn_vanityURL").val();
+            var altVanityURL = $("#hdn_altVanityURL").val();
+
+            this.setLanguageRegionCookieValue(lang, region, "", true);
+
+            this.$body.removeClass('rsx-init-lang-region-active');
+
+            if (currLang.toLowerCase() != lang.toLowerCase()) {
+                window.location = altVanityURL;
+            } else {
+                window.location.reload(true);
+            }
+        },
+
+        RedirectToPageProv: function (o, lang) {
+            var region = o.value;
+
+            BELL.rsx.preferences.setLanguageRegionCookieValue(null, region);
+
+            var pound = "";
+            var bpound = location.href;
+
+            if (location.href.indexOf('#') !== -1) {
+                pound = location.href.substring(location.href.indexOf('#'));
+                bpound = location.href.substring(0, location.href.indexOf('#'));
+            }
+
+            var provRegex = /prov=\w+/;
+            if (provRegex.test(location.href)) {
+                location.href = location.href.replace(provRegex, "prov=" + region);
+            } else {
+                var sep = location.href.indexOf('?') !== -1 ? "&" : "?";
+                location.href = bpound + sep + "prov=" + region + pound;
+            }
+        },
+
+        submitSearch: function () {
+            var $form = $(this).closest("form");
+            var $query = $form.find("input[name='query']");
+            var raw = $query.val();
+            var text = $(raw).text();
+            $query.val(text.length > 0 ? text : raw);
+            var action = $form.attr('action').replace('#qbox#', $query.val());
+            $form.attr('action', action);
+            return true;
+        },
+
+        aliantLogoff: function (logoutUrl, orderLogoutURL) {
+            console.log('Calling order logout: ' + orderLogoutURL);
+
+            $.ajax
+            ({
+                url: orderLogoutURL,
+                xhrFields: {
+                    withCredentials: true
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: "POST",
+                success: function (data) {
+                    var cookieName = 'WC_PendingCart';
+                    console.log('Deleting cookie: ' + cookieName);
+                    document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=.bell.ca;';
+
+                    console.log('Calling logout: ' + logoutUrl);
+                    window.location.href = logoutUrl;
+                },
+                error: function (data) {
+                    console.log('*** Failed to successfully terminate shopping session.');
+                    var cookieName = 'WC_PendingCart';
+                    console.log('Deleting cookie: ' + cookieName);
+                    document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;domain=.bell.ca;';
+
+                    window.location.href = logoutUrl;
+                }
+            });
+        },
+
+        bellCart: function () {
+            try {
+                var cartCount = $(".rsx-lgc-cart-count");
+                var cartTotal = $(".js-connector-cart-total");
+                var cart = this.getCookie("BSCC");
+
+                if (typeof cart != "undefined" && cart.length > 0) {
+                    var regex = new RegExp("(?:totalcartitems=)(.|\d+)(?:&|$)");
+                    var match = regex.exec(cart);
+                    var count = "0";
+
+                    if (typeof match != "undefined" && match != null && match.length > 1) {
+                        count = match[1];
+
+                        if (count != "0") {
+                            cartCount.text(count);
+                            cartCount.removeClass("hidden");
+                            cartTotal.text("(" + count + ")");
+                            cartTotal.removeClass("hidden");
+                        }
+                    }
+
+                    $(".js-connector-bell-cart-message")
+                        .each(function () {
+                            try {
+                                var $this = $(this);
+                                $this.text(count == "0" ? $this.data("empty-text") : $this.data("full-text"));
+                            } catch (e) {
+                                console.error("Error updating Bell shopping cart message: ", e);
+                            }
+                        });
+                } else {
+                    // Shop client cookie BSCC is missing, do nothing..
+                }
+            } catch (e) {
+                console.error("Error loading Bell shopping cart info: ", e);
+            }
+        },
+
+        aliantCart: function () {
+            try {
+                var cartCount = $(".rsx-lgc-cart-count");
+                var cartTotal = $(".js-connector-aliant-cart-total");
+                var tooltipLink = $(".js-connector-aliant-cart-link");
+                var cart = this.getCookie("WC_PendingCart");
+                var isEmpty = typeof cart == "undefined" || cart.length == 0 || cart == "E";
+                var isLoggedIn = this.getCookieValue("MyAccountUserFullName");
+                var count = parseInt(cartCount.first().text());
+
+                var aliantCartUrl = tooltipLink.data(isLoggedIn || isEmpty ? "url-logged" : "url-guest");
+                tooltipLink.attr("href", aliantCartUrl);
+
+                if (isLoggedIn) {
+                    cartTotal.text("(0)");
+                    cartTotal.removeClass("hidden");
+
+                    if (isEmpty) {
+                        tooltipLink.attr("href", "javascript:void(0)");
+                        tooltipLink.addClass("rsx-cursor-default");
+                    }
+                }
+
+                if (typeof cart != "undefined" && cart.length > 0) {
+                    if (cart == "P" || cart == "S") {
+                        count++;
+                        cartCount.text(count);
+                        cartCount.removeClass("hidden");
+                        cartTotal.text("(1)");
+                        cartTotal.removeClass("hidden");
+                    }
+
+                    if (count == 0) {
+                        if (isLoggedIn) {
+                            cartTotal.text("(0)");
+                            cartTotal.removeClass("hidden");
+                        } else {
+                            cartCount.addClass("hidden");
+                            cartTotal.addClass("hidden");
+                        }
+                    }
+                }
+
+                $(".js-connector-aliant-cart-message")
+                    .each(function () {
+                        try {
+                            var $this = $(this);
+                            $this.text(isEmpty
+                                ? $this.data(isLoggedIn ? "empty-text-logged" : "empty-text")
+                                : $this.data("full-text"));
+                        } catch (e) {
+                            console.error("Error updating Aliant shopping cart message: ", e);
+                        }
+                    });
+
+            } catch (e) {
+                console.error("Error loading Aliant shopping cart info: ", e);
+            }
+        }
+    };
+
+    bell.legacy.globals = {
+        init:function(){
+            this.province = (typeof $('meta[name="province"]').attr('content') !== 'undefined') ? $('meta[name="province"]').attr('content').toLowerCase() : '';
+            this.language = (typeof $('meta[name="language"]').attr('content') !== 'undefined') ? $('meta[name="language"]').attr('content').toLowerCase() : '';
+            this.defaultXhrTimeout = 7500;
+        }
+
+    };
+
+    bell.legacy.globalConenctorAutoComplete = {
+
+        // Constants
+        ACTIVE_CLASS: 'rsx-active',
+        SEARCH_ACTIVE_CLASS: 'rsx-connector-search-active',
+        OPEN_TRANSITION_TIME: 0,
+        CLOSE_TRANSITION_TIME: 0,
+        AUTOCOMPLETE_URL: 'http://www.bell.ca/Search/Search/GetAutoComplete',
+        AUTOCOMPLETE_URL_SSL: 'https://www.bell.ca/Search/Search/GetAutoComplete',
+
+        // Selectors
+        $body: $('body'),
+        $connector: $('.rsx-lgc-header-main'),
+        $screen: $('#rsx-search-screen'),
+
+        /**
+         * Initializes search component.
+         * @constructor
+         */
+        init: function () {
+            // Remove delay if transitions aren't supported (IE9)
+            //if (!Modernizr.csstransitions) {
+            //    this.OPEN_TRANSITION_TIME = this.CLOSE_TRANSITION_TIME = 0;
+            //}
+            this.OPEN_TRANSITION_TIME = this.CLOSE_TRANSITION_TIME = 0;
+            // Initializes autocomplete suggestion widget
+            var $inputs = $('.js-lgc-search-form input[name="query"]');
+
+            $inputs.each((function (i, query) {
+                this.initQuery(query);
+            }).bind(this));
+        },
+
+        initQuery: function (query) {
+            var self = this;
+            var $query = $(query);
+            var $form = $query.closest("form");
+            var $reset = $form.find("[type='reset']");
+            var $formWrap = $form.closest(".rsx-lgc-header-search");
+            var $suggestions = $($form.data("suggestions"));
+            var autocompletehost = $form.data("autocompletehost");
+
+            if (!autocompletehost)
+                autocompletehost = (location.protocol === 'https:') ? self.AUTOCOMPLETE_URL_SSL : self.AUTOCOMPLETE_URL;
+
+            var autocomplete;
+
+            $query.autocomplete({
+                source: function (request, response) {
+                    self.autocompleteSource(request, response, $form, autocompletehost);
+                },
+                select: function (event, ui) {
+                    var itemVal = ui.item.label;
+                    if (itemVal.indexOf(":") > -1) {
+                        location.href = itemVal.substring(itemVal.indexOf(":") + 1);
+                    } else {
+                        $query.val(itemVal);
+                        $form.trigger('submit');
+                    }
+                },
+                open: function (event, ui) {
+                    self.openAutoComplete(event, ui, self, autocomplete);
+                },
+                appendTo: $form.data("suggestions"),
+                minLength: 3
+            }).autocomplete('widget');
+
+            autocomplete = $query.data('autocomplete');
+
+            $query.on('keyup', (function (event) {
+                this.handleQueryInput(event, $form, $reset, $formWrap, $query);
+            }).bind(self));
+
+            // Submits search query
+            $form.on('submit', self.submit);
+
+            // Clears autocomplete list when form is reset
+            $form.on('reset', (function () {
+                self.$body.removeClass(self.SEARCH_ACTIVE_CLASS);
+                $reset.add(self.$screen).removeClass(self.ACTIVE_CLASS);
+                $form.removeClass(self.ACTIVE_CLASS);
+                autocomplete.term = null;
+                $suggestions.children().empty()
+            }));
+
+            // Closes search if backdrop screen is clicked on
+            self.$screen.on('click', (function () {
+                $form.trigger('reset');
+            }));
+
+            if ($formWrap.length > 0) {
+                // Opens search menu for mobile and tablet
+
+                var $searchButton = $('#rsx-connector-search-button');
+
+                $searchButton.on('click', (function (event) {
+                    if ($formWrap.hasClass(this.ACTIVE_CLASS)) {
+                        $searchButton.removeClass('rsx-active');
+                        this.closeQueryInput(event, $formWrap, $form, $query);
+                    } else {
+                        $searchButton.addClass('rsx-active');
+                        this.openQueryInput($formWrap, $query);
+                    }
+                }).bind(self));
+
+            }
+        },
+
+        /**
+        * Closes the search menu for mobile and tablet.
+        * @param {object} event - Event handler
+        */
+        closeQueryInput: function (event, $formWrap, $form, $query) {
+
+            var self = this;
+
+            event.preventDefault();
+            $formWrap.removeClass(this.ACTIVE_CLASS);
+            $query.trigger('blur');
+            setTimeout((function () {
+                $form.trigger('reset');
+                self.$connector.removeClass(self.SEARCH_ACTIVE_CLASS);
+            }), self.OPEN_TRANSITION_TIME);
+        },
+
+        /**
+        * Opens and closes autocomplete and query menu depending on query contents.
+        * @param {object} event - Event handler
+        */
+        handleQueryInput: function (event, $form, $reset, $formWrap, $query) {
+            var queryLength = $(event.currentTarget).val().length;
+            if (queryLength > 0 && !$reset.hasClass(this.ACTIVE_CLASS)) {
+                $reset.addClass(this.ACTIVE_CLASS);
+                $form.addClass(this.ACTIVE_CLASS);
+                if (!this.$connector.hasClass(this.SEARCH_ACTIVE_CLASS)) {
+                    this.openQueryInput($formWrap, $query);
+                }
+            } else if (queryLength <= 0 && $reset.hasClass(this.ACTIVE_CLASS)) {
+                $form.trigger('reset');
+            }
+        },
+
+        /**
+        * Opens the search menu for mobile and tablet.
+        */
+        openQueryInput: function ($formWrap, $query) {
+
+            var self = this;
+
+            this.$connector.addClass(this.SEARCH_ACTIVE_CLASS);
+
+            setTimeout((function () {
+                $formWrap.addClass(self.ACTIVE_CLASS);
+            }), self.OPEN_TRANSITION_TIME);
+
+            setTimeout((function () {
+                $query.trigger('focus');
+            }), 300);
+        },
+
+        openAutoComplete: function (event, ui, self, autocomplete) {
+            var template = '<span class="ui-autocomplete-term">' + autocomplete.term + '</span>';
+            autocomplete.menu.element.find('a').each((function (i, $result) {
+                var $result = $($result);
+                var phrase = $result.text();
+                if (phrase.indexOf(":") > -1)
+                    phrase = phrase.substring(0, phrase.indexOf(":"));
+                $result.html(phrase.replace(autocomplete.term, template));
+            }));
+            self.$body.addClass(self.SEARCH_ACTIVE_CLASS);
+            self.$screen.addClass(self.ACTIVE_CLASS);
+        },
+
+        /**
+        * Configures the source for jQuery-UI's autocomplete.
+        * @param {object} request - Request to server containing search query
+        * @param {object} response - Response from server queried
+        */
+        autocompleteSource: function (request, response, $form, url) {
+            var mktseg = $form.data('mktseg');
+            var gProv = bell.legacy.globals.province;
+            var gLang = bell.legacy.globals.language
+
+            if (!gProv) {
+                //check cookies
+                var gemini = bell.legacy.globalConenctor.getCookie('gemini');
+                if (gemini && gemini.indexOf("|")) {
+                    var strSp = gemini.split('|');
+                    if (strSp.length > 0 && strSp[2]) {
+                        gLang = strSp[1].substring(strSp[1].indexOf("=") + 1);
+                        gProv = strSp[2].substring(strSp[2].indexOf("=") + 1);
+                    }
+                }
+            }
+
+            if (!gProv)//assign default if still null
+            {
+                gProv = "on";
+                gLang = "en";
+            }
+
+            var xhr = $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'jsonp',
+                timeout: bell.legacy.globals.defaultXhrTimeout,
+                data: {
+                    q: request.term.trim(),
+                    prov: gProv,
+                    lang: gLang,
+                    mktseg: mktseg,
+                    ver: 'w'
+                }
+            });
+
+            xhr.done(function (searchResults) {
+                if (searchResults.length > 5) {
+                    searchResults = searchResults.splice(0, 5);
+                }
+
+                response($.map(searchResults, function (result) {
+                    var lbl = result;
+                    var vl = result;
+                    if (/<[^>]*>/g.test(vl))
+                        vl = vl.replace(/<[^>]*>/g, '');
+                    if (lbl.indexOf(":") > -1)
+                        vl = vl.substring(0, vl.indexOf(":"));
+                    return { label: lbl, value: vl };
+                }));
+            });
+
+            xhr.error(function (e) {
+                console.error('Search Autocomplete: Unable to query server: ', e);
+            });
+        },
+
+        /**
+         * Prevents form from submitting if query is empty.
+         * @param {object} event - Event handler
+         */
+        submit: function () {
+            var $form = $(this).closest("form");
+            var $query = $form.find("input[name='query']");
+            var raw = $query.val();
+            var text = $(raw).text();
+            $query.val(text.length > 0 ? text : raw);
+            var action = $form.data('url').replace('#qbox#', $query.val());
+            $form.prop('action', action);
+            return true;
+        }
+    };
+    return bell;
+})(BELL || {}, jQConnector);
+
+BELL.legacy.globalConenctor.init();
+BELL.legacy.globals.init();
+BELL.legacy.globalConenctorAutoComplete.init();

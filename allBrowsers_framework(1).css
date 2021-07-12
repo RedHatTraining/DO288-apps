@@ -1,0 +1,136 @@
+/*Latest update: 2017.April.25
+
+Bell IT-DCX Frameworks - All browsers generic styles and helpers
+Do not modify/use this file to host styles for custom components
+Contact Bell IT DCX - UX Solution Architect for support and updates
+
+visibility styles*/
+.hide{display:none}
+.hidden{visibility:hidden}
+.block{display:block}
+
+/*text colors*/
+.txtBlack{color:#000}
+.txtBlack2{color:#111}
+.txtBlackLight{color:#212121}
+.txtWhite{color:#fff}
+.txtDarkGrey{color:#555}
+.txtGrey{color:#a1a5a6}
+.txtLightGray{color:#b4b4b4}
+.txtLightGray2{color:#999}
+.txtBlue{color:#00549a}
+.txtBlueExtraLight{color:#c2cedf}
+.txtBlueExtraDark2{color:#01215e}
+.txtRed{color: #bd2025}
+.txtGreen{color:#339043}
+.txtYellow{color:#E2A52C}
+
+/*background colours*/
+.bgWhite{background-color:#fff}
+.bgBlack{background-color:black}
+.bgBlack2{background-color:#111}
+.bgBlackLight{background-color:#212121}
+.bgGray{background-color:#ccc}
+.bgGray2{background-color:#d6d6d6}
+.bgGray4{background-color:#eee}
+.bgGray9{background-color: #e2e2e2}
+.bgGray19{background-color: #f5f5f5}
+.bgGrayLight{background-color:#eee}
+.bgGrayLight2{background-color:#e1e1e1}
+.bgGrayLight3{background-color:#d7d7d7}
+.bgGrayLight4{background-color:#f0f0f0}
+.bgGrayLight5{background-color:#f5f5f5}
+.bgGrayLight6{background-color:#d4d4d4}
+.bgGrayLight7{background-color:#6b6b6b}
+.bgGrayLight8{background-color:#d3d3d3}
+.bgGrayMedium2{background-color:#404040}
+.bgLightGray{background-color:#999}
+.bgMediumGray{background-color:#555}
+.bgBlue{background-color:#00549a}
+.bgBlueDark{background-color:#003778}
+.bgBlueExtraDark{background-color:#003075}
+.bgBlueExtraDark2{background-color:#01215e}
+.bgBlueExtraLight{background-color:#c2cedf}
+
+/* alignment*/
+.txtRight{text-align:right}
+.txtLeft{text-align:left}
+.txtCenter{text-align:center}
+.txtNoWrap{white-space:nowrap}
+
+/*txt formatting*/
+.txtBold{font-weight:bold}
+.txtNormal{font-weight:normal}
+.txtCapital{text-transform:uppercase}
+.wordBreak{word-break:break-all}
+
+.noTxt{/*used on tags that are not supporting text. as example a "spacer1-10","button corner" or "icon" is not supporing txt*/
+font-size:0;line-height:0}
+.txtSize12{font-size:12px}
+.txtSize14{font-size:14px}
+.txtSize15{font-size:15px}
+.txtSize17{font-size:17px}
+.txtSize16{font-size:16px}
+.txtSize18{font-size:18px}
+.txtSize20{font-size:20px}
+.txtSize24{font-size:24px}
+.txtSize26{font-size:26px}
+.txtSize30{font-size:30px}
+.txtSize32{font-size:32px}
+.txtSize34{font-size:34px}
+.txtSize38{font-size:38px}
+
+/*positioning*/
+.floatR{float:right}
+.floatL{float:left}
+.clear{clear:both}
+.noMargin{margin:0}
+.noPadding{padding:0}
+.middleAlign{margin:auto}
+.fixed{position:fixed}
+.absolute{position:absolute}
+.relative{position:relative}
+.inlineBlock{display: inline-block}
+
+/*mouse cursor*/
+.pointer{cursor:pointer}
+.noPointer{cursor:default}
+
+/*spacers*/
+.spacer0{height:0}
+.spacer1{height:1px}
+.spacer3{height:3px}
+.spacer5{height:5px}
+.spacer8{height:8px}
+.spacer9{height:9px}
+.spacer10{height:10px}
+.spacer11{height:11px}
+.spacer12{height:12px}
+.spacer15{height:15px}
+.spacer20{height:20px}
+.spacer30{height:30px}
+.spacer40{height:40px}
+
+.vSpacer5{width:5px}
+.vSpacer10{width:10px}
+.vSpacer15{width:15px}
+.vSpacer20{width:20px}
+.vSpacer30{width:30px}
+
+/*vertical paddings*/ /*Note:we do not use top and bottom padding because is not consitent results in every browser. use spacers as an alternative for padding top/bottom*/
+.vPadding5{padding:0 5px}
+.vPadding10{padding:0 10px}
+.vPadding15{padding:0 15px}
+.vPadding20{padding:0 20px}
+.vPadding30{padding:0 30px}
+.vPadding40{padding:0 40px}
+
+/*columns
+-use "0" in front of odd percentage like "col030 = 30%" tha cannot define a common table columns devider. used for use cases where mixing with siblings that have various columns width 
+-use without "0" for where its a clear table/columns use as example "col2 = 50% = 2 columns. used where all siblings have the same col width"*/
+.col1{width:100%}
+.col2{width:50%}
+.col5{width:20%}
+
+/*List styles*/
+.noBullets{list-style:none;margin:0;padding:0}

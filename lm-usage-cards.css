@@ -1,0 +1,375 @@
+.vPaddingR8 {
+    padding-right: 8px;
+}
+
+.vPaddingL8 {
+    padding-left: 8px;
+}
+
+h3.defaultFont {
+    font-family: "Helvetica", Arial, sans-serif !important;
+}
+
+a:hover .txtHoverUnderline {
+    text-decoration: underline;
+}
+
+.lineHeight-1-3 {
+    line-height: 1.3;
+}
+
+.pad-16-right {
+    padding-right: 16px;
+}
+
+.pad-95-right {
+    padding-right: 95px;
+}
+
+.txtBlackLight.pad-26-right {
+    padding-right: 26px;
+}
+
+.txtSpacingNarrow.defaultSpacing {
+    letter-spacing: unset;
+}
+
+.txtSize10 {
+    font-size: 10px;
+}
+
+.pad-16-left {
+    padding-left: 16px;
+}
+
+.width-68 {
+    width: 68.5%;
+}
+
+.usage-legend ul .inzone:before, .usage-legend ul .international:before, .usage-legend ul .outzone:before {
+    content: "";
+    border-radius: 2px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+.usage-legend ul li {
+    display: inline-block;
+    list-style: none;
+    margin-right: 20px;
+}
+
+.usage-legend ul .inzone:before {
+    background-color: #E5E640;
+}
+
+.usage-legend ul .out-of-zone:before {
+    background-color: #41e6a2;
+}
+
+.usage-legend ul .international:before {
+    background-color: #41B6E6;
+}
+
+.usage-legend ul .outzone:before {
+    background-color: #41E6A2;
+}
+
+.usage-legend ul li:last-child {
+    margin-right: 0;
+}
+
+.usage-legend ul li span {
+    vertical-align: top;
+}
+
+.pad-2-top {
+    padding-top: 2px;
+}
+
+.pad-3-top {
+    padding-top: 3px;
+}
+
+.margin-4-top {
+    margin-top: 4px;
+}
+
+.margin-8-top {
+    margin-top: 8px;
+}
+
+.donut {
+    width: 160px;
+    height: 195px;
+    margin: 0 auto;
+}
+
+.usage-data {
+    /*display: flex;
+    display: -webkit-flex;*/
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    height: 100%;
+}
+
+    .usage-data > div.donutWrapper {
+        width: 100%;
+    }
+
+    .usage-data > div.donutWrapper-col2 {
+        /*width: calc(50% - 29px);
+    float: left;*/
+        width: calc(50% - 3px);
+        float: left;
+    }
+
+        .usage-data > div.donutWrapper-col2:nth-child(even) {
+            margin-left: 5px;
+        }
+
+    .usage-data .title {
+        word-wrap: break-word;
+        min-height: 44px;
+        margin-bottom: 0px;
+    }
+
+    .usage-data .title-col2 {
+        width: 50%;
+        display: block;
+        margin: auto;
+    }
+
+    .usage-data .indicator {
+        /*margin-bottom: 20px;*/
+        background: #002D72;
+        color: #fff;
+        padding: 4px;
+    }
+
+.chart-text {
+    fill: #000;
+    -moz-transform: translateY(5px);
+    -ms-transform: translateY(5px);
+    -o-transform: translateY(5px);
+    -webkit-transform: translateY(5px);
+    transform: translateY(5px);
+}
+
+    .chart-text .chart-label-center-red {
+        fill: #bd2025;
+        font-size: 0.15em;
+        -moz-transform: translateY(-4.5px);
+        -ms-transform: translateY(-4.5px);
+        -o-transform: translateY(-4.5px);
+        -webkit-transform: translateY(-4.5px);
+        transform: translateY(-4.5px);
+    }
+
+.chart-label-center {
+    font-size: 0.3em;
+    font-weight: bold;
+    -moz-transform: translateY(-4.5px);
+    -ms-transform: translateY(-4.5px);
+    -o-transform: translateY(-4.5px);
+    -webkit-transform: translateY(-4.5px);
+    transform: translateY(-4.5px);
+    fill: #002D72;
+}
+
+.chart-label-center-sm {
+    font-size: 0.19em;
+    font-weight: bolder;
+    -moz-transform: translateY(-4.5px);
+    -ms-transform: translateY(-4.5px);
+    -o-transform: translateY(-4.5px);
+    -webkit-transform: translateY(-4.5px);
+    transform: translateY(-4.5px);
+    fill: #555;
+}
+
+.chart-label-center-charged {
+    -moz-transform: translateY(-4.5px);
+    -ms-transform: translateY(-4.5px);
+    -o-transform: translateY(-4.5px);
+    -webkit-transform: translateY(-4.5px);
+    transform: translateY(-4.5px);
+    font-size: 0.2em;
+}
+
+.chart-label-bottom-txt {
+    font-size: .20em;
+    fill: #666;
+    -moz-transform: translateY(-4.5px);
+    -ms-transform: translateY(-4.5px);
+    -o-transform: translateY(-4.5px);
+    -webkit-transform: translateY(-4.5px);
+    transform: translateY(-4.5px);
+}
+
+.chart-text text:nth-child(2) {
+    -moz-transform: translateY(-4.5px);
+    -ms-transform: translateY(-4.5px);
+    -o-transform: translateY(-4.5px);
+    -webkit-transform: translateY(-4.5px);
+    transform: translateY(-4.5px);
+}
+
+.chart-label-bottom-num {
+    fill: #666;
+    -moz-transform: translateY(-4.5px);
+    -ms-transform: translateY(-4.5px);
+    -o-transform: translateY(-4.5px);
+    -webkit-transform: translateY(-4.5px);
+    transform: translateY(-4.5px);
+}
+
+.background-bottom-box {
+    background-color: #e6e6e6;
+    padding: 0;
+}
+
+.box9_ML, .box9_MR {
+    background-color: transparent;
+}
+
+.cont-height {
+    min-height: 846px;
+}
+
+.cont-heightv2 {
+    min-height: 818px;
+}
+
+.cont-height850 {
+    min-height: 850px;
+}
+
+.cont-height550 {
+    min-height: 550px;
+}
+
+.cont-height500 {
+    min-height: 500px;
+}
+
+.cont-height400 {
+    min-height: 400px;
+}
+
+.cont-height430 {
+    min-height: 430px;
+}
+
+.cont-height380 {
+    min-height: 380px;
+}
+
+.cont-height200 {
+    min-height: 200px;
+}
+
+@-moz-document url-prefix() {
+    .cont-height {
+        min-height: 865px;
+    }
+}
+
+@supports (-webkit-appearance:none) {
+    .cont-height {
+        min-height: 866px;
+    }
+}
+
+/*Right Side*/
+
+/*Reusable*/
+.usage-data .expireDate {
+    width: 38%;
+    margin: auto;
+}
+
+.usage-data .expireDate-col2 {
+    width: 89%;
+    margin: auto;
+}
+
+.mainRow > div > div:nth-child(1) {
+    padding-top: 20px;
+}
+
+.txtBlackLight.txtSize16.pad-16-right {
+    padding-right: 16px;
+}
+
+/*Case 1 and Case 12*/
+
+.lighter-text {
+    color: rgba(102,102,102,0.5);
+}
+
+#case1 .centerDiv, #case12 .centerDiv {
+    top: calc(50% - 33px);
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+#case1 .usage-data, #case12 .usage-data {
+    height: 100%;
+    /*position: relative;*/
+}
+
+.vPadding60 {
+    padding: 0 60px;
+}
+
+/*Case 2 and Case 3*/
+#case2.usage-data > div.donutCont, #case3.usage-data > div.donutCont {
+    width: 100%;
+    float: left;
+}
+
+/* hack css lemonade */
+.lbTitle a, .lbClose, .close {
+    text-indent: 0;
+}
+
+.fullWidth td {
+    padding: 15px 20px;
+}
+
+.tooltip-arrow {
+    pointer-events: none;
+}
+
+/*For usage-cards Outline*/
+.donutCont div.donut:focus {
+    outline-color: rgb(77, 144, 254) !important;
+    outline-style: auto !important;
+    outline-width: 5px !important;
+}
+
+.donutCont .indicator {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    height: 100%;
+}
+
+    .donutCont .indicator span {
+        align-self: center;
+        width: 100%;
+    }
+
+.line-height-18 {
+    line-height: 18px
+}
+
+.notice-box-text {
+    margin-left: 26px;
+    margin-top: -2px
+}

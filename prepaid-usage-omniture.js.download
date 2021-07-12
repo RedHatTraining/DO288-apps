@@ -1,0 +1,67 @@
+/**
+ * mobility-prepaid-usage omniture functions
+ */
+
+var removeSpecialChar = function (content) {
+    return content.replace(/[^a-z\d\s]+/gi, "");
+}
+
+var getErrorMessage = function (errCode) {
+    var errors = {
+        304: "Not Modified",
+        400: "Bad Request",
+        401: "Unaurthorized",
+        403: "Api Forbidden",
+        404: "Page Not Found",
+        410: "Gone",
+        420: "Enhance Your Calm",
+        422: "Unprocessable Entity",
+        429: "Too Many Requests",
+        500: "Internal Server Error",
+        502: "Bad Gateway",
+        503: "Service Unavailable",
+        504: "Gateway timeout",
+        600: "Timeout (Logged out)",
+    }
+    if (errors[errCode])
+        return errors[errCode];
+    else
+        return "";
+}
+
+var PrepaidUsageOmniture = {
+    OmnitureLightbox: function (title, content) {
+        s_oTrackPage({
+            s_oAPT: "104-0-0",
+            s_oPRM: "open, " + title,
+            s_oLBC: content.slice(0, 100)
+        });
+    },
+    OmniturePrepaidDashboard: function () {
+        s_oTrackPage({
+            s_oAPT: "247-0-0"
+        });
+    },
+
+    OmniturePrePaidTransactionHistory: function () {
+        s_oTrackPage({
+            s_oAPT: "247-0-0"
+        });
+    },
+
+    OmniturePrePaidUsageDetails: function () {
+        s_oTrackPage({
+            s_oAPT: "247-0-0"
+        });
+    },
+    
+    OmniturePrepaidApiError: function (error, lang) {
+        s_oTrackPage({
+            s_oAPT: "247-2-2",
+            s_oARS: error && error.status ? error.status : "api_failure",
+            s_oERR_CLASS: error && error.status ? error.status + ":[T|SG]" : "api_failure:[T|SG]",
+            s_oERR_DESC: error && error.status ? error.status + ":" + error.statusText || getErrorMessage(error.status) : "api_failure:Internal Server Error",
+            s_oPLE: error && error.status && error.errormssg ? removeSpecialChar(error.errormssg) + ":E:[" + error.status + "]" : ""
+        });
+    }
+}

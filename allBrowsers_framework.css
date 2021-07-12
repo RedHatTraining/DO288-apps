@@ -1,0 +1,6599 @@
+/*Latest update: 2015.Aug.25/
+
+/* DCX-Framework - All browsers generic styles
+Do not modify/use this file to host styles for custom components
+Contact Bell IT DCX - UI Solution Architect for support and updates*/
+
+/*BellSlim font*/
+@font-face {
+    font-family: 'bellslimregular';
+    src: url('font/bellslim_regular-webfont.eot');
+    src: url('font/bellslim_regular-webfont.eot?#iefix') format('embedded-opentype'), url('font/bellslim_regular-webfont.ttf') format('truetype'), url('font/bellslim_regular-webfont.svg#bellslimregular') format('svg');
+    font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'bellslim_mediumregular';
+    src: url('font/bellslim_medium-webfont.eot');
+    src: url('font/bellslim_medium-webfont.eot?#iefix') format('embedded-opentype'), url('font/bellslim_medium-webfont.ttf') format('truetype'), url('font/bellslim_medium-webfont.svg#bellslim_mediumregular') format('svg');
+    font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'bellslim_semiboldregular';
+    src: url('font/bellslim_semibold-webfont.eot');
+    src: url('font/bellslim_semibold-webfont.eot?#iefix') format('embedded-opentype'), url('font/bellslim_semibold-webfont.ttf') format('truetype'), url('font/bellslim_semibold-webfont.svg#bellslim_semiboldregular') format('svg');
+    font-weight: normal;
+    font-style: normal
+}
+
+.bellSlim {
+    font-family: "bellslim_mediumregular", Helvetica, Arial, sans-serif
+}
+
+.bellSlimRegular {
+    font-family: "bellslimregular", Helvetica, Arial, sans-serif
+}
+
+.bellSlimSemibold {
+    font-family: "bellslim_semiboldregular", Helvetica, Arial, sans-serif
+}
+/*VirginUltra font*/
+@font-face {
+    font-family: 'VMUltramagneticNormalRegular';
+    src: url('font/vmultramagnetic-normal-webfont.eot');
+    src: url('font/vmultramagnetic-normal-webfont.eot?#iefix') format('embedded-opentype'), url('font/vmultramagnetic-normal-webfont.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: 'BigUltramagneticBold';
+    src: url('font/vmultramagnetic-bold-webfont.eot');
+    src: url('font/vmultramagnetic-bold-webfont.eot?#iefix') format('embedded-opentype'), url('font/vmultramagnetic-bold-webfont.ttf') format('truetype')
+}
+
+.virginUltra {
+    font-family: "BigUltramagneticBold", Helvetica, Arial, sans-serif;
+    font-weight: normal
+}
+
+.virginUltraReg {
+    font-family: "VMUltramagneticNormalRegular", Helvetica, Arial, sans-serif;
+    font-weight: normal
+}
+
+body {
+    font-family: Helvetica,Arial,sans-serif
+}
+
+.pageWidth {
+    width: 977px
+}
+
+.pageMaxWidth {
+    max-width: 977px
+}
+
+.pageMinWidth {
+    min-width: 640px
+}
+
+.maxHeight {
+    height: 100%
+}
+/*reset the browsers default styles*/
+img {
+    border: none
+}
+/*visibility styles*/
+.hide {
+    display: none
+}
+
+.hidden {
+    visibility: hidden
+}
+
+.block {
+    display: block
+}
+
+.opacity50 {
+    opacity: .5;
+    filter: alpha(opacity=50);
+}
+/*text colors*/
+.txtBlack {
+    color: #000
+}
+
+.txtBlackLight {
+    color: #212121
+}
+
+.txtBlackLight2 {
+    color: #333
+}
+
+.txtBlackLight3 {
+    color: #939598
+}
+
+.txtGreen {
+    color: #090
+}
+
+.txtBlue, .txtBlue a, .txtBlue a:active, .txtBlue a:visited, .txtBlue a:hover {
+    color: #0066a4
+}
+
+.txtBlue2, .txtBlue2 a, .txtBlue2 a:active, .txtBlue2 a:visited, .txtBlue2 a:hover {
+    color: #2390b8
+}
+
+.txtBlue3 {
+    color: #2090b8
+}
+
+.txtRed, .txtRed a, .txtRed a:active, .txtRed a:visited, .txtRed a:hover {
+    color: #bf1a18
+}
+
+.txtRedV, .txtRedV a, .txtRedV a:active, .txtRedV a:visited, .txtRedV a:hover {
+    color: #FF0000
+}
+
+.txtGrayDark {
+    color: #555
+}
+
+.txtGrayDark2 {
+    color: #626262
+}
+
+.txtGrayDark3 {
+    color: #787878
+}
+
+.txtGrayLight {
+    color: #e1e1e1
+}
+
+.txtGrayLight2 {
+    color: #999
+}
+
+.txtGrayLight3 {
+    color: #7A7A7A
+}
+
+.txtGrayLight4 {
+    color: #777
+}
+
+.txtGrayLight5 {
+    color: #878787
+}
+
+.txtGrayLight6 {
+    color: #a9a9a9
+}
+
+a.txtGrayLight6:hover {
+    color: #fff
+}
+
+.txtGrayLight7 {
+    color: #666666
+}
+
+.txtGrayLight8 {
+    color: #c1c1c1
+}
+
+.txtWhite {
+    color: #fff
+}
+/* alignment*/
+.txtRight {
+    text-align: right
+}
+
+.txtLeft {
+    text-align: left
+}
+
+.txtCenter {
+    text-align: center
+}
+
+.txtNoWrap {
+    white-space: nowrap
+}
+/*txt formatting*/
+.noTxt { /*used on tags that are not supporting text. as example a "spacer1-10","button corner" or "icon" is not supporing txt*/
+    font-size: 0;
+    line-height: 0
+}
+
+.txtSize9 {
+    font-size: 9px
+}
+
+.txtSize10 {
+    font-size: 10px
+}
+
+.txtSize11 {
+    font-size: 11px
+}
+
+.txtSize12 {
+    font-size: 12px
+}
+
+.txtSize13 {
+    font-size: 13px
+}
+
+.txtSize14 {
+    font-size: 14px
+}
+
+.txtSize15 {
+    font-size: 15px
+}
+
+.txtSize16 {
+    font-size: 16px
+}
+
+.txtSize17 {
+    font-size: 17px
+}
+
+.txtSize18 {
+    font-size: 18px
+}
+
+.txtSize19 {
+    font-size: 19px
+}
+
+.txtSize20 {
+    font-size: 20px;
+}
+
+.txtSize21 {
+    font-size: 21px
+}
+
+.txtSize22 {
+    font-size: 22px
+}
+
+.txtSize24 {
+    font-size: 24px;
+}
+
+.txtSize25 {
+    font-size: 25px
+}
+
+.txtSize26 {
+    font-size: 26px
+}
+
+.txtSize30 {
+    font-size: 30px
+}
+
+.txtSize31 {
+    font-size: 31px
+}
+
+.txtSize32 {
+    font-size: 32px
+}
+
+.txtSize34 {
+    font-size: 34px
+}
+
+.txtSize36 {
+    font-size: 36px
+}
+
+.txtSize48 {
+    font-size: 48px
+}
+/*Dynamic font-face resize */
+.dynaFontSize.txtSize16 {
+    font-size: 16px;
+    line-height: 20px
+}
+
+.dynaFontSizeXS.txtSize15.txtSize14 {
+    font-size: 14px
+}
+
+.dynaFontSizeXS.txtSize16.txtSize13 {
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -1px
+}
+
+.dynaFontSizeXSIcon.txtSize14.txtSize12 {
+    font-size: 12px
+}
+/*Dynamic font-face resize end*/
+.txtSpacingNarrow {
+    letter-spacing: -1px
+}
+
+.txtNoUnderline, .txtHoverUnderline, .txtHoverUnderline a, .txtHoverUnderline a:active, .txtHoverUnderline a:visited, .txtHoverUnderline a:link {
+    text-decoration: none
+}
+
+    a.txtHoverUnderline:hover, a:hover .txtHoverUnderline, .txtHoverUnderline a:hover {
+        text-decoration: underline
+    }
+
+.txtShadow {
+    text-shadow: 0 1px 1px #333
+}
+
+.txtBold, .checked .boldIfChecked {
+    font-weight: bold
+}
+
+.txtNormal {
+    font-weight: normal
+}
+
+.txtCapital {
+    text-transform: uppercase
+}
+/*backgrounds*/
+.logo {
+    height: 36px;
+    width: 47px;
+    background: transparent url(sprites/logo-bell-white-47x28.png) no-repeat left top
+}
+
+.logoVirgin {
+    background: url(sprites/virgin_logo.png);
+    width: 117px;
+    height: 60px
+}
+
+.bgWhite {
+    background-color: #fff
+}
+
+.bgBlack {
+    background-color: black
+}
+
+.bgBlackLight {
+    background-color: #212121
+}
+
+.bgGray {
+    background-color: #ccc
+}
+
+.bgGray2 {
+    background-color: #d6d6d6
+}
+
+.bgGray3 {
+    background-color: #d7d7d7
+}
+
+.bgGray4 {
+    background-color: #eee
+}
+
+.bgGray5 {
+    background-color: #f2f2f2
+}
+
+.bgGray6 {
+    background-color: #aaa
+}
+
+.bgGray7 {
+    background-color: #525252
+}
+
+.bgGray8 {
+    background-color: #797979;
+}
+
+.bgGray9 {
+    background-color: #e2e2e2;
+}
+
+.bgGray10 {
+    background-color: #c4cad3;
+}
+
+.bgGray11 {
+    background-color: #a1a1a1;
+}
+
+.bgGray12 {
+    background-color: #e4e4e4;
+}
+
+.bgGray13 {
+    background-color: #393e46;
+}
+
+.bgGray14 {
+    background-color: #cfd4db;
+}
+
+.bgGray15 {
+    background-color: #e0e0e0;
+}
+
+.bgGray16 {
+    background-color: #3a3f47;
+}
+
+.bgGray17 {
+    background-color: #737373;
+}
+
+.bgGray18 {
+    background-color: #e0e0e0;
+}
+
+.bgGray19 {
+    background-color: #f5f5f5;
+}
+
+.bgGrayLight {
+    background-color: #eee
+}
+
+.bgGrayLight2 {
+    background-color: #fafafa
+}
+
+.bgGrayLight3 {
+    background-color: #d7d7d7
+}
+
+.bgGrayLight4 {
+    background-color: #d1d1d1
+}
+
+.bgGrayMedium {
+    background-color: #999
+}
+
+.bgGrayMedium2 {
+    background-color: #404040
+}
+
+.bgGrayDark {
+    background-color: #666
+}
+
+.bgGreen {
+    background-color: #a1e67c
+}
+
+.bgGreen1 {
+    background-color: #91bd79
+}
+
+.bgGreen2 {
+    background-color: #acf386
+}
+
+.bgGreen3 {
+    background-color: #ccfeb0
+}
+
+.bgGreen4 {
+    background-color: #ebffe0
+}
+
+.bgBlue1 {
+    background-color: #4589b5
+}
+
+.bgBlue2 {
+    background-color: #0065A7
+}
+
+.bgBlue3 {
+    background-color: #5888CA
+}
+
+.bgBlue4 {
+    background-color: #3A97B6
+}
+
+.bgBlue5 {
+    background-color: #80BCDC
+}
+
+.bgBlue6 {
+    background-color: #BADCE6
+}
+
+.bgBlue7 {
+    background-color: #E3F1F4
+}
+
+.bgBlue8 {
+    background-color: #06598B
+}
+
+.bgBlue9 {
+    background-color: #0066A4
+}
+
+.bgBlue10 {
+    background-color: #4D7AB1
+}
+
+.bgBlue11 {
+    background-color: #8AA0C9
+}
+
+.bgBlue12 {
+    background-color: #B6C6DF
+}
+
+.bgBlue13 {
+    background-color: #A4B3C6
+}
+
+.bgBlue14 {
+    background-color: #7A7F92
+}
+
+.bgBlue15 {
+    background-color: #525D73
+}
+
+.bgBlue16 {
+    background-color: #2B3F58
+}
+
+.bgBlue17 {
+    background-color: #032D46
+}
+
+.bgBlueLight {
+    background-color: #DAE8F1
+}
+
+.bgBlue {
+    background-color: #1478bc
+}
+
+.bgBlueDark {
+    background-color: #0066A4
+}
+
+.bgRed {
+    background-color: #c40000
+}
+
+.bgRed2 {
+    background-color: #900
+}
+
+.bgGradient1 {
+    background: #fff url('sprites/gradient1.png') repeat-x 0 bottom
+}
+
+.bgGradient2 {
+    background: #fff url('sprites/gradient2.png') repeat-x 0 bottom
+}
+
+.bgGradient2Thin {
+    background: #fff url('sprites/gradient2_thin.png') repeat-x 0 bottom
+}
+
+.bgGradient3 {
+    background-image: url('sprites/gradient3.png');
+    background-color: #fff;
+    background-position: 0 bottom;
+    background-repeat: repeat-x
+}
+
+.bgGradient_c {
+    background: #fff url('sprites/bg_gradient_c.png') repeat-x 0 bottom
+}
+
+.bgShadowL {
+    background: url('sprites/bg_shadowL.png') repeat-y 0 top
+}
+
+.bgShadowR {
+    background: url('sprites/bg_shadowR.png') repeat-y 0 top
+}
+
+.bgVirginGrayDark {
+    background-color: #2D2D2D
+}
+/*Borders*/
+.borderR {
+    border-right: 1px solid #ababab
+}
+
+.borderR2 {
+    border-right: 1px solid #dcdcdc
+}
+
+.borderR3 {
+    border-right: 1px solid #ddd
+}
+
+.borderL3 {
+    border-left: 1px solid #ddd
+}
+
+.borderT3 {
+    border-top: 1px solid #ddd
+}
+
+.borderB3 {
+    border-bottom: 1px solid #ddd
+}
+
+.borderT4 {
+    border-top: 1px solid #d7d7d7
+}
+
+.borderR4 {
+    border-right: 1px solid #d7d7d7
+}
+
+.borderB4 {
+    border-bottom: 1px solid #d7d7d7
+}
+
+.borderL4 {
+    border-left: 1px solid #d7d7d7
+}
+
+.borderR5 {
+    border-right: 1px solid #fff
+}
+
+.borderL5 {
+    border-left: 1px solid #fff
+}
+
+.borderL6 {
+    border-left: 1px solid #aaa
+}
+
+.borderL7 {
+    border-left: 1px solid #6d6d6d
+}
+
+.borderR6 {
+    border-right: 1px solid #aaa
+}
+
+.borderT6 {
+    border-top: 1px solid #aaa
+}
+
+.borderB6 {
+    border-bottom: 1px solid #aaa
+}
+
+.border3R {
+    border-right: 3px solid #aaa
+}
+
+.border3L {
+    border-left: 3px solid #aaa
+}
+/*positioning*/
+.floatR {
+    float: right
+}
+
+.floatL {
+    float: left
+}
+
+.clear {
+    clear: both
+}
+
+.noMargin {
+    margin: 0
+}
+
+.noPadding {
+    padding: 0
+}
+
+.middleAlign {
+    margin: auto
+}
+
+.dynamicWidth {
+    float: left;
+    width: auto
+}
+/*mouse cursor*/
+.pointer {
+    cursor: pointer
+}
+
+.noPointer {
+    cursor: default
+}
+/*spacers*/
+.spacer0 {
+    height: 0
+}
+
+.spacer1 {
+    height: 1px
+}
+
+.spacer2 {
+    height: 2px
+}
+
+.spacer3 {
+    height: 3px
+}
+
+.spacer4 {
+    height: 4px
+}
+
+.spacer5 {
+    height: 5px
+}
+
+.spacer6 {
+    height: 6px
+}
+
+.spacer7 {
+    height: 7px
+}
+
+.spacer8 {
+    height: 8px
+}
+
+.spacer9 {
+    height: 9px
+}
+
+.spacer10 {
+    height: 10px
+}
+
+.spacer11 {
+    height: 11px
+}
+
+.spacer12 {
+    height: 12px
+}
+
+.spacer13 {
+    height: 13px
+}
+
+.spacer14 {
+    height: 14px
+}
+
+.spacer15 {
+    height: 15px
+}
+
+.spacer16 {
+    height: 16px
+}
+
+.spacer17 {
+    height: 17px
+}
+
+.spacer18 {
+    height: 18px
+}
+
+.spacer19 {
+    height: 19px
+}
+
+.spacer20 {
+    height: 20px
+}
+
+.spacer21 {
+    height: 21px
+}
+
+.spacer22 {
+    height: 22px
+}
+
+.spacer23 {
+    height: 23px
+}
+
+.spacer24 {
+    height: 24px
+}
+
+.spacer25 {
+    height: 25px
+}
+
+.spacer26 {
+    height: 26px
+}
+
+.spacer27 {
+    height: 27px
+}
+
+.spacer28 {
+    height: 28px
+}
+
+.spacer29 {
+    height: 29px
+}
+
+.spacer30 {
+    height: 30px
+}
+
+.spacer31 {
+    height: 31px
+}
+
+.spacer33 {
+    height: 33px
+}
+
+.spacer36 {
+    height: 36px
+}
+
+.spacer35 {
+    height: 35px
+}
+
+.spacer38 {
+    height: 38px
+}
+
+.spacer40 {
+    height: 40px
+}
+
+.spacer41 {
+    height: 41px
+}
+
+.spacer42 {
+    height: 42px
+}
+
+.spacer44 {
+    height: 44px
+}
+
+.spacer45 {
+    height: 45px
+}
+
+.spacer46 {
+    height: 46px
+}
+
+.spacer47 {
+    height: 47px
+}
+
+.spacer48 {
+    height: 48px
+}
+
+.spacer50 {
+    height: 50px
+}
+
+.spacer60 {
+    height: 60px
+}
+
+.spacer65 {
+    height: 65px
+}
+
+.spacer70 {
+    height: 70px
+}
+
+.spacer72 {
+    height: 72px
+}
+
+.spacer74 {
+    height: 74px
+}
+
+.spacer84 {
+    height: 84px
+}
+
+.spacer90 {
+    height: 90px
+}
+
+.spacer91 {
+    height: 91px
+}
+
+.spacer100 {
+    height: 100px
+}
+
+.spacer125 {
+    height: 125px
+}
+
+.spacer220 {
+    height: 220px
+}
+
+.spacer402 {
+    height: 402px
+}
+
+.vSpacer1 {
+    width: 1px
+}
+
+.vSpacer2 {
+    width: 2px
+}
+
+.vSpacer3 {
+    width: 3px
+}
+
+.vSpacer4 {
+    width: 4px
+}
+
+.vSpacer5 {
+    width: 5px
+}
+
+.vSpacer10 {
+    width: 10px
+}
+
+.vSpacer12 {
+    width: 12px
+}
+
+.vSpacer14 {
+    width: 14px
+}
+
+.vSpacer15 {
+    width: 15px
+}
+
+.vSpacer16 {
+    width: 16px
+}
+
+.vSpacer18 {
+    width: 18px
+}
+
+.vSpacer20 {
+    width: 20px
+}
+
+.vSpacer22 {
+    width: 22px
+}
+
+.vSpacer23 {
+    width: 23px
+}
+
+.vSpacer24 {
+    width: 24px
+}
+
+.vSpacer25 {
+    width: 25px
+}
+
+.vSpacer28 {
+    width: 28px
+}
+
+.vSpacer30 {
+    width: 30px
+}
+
+.vSpacer35 {
+    width: 35px
+}
+
+.vSpacer38 {
+    width: 38px
+}
+
+.vSpacer45 {
+    width: 45px
+}
+
+.vSpacer48 {
+    width: 48px
+}
+/*vertical paddings*/ /*Note:we do not use top and bottom padding because is not consitent results in every browser. use spacers as an alternative for padding top/bottom*/
+.vPadding2 {
+    padding: 0 2px
+}
+
+.vPadding3 {
+    padding: 0 3px
+}
+
+.vPadding5 {
+    padding: 0 5px
+}
+
+.vPadding6 {
+    padding: 0 6px
+}
+
+.vPadding10 {
+    padding: 0 10px
+}
+
+.vPadding14 {
+    padding: 0 14px
+}
+
+.vPadding15 {
+    padding: 0 15px
+}
+
+.vPadding19 {
+    padding: 0 19px
+}
+
+.vPadding20 {
+    padding: 0 20px
+}
+
+.vPadding22 {
+    padding: 0 22px
+}
+
+.vPaddingL0 {
+    padding-left: 0px
+}
+
+.vPaddingL3 {
+    padding-left: 3px
+}
+
+.vPaddingL5 {
+    padding-left: 5px
+}
+
+.vPaddingL4 {
+    padding-left: 4px
+}
+
+.vPaddingL6 {
+    padding-left: 6px
+}
+
+.vPaddingL9 {
+    padding-left: 9px
+}
+
+.vPaddingL10 {
+    padding-left: 10px
+}
+
+.vPaddingL12 {
+    padding-left: 12px
+}
+
+.vPaddingL13 {
+    padding-left: 13px
+}
+
+.vPaddingL14 {
+    padding-left: 14px
+}
+
+.vPaddingL15 {
+    padding-left: 15px
+}
+
+.vPaddingL19 {
+    padding-left: 19px
+}
+
+.vPaddingL20 {
+    padding-left: 20px
+}
+
+.vPaddingL25 {
+    padding-left: 25px
+}
+
+.vPaddingR0 {
+    padding-right: 0
+}
+
+.vPaddingR5 {
+    padding-right: 5px
+}
+
+.vPaddingR6 {
+    padding-right: 6px
+}
+
+.vPaddingR9 {
+    padding-right: 9px
+}
+
+.vPaddingR15 {
+    padding-right: 15px
+}
+
+.vPaddingR16 {
+    padding-right: 16px
+}
+
+.vPaddingR4 {
+    padding-right: 4px
+}
+
+.vPaddingR10 {
+    padding-right: 10px
+}
+
+.vPaddingR19 {
+    padding-right: 19px
+}
+
+.vPaddingR20 {
+    padding-right: 20px
+}
+
+.vPaddingR30 {
+    padding-right: 30px
+}
+/*buttons*/
+.button, .button span {
+    display: block
+}
+
+    .button.hide, .button .hide {
+        display: none
+    }
+
+.button_TL, .button_TL span, .button_BL, .button_BL span, .button19 .button_TM, .button19 .button_BM, .button13 .button_TM, .button13 .button_BM, .button52 .button_TM, .button52 .button_BM, .button53 .button_TM, .button53 .button_BM, .button54 .button_TM, .button54 .button_BM, .button55 .button_TM, .button55 .button_BM, .button56 .button_TM, .button56 .button_BM, .button57 .button_TM, .button57 .button_BM, .button58 .button_TM, .button58 .button_BM, .button17 .button_TM, .button17 .button_BM {
+    background-image: url('sprites/buttons.png')
+}
+
+.button62 .button_TL, .button62 .button_TR, .button62 .button_TM, .button62 .button_BL, .button62 .button_BR, .button64 .button_MR, .button64 .button_ML, .button65 .button_MR, .button65 .button_ML, .button62 .button_BM, .button63 .button_TL, .button63 .button_TR, .button63 .button_TM, .button64 .button_TL, .button64 .button_TR, .button64 .button_TM, .button65 .button_TL, .button65 .button_TR, .button65 .button_TM {
+    background-image: url('sprites/buttons2.png')
+}
+
+.button1 .button_TL, .button1 .button_BL, .button62 .button_TL, .button63 .button_TL, .button64 .button_TL, .button65 .button_TL, .button62 .button_BL, .button35 .button_TL, .button35 .button_BL, .button36 .button_TL, .button36 .button_BL, .button40 .button_TL, .button40 .button_BL, .button41 .button_TL, .button41 .button_BL, .button2 .button_TL, .button2 .button_BL, .button3 .button_TL, .button3 .button_BL, .button4 .button_ML, .selected .button_TL, .selected .button_BL, .disabled .button_TL, .disabled .button_BL, .disabled3 .button_ML, .box17_ML {
+    padding: 0 0 0 4px
+}
+
+.button4 .button_TL, .button4 .button_BL, .disabled3 .button_TL, .disabled3 .button_BL, .button6 .button_TL, .button6 .button_BL, .button7 .button_TL, .button7 .button_BL, .button8 .button_TL, .button8 .button_BL, .button9 .button_TL, .button9 .button_BL, .button10 .button_TL, .button10 .button_BL, .button42 .button_TL, .button42 .button_BL, .button46 .button_TL, .button46 .button_BL, .button49 .button_TL, .button49 .button_BL, .button50 .button_TL, .button50 .button_BL, .button51 .button_TL, .button51 .button_BL, .button47 .button_TL, .button47 .button_BL, .button48 .button_TL, .button48 .button_BL, .button43 .button_TL, .button43 .button_BL, .button11 .button_TL, .button11 .button_BL, .button60 .button_TL, .button60 .button_BL, .button61 .button_TL, .button61 .button_BL, .button12 .button_TL, .button12 .button_BL, .button37 .button_TL, .button37 .button_BL, .button38 .button_TL, .button38 .button_BL, .button21 .button_TL, .button21 .button_BL, .button45 .button_TL, .button45 .button_BL, .button44 .button_TL, .button44 .button_BL, .button26 .button_TL, .button26 .button_BL, .button59 .button_TL, .button59 .button_BL, .button27 .button_BL, .box1_TL, .box1_BL, .box2_TL, .box2_BL, .box6_BL, .box3_BL, .box4_TL, .box4_BL, .box5_TL, .box5_BL, .box7_TL, .box7_BL, .box8_TL, .box8_BL, .box9_TL, .box9_BL, .box12_TL, .box12_BL, .box22_TL, .box22_BL, .box15_TL, .box15_BL, .box16_TL, .box16_BL, .box17_TL, .box17_BL, .box18_TL, .box18_BL {
+    padding: 0 0 0 9px
+}
+
+.button1 .button_MR, .button62 .button_MR, .button63 .button_MR, .button63 .button_BR, .button64 .button_MR, .button64 .button_BR, .button65 .button_BR, .button35 .button_MR, .button36 .button_MR, .button40 .button_MR, .button41 .button_MR, .button2 .button_MR, .button3 .button_MR, .button5 .button_MR, .button7 .button_MR, .button8 .button_MR, .button10 .button_MR, .button42 .button_MR, .button46 .button_MR, .button49 .button_MR, .button50 .button_MR, .button51 .button_MR, .button47 .button_MR, .button48 .button_MR, .button43 .button_MR, .button11 .button_TR, .button11 .button_BR, .button11 .button_MR, .button60 .button_MR, .button61 .button_MR, .button13 .button_MR, .button52 .button_MR, .button14 .button_MR, .button15 .button_MR, .button17 .button_MR, .button19 .button_MR, .button27 .button_MR, .disabled .button_MR, .disabled2 .button_MR, .selected .button_MR, .button14.on .button_ML, .button14.on .button_MR, .box1_MR, .box2_MR, .box4_MR, .box5_MR, .box7_MR, .box8_MR, .box9_MR, .box15_MR, .box16_MR, .box18_MR {
+    padding: 0 1px 0 0
+}
+
+.button1 .button_ML, .button62 .button_ML, .button63 .button_ML, .button63 .button_BL, .button64 .button_ML, .button64 .button_BL, .button65 .button_BL, .button35 .button_ML, .button36 .button_ML, .button40 .button_ML, .button41 .button_ML, .button2 .button_ML, .button3 .button_ML, .button5 .button_ML, .button7 .button_ML, .button8 .button_ML, .button10 .button_ML, .button42 .button_ML, .button46 .button_ML, .button49 .button_ML, .button50 .button_ML, .button51 .button_ML, .button43 .button_ML, .button11 .button_ML, .button60 .button_ML, .button61 .button_ML, .button13 .button_ML, .button52 .button_ML, .button53 .button_ML, .button54 .button_ML, .button55 .button_ML, .button56 .button_ML, .button57 .button_ML, .button58 .button_ML, .button14 .button_ML, .button15 .button_ML, .button17 .button_ML, .button19 .button_ML, .button27 .button_ML, .disabled .button_ML, .disabled2 .button_ML, .selected .button_ML, .box1_ML, .box2_ML, .box4_ML, .box5_ML, .box7_ML, .box8_ML, .box9_ML, .box15_ML, .box16_ML, .box18_ML {
+    padding: 0 0 0 1px
+}
+
+.button1 .button_MM, .button35 .button_MM, .button36 .button_MM, .button40 .button_MM, .button41 .button_MM, .button3 .button_MM, .selected .button_MM, .disabled .button_MM {
+    padding: 5px 15px
+}
+
+.button62 .button_MM, .button63 .button_MM, .button64 .button_MM {
+    padding: 0px 18px
+}
+
+.button65 .button_MM {
+    padding: 0px 11px
+}
+
+.button6 .button_MR, .button12 .button_MR, .button37 .button_MR, .button21 .button_MR, .button45 .button_MR, .button44 .button_MR, .button46 .button_TR, .button46 .button_BR, .button49 .button_TR, .button49 .button_BR, .button50 .button_TR, .button50 .button_BR, .button47 .button_TR, .button47 .button_BR {
+    padding: 0 2px 0 0
+}
+
+.button6 .button_ML, .button12 .button_ML, .button37 .button_ML, .button21 .button_ML, .button45 .button_ML, .button44 .button_ML {
+    padding: 0 0 0 2px
+}
+
+.button2 .button_MM {
+    padding: 6px 15px 5px 15px
+}
+
+.button4 .button_MM, .disabled3 .button_MM {
+    padding: 3px 15px 2px
+}
+
+.button6 .button_MM, .button12 .button_MM, .button37 .button_MM, .button21 .button_MM, .button45 .button_MM, .button44 .button_MM, .button38 .button_MM, .button39 .button_MM {
+    padding: 0 14px
+}
+
+.button7 .button_MM, .button8 .button_MM, .button9 .button_MM, .button10 .button_MM, .button11 .button_MM, .button60 .button_MM, .button61 .button_MM {
+    padding: 0 40px
+}
+
+.button1 .button_TR, .button1 .button_BR, .button62 .button_TR, .button63 .button_TR, .button64 .button_TR, .button65 .button_TR, .button62 .button_BR, .button35 .button_TR, .button35 .button_BR, .button36 .button_TR, .button36 .button_BR, .button40 .button_TR, .button40 .button_BR, .button41 .button_TR, .button41 .button_BR, .button2 .button_TR, .button2 .button_BR, .button3 .button_TR, .button3 .button_BR, .button4 .button_MR, .selected .button_TR, .selected .button_BR, .disabled .button_TR, .disabled .button_BR, .disabled3 .button_MR, .box17_MR {
+    padding: 0 4px 0 0
+}
+
+.button4 .button_TR, .button4 .button_BR, .disabled3 .button_TR, .disabled3 .button_BR, .button6 .button_TR, .button6 .button_BR, .button7 .button_TR, .button7 .button_BR, .button8 .button_TR, .button8 .button_BR, .button9 .button_TR, .button9 .button_BR, .button10 .button_TR, .button10 .button_BR, .button61 .button_TR, .button61 .button_BR, .button12 .button_TR, .button12 .button_BR, .button37 .button_TR, .button37 .button_BR, .button21 .button_TR, .button21 .button_BR, .button45 .button_TR, .button45 .button_BR, .button44 .button_TR, .button44 .button_BR, .button26 .button_TR, .button26 .button_BR, .button59 .button_TR, .button59 .button_BR, .button27 .button_BR, .button48 .button_TR, .button48 .button_BR, .button51 .button_TR, .button51 .button_BR, .box1_TR, .box1_BR, .box2_TR, .box2_BR, .box6_BR, .box3_BR, .box4_TR, .box4_BR, .box5_TR, .box5_BR, .box7_TR, .box7_BR, .box8_TR, .box8_BR, .box9_TR, .box9_BR, .box12_TR, .box12_BR, .box22_TR, .box22_BR, .box15_TR, .box15_BR, .box16_TR, .box16_BR, .box17_TR, .box17_BR, .box18_TR, .box18_BR {
+    padding: 0 9px 0 0
+}
+
+.button13 .button_TR, .button13 .button_BR, .button52 .button_TR, .button52 .button_BR, .button53 .button_TR, .button53 .button_BR, .button54 .button_TR, .button54 .button_BR, .button55 .button_TR, .button55 .button_BR, .button56 .button_TR, .button56 .button_BR, .button57 .button_TR, .button57 .button_BR, .button58 .button_TR, .button58 .button_BR, .button16 .button_TR, .button16 .button_BR, .button16 .button_MR, .button17 .button_TR, .button17 .button_BR, .button18 .button_TR, .button18 .button_BR, .button18 .button_MR, .button19 .button_TR, .button19 .button_BR, .button20 .button_TR, .button20 .button_BR, .button20 .button_MR, .button14 .button_TR, .button14 .button_BR, .button15 .button_TR, .button15 .button_BR, .button5 .button_TR, .button5 .button_BR, .disabled2 .button_TR, .disabled2 .button_BR {
+    padding: 0 6px 0 0
+}
+
+.button13 .button_TL, .button13 .button_BL, .button52 .button_TL, .button52 .button_BL, .button53 .button_TL, .button53 .button_BL, .button54 .button_TL, .button54 .button_BL, .button55 .button_TL, .button55 .button_BL, .button56 .button_TL, .button56 .button_BL, .button57 .button_TL, .button57 .button_BL, .button58 .button_TL, .button58 .button_BL, .button16 .button_TL, .button16 .button_BL, .button16 .button_ML, .button17 .button_TL, .button17 .button_BL, .button18 .button_TL, .button18 .button_BL, .button18 .button_ML, .button19 .button_TL, .button19 .button_BL, .button20 .button_TL, .button20 .button_BL, .button20 .button_ML, .button5 .button_TL, .button5 .button_BL, .disabled2 .button_TL, .disabled2 .button_BL {
+    padding: 0 0 0 6px
+}
+
+.button28 .button_TL, .button28 .button_BL, .button29 .button_TL, .button29 .button_BL, .button30 .button_TL, .button30 .button_BL, .button31 .button_TL, .button31 .button_BL {
+    padding: 0 0 0 13px
+}
+
+.button28 .button_TR, .button28 .button_BR, .button29 .button_TR, .button29 .button_BR, .button30 .button_TR, .button30 .button_BR, .button31 .button_TR, .button31 .button_BR {
+    padding: 0 13px 0 0
+}
+
+.button28 .button_MR, .button29 .button_MR, .button31 .button_MR {
+    padding: 0 8px 0 0
+}
+
+.button28 .button_ML, .button29 .button_ML, .button30 .button_ML, .button31 .button_ML {
+    padding: 0 0 0 8px
+}
+
+.button30 .button_MR {
+    padding: 0 7px 0 0
+}
+
+.button30 .button_ML {
+    padding: 0 0 0 7px
+}
+
+.button5 .button_MM {
+    padding: 4px 15px 3px 15px
+}
+
+    .button5 .button_MM.viewBillBtn, .disabled2 .button_MM, .disabled2 .button_MM.viewBillBtn {
+        padding: 3px 15px
+    }
+
+.button28 .button_TL, .button28 .button_TR, .button28 .button_TM, .button28 .button_BL, .button28 .button_BR, .button28 .button_BM, .button29 .button_TL, .button29 .button_TR, .button29 .button_TM, .button29 .button_BL, .button29 .button_BR, .button29 .button_BM, .button30 .button_TL, .button30 .button_TR, .button30 .button_TM, .button30 .button_BL, .button30 .button_BR, .button30 .button_BM, .button31 .button_TL, .button31 .button_TR, .button31 .button_TM, .button31 .button_BL, .button31 .button_BR, .button31 .button_BM {
+    background-image: url('sprites/x.png')
+}
+
+.button28 .button_ML, .button29 .button_ML, .button30 .button_ML {
+    background: url('sprites/boxShadow_ML.png') repeat-y 0 0
+}
+
+.button28 .button_MR, .button29 .button_MR, .button30 .button_MR {
+    background: url('sprites/boxShadow_MR.png') repeat-y right 0
+}
+
+.button_TL, .button_BL, .button_TR, .button_BR {
+    background-repeat: no-repeat
+}
+
+.button1 .button_TL {
+    background-position: 0 0
+}
+
+.button1 .button_TR {
+    background-position: right -21px
+}
+
+.button1 .button_TM {
+    background-position: 0 -42px
+}
+
+.button1 .button_BL {
+    background-position: 0 -6px;
+    margin-top: -1px
+}
+
+.button1 .button_BR {
+    background-position: right -27px
+}
+
+.button1 .button_BM {
+    background-position: 0 -48px
+}
+
+.button1 .button_MR, .button1 .button_ML {
+    background-color: #000
+}
+
+.button1 .button_MM {
+    background: #1478bc url('sprites/button1.png') repeat-x 0 bottom
+}
+
+.button1:hover .button_BL {
+    background-position: 0 -63px
+}
+
+.button1:hover .button_BR {
+    background-position: right -73px
+}
+
+.button1:hover .button_BM {
+    background-position: 0 -87px
+}
+
+.button2 .button_TL {
+    background-position: 0 -101px;
+    margin-bottom: -1px
+}
+
+.button2 .button_TR {
+    background-position: right -121px
+}
+
+.button2 .button_TM {
+    background-position: 0 -141px
+}
+
+.button2 .button_BL {
+    background-position: 0 -107px
+}
+
+.button2 .button_BR {
+    background-position: right -127px
+}
+
+.button2 .button_BM {
+    background-position: 0 -147px
+}
+
+.button2 .button_MR, .button2 .button_ML {
+    background-color: #bfbfbf
+}
+
+.button2 .button_MM, .button3 .button_MM {
+    background: #fefefe url('sprites/button2.png') repeat-x 0 bottom
+}
+
+.button2:hover .button_TL {
+    background-position: 0 -161px
+}
+
+.button2:hover .button_TR {
+    background-position: right -182px
+}
+
+.button2:hover .button_TM {
+    background-position: 0 -203px
+}
+
+.button2:hover .button_ML {
+    background: #0066a4
+}
+
+.button2:hover .button_MR {
+    background: #0066a4
+}
+
+.button2:hover .button_MM {
+    color: #0066a4
+}
+
+.button2:hover .button_BL {
+    background-position: 0 -167px
+}
+
+.button2:hover .button_BR {
+    background-position: right -188px
+}
+
+.button2:hover .button_BM {
+    background-position: 0 -209px
+}
+
+.button2:hover .email {
+    background-position: 0 -40px
+}
+
+.button2:hover .print {
+    background-position: 0 -14px
+}
+
+.button2:hover .chat {
+    background-position: 0 -68px
+}
+
+.button3 .button_TL {
+    background-position: 0 -221px
+}
+
+.button3 .button_TR {
+    background-position: right -241px
+}
+
+.button3 .button_TM {
+    background-position: 0 -261px
+}
+
+.button3 .button_BL {
+    background-position: 0 -230px
+}
+
+.button3 .button_BR {
+    background-position: right -250px
+}
+
+.button3 .button_BM {
+    background-position: 0 -271px
+}
+
+.button3 .button_MR, .button3 .button_ML {
+    background-color: #787878
+}
+
+.button4 .button_TL {
+    background-position: 0 -414px
+}
+
+.button4 .button_TR {
+    background-position: right -445px
+}
+
+.button4 .button_TM {
+    background-position: 0 -473px
+}
+
+.button4 .button_BL {
+    background-position: 0 -425px
+}
+
+.button4 .button_BR {
+    background-position: right -456px
+}
+
+.button4 .button_BM {
+    background-position: 0 -488px
+}
+
+.button4 .button_MR, .button4 .button_ML {
+    background-color: #d2e6f2
+}
+
+.button4 .button_MM, .button4 .button_MLR {
+    background: #1d87c6 url('sprites/button4.png') repeat-x 0 bottom
+}
+
+.button5 .button_TL {
+    background-position: left -500px
+}
+
+.button5 .button_TR {
+    background-position: right -512px
+}
+
+.button5 .button_TM {
+    background-position: left -548px;
+    background-repeat: repeat-x
+}
+
+.button5 .button_BL {
+    background-position: left -528px
+}
+
+.button5 .button_BR {
+    background-position: right -540px
+}
+
+.button5 .button_BM {
+    background-position: left -564px;
+    background-repeat: repeat-x
+}
+
+.button5 .button_MR, .button5 .button_ML {
+    background-color: #dcdcdc
+}
+
+.button5 .button_MM, .button14 .button_ML, .button14 .button_MM {
+    background: #fefefe url('sprites/button5.png') repeat-x 0 bottom
+}
+
+.button6 .button_TL {
+    background-position: 0 -580px
+}
+
+.button6 .button_TR {
+    background-position: right -602px
+}
+
+.button6 .button_TM {
+    background-position: 0 -624px
+}
+
+.button6 .button_BL {
+    background-position: 0 -591px
+}
+
+.button6 .button_BR {
+    background-position: right -613px
+}
+
+.button6 .button_BM {
+    background-position: 0 -637px
+}
+
+.button6 .button_MR, .button12 .button_MR, .button37 .button_MR {
+    background: #dedede url('sprites/button6_MR.png') repeat-y right top
+}
+
+.button6 .button_ML {
+    background: #dedede url('sprites/y.png') repeat-y -145px 0
+}
+
+.button6 .button_MM {
+    background: #fff url('sprites/button6.png') repeat-x 0 bottom
+}
+
+.button7 .button_TL, .button8 .button_TL {
+    background-position: 0 -650px
+}
+
+.button7 .button_TR, .button10 .button_TR, .button43 .button_TR {
+    background-position: right -676px
+}
+
+.button7 .button_BL, .button8 .button_BL {
+    background-position: 0 -661px
+}
+
+.button7 .button_BR, .button10 .button_BR {
+    background-position: right -687px
+}
+
+.button7 .button_MM, .button8 .button_MR, .button8 .button_MM, .button9 .button_MR, .button9 .button_ML, .button9 .button_MM, .button10 .button_ML, .button10 .button_MM {
+    background: #fafafa url('sprites/button7.png') repeat-x 0 bottom
+}
+
+.button7:hover .button_TL, .button8:hover .button_TL {
+    background-position: 0 -857px
+}
+
+.button7:hover .button_TR, .button10:hover .button_TR {
+    background-position: right -883px
+}
+
+.button7 .button_TM, .button8 .button_TM, .button9 .button_TL, .button9 .button_TM, .button10 .button_TL, .button10 .button_TM {
+    background-position: 0 -702px
+}
+
+.button8 .button_TR, .button9 .button_TR {
+    background-position: right -702px
+}
+
+.button7:hover .button_TM, .button8:hover .button_TM, .button9:hover .button_TL, .button9:hover .button_TM, .button10:hover .button_TL, .button10:hover .button_TM {
+    background-position: 0 -909px
+}
+
+.button8:hover .button_TR, .button9:hover .button_TR {
+    background-position: right -909px
+}
+
+.button7:hover .button_BL, .button8:hover .button_BL {
+    background-position: 0 -868px
+}
+
+.button7:hover .button_BM, .button8:hover .button_BM, .button9:hover .button_BL, .button9:hover .button_BM, .button10:hover .button_BM, .button10:hover .button_BL {
+    background-position: 0 -922px
+}
+
+.button8 .button_BR, .button9 .button_BR {
+    background-position: right -714px
+}
+
+.button7:hover .button_BR, .button10:hover .button_BR {
+    background-position: right -894px
+}
+
+.button7 .button_BM, .button8 .button_BM, .button9 .button_BL, .button9 .button_BM, .button10 .button_BL, .button10 .button_BM {
+    background-position: 0 -714px
+}
+
+.button8:hover .button_BR, .button9:hover .button_BR {
+    background-position: right -922px
+}
+
+.button7 .button_MR, .button7 .button_ML, .button8 .button_ML, .button8:hover .button_ML, .button10 .button_MR, .button10:hover .button_MR, .button27 .button_ML, .button27 .button_MR {
+    background-color: #ababab;
+}
+
+.button7:hover .button_MM, .button8:hover .button_MR, .button8:hover .button_MM, .button9:hover .button_MR, .button9:hover .button_ML, .button9:hover .button_MM, .button10:hover .button_ML, .button10:hover .button_MM, .button10:hover .button_MLR {
+    background: #efefef url('sprites/button7_hover.png') repeat-x 0 bottom
+}
+
+.button11 .button_TL {
+    background-position: 0 -940px
+}
+
+.button11 .button_TR {
+    background-position: right -993px;
+    border-right: 1px #6d6d6d solid
+}
+
+.button11 .button_TM {
+    background-position: 0 -991px
+}
+
+.button11 .button_BL {
+    background-position: 0 -953px
+}
+
+.button11 .button_BR {
+    background-position: right -1007px;
+    border-right: 1px #6d6d6d solid
+}
+
+.button11 .button_BM {
+    background-position: 0 -1007px
+}
+
+.button11 .button_ML, .button11 .button_MR {
+    background: #6d6d6d
+}
+
+.button11 .button_MM, .button14.on .button_MM, .button15 .button_ML, .button15 .button_MM {
+    background: #828282 url('sprites/button11.png') repeat-x 0 bottom
+}
+
+.button12 .button_TL, .button37 .button_TL {
+    background-position: 0 -1366px
+}
+
+.button12 .button_TR, .button44 .button_TR {
+    background-position: right -1386px
+}
+
+.button12 .button_TM, .button21 .button_TM, .button37 .button_TM, .button44 .button_TM, .button45 .button_TM {
+    background-position: 0 -1444px;
+    background-repeat: repeat-x
+}
+
+.button12 .button_BL, .button21 .button_BL, .button37 .button_BL, .button44 .button_BL, .button45 .button_BL {
+    background-position: 0 -1421px
+}
+
+.button12 .button_BR, .button21 .button_BR, .button37 .button_BR, .button44 .button_BR, .button45 .button_BR {
+    background-position: right -1441px
+}
+
+.button12 .button_BM, .button21 .button_BM, .button37 .button_BM, .button44 .button_BM, .button45 .button_BM {
+    background-position: 0 -1470px;
+    background-repeat: repeat-x
+}
+
+.button12 .button_ML, .button12 .button_MM, .button21 .button_MR, .button21 .button_MM, .button45 .button_MR, .button45 .button_MM, .button44 .button_MR, .button44 .button_MM {
+    background: #f6f6f6 url('sprites/button12.png') repeat-x 0 top
+}
+
+.button13 .button_TL {
+    background-position: 0 -1019px
+}
+
+.button13 .button_TR {
+    background-position: right -1226px
+}
+
+.button13 .button_TM {
+    background-position: 0 -1079px
+}
+
+.button13 .button_BL {
+    background-position: 0 -1047px
+}
+
+.button13 .button_BR {
+    background-position: right -1241px
+}
+
+.button13 .button_BM {
+    background-position: 0 -1071px
+}
+
+.button13 .button_MR, .button13 .button_ML {
+    background-color: #b8b8b8
+}
+
+.button13 .button_MM, .button17 .button_MM, .button19 .button_MM {
+    background: #fefefe url('sprites/button13.png') repeat-x 0 bottom;
+    padding: 0px 11px;
+    line-height: 12px
+}
+
+.button13 .btnTxt {
+    color: #0066a4
+}
+
+.dcx_selectOff.on .button14 .button_TL {
+    background-position: 0 -548px
+}
+
+.dcx_selectOff.on .button14 .button_TR {
+    background-position: right -1093px
+}
+
+.dcx_selectOff.on .button14 .button_TM {
+    background-position: 0 -993px
+}
+
+.dcx_selectOff.on .button14 .button_BL {
+    background-position: 0 -591px
+}
+
+.dcx_selectOff.on .button14 .button_BR {
+    background-position: right -1108px
+}
+
+.dcx_selectOff.on .button14 .button_BM {
+    background-position: 0 -1011px
+}
+
+.dcx_selectOff.on .button14 .button_ML, .dcx_selectOff.on .button14 .button_MR {
+    background: #6d6d6d;
+    padding: 0 1px 0 0;
+}
+
+.dcx_selectOff.on .button14 .icon.dropDownArrow {
+    background-position: 0 -371px;
+}
+
+.dcx_selectOff.on .button14 .button_MM {
+    background: url("sprites/button11.png") repeat-x #828282;
+}
+
+.button14 .button_TL {
+    background-position: 0 -548px
+}
+
+.button14 .button_TR {
+    background-position: right -603px
+}
+
+.button14 .button_TM {
+    background-position: 0 -548px
+}
+
+.button14 .button_BL {
+    background-position: 0 -591px
+}
+
+.button14 .button_BR {
+    background-position: right -540px
+}
+
+.button14 .button_BM {
+    background-position: 0 -564px
+}
+
+.button14 .button_MR {
+    background-color: #dedede
+}
+
+.button14 .button_MM {
+    padding: 3px 10px 4px 10px
+}
+
+.button14.on .button_TL {
+    background-position: 0 -548px
+}
+
+.button14.on .button_TR {
+    background-position: right -1093px
+}
+
+.button14.on .button_TM {
+    background-position: 0 -993px
+}
+
+.button14.on .button_BL {
+    background-position: 0 -591px
+}
+
+.button14.on .button_BR {
+    background-position: right -1108px
+}
+
+.button14.on .button_BM {
+    background-position: 0 -1011px
+}
+
+.button14.on .button_ML, .button14.on .button_MR {
+    background: #6d6d6d
+}
+
+.button14.on .icon.dropDownArrow {
+    background-position: 0 -371px
+}
+
+.button15 .button_TL {
+    background-position: 0 -548px
+}
+
+.button15 .button_TR {
+    background-position: right -1093px
+}
+
+.button15 .button_TM {
+    background-position: 0 -993px
+}
+
+.button15 .button_BL {
+    background-position: 0 -591px
+}
+
+.button15 .button_BR {
+    background-position: right -1108px
+}
+
+.button15 .button_BM {
+    background-position: 0 -1008px
+}
+
+.button15 .button_MR {
+    background-color: #6d6d6d
+}
+
+.button15 .button_MM {
+    padding: 3px 10px 4px 10px
+}
+
+.button16 .button_TL {
+    background-position: 0 -1138px
+}
+
+.button16 .button_TR {
+    background-position: right -1193px
+}
+
+.button16 .button_TM {
+    background-position: 0 -1204px
+}
+
+.button16 .button_BL {
+    background-position: 0 -1152px
+}
+
+.button16 .button_BR {
+    background-position: right -1185px
+}
+
+.button16 .button_BM {
+    background-position: 0 -1218px
+}
+
+.button16 .button_MM {
+    padding: 0px 5px;
+    background: #727272;
+    line-height: 12px
+}
+
+.button16 .button_ML {
+    background-image: url('sprites/paginatorDkL.png');
+    background-repeat: repeat-y;
+    background-position: -1px 0;
+    border-left: 1px #535353 solid;
+    border-right: 1px #666666 solid
+}
+
+.button16 .button_MR {
+    background-image: url('sprites/paginatorDkR.png');
+    background-position: right 0;
+    background-repeat: repeat-y
+}
+
+.button16 .btnTxt {
+    color: #fff
+}
+
+.button17 .button_TL {
+    background-position: 0 -1343px
+}
+
+.button17 .button_TR {
+    background-position: right -1031px
+}
+
+.button17 .button_TM {
+    background-position: 0 -1079px
+}
+
+.button17 .button_BL {
+    background-position: 0 -1358px
+}
+
+.button17 .button_BR {
+    background-position: right -1059px
+}
+
+.button17 .button_BM {
+    background-position: 0 -1071px
+}
+
+.button17 .button_MR, .button17 .button_ML {
+    background-color: #b8b8b8
+}
+
+.button17 .btnTxt {
+    color: #0066a4
+}
+
+.button18 .button_TL {
+    background-position: 0 -1160px
+}
+
+.button18 .button_TR {
+    background-position: right -1116px
+}
+
+.button18 .button_TM {
+    background-position: 0 -1204px
+}
+
+.button18 .button_BL {
+    background-position: 0 -1174px
+}
+
+.button18 .button_BR {
+    background-position: right -1130px
+}
+
+.button18 .button_BM {
+    background-position: 0 -1218px
+}
+
+.button18 .button_MM {
+    padding: 0px 5px;
+    background: #727272;
+    line-height: 12px
+}
+
+.button18 .button_ML {
+    background-image: url('sprites/paginatorDkL.png');
+    background-repeat: repeat-y;
+    background-position: -1px 0;
+    border-left: 1px #535353 solid;
+    border-right: 1px #666666 solid
+}
+
+.button18 .button_MR, .button20 .button_MR {
+    background-image: url('sprites/paginatorDkR.png');
+    background-repeat: repeat-y
+}
+
+.button18 .button_MR {
+    background-position: right 0
+}
+
+.button18 .btnTxt {
+    color: #FFF
+}
+
+.button19 .button_TL {
+    background-position: 0 -1343px
+}
+
+.button19 .button_TR {
+    background-position: right -1226px
+}
+
+.button19 .button_TM {
+    background-position: 0 -1079px
+}
+
+.button19 .button_BL {
+    background-position: 0 -1358px
+}
+
+.button19 .button_BR {
+    background-position: right -1241px
+}
+
+.button19 .button_BM {
+    background-position: 0 -1071px
+}
+
+.button19 .button_MR, .button19 .button_ML {
+    background-color: #b8b8b8
+}
+
+.button19 .btnTxt {
+    color: #0066a4
+}
+
+.button20 .button_TL {
+    background-position: 0 -1160px
+}
+
+.button20 .button_TR {
+    background-position: right -1193px
+}
+
+.button20 .button_TM {
+    background-position: 0 -1204px
+}
+
+.button20 .button_BL {
+    background-position: 0 -1174px
+}
+
+.button20 .button_BR {
+    background-position: right -1185px
+}
+
+.button20 .button_BM {
+    background-position: 0 -1218px
+}
+
+.button20 .button_MM {
+    padding: 0px 5px;
+    background: #727272;
+    line-height: 12px
+}
+
+.button20 .button_ML {
+    background-image: url('sprites/paginatorDkL.png');
+    background-repeat: repeat-y
+}
+
+.button20 .button_ML {
+    background-position: -1px 0;
+    border-left: 1px #535353 solid;
+    border-right: 1px #666666 solid
+}
+
+.button20 .button_MR {
+    background-position: right 0
+}
+
+.button20 .btnTxt {
+    color: #FFF
+}
+
+.button21 .button_TL {
+    background-position: 0 -1472px
+}
+
+.button21 .button_TR {
+    background-position: right -1444px
+}
+
+.button21 .button_ML {
+    background: #dedede url('sprites/y.png') repeat-y -145px 0
+}
+
+.button22 .button_ML, .button25 .button_ML {
+    padding: 0 0 0 11px
+}
+
+.button22 .button_MR, .button25 .button_MR {
+    padding: 0 11px 0 0
+}
+
+.button22 .button_ML, .button25 .button_ML {
+    background: url(sprites/bg_button22_ML.gif) repeat-y left top
+}
+
+.button22 .button_MM {
+    width: 140px;
+    padding: 16px 10px
+}
+
+    .button22 .button_MM.w110 {
+        width: 105px;
+        padding: 16px 10px
+    }
+
+.button22:hover .button_ML, .button25:hover .button_ML {
+    background: url(sprites/bg_shadowsSpriteL.png) repeat-y left top
+}
+
+.button22:hover .button_MR, .button25:hover .button_MR {
+    background: url(sprites/bg_shadowsSpriteR.png) repeat-y right top
+}
+
+.button22:hover, .button25:hover {
+    background: url(sprites/bg_gradient_b.png) repeat-x left top
+}
+
+    .button22:hover .navArrow {
+        background-position: 0 -1152px
+    }
+
+.button23 .button_MM {
+    width: 36px;
+    height: 26px;
+    padding: 10px 12px
+}
+
+.button24 .button_MM {
+    width: 36px;
+    height: 26px;
+    padding: 10px 9px
+}
+
+.button24:hover .locator {
+    background-position: -2px -924px
+}
+
+.button24:hover .magnifyingGlass {
+    background-position: -2px -773px
+}
+
+.button25 .button_MM {
+    width: 162px;
+    padding: 16px 5px
+}
+
+.button25:hover .navArrow {
+    background-position: 0 -1152px
+}
+
+.button26 .button_ML, .button59 .button_ML {
+    padding: 0 0 0 3px
+}
+
+.button26 .button_MR {
+    padding: 0 3px 0 0
+}
+
+.button26 .button_TL, .button59 .button_TL {
+    background-position: 0 -1576px
+}
+
+.button26 .button_TR, .button59 .button_TR {
+    background-position: right -1589px
+}
+
+.button26 .button_TM, .button59 .button_TM {
+    background-position: 0 -1628px
+}
+
+.button26 .button_BL, .button59 .button_BL {
+    background-position: 0 -1608px
+}
+
+.button26 .button_BR, .button59 .button_BR {
+    background-position: right -1621px
+}
+
+.button26 .button_BM, .button59 .button_BM {
+    background-position: 0 -1646px
+}
+
+.button26 .button_MR, .button59 .button_MR {
+    background: transparent url('sprites/button26_MR.png') repeat-y right 0
+}
+
+.button26 .button_ML, .button59 .button_ML {
+    background: transparent url('sprites/y.png') repeat-y -164px 0
+}
+
+.button26 .button_MM, .button59 .button_MM {
+    background: #FFF
+}
+
+.button26:hover .button_TL, .button26.active .button_TL {
+    background-position: 0 -1503px
+}
+
+.button26:hover .button_TR {
+    background-position: right -1516px
+}
+
+.button26:hover .button_TM, .button26.active .button_TM {
+    background-position: 0 -1552px
+}
+
+.button26:hover .button_ML, .button26.active .button_ML {
+    background: transparent url('sprites/y.png') repeat-y -179px 0
+}
+
+.button26:hover .button_MR {
+    background: transparent url('sprites/button26_MR_hover.png') repeat-y right 0
+}
+
+.button26:hover .button_BL, .button26.active .button_BL {
+    background-position: 0 -1531px
+}
+
+.button26:hover .button_BR {
+    background-position: right -1544px
+}
+
+.button26:hover .button_BM, .button26.active .button_BM {
+    background-position: 0 -1567px
+}
+/*menuImage hover glow*/
+.button26:hover .menuImage, .button59:hover .menuImage, .button59.active .menuImage {
+    background-position: right top
+}
+
+    .button26:hover .menuImage.shopTV, .button59:hover .menuImage.shopTV, .button59.active .menuImage.shopTV {
+        background-position: right -150px
+    }
+
+    .button26:hover .menuImage.shopInternet, .button59:hover .menuImage.shopInternet, .button59.active .menuImage.shopInternet {
+        background-position: right -75px
+    }
+
+    .button26:hover .menuImage.shopHomephone, .button59:hover .menuImage.shopHomephone, .button59.active .menuImage.shopHomephone {
+        background-position: right -225px
+    }
+
+    .button26:hover .menuImage.shopMBundles, .button59:hover .menuImage.shopMBundles, .button59.active .menuImage.shopMBundles {
+        background-position: right -300px
+    }
+
+    .button26:hover .menuImage.supportMobility, .button59:hover .menuImage.supportMobility, .button59active .menuImage.supportMobility {
+        background-position: right -750px
+    }
+
+    .button26:hover .menuImage.supportTv, .button59:hover .menuImage.supportTv, .button59.active .menuImage.supportTv {
+        background-position: right -900px
+    }
+
+    .button26:hover .menuImage.supportInternet, .button59:hover .menuImage.supportInternet, .button59active .menuImage.supportInternet {
+        background-position: right -825px
+    }
+
+    .button26:hover .menuImage.supportHomephone, .button59:hover .menuImage.supportHomephone, .button59.active .menuImage.supportHomephone {
+        background-position: right -975px
+    }
+
+    .button26:hover .menuImage.supportBilling, .button59:hover .menuImage.supportBilling, .button59.active .menuImage.supportBilling {
+        background-position: right -450px
+    }
+
+    .button26:hover .menuImage.myBellServices, .button59:hover .menuImage.myBellServices, .button59active .menuImage.myBellServices {
+        background-position: right -600px
+    }
+
+    .button26:hover .menuImage.myBellBills, .button59:hover .menuImage.myBellBills, .button59.active .menuImage.myBellBills {
+        background-position: right -450px
+    }
+
+    .button26:hover .menuImage.myBellProfile, .button59:hover .menuImage.myBellProfile, .button59.active .menuImage.myBellProfile {
+        background-position: right -375px
+    }
+
+.button27 .button_MM {
+    width: 183px;
+    padding: 16px 5px;
+    background: #f2f2f2
+}
+
+.button27 .button_BL {
+    background-position: 0 -1759px
+}
+
+.button27 .button_BR {
+    background-position: right -1772px
+}
+
+.button27 .button_BM {
+    background-position: 0 -1796px
+}
+
+.button28 .button_TL {
+    background-position: 0 -597px
+}
+
+.button28 .button_TM {
+    background-position: 0 -659px
+}
+
+.button28 .button_TR {
+    background-position: right -613px
+}
+
+.button28 .button_BL {
+    background-position: 0 -631px
+}
+
+.button28 .button_BR {
+    background-position: right -647px
+}
+
+.button28 .button_BM {
+    background-position: 0 -675px
+}
+
+.button28 .button_MM {
+    background-color: #f2f2f2
+}
+
+.button28:hover .button_TL {
+    background-position: 0 -691px
+}
+
+.button28:hover .button_TM {
+    background-position: 0 -752px
+}
+
+.button28:hover .button_TR {
+    background-position: right -706px
+}
+
+.button28:hover .button_BL {
+    background-position: 0 -722px
+}
+
+.button28:hover .button_BR {
+    background-position: right -737px
+}
+
+.button28:hover .button_BM {
+    background-position: 0 -766px
+}
+
+.button28:hover .button_MM {
+    background-color: #e5e3e3
+}
+
+.button29 .button_TL {
+    background-position: 0 -972px
+}
+
+.button29 .button_TM {
+    background-position: 0 -1035px
+}
+
+.button29 .button_TR {
+    background-position: right -986px
+}
+
+.button29 .button_BL {
+    background-position: 0 -1004px
+}
+
+.button29 .button_BR {
+    background-position: right -1020px
+}
+
+.button29 .button_BM {
+    background-position: 0 -1049px
+}
+
+.button29 .button_MM {
+    background-color: #dae8f0
+}
+
+.button30 .button_BL {
+    background-position: 0 -1064px
+}
+
+.button30 .button_BR {
+    background-position: right -1080px
+}
+
+.button30 .button_BM {
+    background-position: 0 -1095px
+}
+
+.button30 .button_MM {
+    background: url("sprites/button30_bg.png") #fff repeat-x 0 bottom
+}
+
+.button31 .button_TL {
+    background-position: 0 -783px
+}
+
+.button31 .button_TM {
+    background-position: 0 -844px
+}
+
+.button31 .button_TR {
+    background-position: right -798px
+}
+
+.button31 .button_BL {
+    background-position: 0 -816px
+}
+
+.button31 .button_BR {
+    background-position: right -831px
+}
+
+.button31 .button_BM {
+    background-position: 0 -858px
+}
+
+.button31 .button_MM {
+    background-color: #f2f2f2
+}
+
+.button31 .button_ML {
+    background: url('sprites/boxShadow_ML2.png') repeat-y 0 0
+}
+
+.button31 .button_MR {
+    background: url('sprites/Boxshadow_MR2.png') repeat-y right 0
+}
+
+.button31:hover .button_MM {
+    background-color: #dae8f1
+}
+
+.button32 .button_ML, .button25 .button_ML {
+    padding: 0 0 0 11px
+}
+
+.button32 .button_MR, .button25 .button_MR {
+    padding: 0 11px 0 0
+}
+
+.button32 .button_ML, .button25 .button_ML {
+    background: url(sprites/bg_button22_ML.gif) repeat-y left top
+}
+
+.button32 .button_MM {
+    padding: 16px 2px;
+    max-width: 300px
+}
+
+.button32:hover .button_ML, .button25:hover .button_ML {
+    background: url(sprites/bg_shadowsSpriteL.png) repeat-y left top
+}
+
+.button32:hover .button_MR, .button25:hover .button_MR {
+    background: url(sprites/bg_shadowsSpriteR.png) repeat-y right top
+}
+
+.button32:hover, .button25:hover {
+    background: url(sprites/bg_gradient_b.png) repeat-x left top
+}
+
+    .button32:hover .navArrow {
+        background-position: 0 -1152px
+    }
+
+.button33 .button_MM {
+    width: 32px;
+    height: 26px;
+    padding: 10px 2px
+}
+
+.button34 .button_MM {
+    width: 32px;
+    height: 26px;
+    padding: 10px 1px
+}
+
+.button34:hover .locator {
+    background-position: -2px -924px
+}
+
+.button34:hover .magnifyingGlass {
+    background-position: -2px -773px
+}
+/*Button Virgin styles*/
+.button35 .button_TL, .button35 .button_TR, .button35 .button_TM, .button35 .button_BL, .button35 .button_BR, .button35 .button_BM, .button36 .button_TL, .button36 .button_TR, .button36 .button_TM, .button36 .button_BL, .button36 .button_BR, .button36 .button_BM, .button40 .button_TL, .button40 .button_TR, .button40 .button_TM, .button40 .button_BL, .button40 .button_BR, .button40 .button_BM, .button41 .button_TL, .button41 .button_TR, .button41 .button_TM, .button41 .button_BL, .button41 .button_BR, .button41 .button_BM, .button43 .button_TL, .button43 .button_TR, .button43 .button_TM, .button43 .button_BL, .button43 .button_BR, .button43 .button_BM, .button43 .button_MR, .button52 .button_TL, .button52 .button_TR, .button52 .button_TM, .button52 .button_BL, .button52 .button_BR, .button52 .button_BM, .button52 .button_MR, .button53 .button_TL, .button53 .button_TR, .button53 .button_TM, .button53 .button_BL, .button53 .button_BR, .button53 .button_BM, .button53 .button_MR, .button54 .button_TL, .button54 .button_TR, .button54 .button_TM, .button54 .button_BL, .button54 .button_BR, .button54 .button_BM, .button54 .button_MR, .button55 .button_TL, .button55 .button_TR, .button55 .button_TM, .button55 .button_BL, .button55 .button_BR, .button55 .button_BM, .button55 .button_MR, .button56 .button_TL, .button56 .button_TR, .button56 .button_TM, .button56 .button_BL, .button56 .button_BR, .button56 .button_BM, .button56 .button_MR, .button57 .button_TL, .button57 .button_TR, .button57 .button_TM, .button57 .button_BL, .button57 .button_BR, .button57 .button_BM, .button58 .button_TL, .button58 .button_TR, .button58 .button_TM, .button58 .button_BL, .button58 .button_BR, .button58 .button_BM, .button58 .button_MR {
+    background-image: url('sprites/virgin_buttons.png');
+}
+
+.button35 .button_TL {
+    background-position: 0 0
+}
+
+.button35 .button_TR {
+    background-position: right -40px
+}
+
+.button35 .button_TM {
+    background-position: 0 -81px
+}
+
+.button35 .button_BL {
+    background-position: 0 -29px;
+}
+
+.button35 .button_BR {
+    background-position: right -69px
+}
+
+.button35 .button_BM {
+    background-position: 0 -110px
+}
+
+.button35 .button_MR, .button35 .button_ML {
+    background-color: #a70302
+}
+
+.button35 .button_MM {
+    background: #d13031 url('sprites/button1_BG.png') repeat-x 0 bottom
+}
+
+.button35:hover .button_MM {
+    background: #b03131 url('sprites/button1_BG_hover.png') repeat-x 0 bottom
+}
+
+.button35:hover .button_TL {
+    background-position: 0 -122px
+}
+
+.button35:hover .button_TR {
+    background-position: right -162px
+}
+
+.button35:hover .button_TM {
+    background-position: 0 -202px
+}
+
+.button35:hover .button_BL {
+    background-position: 0 -151px
+}
+
+.button35:hover .button_BR {
+    background-position: right -191px
+}
+
+.button35:hover .button_BM {
+    background-position: 0 -231px
+}
+
+.button36 .button_TL {
+    background-position: 0 -501px
+}
+
+.button36 .button_TR {
+    background-position: right -543px
+}
+
+.button36 .button_TM {
+    background-position: 0 -584px
+}
+
+.button36 .button_BL {
+    background-position: 0 -530px;
+}
+
+.button36 .button_BR {
+    background-position: right -572px
+}
+
+.button36 .button_BM {
+    background-position: 0 -613px
+}
+
+.button36 .button_MR, .button36 .button_ML {
+    background-color: #1d1d1d
+}
+
+.button36 .button_MM {
+    background: #3e3e3e url('sprites/button2_BG.png') repeat-x 0 bottom
+}
+
+.button36:hover .button_MM {
+    background: #1f1f1f url('sprites/button2_BG_hover.png') repeat-x 0 bottom
+}
+
+.button36:hover .button_TL {
+    background-position: 0 -627px
+}
+
+.button36:hover .button_TR {
+    background-position: right -667px
+}
+
+.button36:hover .button_TM {
+    background-position: 0 -707px
+}
+
+.button36:hover .button_BL {
+    background-position: 0 -656px
+}
+
+.button36:hover .button_BR {
+    background-position: right -696px
+}
+
+.button36:hover .button_BM {
+    background-position: 0 -736px
+}
+
+.button37 .button_TR {
+    background-position: right -1811px
+}
+
+.button37 .button_ML, .button37 .button_MM {
+    background: #f6f6f6 url('sprites/button12.png') repeat-x 0 top
+}
+
+.button38 .button_TL, .button38 .button_TR, .button38 .button_TM, .button38 .button_BL, .button38 .button_BR, .button38 .button_BM, .button38 .button_ML, .button38 .button_MM {
+    background-image: none;
+    background-color: #eee
+}
+
+.button39 .button_TL, .button39 .button_TR, .button39 .button_TM, .button39 .button_BL, .button39 .button_BR, .button39 .button_BM, .button39 .button_ML, .button39 .button_MM {
+    background-image: none;
+    background-color: #fff
+}
+
+.button40 .button_TL {
+    background-position: 0 -249px
+}
+
+.button40 .button_TR {
+    background-position: right -293px
+}
+
+.button40 .button_TM {
+    background-position: 0 -336px
+}
+
+.button40 .button_BL {
+    background-position: 0 -277px;
+}
+
+.button40 .button_BR {
+    background-position: right -321px
+}
+
+.button40 .button_BM {
+    background-position: 0 -364px
+}
+
+.button40 .button_MR, .button40 .button_ML {
+    background-color: #454545
+}
+
+.button40 .button_MM {
+    background: #727272 url('sprites/button1_BG_selected.png') repeat-x 0 bottom
+}
+
+.button41 .button_TL {
+    background-position: 0 -377px
+}
+
+.button41 .button_TR {
+    background-position: right -417px
+}
+
+.button41 .button_TM {
+    background-position: 0 -462px
+}
+
+.button41 .button_BL {
+    background-position: 0 -406px;
+}
+
+.button41 .button_BR {
+    background-position: right -446px
+}
+
+.button41 .button_BM {
+    background-position: 0 -491px
+}
+
+.button41 .button_MR, .button41 .button_ML {
+    background-color: #c9c9c9
+}
+
+.button41 .button_MM {
+    background: #d5d5d5 url('sprites/button1_BG_disabled.png') repeat-x 0 bottom
+}
+
+.button42 .button_TL, .button42 .button_TR, .button42 .button_TM, .button42 .button_BL, .button42 .button_BR, .button42 .button_BM, .button42 .button_MR {
+    background-color: #333;
+    background-image: none
+}
+
+.button42 .button_ML {
+    background-color: #333
+}
+
+.button43 .button_TL, .button43 .button_TM {
+    background-position: 0 -841px
+}
+
+.button43 .button_BL, .button43 .button_BR, .button43 .button_BM {
+    background-position: 0 -874px
+}
+
+.button43 .button_MR, .button43 .button_MM, .button43 .button_ML {
+    background-color: #eee;
+    background-image: none
+}
+
+.button44 .button_TL {
+    background-position: 0 -1472px
+}
+
+.button44 .button_ML, .button45 .button_ML {
+    background: #dedede url('sprites/y.png') repeat-y -145px 0
+}
+
+.button44 .button_MR {
+    background: url("sprites/button6_MR.png") repeat-y scroll right top #dedede;
+}
+
+.button45 .button_TL {
+    background-position: 0 -1847px
+}
+
+.button45 .button_TR {
+    background-position: right -1444px
+}
+/*Bell nav tabs*/
+.button49 .button_MM, .button50 .button_MM, .button51 .button_MM {
+    background: url('sprites/button49_bg.png') 0 bottom repeat-x #3a3f47;
+    border-right: 1px solid #4f4f4f
+}
+
+.button46 .button_MM, .button48 .button_MM, .button47 .button_MM {
+    background: url('sprites/button46_bg.png') 0 bottom repeat-x #f8f8f8
+}
+
+.button46 .button_BM, .button47 .button_BM, .button47 .button_BL, .button48 .button_BM {
+    background-position: 0 -1973px;
+    background-repeat: repeat-x
+}
+
+.button46 .button_ML, .button47 .button_ML, .button48 .button_MR {
+    background-color: #bfbfbf
+}
+
+.button46 .button_BR, .button47 .button_BR {
+    background-position: right -2029px
+}
+
+.button46 .button_TR, .button47 .button_TR {
+    background-position: right -1982px
+}
+
+.button46 .button_TM, .button47 .button_TL, .button47 .button_TM, .button48 .button_TM, .button48 .button_TL {
+    background-position: 0 -1943px
+}
+
+.button46 .button_TL {
+    background-position: 0 -1873px
+}
+
+.button46 .button_BL {
+    background-position: 0 -1901px
+}
+
+.button48 .button_TR {
+    background-position: right -1907px
+}
+
+.button48 .button_BL {
+    background-position: 0 -1973px
+}
+
+.button48 .button_BR {
+    background-position: right -1935px
+}
+
+.button49 .button_TL {
+    background-position: 0 -2042px
+}
+
+.button49 .button_BL {
+    background-position: 0 -2069px
+}
+
+.button49 .button_ML, .button50 .button_ML, .button51 .button_ML {
+    background-color: #333
+}
+
+.button49 .button_BM, .button50 .button_BM, .button51 .button_BM {
+    background-position: 0 -2141px;
+    background-repeat: repeat-x
+}
+
+.button50 .button_TL, .button51 .button_TL {
+    background-position: 0 -2149px
+}
+
+.button49 .button_TR, .button50 .button_TR {
+    background-position: right -2185px
+}
+
+.button49 .button_BR, .button50 .button_BR {
+    background-position: right -2213px
+}
+
+.button49 .button_TM, .button50 .button_TM, .button51 .button_TM {
+    background-position: 0 -2112px;
+    background-repeat: repeat-x
+}
+
+.button50 .button_BL, .button51 .button_BL {
+    background-position: 0 -2177px
+}
+
+.button51 .button_TR {
+    background-position: right -2077px
+}
+
+.button51 .button_BR {
+    background-position: right -2104px
+}
+/*Virgin paginator buttons*/
+.button52 .button_MM, .button53 .button_MM, .button54 .button_MM {
+    background: #eee
+}
+
+.button52 .button_MM, .button53 .button_MM, .button54 .button_MM, .button55 .button_MM, .button56 .button_MM, .button57 .button_MM, .button58 .button_MM {
+    padding: 0px 15px
+}
+
+.button52 .button_TR, .button52 .button_TM, .button53 .button_TR, .button53 .button_TM, .button54 .button_TM {
+    background-position: right -970px
+}
+
+.button53 .button_TL, .button54 .button_TL {
+    background-position: -1px -1007px
+}
+
+.button53 .button_MR, .button53 .button_ML, .button54 .button_MR, .button54 .button_ML {
+    background-color: #fff
+}
+
+.button55 .button_MR, .button55 .button_ML, .button55 .button_MM, .button56 .button_MR, .button56 .button_ML, .button56 .button_MM, .button57 .button_MR, .button57 .button_ML, .button58 .button_MR, .button58 .button_ML, .button58 .button_MM {
+    background-color: #393939
+}
+
+.button52 .button_BM, .button52 .button_BR, .button53 .button_BM, .button53 .button_BR, .button54 .button_BM {
+    background-position: 0 -993px
+}
+
+.button55 .button_TM, .button55 .button_TR, .button56 .button_TL, .button56 .button_TM, .button56 .button_TR, .button57 .button_TM, .button58 .button_TM {
+    background-position: 0 -1143px
+}
+
+.button55 .button_BM, .button55 .button_BR, .button56 .button_BL, .button56 .button_BM, .button56 .button_BR, .button57 .button_BM, .button58 .button_BM {
+    background-position: 0 -1165px
+}
+
+.button53 .button_BL, .button54 .button_BL {
+    background-position: -1px -1031px
+}
+
+.button57 .button_BR, .button58 .button_BR {
+    background-position: right -1131px
+}
+
+.button57 .button_TR, .button58 .button_TR {
+    background-position: right -1106px
+}
+
+.button55 .button_BL, .button58 .button_BL {
+    background-position: 0 -1098px
+}
+
+.button58 .button_TL, .button55 .button_TL {
+    background-position: 0 -1073px
+}
+
+.button52 .button_TL {
+    background-position: 0 -900px
+}
+
+.button52 .button_BL {
+    background-position: 0 -925px
+}
+
+.button52 .button_MR, .button52 .button_ML {
+    background-color: #d7d7d7
+}
+
+.button54 .button_TR {
+    background-position: right -934px
+}
+
+.button54 .button_BR {
+    background-position: right -959px
+}
+
+.button57 .button_TL {
+    background-position: -1px -1095px
+}
+
+.button57 .button_BL {
+    background-position: 0 -1077px
+}
+
+.button59 .button_MR {
+    padding: 0 4px 0 0
+}
+
+.button59:hover .button_TL, .button59.active .button_TL {
+    background-position: 0 -2246px
+}
+
+.button59:hover .button_TR {
+    background-position: right -2259px
+}
+
+.button59:hover .button_TM, .button59.active .button_TM {
+    background-position: 0 -2298px
+}
+
+.button59:hover .button_ML, .button59.active .button_ML {
+    background: transparent url('sprites/y.png') repeat-y -64px 0
+}
+
+.button59:hover .button_MR {
+    background: transparent url('sprites/button59_MR_hover.png') repeat-y right 0
+}
+
+.button59:hover .button_BL, .button59.active .button_BL {
+    background-position: 0 -2278px
+}
+
+.button59:hover .button_BR {
+    background-position: right -2291px
+}
+
+.button59:hover .button_BM, .button59.active .button_BM {
+    background-position: 0 -2316px
+}
+
+.button60 .button_TL, .button61 .button_TL {
+    background-position: 0 -991px
+}
+
+.button60 .button_TR {
+    background-position: right -993px;
+    border-right: 1px #6d6d6d solid
+}
+
+.button60 .button_TM, .button61 .button_TM {
+    background-position: 0 -991px
+}
+
+.button60 .button_BL {
+    background-position: 0 -1007px
+}
+
+.button60 .button_BR {
+    background-position: right -1007px;
+    border-right: 1px #6d6d6d solid
+}
+
+.button60 .button_BM, .button61 .button_BM, .button61 .button_BL {
+    background-position: 0 -1007px
+}
+
+.button60 .button_ML, .button60 .button_MR, .button61 .button_ML, .button61 .button_MR {
+    background: #6d6d6d
+}
+
+.button60 .button_MM, .button61 .button_MM {
+    background: #828282 url('sprites/button11.png') repeat-x 0 bottom
+}
+
+.button61 .button_TR {
+    background-position: right -1093px
+}
+
+.button61 .button_BR {
+    background-position: right -1104px
+}
+
+.button62 .button_TL {
+    background-position: 0 0
+}
+
+.button62 .button_TR {
+    background-position: right -8px
+}
+
+.button62 .button_TM {
+    background-position: 0 -35px
+}
+
+.button62 .button_BL {
+    background-position: 0 -18px
+}
+
+.button62 .button_BR {
+    background-position: right -26px
+}
+
+.button62 .button_BM {
+    background-position: 0 -48px
+}
+
+.button62 .button_MR, .button62 .button_ML {
+    background-color: #d1d1d1
+}
+
+.button62 .button_MM {
+    background: #f2f2f2 url('sprites/button62.png') repeat-x 0 top
+}
+
+.button63 .button_TL {
+    background-position: 0 0
+}
+
+.button63 .button_TR {
+    background-position: right -8px
+}
+
+.button63 .button_TM {
+    background-position: 0 -35px
+}
+
+.button63 .button_MM, .button63 .button_BM {
+    background: #fff
+}
+
+.button63 .button_BL, .button63 .button_BR, .button63 .button_MR, .button63 .button_ML {
+    background: #d1d1d1 none
+}
+
+.button64 .button_TL {
+    background-position: 0 -158px
+}
+
+.button64 .button_TR {
+    background-position: right -166px
+}
+
+.button64 .button_TM {
+    background-position: 0 -176px
+}
+
+.button64 .button_MM, .button64 .button_BM {
+    background: #2d2d2d
+}
+
+.button64 .button_BL, .button64 .button_BR {
+    background: #2d2d2d
+}
+
+.button64 .button_MR {
+    background-position: right -185px
+}
+
+.button64 .button_ML {
+    background-position: left -185px
+}
+
+.button64 .icon3.tabArrow {
+    display: none
+}
+
+.active .button64 .button_TL {
+    background-position: 0 -61px
+}
+
+.active .button64 .button_TR {
+    background-position: right -69px
+}
+
+.active .button64 .button_TM {
+    background-position: 0 -79px
+}
+
+.active .button64 .button_MM, .button64 .button_BM, .active .button64 .button_BL, .button64 .button_BR {
+    background: #2d2d2d
+}
+
+.active .button64 .button_MR {
+    background-position: right -88px
+}
+
+.active .button64 .button_ML {
+    background-position: left -88px
+}
+
+.active .button64 .icon3.tabArrow {
+    display: block
+}
+
+.active .button64 {
+    font-weight: bold
+}
+
+
+.button65 .button_TL {
+    background-position: 0 -411px
+}
+
+.button65 .button_TR {
+    background-position: right -418px
+}
+
+.button65 .button_TM {
+    background-position: 0 -429px
+}
+
+.button65 .button_MM, .button65 .button_BM, .button65 .button_BL, .button65 .button_BR {
+    background: #525252
+}
+
+.button65 .button_MR {
+    padding: 0 2px 0 0;
+    background-position: right -438px
+}
+
+.button65 .button_ML {
+    padding: 0 0 0 5px;
+    background-position: left -438px
+}
+
+.button65 .icon3.tabArrow2 {
+    display: none
+}
+
+.active .button65 .button_TL {
+    background-position: 0 -287px
+}
+
+.active .button65 .button_TR {
+    background-position: right -295px
+}
+
+.active .button65 .button_TM {
+    background-position: 0 -305px
+}
+
+.active .button65 .button_MM, .button65 .button_BM, .active .button65 .button_BL, .button65 .button_BR {
+    background-color: #525252
+}
+
+.active .button65 .button_MM {
+    background-image: url('sprites/button65_bg.png');
+    top: 0;
+    background-repeat: repeat-x
+}
+
+.active .button65 .button_MR {
+    background-position: right -314px;
+    background-repeat: no-repeat
+}
+
+.active .button65 .button_ML {
+    background-position: left -314px
+}
+
+.active .button65 .icon3.tabArrow2 {
+    display: block
+}
+
+.active .button65 {
+    font-weight: bold
+}
+
+
+.selected .button_TL {
+    background-position: 0 -284px
+}
+
+.selected .button_TR {
+    background-position: right -306px
+}
+
+.selected .button_TM {
+    background-position: 0 -327px
+}
+
+.selected .button_BL {
+    background-position: 0 -292px
+}
+
+.selected .button_BR {
+    background-position: right -314px
+}
+
+.selected .button_BM {
+    background-position: 0 -335px
+}
+
+.selected .button_MR, .selected .button_ML {
+    background-color: #454545
+}
+
+.selected .button_MM {
+    background: #727272 url('sprites/selected.png') repeat-x 0 bottom
+}
+
+.disabled .button_TL {
+    background-position: 0 -348px
+}
+
+.disabled .button_TR {
+    background-position: right -369px
+}
+
+.disabled .button_TM {
+    background-position: 0 -391px
+}
+
+.disabled .button_BL {
+    background-position: 0 -356px
+}
+
+.disabled .button_BR {
+    background-position: right -377px
+}
+
+.disabled .button_BM {
+    background-position: 0 -399px
+}
+
+.disabled .button_MR, .disabled .button_ML, .disabled .button_MM {
+    background-color: #aeaeae
+}
+
+.disabled2 .button_TL {
+    background-position: left -778px
+}
+
+.disabled2 .button_TR {
+    background-position: right -790px
+}
+
+.disabled2 .button_TM {
+    background-position: left -826px;
+    background-repeat: repeat-x
+}
+
+.disabled2 .button_BL {
+    background-position: left -818px
+}
+
+.disabled2 .button_BR {
+    background-position: right -806px
+}
+
+.disabled2 .button_BM {
+    background-position: left -842px;
+    background-repeat: repeat-x
+}
+
+.disabled2 .button_MR, .disabled2 .button_ML {
+    background-color: #ebebeb
+}
+
+.disabled2 .button_MM {
+    background: #fefefe url('sprites/button5_disabled.png') repeat-x 0 bottom;
+    color: #dedede
+}
+
+.disabled3 .button_TL {
+    background-position: 0 -1256px
+}
+
+.disabled3 .button_TR {
+    background-position: right -1287px
+}
+
+.disabled3 .button_TM {
+    background-position: 0 -1316px
+}
+
+.disabled3 .button_BL {
+    background-position: 0 -1269px
+}
+
+.disabled3 .button_BR {
+    background-position: right -1300px
+}
+
+.disabled3 .button_BM {
+    background-position: 0 -1331px
+}
+
+.disabled3 .button_MR, .disabled3 .button_ML {
+    background-color: #dadada
+}
+
+.disabled3 .button_MM {
+    background: #b1b1b1 url('sprites/disabled3.png') repeat-x 0 bottom;
+    color: #d6d6d6
+}
+/*wrappers*/
+.box1_TL, .box1_TR, .box1_TM, .box1_BL, .box1_BR, .box1_BM, .box2_TL, .box2_TR, .box2_TM, .box2_BL, .box2_BR, .box2_BM, .box6_BL, .box6_BR, .box6_BM, .box3_BL, .box3_BR, .box3_BM, .box4_TL, .box4_TR, .box4_TM, .box4_BL, .box4_BR, .box4_BM, .box5_TL, .box5_TR, .box5_TM, .box5_BL, .box5_BR, .box5_BM, .box7_TL, .box7_TR, .box7_TM, .box7_BL, .box7_BR, .box7_BM, .box8_TL, .box8_TR, .box8_TM, .box8_BL, .box8_BR, .box8_BM, .box9_TL, .box9_TR, .box9_TM, .box9_BL, .box9_BR, .box9_BM, .box12_TL, .box12_TR, .box12_TM, .box12_BL, .box12_BR, .box12_BM, .box22_TL, .box22_TR, .box22_TM, .box22_BL, .box22_BR, .box22_BM, .box15_TL, .box15_TR, .box15_TM, .box15_BL, .box15_BR, .box15_BM, .box16_TL, .box16_TR, .box16_TM, .box16_BL, .box16_BR, .box16_BM, .box17_TL, .box17_TR, .box17_TM, .box17_BL, .box17_BR, .box17_BM, .box18_TL, .box18_TR, .box18_TM, .box18_BL, .box18_BR, .box18_BM, .box19_TL, .box19_TR, .box19_BL, .box19_BR, .box19_TM, .box19_BM, .box23_TL, .box23_TR, .box23_BL, .box23_BR, .box23_TM, .box23_BM, .box24_TL, .box24_TR, .box24_BL, .box24_BR, .box24_TM, .box24_BM, .box20_TL, .box20_BL, .box20_TR, .box20_BR, .box20_BM, .box20_TM, .box21_TL, .box21_BL, .box21_TR, .box21_BR, .box21_BM {
+    background-image: url('sprites/x.png')
+}
+
+.box17_ML, .box18_ML, .box20_ML, .box21_ML {
+    background-image: url('sprites/y.png');
+    background-repeat: repeat-y
+}
+
+.box19_ML {
+    background: url('sprites/ids_tour_bg_y.png') repeat-y -22px 0
+}
+
+.box23_ML {
+    background: url('sprites/box23LRShadows.png') repeat-y 0 0
+}
+
+.box1_TL, .box1_BL, .box1_TR, .box1_BR, .box2_TL, .box2_BL, .box6_BL, .box2_TR, .box2_BR, .box6_BR, .box3_BL, .box3_BR, .box4_TL, .box4_BL, .box4_TR, .box4_BR, .box5_TL, .box5_BL, .box5_TR, .box5_BR, .box7_TL, .box7_BL, .box7_TR, .box7_BR, .box8_TL, .box8_BL, .box8_TR, .box8_BR, .box9_TL, .box9_TR, .box9_BL, .box9_BR, .box15_TL, .box15_BL, .box15_TR, .box15_BR, .box16_TL, .box16_BL, .box16_TR, .box16_BR, .box17_TL, .box17_BL, .box17_TR, .box17_BR, .box18_TL, .box18_BL, .box18_TR, .box18_BR, .box19_TL, .box19_TR, .box19_BL, .box19_BR, .box23_TL, .box23_TR, .box23_BL, .box23_BR, .box24_TL, .box24_TR, .box24_BL, .box24_BR, .box20_TL, .box20_BL, .box20_TR, .box20_BR, .box21_TL, .box21_BL, .box21_TR, .box21_BR, .box21_TM {
+    background-repeat: no-repeat
+}
+
+.box1_TM, .box1_BM, .box2_TM, .box2_BM, .box6_BM, .box3_BM, .box4_TM, .box4_BM, .box5_TM, .box5_BM, .box9_TM .box9_BM, .box15_TM, .box15_BM, .box16_TM, .box16_BM, .box17_TM, .box17_BM, .box18_TM, .box18_BM, box19_TM, box19_BM, .box20_BM, .box20_TM, .box21_BM {
+    background-repeat: repeat-x
+}
+
+.box1_TR, .box1_TM, .box1_BR, .box1_BM, .box2_TR, .box2_TM, .box2_BR, .box2_BM, .box6_BR, .box6_BM, .box3_BM, .box4_TR, .box4_TM, .box4_BR, .box4_BM, .box5_TR, .box5_TM, .box5_BR, .box5_BM, .box7_TR, .box7_TM, .box7_BR, .box7_BM, .box8_TR, .box8_TM, .box8_BR, .box8_BM, .box9_TR, .box9_TM, .box9_BR, .box9_BM, .box12_TR, .box12_TM, .box12_BR, .box12_BM, .box22_TR, .box22_TM, .box22_BR, .box22_BM, .box15_TR, .box15_TM, .box15_BR, .box15_BM, .box16_TR, .box16_TM, .box16_BR, .box16_BM, .box17_TR, .box17_TM, .box17_BR, .box17_BM, .box18_TR, .box18_TM, .box18_BR, .box18_BM {
+    height: 10px
+}
+
+.button28 .button_TL, .button28 .button_TR, .button28 .button_TM, .button28 .button_BL, .button28 .button_BR, .button28 .button_BM, .button29 .button_TL, .button29 .button_TR, .button29 .button_TM, .button29 .button_BL, .button29 .button_BR, .button29 .button_BM, .button30 .button_TL, .button30 .button_TR, .button30 .button_TM, .button30 .button_BL, .button30 .button_BR, .button30 .button_BM, .button31 .button_TL, .button31 .button_TR, .button31 .button_TM, .button31 .button_BL, .button31 .button_BR, .button31 .button_BM, .box19_TL, .box19_BL, .box19_TR, .box19_BR, .box19_TM, .box19_BM, .box23_TL, .box23_BL, .box23_TR, .box23_BR, .box23_TM, .box23_BM, .box24_TL, .box24_TR, .box24_TM {
+    height: 13px
+}
+
+.box24_BL, .box24_BR, .box24_BM {
+    height: 22px
+}
+
+.box19_BL, .box19_TL, .box23_BL, .box23_TL, .box24_TL {
+    padding: 0 0 0 15px
+}
+
+.box24_BL {
+    padding: 0 0 0 25px
+}
+
+.box19_TR, .box19_BR, .box23_TR, .box23_BR, .box24_TR {
+    padding: 0 15px 0 0
+}
+
+.box24_BR {
+    padding: 0 25px 0 0
+}
+
+.box19_MR {
+    padding: 0 8px 0 0
+}
+
+.box19_ML {
+    padding: 0 0 0 8px
+}
+
+.box23_MR {
+    padding: 0 7px 0 0
+}
+
+.box23_ML {
+    padding: 0 0 0 7px
+}
+
+.box1_TL {
+    background-position: 0 0
+}
+
+.box1_TR {
+    background-position: right -10px
+}
+
+.box1_TM {
+    background-position: 0 -22px
+}
+
+.box1_BL {
+    background-position: 0 -1999px
+}
+
+.box1_BR {
+    background-position: right -2013px
+}
+
+.box1_BM {
+    background-position: 0 -55px
+}
+
+.box1_ML, .box1_MR {
+    background-color: #cdcdcd
+}
+
+.box1_MM {
+    background-color: #f2f2f2
+}
+
+.box2_TL {
+    background-position: 0 -66px
+}
+
+.box2_TR {
+    background-position: right -73px
+}
+
+.box2_TM {
+    background-position: 0 -85px
+}
+
+.box2_BL {
+    background-position: 0 -99px
+}
+
+.box2_BR {
+    background-position: right -110px
+}
+
+.box2_BM {
+    background-position: 0 -121px
+}
+
+.box2_ML, .box2_MR {
+    background-color: #ccc
+}
+
+.box2_MM {
+    background-color: #fff
+}
+
+.box3_BL {
+    background-position: 0 -133px
+}
+
+.box3_BR {
+    background-position: right -143px
+}
+
+.box3_BM {
+    background-position: 0 -155px
+}
+
+.box4_TL {
+    background-position: 0 -166px
+}
+
+.box4_TR {
+    background-position: right -175px
+}
+
+.box4_TM {
+    background-position: 0 -187px
+}
+
+.box4_BL {
+    background-position: 0 -201px
+}
+
+.box4_BR {
+    background-position: right -212px
+}
+
+.box4_BM {
+    background-position: 0 -225px
+}
+
+.box4_ML, .box4_MR {
+    background-color: #cdcdcd
+}
+
+.box4_MM {
+    background-color: #ededed
+}
+
+.box5_TL {
+    background-position: 0 -236px;
+    margin-top: -1px
+}
+
+.box5_TR {
+    background-position: right -247px
+}
+
+.box5_TM {
+    background-position: 0 -258px
+}
+
+.box5_BL {
+    background-position: 0 -270px;
+    margin-top: -1px
+}
+
+.box5_BR {
+    background-position: right -280px
+}
+
+.box5_BM {
+    background-position: 0 -293px
+}
+
+.box5_ML, .box5_MR {
+    background-color: #cdcdcd
+}
+
+.box5_MM {
+    background-color: #fff
+}
+
+.box6_BL {
+    background-position: 0 -305px;
+    margin-top: -1px
+}
+
+.box6_BR {
+    background-position: right -316px
+}
+
+.box6_BM {
+    background-position: 0 -294px
+}
+
+.box7_TL {
+    background-position: 0 -497px
+}
+
+.box7_TR {
+    background-position: right -509px
+}
+
+.box7_TM {
+    background-position: 0 -1462px;
+    background-repeat: repeat-x
+}
+
+.box7_BL {
+    background-position: 0 -523px
+}
+
+.box7_BR {
+    background-position: right -535px
+}
+
+.box7_BM {
+    background-position: 0 -1463px;
+    background-repeat: repeat-x
+}
+
+.box7_MM, .box7_MR, .box7_ML {
+    background-color: #dae8f1
+}
+
+.box8_TL {
+    background-position: 0 -548px
+}
+
+.box8_TR {
+    background-position: right -560px
+}
+
+.box8_TM {
+    background-position: 0 -1476px;
+    background-repeat: repeat-x
+}
+
+.box8_BL {
+    background-position: 0 -572px
+}
+
+.box8_BR {
+    background-position: right -584px
+}
+
+.box8_BM {
+    background-position: 0 -1478px;
+    background-repeat: repeat-x
+}
+
+.box8_ML, .box8_MR, .box8_MM {
+    background-color: #f2f2f2
+}
+
+.box9_TL {
+    background-position: 0 -329px
+}
+
+.box9_TR {
+    background-position: right -373px
+}
+
+.box9_TM {
+    background-position: 0 -417px
+}
+
+.box9_BL {
+    background-position: 0 -361px
+}
+
+.box9_BR {
+    background-position: right -405px
+}
+
+.box9_BM {
+    background-position: 0 -449px
+}
+
+.box9_ML, .box9_MR {
+    background-color: #dcdcdc
+}
+
+.box9_MM {
+    background-color: #f2f2f2
+}
+
+.box12_TL, .box12_TR, .box12_BL, .box12_BR {
+    background-repeat: no-repeat
+}
+
+.box12_TL {
+    background-position: 0 -881px
+}
+
+.box12_TR {
+    background-position: right -893px
+}
+
+.box12_TM {
+    background-position: 0 -1489px;
+    background-repeat: repeat-x
+}
+
+.box12_BL {
+    background-position: 0 -907px
+}
+
+.box12_BR {
+    background-position: right -919px
+}
+
+.box12_BM {
+    background-position: 0 -1492px;
+    background-repeat: repeat-x
+}
+
+.box12_ML, .box12_MR, .box12_MM {
+    background-color: #666
+}
+
+.box15_TL {
+    background-position: 0 0
+}
+
+.box15_TR {
+    background-position: right -10px
+}
+
+.box15_TM {
+    background-position: 0 -22px
+}
+
+.box15_BL {
+    background-position: 0 -33px
+}
+
+.box15_BR {
+    background-position: right -43px
+}
+
+.box15_BM {
+    background-position: 0 -55px
+}
+
+.box15_MM {
+    background-color: #f2f2f2
+}
+
+.box15_ML {
+    background-color: #cdcdcd
+}
+
+.box15_MR {
+    background-color: #cdcdcd
+}
+
+.box16_TL {
+    background-position: 0 -66px
+}
+
+.box16_TR {
+    background-position: right -77px
+}
+
+.box16_TM {
+    background-position: 0 -85px
+}
+
+.box16_BL {
+    background-position: 0 -99px
+}
+
+.box16_BR {
+    background-position: right -110px
+}
+
+.box16_BM {
+    background-position: 0 -121px
+}
+
+.box16_ML, .box16_MR {
+    background-color: #ccc
+}
+
+.box16_MM {
+    background-color: #fff
+}
+
+.box17_TL {
+    background-position: 0 -1111px
+}
+
+.box17_TR {
+    background-position: right -1127px
+}
+
+.box17_TM {
+    background-position: 0 -1165px
+}
+
+.box17_BL {
+    background-position: 0 -1143px
+}
+
+.box17_BR {
+    background-position: right -1155px
+}
+
+.box17_BM {
+    background-position: 0 -1178px
+}
+
+.box17_ML {
+    background-position: -121px 0
+}
+
+.box17_MR {
+    background: url('sprites/box17_MR.png') repeat-y;
+    background-position: right 0
+}
+
+.box17_MM {
+    background: url("sprites/box17_bg.png") #fff repeat-x 0 bottom
+}
+
+.box18_TL {
+    background-position: 0 -1194px
+}
+
+.box18_TR {
+    background-position: right -1211px
+}
+
+.box18_TM {
+    background-position: 0 -1262px
+}
+
+.box18_BL {
+    background-position: 0 -1232px
+}
+
+.box18_BR {
+    background-position: right -1249px
+}
+
+.box18_BM {
+    background-position: 0 -1281px
+}
+
+.box18_ML, .box18_MR {
+    background-color: #d6d6d6
+}
+
+.box18_MM {
+    background: url("sprites/box18_bg.png") #ebebeb repeat-x 0 top
+}
+
+.box19_TL {
+    background-position: 0 -1293px
+}
+
+.box19_TM {
+    background-position: 0 -1355px
+}
+
+.box19_TR {
+    background-position: right -1325px
+}
+
+.box19_BL {
+    background-position: 0 -1309px
+}
+
+.box19_BR {
+    background-position: right -1341px
+}
+
+.box19_BM {
+    background-position: 0 -1371px
+}
+
+.box19_MR {
+    background: url('sprites/box19_MR.png') repeat-y;
+    background-position: right 0
+}
+
+.box19_MM {
+    background: #f2f2f2 no-repeat
+}
+
+.box20_TL, .box20_BL {
+    padding: 0 0 0 14px
+}
+
+.box20_ML {
+    padding: 0 0 0 11px
+}
+
+.box20_MR {
+    padding: 0 11px 0 0
+}
+
+.box20_TR, .box20_BR {
+    padding: 0 14px 0 0
+}
+
+.box20_TL {
+    background-position: 0 -1503px
+}
+
+.box20_TR {
+    background-position: right -1515px
+}
+
+.box20_TM {
+    background-position: right -1599px
+}
+
+.box20_BL {
+    background-position: 0 -1554px
+}
+
+.box20_BR {
+    background-position: right -1530px
+}
+
+.box20_BM {
+    background-position: 0 -1576px
+}
+
+.box20_ML {
+    background-position: -191px 0px
+}
+
+.box20_MR, .box21_MR {
+    background: url('sprites/box20_MR.png') repeat-y right 0
+}
+
+.box20_MM {
+    background: #f2f2f2
+}
+
+.box21_TM {
+    background: #f2f2f2 url('sprites/box21_TM.png') no-repeat left top
+}
+
+.box21_TL, .box21_BL {
+    padding: 0 0 0 14px
+}
+
+.box21_ML {
+    padding: 0 0 0 11px
+}
+
+.box21_MR {
+    padding: 0 11px 0 0
+}
+
+.box21_TR, .box21_BR {
+    padding: 0 14px 0 0
+}
+
+.box21_TL {
+    background-position: 0 -1504px
+}
+
+.box21_TR {
+    background-position: right -1515px
+}
+
+.box21_BL {
+    background-position: 0 -1554px
+}
+
+.box21_BR {
+    background-position: right -1530px
+}
+
+.box21_BM {
+    background-position: 0 -1576px
+}
+
+.box21_ML {
+    background-position: -191px 0px
+}
+
+.box21_MM {
+    background: #f2f2f2
+}
+
+.box22_TL, .box22_TR, .box22_BL, .box22_BR {
+    background-repeat: no-repeat
+}
+
+.box22_TL {
+    background-position: 0 -1640px
+}
+
+.box22_TR {
+    background-position: right -1652px
+}
+
+.box22_TM, .box22_BM {
+    background-position: 0 -1699px;
+    background-repeat: repeat-x
+}
+
+.box22_BL {
+    background-position: 0 -1666px
+}
+
+.box22_BR {
+    background-position: right -1678px
+}
+
+.box22_ML, .box22_MR, .box22_MM {
+    background-color: #0066a4
+}
+
+.box23_TL {
+    background-position: 0 -1713px
+}
+
+.box23_TM {
+    background-position: 0 -1791px
+}
+
+.box23_TR {
+    background-position: right -1734px
+}
+
+.box23_BL {
+    background-position: 0 -1759px
+}
+
+.box23_BR {
+    background-position: right -1777px
+}
+
+.box23_BM {
+    background-position: 0 -1818px
+}
+
+.box23_MR {
+    background: url('sprites/box23LRShadows.png') repeat-y;
+    background-position: right 0
+}
+
+.box23_MM {
+    background: url('sprites/box23_bg.jpg') #888 repeat-x bottom
+}
+
+.box24_ML {
+    padding: 0 0 0 10px
+}
+
+.box24_MR {
+    padding: 0 10px 0 0
+}
+
+.box24_TL {
+    background-position: 1px -1833px
+}
+
+.box24_TM {
+    background-position: 0 -1942px
+}
+
+.box24_TR {
+    background-position: right -1852px
+}
+
+.box24_BL {
+    background-position: 0 -1894px
+}
+
+.box24_BR {
+    background-position: right -1922px
+}
+
+.box24_BM {
+    background-position: 0 -1971px
+}
+
+.box24_ML {
+    background: url('sprites/box24LRShadows.png') repeat-y 0 0
+}
+
+.box24_MR {
+    background: url('sprites/box24LRShadows.png') repeat-y;
+    background-position: right 0
+}
+
+.box24_MM {
+    background-color: #fff
+}
+/*columns
+-use "0" in front of odd percentage like "col030 = 30%" tha cannot define a common table columns devider. used for use cases where mixing with siblings that have various columns width 
+-use without "0" for where its a clear table/columns use as example "col2 = 50% = 2 columns. used where all siblings have the same col width"*/
+.col020 {
+    width: 20%
+}
+
+.col027 {
+    width: 27%
+}
+
+.col030 {
+    width: 30%
+}
+
+.col032 {
+    width: 32%
+}
+
+.col033 {
+    width: 33%
+}
+
+.col035 {
+    width: 35%
+}
+
+.col040 {
+    width: 40%
+}
+
+.col045 {
+    width: 45%;
+}
+
+.col048 {
+    width: 48%;
+}
+
+.col060 {
+    width: 60%
+}
+
+.col063 {
+    width: 63%
+}
+
+.col065 {
+    width: 65%
+}
+
+.col067 {
+    width: 67%
+}
+
+.col070 {
+    width: 70%
+}
+
+.col073 {
+    width: 73%
+}
+
+.col075 {
+    width: 75%
+}
+
+.col078 {
+    width: 78%
+}
+
+.col080 {
+    width: 80%
+}
+
+.col085 {
+    width: 85%
+}
+
+.col090 {
+    width: 90%
+}
+
+.col095 {
+    width: 95%
+}
+
+.col099 {
+    width: 99%
+}
+
+.col1 {
+    width: 100%
+}
+
+.col2 {
+    width: 49.99%
+}
+
+.col3 {
+    width: 33.33%
+}
+
+.col4 {
+    width: 25%
+}
+
+.col5 {
+    width: 20%
+}
+
+.ie7 .col5 {
+    width: 19.9%
+}
+
+.col6 {
+    width: 16.6666%
+}
+
+.ie7 .col6 {
+    width: 16.5%
+}
+
+.col7 {
+    width: 14.28%
+}
+
+.col8 {
+    width: 12.5%
+}
+
+.col9 {
+    width: 11.11%
+}
+
+.col10 {
+    width: 10%
+}
+
+.col12 {
+    width: 8.3333%
+}
+
+.col24 {
+    width: 4.1666%
+}
+
+.col31 {
+    width: 3.2258%
+}
+
+.col30 {
+    width: 3.3333%
+}
+
+.col29 {
+    width: 3.4483%
+}
+
+.col28 {
+    width: 3.5714%
+}
+
+.col36 {
+    width: 2.7778%
+}
+/*Positions*/
+.fixed {
+    position: fixed
+}
+
+.absolute {
+    position: absolute
+}
+
+.relative {
+    position: relative
+}
+/*icons*/
+.icon {
+    background-image: url("sprites/icons.png")
+}
+
+.icon2 {
+    background-image: url("sprites/vm_x.png")
+}
+
+.icon3 {
+    background-image: url("sprites/icons2.png")
+}
+
+.tabArrow {
+    width: 23px;
+    height: 11px;
+    background-position: right -26px
+}
+
+.tabArrow2 {
+    width: 14px;
+    height: 7px;
+    background-position: right -44px
+}
+
+.tabAlert {
+    left: 15px
+}
+
+.data {
+    height: 35px;
+    width: 35px;
+    background-position: left -26px
+}
+
+.bundles {
+    height: 42px;
+    width: 42px;
+    background-position: left -65px
+}
+
+.callText {
+    height: 31px;
+    width: 41px;
+    background-position: left -112px
+}
+
+.longDistance {
+    height: 42px;
+    width: 42px;
+    background-position: left -146px
+}
+
+.travel {
+    height: 40px;
+    width: 40px;
+    background-position: left -193px
+}
+
+.other {
+    height: 34px;
+    width: 39px;
+    background-position: left -238px
+}
+
+.expand, .collapse {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.expand {
+    background-position: left -1357px
+}
+
+.collapse {
+    background-position: right -1357px
+}
+
+.expandMedBlue, .expand.expandMedBlue {
+    height: 24px;
+    width: 24px;
+    background-position: right -1886px
+}
+
+.collapseMedBlue, .collapse.expandMedBlue {
+    height: 24px;
+    width: 24px;
+    background-position: right -1911px
+}
+
+.expandMed, .expand.expandMed {
+    height: 24px;
+    width: 24px;
+    background-position: left -1886px
+}
+
+.collapseMed, .collapse.expandMed {
+    height: 24px;
+    width: 24px;
+    background-position: left -1911px
+}
+
+.prev {
+    height: 35px;
+    width: 35px;
+    background-position: left -1994px
+}
+
+.next {
+    height: 35px;
+    width: 35px;
+    background-position: right -1994px
+}
+
+.prevGray {
+    height: 35px;
+    width: 35px;
+    background-position: left -2030px
+}
+
+.nextGray {
+    height: 35px;
+    width: 35px;
+    background-position: right -2030px
+}
+
+.expandLrgBlue, .expand.expandLrgBlue {
+    height: 34px;
+    width: 34px;
+    background-position: right -1816px
+}
+
+.collapseLrgBlue, .collapse.expandLrgBlue {
+    height: 34px;
+    width: 34px;
+    background-position: right -1851px
+}
+
+.expandLrg, .expand.expandLrg {
+    height: 34px;
+    width: 34px;
+    background-position: left -1816px
+}
+
+.collapseLrg, .collapse.expandLrg {
+    height: 34px;
+    width: 34px;
+    background-position: left -1851px
+}
+
+.expandSmall2, .expand.expandSmall2 {
+    height: 16px;
+    width: 16px;
+    background-repeat: no-repeat;
+    background-position: left -1710px
+}
+
+.collapseSmall2, .collapse.expandSmall2 {
+    height: 16px;
+    width: 16px;
+    background-repeat: no-repeat;
+    background-position: left -1731px
+}
+
+.expandSmall3, .expand.expandSmall3 {
+    height: 18px;
+    width: 18px;
+    background-repeat: no-repeat;
+    background-position: left -1750px
+}
+
+.collapseSmall3, .collapse.expandSmall3 {
+    height: 18px;
+    width: 18px;
+    background-repeat: no-repeat;
+    background-position: left -1771px
+}
+
+.expandSmall4Gray, .expand.expandSmall4Gray {
+    height: 17px;
+    width: 17px;
+    background-repeat: no-repeat;
+    background-position: left -1973px
+}
+
+.collapseSmall4Gray, .collapse.expandSmall4Gray {
+    height: 17px;
+    width: 17px;
+    background-repeat: no-repeat;
+    background-position: right -1973px
+}
+
+.expandSmall4Blue, .expand.expandSmall4Blue {
+    height: 17px;
+    width: 17px;
+    background-repeat: no-repeat;
+    background-position: right -1936px
+}
+
+.collapseSmall4Blue, .collapse.expandSmall4Blue {
+    height: 17px;
+    width: 17px;
+    background-repeat: no-repeat;
+    background-position: right -1954px
+}
+
+.expandSmall4, .expand.expandSmall4 {
+    height: 17px;
+    width: 17px;
+    background-repeat: no-repeat;
+    background-position: left -1936px
+}
+
+.collapseSmall4, .collapse.expandSmall4 {
+    height: 17px;
+    width: 17px;
+    background-repeat: no-repeat;
+    background-position: left -1954px
+}
+
+.expandSmall3gray {
+    height: 18px;
+    width: 18px;
+    background-repeat: no-repeat;
+    background-position: left -1792px
+}
+
+.expandSmall, .expand.expandSmall {
+    height: 14px;
+    width: 14px;
+    background-repeat: no-repeat;
+    background-position: left -1331px
+}
+
+    .collapseSmall, .expandSmall.collapse {
+        height: 14px;
+        width: 14px;
+        background-repeat: no-repeat;
+        background-position: right -1331px
+    }
+
+.lineBullet {
+    background-position: left -1521px;
+    background-repeat: no-repeat;
+    height: 50px;
+    margin-top: -37px;
+    width: 18px
+}
+
+    .lineBullet.first {
+        background-position: left -1539px;
+        height: 30px;
+        margin-top: -20px
+    }
+
+.lineBulletPoint {
+    background-position: left -1618px;
+    background-repeat: no-repeat;
+    height: 50px;
+    margin-top: -37px;
+    width: 18px
+}
+
+    .lineBulletPoint.first {
+        background-position: left -1639px;
+        height: 30px;
+        margin-top: -16px
+    }
+
+.iIconTransparent {
+    width: 18px;
+    height: 18px;
+    background-position: right -1480px
+}
+
+.iIconTransparent2 {
+    width: 22px;
+    height: 22px;
+    background-position: right -1454px
+}
+
+.pdf {
+    width: 15px;
+    height: 16px;
+    background-position: 0 -1454px
+}
+
+.csv {
+    width: 15px;
+    height: 16px;
+    background-position: -21px -1454px
+}
+
+.nextArrowBlue, .previousArrowBlue, .arrowR {
+    width: 4px;
+    height: 8px
+}
+
+.previousArrowBlue {
+    background-position: left -395px
+}
+
+.nextArrowBlue {
+    background-position: left -386px
+}
+
+.bullet {
+    width: 5px;
+    height: 4px;
+    background-position: 0 -108px
+}
+
+.bulletVM {
+    width: 6px;
+    height: 6px;
+    background-position: right top
+}
+
+.arrowL {
+    width: 5px;
+    height: 8px;
+    background-position: 0 -84px
+}
+
+.arrowD {
+    width: 10px;
+    height: 7px;
+    background-position: -22px top
+}
+
+.arrowA {
+    width: 10px;
+    height: 7px;
+    background-position: -36px top
+}
+
+.magGlassBlue {
+    width: 18px;
+    height: 18px;
+    background-position: right top
+}
+
+.arrowDownBlue {
+    width: 6px;
+    height: 3px;
+    background-position: right -1780px
+}
+
+.arrowR {
+    background-position: 0 -113px
+}
+
+.dropDownArrow {
+    background-position: 0 -361px
+}
+
+.navArrow {
+    width: 11px;
+    height: 11px;
+    background-position: 0 -1113px
+}
+
+.arrowDown {
+    width: 12px;
+    height: 7px;
+    background-position: 0 -170px
+}
+
+.arrowDown2, .arrowDown3, .dropDownArrow, .dropDownArrowWht {
+    width: 12px;
+    height: 9px
+}
+
+.dropDownArrowWht {
+    background-position: 0 -371px
+}
+
+.arrowDown2 {
+    background-position: 0 -350px
+}
+
+.arrowDown3 {
+    background-position: 0 -646px
+}
+
+.dropDownArrowVM {
+    width: 18px;
+    height: 11px;
+    background-position: right -333px
+}
+
+.dropDownArrowVM2 {
+    width: 6px;
+    height: 6px;
+    background-position: -60px -365px
+}
+
+.error, .ids_tourStepInfoClose, .info, .success, .alert {
+    width: 14px;
+    height: 14px
+}
+
+.ids_tourStepInfoClose {
+    background-position: 0 -226px
+}
+
+.success {
+    background-position: 0 -177px
+}
+
+.alert {
+    background-position: 0 -162px
+}
+
+.alert2 {
+    background-position: 0 -195px
+}
+
+.error {
+    background-position: 0 -93px
+}
+
+.important, .infoVM, .errorRed, .successGreen, .alertGreen, .successYellow, .alertYellow, .questionMark {
+    width: 22px;
+    height: 22px
+}
+
+.errorRed {
+    background-position: -26px -108px
+}
+
+.successGreen {
+    background-position: -29px -355px
+}
+
+.alertGreen {
+    background-position: right -108px
+}
+
+.successYellow {
+    background-position: left -355px
+}
+
+.alertYellow {
+    background-position: -52px -108px
+}
+
+.alertYellow2 {
+    height: 18px;
+    width: 18px;
+    background-position: right -35px
+}
+
+.infoVM {
+    background-position: -26px -228px
+}
+
+.important {
+    background-position: left -108px
+}
+
+.questionMark {
+    background-position: left -228px
+}
+
+.seeMore, expand.seeMore {
+    width: 22px;
+    height: 22px;
+    background-position: -52px -228px
+}
+
+.seeLess, .collapse.seeMore {
+    width: 22px;
+    height: 22px;
+    background-position: right -228px
+}
+
+.infoLg2, .errorLg2, .checkLg2 {
+    width: 33px;
+    height: 33px
+}
+
+.infoLg2 {
+    background-position: left top
+}
+
+.errorLg2 {
+    background-position: -36px top
+}
+
+.checkLg2 {
+    background-position: left -36px
+}
+
+.info {
+    background-position: 0 -192px
+}
+
+.info2 {
+    width: 18px;
+    height: 18px;
+    background-position: left -207px
+}
+
+.info2med {
+    width: 25px;
+    height: 25px;
+    background-position: right -1680px
+}
+
+.alertMed {
+    width: 25px;
+    height: 25px;
+    background-position: left -1680px
+}
+
+.alertSmallFlat {
+    width: 17px;
+    height: 17px;
+    background-position: left top
+}
+
+.alertSmallFlat2 {
+    width: 14px;
+    height: 14px;
+    background-position: right -57px
+}
+
+.ids_tourStepInfoClose2 {
+    width: 28px;
+    height: 28px;
+    margin-right: -15px;
+    margin-top: -15px;
+    background-position: right -194px
+}
+
+.mobile2 {
+    width: 14px;
+    height: 20px;
+    background-position: 0 -307px
+}
+
+.mobile {
+    width: 15px;
+    height: 26px;
+    background-position: 0 -143px
+}
+
+.email {
+    width: 16px;
+    height: 11px;
+    background-position: 0 -28px;
+}
+
+.print {
+    width: 16px;
+    height: 13px;
+    background-position: 0 0
+}
+
+.print2 {
+    width: 20px;
+    height: 20px;
+    background-position: left -166px
+}
+
+.print3 {
+    width: 15px;
+    height: 14px;
+    background-position: right -1710px
+}
+
+.downloadBtn {
+    width: 9px;
+    height: 9px;
+    background-position: right -1731px
+}
+
+.calc {
+    width: 13px;
+    height: 17px;
+    background-position: -62px -260px
+}
+
+.chatVm {
+    width: 22px;
+    height: 18px;
+    background-position: right -260px
+}
+
+.arrowDownRed {
+    width: 18px;
+    height: 11px;
+    background-position: left -333px
+}
+
+.arrowLeftRed {
+    width: 18px;
+    height: 20px;
+    background-position: -29px -328px
+}
+
+.arrowRightRed {
+    width: 18px;
+    height: 20px;
+    background-position: -50px -328px
+}
+
+.calVm {
+    width: 18px;
+    height: 21px;
+    background-position: left -258px
+}
+
+.magGlassVm {
+    width: 21px;
+    height: 19px;
+    background-position: -28px -259px
+}
+
+.magGlassVm2 {
+    width: 14px;
+    height: 15px;
+    background-position: -31px -169px
+}
+
+.seeMoreSmall, .expand.seeMoreSmall {
+    width: 14px;
+    height: 14px;
+    background-position: -86px -168px
+}
+
+.seeLessSmall, .collapse.seeMoreSmall {
+    width: 14px;
+    height: 14px;
+    background-position: -67px -168px
+}
+
+.seeMoreSmall2, .expand.seeMoreSmall2 {
+    width: 14px;
+    height: 14px;
+    background-position: -19px -384px
+}
+
+.seeLessSmall2, .collapse.seeMoreSmall2 {
+    width: 14px;
+    height: 14px;
+    background-position: left -384px
+}
+
+.checkMarkVm {
+    width: 19px;
+    height: 17px;
+    background-position: right -358px
+}
+
+.chat {
+    width: 16px;
+    height: 15px;
+    background-position: 0 -52px
+}
+
+.lessLink {
+    width: 16px;
+    height: 16px;
+    background-position: 2px -241px
+}
+
+.nextLink {
+    width: 18px;
+    height: 16px;
+    background-position: 0px -144px
+}
+
+.emailGreen, .infoLrg {
+    width: 18px;
+    height: 18px
+}
+
+.infoLrg {
+    background-position: 0 -207px
+}
+
+.emailGreen {
+    background-position: 0 -257px
+}
+
+.infoLrg2 {
+    width: 22px;
+    height: 22px;
+    background-position: 0 -108px
+}
+
+.errorLrg2 {
+    width: 22px;
+    height: 22px;
+    background-position: -52px -137px
+}
+
+.checkLrg2 {
+    width: 22px;
+    height: 22px;
+    background-position: -126px -137px
+}
+
+.bills {
+    width: 18px;
+    height: 20px;
+    background-position: 0 -281px
+}
+
+.chat2 {
+    width: 19px;
+    height: 17px;
+    background-position: 0 -124px
+}
+
+.profile {
+    width: 19px;
+    height: 18px;
+    background-position: 0 -330px
+}
+
+.closeMd {
+    width: 19px;
+    height: 19px;
+    background-position: 0 -716px
+}
+
+.alertStroked {
+    height: 26px;
+    width: 26px;
+    background-position: 0 -688px
+}
+
+.lightBoxCloseBtn {
+    height: 28px;
+    width: 28px;
+    background-position: 0 -656px
+}
+
+.lightBoxCloseBtn2 {
+    height: 34px;
+    width: 34px;
+    margin-right: -34px;
+    margin-top: -34px;
+    background-position: -26px -193px
+}
+
+.editBtn {
+    height: 24px;
+    width: 24px;
+    background-position: right -1748px
+}
+
+.magnifyingGlass2 {
+    width: 36px;
+    height: 18px;
+    background-position: -2px -740px
+}
+
+.glow, .magnifyingGlass, .locator {
+    width: 36px;
+    height: 36px
+}
+
+.glow {
+    background-position: right 0; /*glow not visible only on hover*/
+}
+
+.button23:hover .glow {
+    background-position: -2px -960px
+}
+
+.button33:hover .glow {
+    background-position: -2px -960px
+}
+
+.magnifyingGlass {
+    background-position: -2px -735px
+}
+
+.locator {
+    background-position: -2px -886px
+}
+
+.infoLg, .alertLg, .errorLg, .questionLg, .checkLg {
+    width: 42px;
+    height: 42px
+}
+
+.questionLg {
+    background-position: 0 -598px
+}
+
+.errorLg {
+    background-position: 0 -553px
+}
+
+.alertLg {
+    background-position: 0 -508px
+}
+
+.checkLg {
+    background-position: 0 -463px
+}
+
+.infoLg {
+    background-position: 0 -418px
+}
+
+.iconTrash, .iconAnchor {
+    width: 72px;
+    height: 72px
+}
+
+.iconTrash {
+    background-position: 0 -1243px
+}
+
+.iconAnchor {
+    background-position: 0 -1165px
+}
+
+.virgin.expand {
+    background-position: left -1389px;
+    height: 34px;
+    width: 34px
+}
+
+.virgin.collapse {
+    background-position: right -1389px;
+    height: 34px;
+    width: 34px
+}
+
+.input1 {
+    padding: 6px 5px 3px;
+    border-color: #5F5F5F #A6A6A6 #CDCDCD;
+    border-style: solid;
+    border-width: 1px;
+    background: #eee url('sprites/bg_textarea.gif') repeat-x 0 0
+}
+
+.input2 {
+    /*height:42px;*/
+    padding: 12px 0 13px 12px;
+    border-color: #5F5F5F #A6A6A6 #CDCDCD;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #FFF
+}
+
+.input3 {
+    padding: 6px 5px 3px;
+    border-color: #5F5F5F #A6A6A6 #CDCDCD;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #FFF
+}
+/*Virgin input styles*/
+input.inputVM, input.datepicker.inputVM, textarea.inputVM {
+    background: url("sprites/input_top_inner_shadow.png");
+    background-repeat: repeat-x;
+    background-position: left -1px;
+    border-top: 1px solid #7b7b7b;
+    border-right: 1px solid #c7c7c7;
+    border-bottom: 1px solid #c7c7c7;
+    border-left: 1px solid #c7c7c7;
+    padding: 8px 14px;
+    background-color: #fafafa;
+    color: #333;
+    font-size: 15px
+}
+
+.formGroupVM.formError input.inputVM {
+    border-top: 1px solid #ff0000;
+    border-right: 1px solid #ff0000;
+    border-bottom: 1px solid #ff0000;
+    border-left: 1px solid #ff0000;
+    color: #ff0000
+}
+
+.formGroupVM.formError .inputLabel {
+    color: #ff0000;
+    font-weight: bold
+}
+
+.formGroupVM.formDisabled input.inputVM {
+    color: #d7d7d7
+}
+
+.formGroupVM button.ui-datepicker-trigger {
+    margin-top: 7px
+}
+/*Drop down menu*/
+.dcx_select_options {
+    position: absolute;
+    z-index: 9
+}
+/*Country list table*/
+.countryList {
+    padding: 8px 0 8px 15px;
+    border-bottom: solid 1px #ccc;
+    border-right: solid 1px #ddd
+}
+
+.zoneList {
+    padding: 8px 0 8px 15px;
+    border-bottom: solid 1px #ddd
+}
+
+.countryZones th, .countryZones td {
+    background: url('sprites/gradient1.png');
+    background-repeat: repeat-x;
+    background-position: top left;
+    height: 45px
+}
+
+.countryZones2 th, .countryZones2 td {
+    height: 45px
+}
+
+.countryHead {
+    width: 300px
+}
+
+.zoneHead {
+    width: 165px
+}
+/*Lightbox styles*/
+.lightBoxWrap {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 11
+}
+
+.lightBoxLarge {
+    width: 900px
+}
+
+.lightBoxMedium {
+    width: 592px
+}
+
+.lightBoxSmall {
+    width: 525px
+}
+
+.lightBox_Overlay, .loaderModalVM {
+    background: #000;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    z-index: 10
+}
+
+.lightBoxContainer .box5_ML {
+    overflow: hidden;
+    overflow-y: auto
+}
+/*loader*/
+.DCXloader_fixed {
+    position: fixed;
+    left: 50%;
+    top: 25%;
+    margin-left: -155px;
+    z-index: 11
+}
+
+.DCXloader_fixedVM {
+    position: fixed;
+    left: 50%;
+    top: 35%;
+    width: 600px;
+    margin-left: -305px;
+    z-index: 11
+}
+
+.DCXloader {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    width: 310px;
+    margin-left: -155px;
+    z-index: 999999
+}
+
+.DCXloaderIcon {
+    width: 36px;
+    height: 36px;
+    background-image: url('sprites/loader_pgLoader.gif');
+    background-repeat: no-repeat
+}
+
+.DCXloaderIcon2 {
+    width: 23px;
+    height: 23px;
+    border-radius: 30px;
+    background-image: url('sprites/loader_pgLoader2.gif');
+    background-repeat: no-repeat;
+    background-position: -6px -7px;
+}
+
+.DCXloaderIconVM {
+    width: 33px;
+    height: 33px;
+    background-image: url('sprites/vmSpinner.gif');
+    background-repeat: no-repeat
+}
+
+.DCXloaderIconVM2 {
+    width: 27px;
+    height: 27px;
+    background-image: url('sprites/vmSpinner2.gif');
+    background-repeat: no-repeat
+}
+/*custom select and Global Connector*/
+.dropDownArrowImg {
+    background: url("sprites/dropDownArrowImg.png") no-repeat;
+    background-position: center top
+}
+
+.dropDownArrowImgRight {
+    background: url("sprites/dropDownArrowImg2.png") no-repeat;
+    background-position: right top
+}
+
+.dropDownArrowForSelectBox {
+    margin-bottom: -8px;
+    position: relative
+}
+
+.dcx_select_optionsForDropDown {
+    margin: -7px -6px 0 -7px
+}
+
+    .dcx_select_optionsForDropDown.dcxCSS3 {
+        margin: 35px -6px 0 -7px
+    }
+
+.ie7 .dcx_select_optionsForDropDown {
+    margin: -7px 0 0 0
+}
+
+.ie7 .dropDownArrowImgRight, .ie7 .dropDownArrowImg {
+    margin: 0 8px -8px 0
+}
+
+.dcx_select_optionsForSelectBox {
+    margin: -7px -6px 0 -6px;
+    width: 242px
+}
+
+.menuImage {
+    overflow: hidden;
+    height: 75px;
+    width: 110px;
+    background-image: url("sprites/bg_navigationSprite_a.png")
+}
+
+.shopTV {
+    background-position: 0 -150px
+}
+
+.shopInternet {
+    background-position: 0 -75px
+}
+
+.shopHomephone {
+    background-position: 0 -225px
+}
+
+.shopMBundles {
+    background-position: 0 -300px
+}
+
+.supportMobility {
+    background-position: 0 -750px
+}
+
+.supportTv {
+    background-position: 0 -900px
+}
+
+.supportInternet {
+    background-position: 0 -825px
+}
+
+.supportHomephone {
+    background-position: 0 -975px
+}
+
+.supportBilling {
+    background-position: 0 -450px
+}
+
+.myBellServices {
+    background-position: 0 -600px
+}
+
+.myBellBills {
+    background-position: 0 -450px
+}
+
+.myBellProfile {
+    background-position: 0 -375px
+}
+
+#menuShop, #menuSupport, #menuMyServices {
+    margin-left: -35px
+}
+
+#menuShop2, #menuSupport2, #menuMyServices2 {
+    margin-left: -84px
+}
+
+#menuProvince {
+    margin-left: -240px
+}
+
+#menuSearch {
+    margin-left: -550px
+}
+
+#menuLoggedIn {
+    width: 210px;
+    margin-left: -7px
+}
+
+#menuLoggedIn2 {
+    width: 210px;
+    margin-left: -22px
+}
+
+#menuLoggedIn .menuArrow, #menuLogIn .menuArrow {
+    top: -6px;
+    right: 45%
+}
+
+#menuLoggedIn2 .menuArrow, #menuLogIn .menuArrow {
+    top: -6px;
+    right: 45%
+}
+
+#menuLogIn {
+    width: 291px;
+    margin-left: -89px;
+    margin-top: -6px
+}
+
+    #menuLogIn .actionLink {
+        width: 46%;
+        line-height: 35px
+    }
+
+.actionLink .nextLink {
+    margin-top: 11px
+}
+
+.menuArrow {
+    position: absolute;
+    width: 25px;
+    height: 16px;
+    background: transparent url('sprites/x.png') no-repeat 0 -1612px
+}
+
+#menuShop .menuArrow, #menuSupport .menuArrow, #menuMyServices .menuArrow, #menuShop2 .menuArrow, #menuSupport2 .menuArrow, #menuMyServices2 .menuArrow {
+    top: -6px;
+    left: 110px
+}
+
+#menuProvince .menuArrow {
+    top: -6px;
+    left: 260px
+}
+
+#menuSearch .menuArrow {
+    top: -6px;
+    right: 48px
+}
+
+#menuLocator .menuArrow {
+    top: -3px;
+    right: 142px
+}
+
+#menuLocator {
+    width: 498px;
+    margin-left: -317px
+}
+
+.navMenuBtn {
+    width: 227px
+}
+
+.navMenuBtn2 {
+    width: 223px
+}
+
+#menuShop, #menuSupport, #menuMyServices, #menuShop2, #menuSupport2, #menuMyServices2 {
+    width: 249px
+}
+
+#menuProvince {
+    width: 303px
+}
+
+#menuSearch {
+    width: 640px
+}
+/*Side Shop Menu*/
+.topGrayStroke, .btmGrayStroke {
+    height: 9px;
+    width: 12px;
+    background-image: url("sprites/buttons.png")
+}
+
+.topGrayStroke {
+    background-position: 0 -2222px;
+}
+
+.btmGrayStroke {
+    background-position: 0 -2237px
+}
+
+.menuBridge1, .menuBridge2, .menuBridge3, .menuBridge4, .menuBridge5 {
+    left: 230px;
+    z-index: 9
+}
+
+.menuItem1, .menuItem2, .menuItem3, .menuItem4, .menuItem5 {
+    left: 11px;
+    z-index: 9;
+    width: 228px
+}
+
+.menuBridge1, .menuItem1 {
+    top: 50px
+}
+
+.menuBridge2, .menuItem2 {
+    top: 141px
+}
+
+.menuBridge3, .menuItem3 {
+    top: 232px
+}
+
+.menuBridge4, .menuItem4 {
+    top: 323px
+}
+
+.menuBridge5, .menuItem5 {
+    top: 414px
+}
+
+.sideMenuHover {
+    top: 6px;
+    left: 237px;
+    z-index: 2;
+    width: 4px
+}
+
+.sideMenuRight {
+    top: 0px;
+    left: 232px;
+    width: 252px
+}
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+    .closeBg_tooltip {
+        float: right;
+        width: 15px;
+        height: 15px;
+        background-image: url(sprites/close_x.png);
+        background-repeat: no-repeat;
+        cursor: pointer;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-height:500px) {
+    #menuShop, #menuSupport, #menuShop2, #menuSupport2 {
+        width: 476px
+    }
+
+    .sideMenuContent {
+        display: none
+    }
+
+    #menuShop .sideMenuContent {
+        display: none
+    }
+}
+
+.maxHeight360 #menuShop, .maxHeight360 #menuSupport, .maxHeight360 #menuShop2, .maxHeight360 #menuSupport2 {
+    width: 704px
+}
+
+@media screen and (max-height:360px) {
+    #menuShop, #menuSupport, #menuShop2, #menuSupport2 {
+        width: 704px
+    }
+
+    .sideMenuContent {
+        display: none
+    }
+}
+
+.maxHeight320 #menuMyServices, .maxHeight320 #menuMyServices2 {
+    width: 704px
+}
+
+.maxHeight320 #menuShop, .maxHeight320 #menuSupport, .maxHeight320 #menuShop2, .maxHeight320 #menuSupport2 {
+    width: 930px
+}
+
+@media screen and (max-height:320px) {
+    #menuMyServices, #menuMyServices2 {
+        width: 704px
+    }
+
+    #menuShop, #menuSupport, #menuShop2, #menuSupport2 {
+        width: 930px
+    }
+
+    .sideMenuContent {
+        display: none
+    }
+}
+
+#demoLanguageJs .radioImage {
+    width: 16px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-position: 0 -1063px
+}
+
+#demoLanguageJs .radioImage {
+    top: 1px;
+    margin-right: 5px
+}
+
+#demoLanguageJs .checked .radioImage {
+    background-position: 0 -1079px
+}
+
+.loginName {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+/* for search results */
+/* because the magnifying glass button has a glow under it that pushes the results down */
+#autoCompleteResultsJs {
+    margin-top: -4px
+}
+
+.ui-menu {
+    float: none;
+    margin: auto;
+    padding: inherit
+}
+
+.ui-autocomplete {
+    overflow: hidden;
+    position: static;
+    cursor: default
+}
+
+.ui-widget-content {
+    background: none;
+    border: inherit;
+    color: inherit
+}
+
+.ui-menu .ui-menu-item {
+    margin: 0;
+    padding: 0;
+    float: left;
+    clear: left;
+    width: 100%;
+    background: none
+}
+
+    .resultList a:hover, .ui-menu .ui-menu-item a, .ui-menu .ui-menu-item a.ui-state-hover, .ui-menu .ui-menu-item a.ui-state-active {
+        border: 0;
+        border-bottom: 1px solid #c2c2c2;
+        margin: 0
+    }
+
+        .resultList a:hover, .ui-menu .ui-menu-item a.ui-state-hover, .ui-menu .ui-menu-item a.ui-state-active {
+            background-color: #d9e8f1;
+            color: #212121;
+            text-decoration: none
+        }
+
+    .resultList a, .ui-menu .ui-menu-item a {
+        color: #555;
+        display: block;
+        font-size: 14px;
+        padding: 12px 14px 12px
+    }
+
+.ui-autocomplete-term {
+    font-weight: bold
+}
+/* CSS Document for MyMobility usage box*/
+.hProgessBarLblue, .hProgessBarRblue, .hProgessBarMblue, .hProgessBarLgray, .hProgessBarRgray, .hProgessBarMgray, .hProgessBarLyellow, .hProgessBarRyellow, .hProgessBarMyellow {
+    background: #fff url("sprites/bg_progressBar.png");
+    height: 27px
+}
+
+.hProgessBarLblue, .hProgessBarRblue, .hProgessBarLgray, .hProgessBarRgray, .hProgessBarLyellow, .hProgessBarRyellow {
+    width: 10px
+}
+
+    .hProgessBarLblue .hProgessBarRblue, .hProgessBarRgray, .hProgessBarLgray, .hProgessBarRyellow, .hProgessBarLyellow {
+        background-repeat: no-repeat
+    }
+
+.hProgessBarMblue, .hProgessBarMgray .hProgessBarMyellow {
+    background-repeat: repeat-x
+}
+
+.hProgessBarLblue {
+    background-position: left 0
+}
+
+.hProgessBarRblue {
+    background-position: left -121px
+}
+
+.hProgessBarMblue {
+    background-position: left -92px
+}
+
+.hProgessBarLgray {
+    background-position: right -151px
+}
+
+.hProgessBarRgray {
+    background-position: right -31px
+}
+
+.hProgessBarMgray {
+    background-position: left -62px;
+    width: 100%
+}
+
+.hProgessBarLyellow {
+    background-position: right -212px
+}
+
+.hProgessBarRyellow {
+    background-position: right -182px
+}
+
+.hProgessBarMyellow {
+    background-position: left -241px;
+    width: 100%
+}
+/* CSS Document for MyServices*/
+.overFlXhidden {
+    overflow-x: hidden
+}
+
+.jaggyFooter {
+    top: 0;
+    height: 14px;
+    background: #fff url(sprites/jaggyBottom.jpg) repeat-x bottom left
+}
+
+.jaggyHeader {
+    top: 0;
+    height: 14px;
+    background: #fff url(sprites/jaggyTop.jpg) repeat-x bottom left
+}
+/* Paginator */
+.pageCounter {
+    position: absolute;
+    left: 0;
+    top: 14px;
+    width: 100%;
+    text-align: center
+}
+/*Date Selector input Field*/
+input.datepicker {
+    background: url("../img/input_bg.png") repeat-x top left #fff;
+    border-color: #5f5f5f #a6a6a6 #cdcdcd;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    padding: 10px 5px 2px;
+}
+
+.ui-datepicker-trigger {
+    border: 0px;
+    background: none;
+    margin-left: -38px;
+    cursor: pointer;
+}
+/*currentBalance field in installment meter*/
+.currentBalance {
+    display: inline-block;
+    zoom: 1;
+}
+
+.ie7 .currentBalance {
+    display: inline;
+}
+/*Mobile Styles*/
+.pageWidthMobile, #menuSearchMobile {
+    width: 600px
+}
+
+#menuSearchMobile {
+    margin-left: -355px
+}
+
+    #menuSearchMobile .menuArrow {
+        top: -6px;
+        right: 213px
+    }
+/*Nav tabs*/
+.arrowVM {
+    background-image: url(sprites/arrowVM.png);
+    background-position: center top;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 10px
+}
+
+.arrowBell {
+    background-image: url(sprites/bellarrow.png);
+    background-position: center -3px;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 10px
+}
+/*tooltip*/
+.ids_ToolTipArrow, .ids_ToolTipTR, .ids_ToolTipTL, .ids_ToolTipTM, .ids_ToolTipBR, .ids_ToolTipBL, .ids_ToolTipBM {
+    background-image: url(sprites/ids_tour_bg_x.png);
+}
+
+    .ids_ToolTipArrow.vm, .ids_ToolTipTR.vm, .ids_ToolTipTL.vm, .ids_ToolTipTM.vm, .ids_ToolTipBR.vm, .ids_ToolTipBL.vm, .ids_ToolTipBM.vm {
+        background-image: url(sprites/ids_tour_bg_x_vm.png)
+    }
+
+.ids_linkToolTip {
+    border-bottom: 1px dotted #0066a4
+}
+
+a.ids_linkToolTip:visited {
+    color: #0066A4
+}
+
+a.ids_linkToolTip:hover {
+    text-decoration: none;
+}
+
+.ids_tourStepInfoContent {
+    background-color: #f2f2f2;
+    padding: 0 10px;
+}
+
+.ids_tourStepInfoContent2 {
+    background-color: #fff;
+    padding: 0 10px;
+}
+
+.ids_ToolTipTarget {
+    z-index: 2;
+}
+
+.ids_ToolTipArrow {
+    position: absolute;
+    width: 20px;
+    height: 12px;
+    background-repeat: no-repeat;
+    background-position: 0 -253px;
+    z-index: 1
+}
+
+.ids_ToolTip {
+    position: absolute;
+    width: 300px;
+    z-index: 2
+}
+
+    .ids_ToolTip .ids_ToolTipTR, .ids_ToolTip .ids_ToolTipTL {
+        background-position: 0 -157px;
+        background-repeat: no-repeat;
+        width: 15px;
+        height: 14px
+    }
+
+    .ids_ToolTip .ids_ToolTipTL {
+        background-position: 0 -127px
+    }
+
+    .ids_ToolTip .ids_ToolTipTM {
+        background-position: 0 -187px;
+        height: 14px;
+        margin-left: 15px;
+        margin-right: 15px
+    }
+
+.ids_ToolTipTR, .ids_ToolTipTL {
+    background-position: -7px 0;
+    width: 7px;
+    height: 7px
+}
+
+.ids_ToolTipTL {
+    background-position: 0 0
+}
+
+.ids_ToolTipTM {
+    background-position: 0 -14px;
+    height: 7px;
+    margin: 0 7px
+}
+
+.ids_ToolTip .ids_ToolTipBR, .ids_ToolTip .ids_ToolTipBL {
+    background-position: 0 -172px;
+    width: 15px;
+    height: 15px
+}
+
+.ids_ToolTip .ids_ToolTipBL {
+    background-position: 0 -142px
+}
+
+.ids_ToolTip .ids_ToolTipBM {
+    background-position: 0 -202px;
+    height: 15px;
+    margin: 0 15px;
+    top: -15px
+}
+
+.ids_ToolTipBR, .ids_ToolTipBL {
+    background-position: -7px -7px;
+    width: 7px;
+    height: 7px
+}
+
+.ids_ToolTipBL {
+    background-position: 0 -7px;
+}
+
+.ids_ToolTipBM {
+    background-position: 0 -21px;
+    height: 7px;
+    margin: 0 7px;
+    position: relative;
+    top: -7px
+}
+
+.ids_ToolTipML, .ids_ToolTipMR {
+    background-image: url(sprites/ids_tour_bg_y.png)
+}
+
+    .ids_ToolTipML.vm, .ids_ToolTipMR.vm {
+        background-image: url(sprites/ids_tour_bg_y_vm.png)
+    }
+
+.ids_ToolTipML {
+    padding-left: 15px;
+    background-position: -22px 0;
+    background-repeat: repeat-y
+}
+
+.ids_ToolTipMR {
+    padding-right: 15px;
+    background-position: 354px 0;
+    background-repeat: repeat-y
+}
+
+.ids_ToolTip .ids_ToolTipMR, .ids_ToolTipInfo .ids_ToolTipMR {
+    background-position: 234px 0
+}
+
+.ids_ToolTipInfoTitle {
+    width: 90%
+}
+
+.ids_ToolTip.arrowRightTop .ids_ToolTipArrow {
+    height: 20px;
+    background-position: 0 -218px
+}
+
+.ids_ToolTip.arrowLeftTop .ids_ToolTipArrow {
+    height: 20px;
+    width: 10px;
+    background-position: -10px -286px
+}
+
+.ids_ToolTip.arrowMiddleRight {
+    margin-left: 10px;
+    margin-top: -19px
+}
+
+    .ids_ToolTip.arrowMiddleRight .ids_ToolTipArrow, .ids_ToolTip.arrowBottomRight .ids_ToolTipArrow {
+        background-position: 0 -218px;
+        height: 20px
+    }
+
+.ids_ToolTip.arrowMiddleLeft .ids_ToolTipArrow, .ids_ToolTip.arrowBottomLeft .ids_ToolTipArrow {
+    height: 20px;
+    background-position: 0 -286px
+}
+
+.ids_ToolTip.arrowBaseRight .ids_ToolTipArrow, .ids_ToolTip.arrowBaseMiddle .ids_ToolTipArrow {
+    background-position: 0 -253px;
+    height: 20px
+}
+
+.ids_ToolTip.arrowUpperRight .ids_ToolTipArrow, .ids_ToolTip.arrowUpperLeft .ids_ToolTipArrow, .ids_ToolTip.arrowUpperMiddle .ids_ToolTipArrow {
+    background-position: 0 -265px;
+    height: 20px
+}
+
+.ids_ToolTip.small {
+    width: 200px
+}
+
+    .ids_ToolTip.small .ids_ToolTipMR {
+        background-position: 134px 0
+    }
+
+.ids_ToolTip.large {
+    width: 400px
+}
+
+    .ids_ToolTip.large .ids_ToolTipMR {
+        background-position: 334px 0
+    }
+/*Virgin header and footer Styles*/
+html.vm {
+    min-height: 100%;
+    position: relative
+}
+
+body.vm {
+    margin: 0 0 125px
+}
+
+.footerVM {
+    bottom: 0;
+    left: 0
+}
+
+    .footerVM a:hover {
+        color: #cbcbcb
+    }
+/*Custom Select Box Virgin*/
+.selectArrow {
+    width: 18px
+}
+
+.selectArrow2 {
+    width: 5px
+}
+
+.selectArrow, .selectArrow2 {
+    margin-right: -2px
+}
+
+.selectArrow, .selected1 {
+    height: 50px;
+    z-index: 9
+}
+
+.selectArrow2, .selected2 {
+    height: 30px;
+    z-index: 9
+}
+
+.selectOptions {
+    top: 52px;
+}
+
+.selectOptions2 {
+    top: 32px;
+}
+
+.selectOptions, .selectOptions2 {
+    left: 0;
+    width: 100%
+}
+
+.selectOption:hover {
+    color: #333;
+    background: #e1e1e1
+}
+
+.selected1.vmArrow {
+    background: url('sprites/vm_dropDown.png');
+    background-position: right top;
+    background-repeat: no-repeat
+}
+
+.selected2.vmArrow2 {
+    background: url('sprites/vm_arrowDown2.png');
+    background-position: right top;
+    background-repeat: no-repeat
+}
+/*Custom ordered list styles*/
+.ol1 ol, ol.ol1 {
+    padding-left: 27px;
+}
+
+.ol1 li {
+    padding-bottom: 10px;
+}
+
+.ol1 p {
+    margin: 5px 0;
+}
+
+span sup.bellPrice {
+    font-size: 50%;
+    line-height: 5px;
+    top: 0
+}
+
+.arrowBubbleUp {
+    width: 31px;
+    height: 17px;
+    background-image: url(sprites/bubble_arrows.png);
+    background-position: top left;
+    margin-top: -15px
+}
+
+.arrowBubbleLeft {
+    width: 19px;
+    height: 19px;
+    background-image: url(sprites/bubble_arrows.png);
+    background-position: 0 -47px;
+    margin-top: -14px
+}
+
+.arrowBubbleRight {
+    width: 19px;
+    height: 19px;
+    background-image: url(sprites/bubble_arrows.png);
+    background-position: right -22px;
+    margin-top: -14px
+}
+
+.arrowBubbleUpVM {
+    width: 31px;
+    height: 17px;
+    background-image: url(sprites/bubble_arrowsVM.png);
+    background-position: top left;
+    margin-bottom: -2px
+}
+
+.arrowBubbleLeftVM {
+    width: 19px;
+    height: 19px;
+    background-image: url(sprites/bubble_arrowsVM.png);
+    background-position: 0 -47px;
+    margin-bottom: -5px
+}
+
+.arrowBubbleRightVM {
+    width: 19px;
+    height: 19px;
+    background-image: url(sprites/bubble_arrowsVM.png);
+    background-position: right -22px;
+    margin-bottom: -5px
+}
+
+ul.noStyle li {
+    list-style-type: none
+}
+
+ul.tabs-menu li {
+    right: 50%
+}
+
+ul.tabs-menu {
+    left: 50%;
+    margin: 0;
+    padding: 0
+}
+
+.innerShadow {
+    background: url('sprites/innerShadow.png') repeat-x
+}
+/*CSS3 Buttons, tabs and boxes*/
+.button1_CSS3 {
+    border: 1px solid #000;
+    box-shadow: #4f9fd5 0px 1px 1px inset;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    background-color: #1478bc;
+    background-image: linear-gradient(to bottom, #1478bc, #114f93);
+}
+
+    .button1_CSS3:hover {
+        box-shadow: 0px 4px 5px -3px rgba(74,73,74,1)
+    }
+
+.button2_CSS3 {
+    border: 1px solid #bfbfbf;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    background-color: #1478bc;
+    background-image: linear-gradient(to bottom, #fefefe, #e4e4e4);
+}
+
+    .button2_CSS3:hover {
+        border: 1px solid #0066a4;
+        color: #0066a4;
+        box-shadow: 0px 4px 5px -3px rgba(74,73,74,1)
+    }
+
+.buttonNav_notActive {
+    border-top: 1px solid #bfbfbf;
+    border-bottom: 1px solid #bfbfbf;
+    padding: 15px 0;
+    text-decoration: none;
+    display: block;
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #fff, #e3e3e3);
+}
+
+.buttonNav_Active {
+    padding: 16px 0;
+    text-decoration: none;
+    display: inline-block;
+    background-color: #3a3f47;
+    box-shadow: #000 0px 2px 2px inset
+}
+
+.buttonNav_notActive.borderLeft {
+    border-left: 1px solid #bfbfbf
+}
+
+.buttonNav_notActive.borderRight {
+    border-right: 1px solid #bfbfbf
+}
+
+.button46_CSS3, .button49_CSS3 {
+    border-radius: 5px 0px 0px 5px
+}
+
+.button47_CSS3 {
+    border-radius: 0px
+}
+
+.button48_CSS3, .button51_CSS3 {
+    border-radius: 0px 5px 5px 0px
+}
+
+.button62_CSS3 {
+    border: 1px solid #d1d1d1;
+    display: block;
+    box-shadow: #fff 0px 0px 2px inset;
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #fff, #f2f2f2);
+    border-radius: 4px
+}
+
+.button63_CSS3 {
+    border-top: 1px solid #d1d1d1;
+    border-left: 1px solid #d1d1d1;
+    border-right: 1px solid #d1d1d1;
+    display: block;
+    background-color: #fff;
+    border-radius: 4px 4px 0px 0px
+}
+
+.newBrowsers.navTabsCSS3 {
+    margin-bottom: -31px
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .newBrowsers.navTabsCSS3 {
+        margin-bottom: -29px
+    }
+}
+
+.button62_CSS3 .tabPadding18, .button63_CSS3 .tabPadding18 {
+    padding: 0 18px
+}
+
+.button5_CSS3 {
+    border: 1px solid #dcdcdc;
+    display: block;
+    padding: 9px 15px;
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+    border-radius: 7px 0px 0px 7px
+}
+
+.button14_CSS3 {
+    border-top: 1px solid #dcdcdc;
+    border-right: 1px solid #dcdcdc;
+    border-bottom: 1px solid #dcdcdc;
+    display: block;
+    padding: 9px 12px;
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+    border-radius: 0px 7px 7px 0px
+}
+
+.dcx_selectOff.on .button14_CSS3 {
+    border-top: 1px solid #6d6d6d;
+    border-right: 1px solid #6d6d6d;
+    border-bottom: 1px solid #6d6d6d;
+    background-color: #828282;
+    background-image: linear-gradient(to bottom, #828282, #828282);
+    box-shadow: #6d6d6d 0px 2px 2px 2px inset
+}
+
+    .dcx_selectOff.on .button14_CSS3 .icon.dropDownArrow {
+        background-position: 0 -371px
+    }
+
+.button8_CSS3 {
+    border: 1px solid #ababab;
+    display: block;
+    padding: 10px 40px;
+    height: 20px;
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #fff, #e3e3e3);
+    border-radius: 10px 0px 0px 10px
+}
+
+    .button8_CSS3:hover {
+        background-image: linear-gradient(to bottom, #f6f6f6, #d2d2d2);
+    }
+
+.button9_CSS3 {
+    border-top: 1px solid #ababab;
+    border-bottom: 1px solid #ababab;
+    display: block;
+    padding: 10px 40px;
+    height: 20px;
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #fff, #e3e3e3);
+    border-radius: 0px
+}
+
+    .button9_CSS3:hover {
+        background-image: linear-gradient(to bottom, #f6f6f6, #d2d2d2);
+    }
+
+.button10_CSS3 {
+    border: 1px solid #ababab;
+    display: block;
+    padding: 10px 40px;
+    height: 20px;
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #fff, #e3e3e3);
+    border-radius: 0px 10px 10px 0px
+}
+
+    .button10_CSS3:hover {
+        background-image: linear-gradient(to bottom, #f6f6f6, #d2d2d2);
+    }
+
+.button11_CSS3 {
+    border-top: 1px solid #6d6d6d;
+    border-right: 1px solid #6d6d6d;
+    border-bottom: 1px solid #6d6d6d;
+    padding: 10px 40px;
+    height: 20px;
+    background-color: #828282;
+    background-image: linear-gradient(to bottom, #828282, #828282);
+    box-shadow: #4c4c4c 0px 2px 2px 0px inset;
+    border-radius: 10px 0px 0px 10px
+}
+
+.button60_CSS3 {
+    border-top: 1px solid #6d6d6d;
+    border-bottom: 1px solid #6d6d6d;
+    display: block;
+    padding: 10px 40px;
+    height: 20px;
+    background-color: #828282;
+    background-image: linear-gradient(to bottom, #828282, #828282);
+    box-shadow: #4c4c4c 0px 2px 2px 0px inset;
+    border-radius: 0px
+}
+
+.button61_CSS3 {
+    border-top: 1px solid #6d6d6d;
+    border-bottom: 1px solid #6d6d6d;
+    display: block;
+    padding: 10px 40px;
+    height: 20px;
+    background-color: #828282;
+    background-image: linear-gradient(to bottom, #828282, #828282);
+    box-shadow: #4c4c4c 0px 2px 2px 0px inset;
+    border-radius: 0px 10px 10px 0px
+}
+
+.box2_CSS3 {
+    border: 1px solid #d1d1d1;
+    border-radius: 7px;
+    background-color: #fff;
+    box-shadow: 0px 1px 0px #afafaf
+}
+
+.box3_CSS3 {
+    border: 1px solid #d1d1d1;
+    border-radius: 7px;
+    background-color: #fff;
+    padding: 15px;
+    background-image: linear-gradient(to bottom, #ffffff, #e5e5e5);
+    box-shadow: 0px 1px 0px #afafaf
+}
+/*added for CSS3 MyUsage tabs*/
+.button64_CSS3 {
+    box-sizing: border-box;
+    border: solid 1px #dadada;
+    border-left: none;
+    background-image: linear-gradient(to bottom, #fefefe, #f6f6f6);
+    padding: 7px 15px 5px;
+    box-shadow: inset 0px 0px 0px 1px #fff;
+    background-color: #fff;
+    border-radius: 0;
+    width: 100%;
+}
+
+.button65_CSS3 {
+    border: solid 1px #dadada;
+    background-image: linear-gradient(to bottom, #fefefe, #f6f6f6);
+    padding: 7px 15px 5px;
+    box-shadow: inset 0px 0px 0px 1px #fff;
+    background-color: #fff;
+    border-radius: 4px 0 0 0;
+}
+
+.button66_CSS3 {
+    border: solid 1px #dadada;
+    border-left: none;
+    background-image: linear-gradient(to bottom, #fefefe, #f6f6f6);
+    padding: 7px 15px 5px;
+    box-shadow: inset 0px 0px 0px 1px #fff;
+    background-color: #fff;
+    border-radius: 0 4px 0 0;
+}
+
+.button67_CSS3 {
+    border: solid 1px #dadada;
+    border-bottom: solid 1px #f2f2f2;
+    background-image: linear-gradient(to bottom, #fefefe, #f2f2f2);
+    padding: 14px 15px 5px;
+    box-shadow: none;
+    background-color: #fff;
+    border-radius: 4px 4px 0 0;
+    margin-top: 0px;
+    color: #212121;
+    margin-left: -1px;
+    margin-bottom: -1px;
+}
+
+.button68_CSS3 {
+    border: solid 1px #dadada;
+    background-image: linear-gradient(to bottom, #fefefe, #f6f6f6);
+    padding: 7px 15px 5px;
+    box-shadow: inset 0px 0px 0px 1px #fff;
+    background-color: #fff;
+    border-radius: 0 4px 0 0;
+    width: 95%;
+    margin-left: 17px;
+}
+
+.button69_CSS3 {
+    border: solid 1px #dadada;
+    border-bottom: solid 1px #f2f2f2;
+    background-image: linear-gradient(to bottom, #fefefe, #f2f2f2);
+    padding: 14px 15px 6px;
+    box-shadow: none;
+    background-color: #fff;
+    border-radius: 4px 4px 0 0;
+    margin-top: -7px;
+    color: #212121;
+    margin-left: -1px;
+    margin-bottom: -1px;
+}
+
+.button70_CSS3 {
+    border: solid 1px #dadada;
+    border-bottom: solid 1px #f2f2f2;
+    background-image: linear-gradient(to bottom, #fefefe, #f2f2f2);
+    padding: 14px 15px 6px;
+    box-shadow: none;
+    background-color: #fff;
+    border-radius: 4px 4px 0 0;
+    margin-top: -7px;
+    color: #212121;
+    margin-bottom: -1px;
+}
+
+/*END added for MyUsage tabs*/
+
+.internationalAlaCareDropDownFirstTop {
+    padding-top: 21px;
+}
+
+.internationalAlaCareDropDownFirstBottom {
+    border-top: 1px solid #cdcdcd;
+    margin-top: 15px;
+    padding-top: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.paddingBottom3 {
+    padding-bottom: 3px !important;
+}
+
+.paddingBottom10 {
+    padding-bottom: 10px !important;
+}
+
+.borderGrey {
+    border: 1px solid #cdcdcd;
+}
+
+.allLanguageDDL {
+    font-size: 12px;
+    color: black;
+    padding: 4px 0 4px 15px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+    .allLanguageDDL a {
+        text-decoration: none;
+        color: #000;
+    }
+
+.nobordertop {
+    border-top: 0 !important;
+}
+
+.allLanguageArrow {
+    width: 12px !important;
+    height: 12px !important;
+    display: inline-block !important;
+    background-repeat: no-repeat !important;
+}
+
+.arrowWrapper {
+    padding: 12px 10px 8px 10px;
+    border: 1px solid #cdcdcd;
+    display: inline-block;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+
+.noPaddingRight {
+    padding-right: 0 !important;
+}
+
+.txtInlineBlock {
+    display: inline-block !important;
+}
+
+.txtVerticalAlignMiddle {
+    vertical-align: middle;
+}
+
+/* project Windmill */
+.vSpacer171 {
+    width: 171px;
+}
+
+.divCenter {
+    margin: 0 auto;
+    display: table;
+}
+
+.arrow_pointer {
+    margin-top: -7px;
+    height: 19px;
+    width: 19px;
+    background-image: url(../img/bg_sideArrow.gif);
+    background-repeat: no-repeat;
+}
+
+.arrow_pointerBottom {
+    background-position: center -58px;
+}
+/*css class added for windmill project*/
+.txtUnderline {
+    text-decoration: underline !important;
+}
+
+.windmillvPadding {
+    padding: 0 1px 0 15px;
+}
+
+.col088 {
+    width: 88%;
+}
+
+.windmilllMargin2 {
+    margin-left: 2px;
+}
+
+
+
+.windmillPaymentAgreementHeader {
+    font-weight: 700;
+    font-style: normal;
+    font-size: 14px;
+}
+
+/* for  project windmill end*/
+
+/* For CDNR  */
+.col09CDnR {
+    width: 9%
+}
+
+.col089CDnR {
+    width: 89%;
+}
+
+.padMsgCdnr {
+    padding: 0 0 0 20px;
+}
+
+/* CDNR End */

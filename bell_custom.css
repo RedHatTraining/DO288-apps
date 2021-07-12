@@ -1,0 +1,918 @@
+﻿/* Use This file to change or overwrite core CSS files  */
+/*!:: BELL CANADA v1.2830 */
+
+/* CSS from version 1.2106 bell_prime.css - Merged on May 12th, 2010 at 10:51PM EST */
+/*:: =CR6: ACN pages ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+.acnBellLogo {
+    width: 90px;
+    height: 45px;
+    margin-top: 20px;
+    margin-left: 20px;
+    text-indent: -999em;
+    background: url(../common/all_languages/all_regions/skin/bell_logo.gif) 0 0 no-repeat transparent;
+}
+
+.acnACNLogo {
+    width: 176px;
+    height: 45px;
+    margin-left: 20px;
+    margin-top: 20px;
+    text-indent: -999em;
+    background: url(../common/all_languages/all_regions/skin/acnLogo.gif) 0 0 no-repeat transparent;
+}
+/* rateplanListPanel */
+.rateplanListPanel .buttonize span {
+    padding-left: 5px;
+}
+
+.rateplanListPanel .btnLnkAlt span span {
+    width: 35px;
+}
+
+.rateplanListPanel .bStick .sbBtnIE6 {
+    margin-left: -0px !important;
+    margin-left: -30px;
+    float: left;
+}
+
+/* CSS from version 1.2113 bell_master.css - Merged on May 12th, 2010 at 10:55PM EST */
+/*:: =Rate plan List Panel::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+.rateplanListPanel .unit span.priceTag {
+    font-size: 40px;
+    line-height: 100%;
+    margin-bottom: -10px;
+    margin-left: -5px;
+}
+
+    .rateplanListPanel .unit span.priceTag span.superscript {
+        font-size: 16px;
+        line-height: 100%;
+        top: 4px;
+        left: 7px;
+        margin-left: 0px;
+        position: relative;
+    }
+
+.rateplanListPanel .unit .numberofanytimeMinutes {
+    width: 30%;
+    float: left;
+    font-size: 40px;
+    line-height: 100%;
+    margin-top: 0px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.rateplanListPanel .unit .labelofanytimeMinutes {
+    margin-bottom: 20px;
+    margin-left: 70px;
+}
+
+ul.allPlanInclude2Column li {
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
+    float: left;
+    width: 350px;
+}
+
+.rateplanListPanel .unit span.priceTag .superscriptMonthly {
+    font-size: 15px;
+    line-height: 100%;
+    position: relative;
+    top: -15px;
+    left: -5px;
+}
+
+.rateplanListPanel .unit .labelofDatarate {
+    margin-bottom: 20px;
+    margin-left: 70px;
+    position: relative;
+    top: -0px;
+}
+
+#mapRatePlansStep .priceTag .superscript {
+    font-size: 80%;
+}
+/* Use This file to change or overwrite core CSS files  */
+.newold {
+    font: 16px arial,sans-serif;
+}
+
+.emailflowErrMsg {
+    font-weight: bold;
+    color: #CD0000;
+    padding-left: 215px;
+    text-align: left;
+    float: right;
+    width: 60%;
+    margin: 5px;
+}
+
+.ErrorEmailflow {
+    font-weight: bold;
+    color: #CD0000 !important;
+}
+
+.cHeaderEmailFlow {
+    position: relative;
+    margin-bottom: 24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: solid 1px #ccc;
+    border-bottom: none;
+    background: url(../common/all_languages/all_regions/skin/bg_gradRibbon.gif) left bottom repeat-x #fff;
+}
+
+/*:: =Buttons For Registration ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+.buttonize, .buttonL {
+    font-family: helvetica,arial,sans-serif;
+    display: block;
+    float: left;
+    overflow: visible;
+    width: auto;
+    padding: 0;
+    margin: 0 8px 0 0;
+    border: none;
+    background: none transparent;
+}
+
+    .buttonize:hover, .buttonL :hover {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .buttonize span, .noJs .buttonize, .buttonL span, .noJs .buttonL {
+        position: relative;
+        top: 0;
+        display: inline;
+        float: left;
+        text-decoration: none;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+        .buttonize span span, .buttonL span span {
+            position: absolute;
+            top: 0;
+            right: -19px;
+            width: 19px;
+            padding: 0;
+            margin: 0;
+            background-position: right top;
+            margin-right: 0;
+        }
+
+.noJs .buttonize, .noJs .buttonL {
+    padding: 4px 21px 3px;
+    margin-right: 0;
+    background: none #f2f2f2;
+    border: 1px solid #ddd;
+}
+
+.buttonize span, .buttonL span {
+    padding-left: 19px;
+    margin-right: 19px;
+    line-height: 1em;
+    font-size: 12px;
+    height: 24px;
+    padding-top: 13px;
+    color: #fff;
+    background: url(../common/all_languages/all_regions/skin/bg_buttonSprite.png) left top no-repeat transparent;
+}
+
+    .buttonize span span, .buttonL span span {
+        height: 37px;
+        padding-top: 0;
+    }
+
+    .buttonize span.accessAlt, .buttonL span.accessAlt, .buttonize span.offScreen, .buttonL span.offScreen {
+        display: none;
+    }
+
+.btnLnk span, .btnAltAct span, .buttonLink span, .buttonThemeC span, .buttonToggle span {
+    height: 20px;
+    padding-top: 11px;
+    padding-right: 19px;
+}
+
+    .btnLnk span span, .btnAltAct span span, .buttonLink span span, .buttonThemeC span span, .buttonToggle span span {
+        height: 31px;
+    }
+
+
+.buttonLinkThemeC span {
+    height: 18px;
+    padding-top: 7px;
+}
+
+    .buttonLinkThemeC span span {
+        height: 25px;
+    }
+
+button.buttonize, button.buttonL {
+    position: relative;
+    top: -1px;
+    margin-left: -3px;
+    margin-right: 5px;
+}
+/* default grey action button */
+.btnAltAct, .buttonThemeC, .buttonLink, .buttonToggle {
+    margin-top: 3px;
+}
+
+    .btnAltAct span, .noJs .btnAltAct, .buttonThemeC span, .noJs .buttonThemeC, .buttonToggle span {
+        background-position: left -150px;
+        color: #212121;
+        padding-right: 0;
+    }
+
+        .btnAltAct span span, .buttonThemeC span span, .buttonToggle span span {
+            right: -19px;
+            width: 19px;
+            background-position: right -150px;
+        }
+
+.noJs .btnAltAct, .noJs .buttonThemeC, .noJs .buttonToggle {
+    border: 1px solid #ddd;
+    background: none #f2f2f2;
+}
+
+.userMsg, .message {
+    overflow: visible;
+    position: relative;
+    padding-left: 21px;
+    clear: both;
+}
+
+.umWarning, .messageThemeD {
+    background: transparent url("../img/bl_warning.gif") no-repeat scroll left 1px;
+}
+
+h3.headingType4 {
+    font-size: 1.166em;
+    line-height: 1.2em;
+    margin-bottom: -0.715em; /*0.285em*/
+    color: #212121;
+    font-weight: normal;
+}
+
+.cBox, .vTabsThemeA .tabContSet {
+    padding-top: 5px;
+    position: relative;
+    min-height: 22px;
+    background: #FFF none repeat scroll 0% 0%;
+}
+
+.padder {
+    padding: 0px 21px 5px;
+    position: relative;
+}
+
+.messageformat {
+    font: normal 75%/1.333em Helvetica,Arial,sans-serif;
+    background-color: #fff;
+}
+
+.messageThemeC {
+    background: transparent url("../img/bl_error.gif") no-repeat scroll left 1px;
+}
+
+.txtsize14 {
+    font-size: 14px;
+}
+
+.txtblacklight {
+    color: #212121;
+}
+
+.itemPict {
+    float: left;
+    margin-bottom: -173px;
+    margin-left: 242px;
+}
+
+.fTxt input, .formText input {
+    width: 14.3em;
+    font-weight: bold;
+    background: #EEE url("../common/all_languages/all_regions/skin/bg_formTextInput.gif") repeat-x scroll left top;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #5F5F5F #A6A6A6 #CDCDCD;
+    padding: 7px 5px 3px !important;
+}
+
+.box1_BL_adtnl {
+    background-position: 0px -306px !important;
+}
+
+.box1_BR_adtnl {
+    background-position: right -317px !important;
+}
+
+.box1_BM_adtnl {
+    background-position: 0px -295px !important;
+}
+
+.box1_MM_bgcolor {
+    background-color: #FFFFFF !important;
+}
+
+.box1_TL_adtnl {
+    background-position: 0px -66px !important;
+}
+
+.box1_TR_adtnl {
+    background-position: right -73px !important;
+}
+
+.box1_TM_adtnl {
+    background-position: 0px -85px !important;
+}
+
+/** Adding new button for Elevated Search**/
+.button22thin .button_MM {
+    width: 90px;
+    padding: 16px 10px;
+}
+
+.button22thin:hover .button_ML {
+    background: url(sprites/bg_shadowsSpriteL.png) repeat-y left top;
+}
+
+.button22thin:hover .button_MR {
+    background: url(sprites/bg_shadowsSpriteR.png) repeat-y right top;
+}
+
+.button22thin:hover {
+    background: url(sprites/bg_gradient_b.png) repeat-x left top;
+}
+
+    .button22thin:hover .navArrow {
+        background-position: 0 -1152px;
+    }
+
+.button22thin .button_ML {
+    padding: 0 0 0 11px;
+}
+
+.button22thin .button_MR {
+    padding: 0 11px 0 0;
+}
+/**Done Adding**/
+
+/* new Elevated Search Context */
+.searchfieldButton {
+    background: none;
+    border: 0;
+    color: #fff;
+    position: relative;
+    right: 30px;
+    top: 50%;
+    cursor: pointer;
+    padding: 0;
+    width: 23px;
+    height: 29px;
+    margin-top: 6px;
+}
+
+.inputSearchTop {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 3px;
+    width: 100%;
+    background-color: #002b4e;
+    border: 0;
+    color: #fff;
+    border-radius: 50px;
+    width: 165px;
+    padding: 8px 35px 6px 15px;
+}
+
+.formGroupConnector {
+    margin-bottom: 1em;
+    padding: 8px 5px;
+}
+/* End Elevated Search Context */
+
+/* =resultList : connector search result list */
+.resultList {
+    margin-bottom: 10px;
+}
+
+    .resultList li {
+        margin-bottom: 0;
+        padding-left: 0;
+        background-image: none;
+    }
+
+    .resultList a,
+    .connector .ui-menu .ui-menu-item a,
+    .resultListThemeA .ui-menu .ui-menu-item a {
+        color: #555;
+        display: block;
+        font-size: 1.2em !important;
+        line-height: 18px !important;
+        padding: 12px 14px 12px !important;
+    }
+
+        .resultList a:hover,
+        .connector .ui-menu .ui-menu-item a.ui-state-hover,
+        .connector .ui-menu .ui-menu-item a.ui-state-active .resultListThemeA a:hover,
+        .resultListThemeA .ui-menu .ui-menu-item a.ui-state-hover,
+        .resultListThemeA .ui-menu .ui-menu-item a.ui-state-active {
+            background-color: #d9e8f1;
+            color: #212121;
+            text-decoration: none;
+            padding-top: 12px !important;
+        }
+
+.resultLink {
+    display: block;
+    margin: 1px;
+    padding: 12px 14px 12px;
+    text-align: left;
+    font-size: 14px;
+}
+
+
+.resultList a:hover,
+.connector .ui-menu .ui-menu-item a,
+.connector .ui-menu .ui-menu-item a.ui-state-hover,
+.connector .ui-menu .ui-menu-item a.ui-state-active .resultListThemeA a:hover,
+.resultListThemeA .ui-menu .ui-menu-item a,
+.resultListThemeA .ui-menu .ui-menu-item a.ui-state-hover,
+.resultListThemeA .ui-menu .ui-menu-item a.ui-state-active {
+    border: 0;
+    border-bottom: 1px solid #c2c2c2;
+    margin: 0;
+}
+
+.searchContext .resultList .ui-corner-all {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.resultListThemeB {
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    margin: 1px;
+    text-align: left;
+}
+
+.connector .resultListThemeB .ui-corner-all,
+.connector .resultListThemeB .ui-corner-bottom,
+.connector .resultListThemeB .ui-corner-right,
+.connector .resultListThemeB .ui-corner-br,
+.connector .resultListThemeB .ui-corner-all,
+.connector .resultListThemeB .ui-corner-bottom,
+.connector .resultListThemeB .ui-corner-left,
+.connector .resultListThemeB .ui-corner-bl,
+.connector .resultListThemeB .ui-corner-all,
+.connector .resultListThemeB .ui-corner-top,
+.connector .resultListThemeB .ui-corner-right,
+.connector .resultListThemeB .ui-corner-tr,
+.connector .resultListThemeB .ui-corner-all,
+.connector .resultListThemeB .ui-corner-top,
+.connector .resultListThemeB .ui-corner-left,
+.connector .resultListThemeB .ui-corner-tl {
+    border-radius: 0;
+}
+
+.connector .resultListThemeB .ui-menu .ui-menu-item a.ui-state-hover,
+.connector .resultListThemeB .ui-menu .ui-menu-item a.ui-state-active {
+    font-weight: bold;
+}
+
+/*:: ==Extras :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+/* 	Defaults are set here, please see component individually for their own extras styles
+	extra1 = top left corner
+	extra2 = bottom left corner
+	extra3 = top right corner
+	extra4 = bottom right corner
+	extraX = other visual elements (shadows, gradients, etc.)
+*/
+.flyOutConnectorExtra1, .flyOutConnectorExtra2, .flyOutConnectorExtra3, .flyOutConnectorExtra4, .flyOutConnectorExtra5, .flyOutConnectorExtra6 {
+    position: absolute;
+    background: transparent url(sprites/bg_cornerSprite.png) no-repeat 0 0;
+    /* default size if nothing set */
+    height: 5px;
+    width: 5px;
+}
+
+/* Corners + Shadows support */
+/* top corners (includes left/right) */
+.flyOutConnectorExtra1, .flyOutConnectorExtra2,
+.toolTipConnectorExtra1, .toolTipConnectorExtra2 {
+    width: 100%;
+}
+
+/* Elements hiding  */
+.borderradius .footer .boxConnectorExtra1, .borderradius .footer .boxConnectorExtra2, .borderradius .footer .boxConnectorExtra3, .borderradius .footer .boxConnectorExtra4,
+.stepList .last .divider,
+.itemListExtra1, .itemListExtra2, .itemListExtra3, .itemListExtra4,
+.borderradius .listViewConnectorExtra1, .borderradius .listViewConnectorExtra2, .borderradius .listViewConnectorExtra3, .borderradius .listViewConnectorExtra4,
+.borderradius .flyOutConnectorExtra1, .borderradius .flyOutConnectorExtra2, .borderradius .flyOutConnectorExtra3, .borderradius .flyOutConnectorExtra4, .borderradius .flyOutConnectorExtra5, .borderradius .flyOutConnectorExtra6,
+.borderradius .toolTipConnectorExtra1, .borderradius .toolTipConnectorExtra2, .borderradius .toolTipConnectorExtra3, .borderradius .toolTipConnectorExtra4, .borderradius .toolTipConnectorExtra5, .borderradius .toolTipConnectorExtra6,
+.cssgradients .buttonConnectorExtra1 {
+    display: none;
+}
+/* =flyOutConnector */
+.flyOutConnector, .flyOutConnectorWrap, .flyOutConnectorArrow, .toolTipConnectorArrow {
+    z-index: 10;
+}
+
+.flyOutConnector, .ui-widget-content {
+    position: absolute;
+    top: 90px;
+    background: #f2f2f2;
+    border: 1px solid #ababab;
+}
+/* this is the default width of any flyOut in the connector bar, please use individual context to specifify other widths */
+.navigationContext .flyOut,
+.navigationContext .flyOutConnector {
+    width: 232px;
+}
+/* negative margin to compensate for extras height */
+.flyOutConnectorWrap {
+    position: relative;
+    padding: 0 5px 0;
+    margin-top: -10px;
+    margin-bottom: -5px;
+}
+
+.flyOutConnectorHeader {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding: 0 4px;
+}
+
+    .flyOutConnectorHeader .actionLink {
+        color: #212121;
+        font-size: 1.166em;
+    }
+
+.flyOutConnectorContent h2 {
+    font-size: 1.8em;
+}
+
+.flyOutConnectorThemeA .flyOutConnectorWrap {
+    padding: 15px 20px 5px;
+    margin-bottom: 0;
+}
+
+.flyOutConnectorThemeA .flyOutConnectorHeader {
+    padding-left: 0;
+    padding-right: 0;
+    font-weight: bold;
+}
+
+/* Extras */
+.flyOutConnectorExtra1, .flyOutConnectorExtra2, .flyOutConnectorExtra3, .flyOutConnectorExtra4, .flyOutConnectorExtra5, .flyOutConnectorExtra6, .flyOutConnectorArrow {
+    background: transparent url(sprites/bg_flyOutSprite_a.png) no-repeat 0 0;
+}
+/* left corners */
+.flyOutConnectorExtra1, .flyOutConnectorExtra2 {
+    left: -10px;
+}
+
+/* top corners */
+.flyOutConnectorExtra1, .flyOutConnectorExtra3 {
+    top: -17px;
+    height: 17px;
+}
+
+/* bottom corners */
+.flyOutConnectorExtra2, .flyOutConnectorExtra4 {
+    bottom: -26px;
+    height: 26px;
+    background-position: 0 -18px;
+}
+
+/* right corners */
+.flyOutConnectorExtra3, .flyOutConnectorExtra4 {
+    right: -10px;
+    width: 20px;
+    background-position: -955px 0;
+}
+/* bottom right corner */
+.flyOutConnectorExtra4 {
+    background-position: -955px -18px;
+}
+
+/* side shadows */
+.flyOutConnectorExtra5, .flyOutConnectorExtra6 {
+    background-position: -975px 0;
+    background-repeat: repeat-y;
+    width: 11px;
+    height: 100%;
+    top: 0;
+}
+/* left side shadow */
+.flyOutConnectorExtra5 {
+    left: -10px;
+}
+
+/* right side shadow */
+.flyOutConnectorExtra6 {
+    right: -10px;
+    background-position: right 0;
+}
+
+/* Arrow */
+.flyOutConnectorArrow {
+    position: absolute;
+    top: -40px;
+    margin-left: 40px;
+    width: 35px;
+    height: 35px;
+}
+/* Top */
+.flyOutConnectorArrow {
+    left: 24px;
+    background-position: 0 -51px;
+}
+/* Right */
+.flyOutConnectorArrowThemeA {
+    top: 5px;
+    right: -24px;
+    left: auto;
+    background-position: -36px -51px;
+}
+/* Bottom */
+.flyOutConnectorArrowThemeB {
+    top: auto;
+    bottom: -24px;
+    left: 24px;
+    background-position: -72px -51px;
+}
+/* Left */
+.flyOutConnectorArrowThemeC {
+    top: 8px;
+    left: -8px;
+    background-position: -108px -51px;
+}
+
+
+
+.connector .resultListThemeB .ui-menu .ui-menu-item a.ui-state-hover,
+.connector .resultListThemeB .ui-menu .ui-menu-item a.ui-state-active {
+    font-weight: bold;
+}
+
+
+.searchfieldContext #flyOutConnectorSearch {
+    width: 400px;
+}
+
+    /* auto-complete */
+    .searchfieldContext #flyOutConnectorSearch .flyOutConnectorWrap {
+        padding: 0;
+    }
+
+    .searchfieldContext #flyOutConnectorSearch .ui-menu {
+        top: 0 !important;
+        width: 100% !important;
+    }
+
+.button23 .button_MM_thin {
+    width: 20px !important;
+}
+
+input:focus {
+    /*outline: none !important;*/
+}
+
+#topNavSearch::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #FFF;
+    font-weight: normal;
+}
+
+#topNavSearch:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #FFF;
+    opacity: 1;
+    font-weight: normal;
+}
+
+#topNavSearch::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #FFF;
+    opacity: 1;
+    font-weight: normal;
+}
+
+#topNavSearch:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #FFF;
+    font-weight: normal;
+}
+
+#menuShop .menuArrow, #menuSupport .menuArrow, #menuMyServices .menuArrow, #menuShop2 .menuArrow, #menuSupport2 .menuArrow, #menuMyServices2 .menuArrow {
+    left: 90px !important;
+}
+
+.ui-menu {
+    left: -250px !important;
+    font-size: 0.9em;
+}
+
+.boxBanner_CSS3 {
+    border: 1px solid #d1d1d1;
+    border-radius: 0 0 7px 7px;
+    background-color: #fff;
+    box-shadow: 0px 1px 0px #afafaf;
+}
+/* End Elevated Search Context */
+
+.loginName_text {
+    top: -7px;
+    max-width: 152px;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    text-align: left;
+}
+
+.navArrow_loginName {
+    width: 11px;
+    height: 11px;
+    background-position: 0 -1117px;
+}
+
+.shared-group {
+    border-radius: 7px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    background: #f2f2f2;
+}
+
+    .shared-group .shared-group-name div.title {
+        font-weight: bold;
+        font-size: 25px;
+        margin: 5px 0;
+    }
+
+    .shared-group .shared-group-name {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+.shared-group-name span.separator {
+    padding: 0 10px;
+}
+
+table.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.phone-box-with-number {
+}
+
+.phone-box-with-number {
+    position: relative;
+    margin-right: 10px;
+}
+
+.phone-box-empty {
+    background: url(sprites/phone-box-empty-small.png) no-repeat;
+    width: 44px;
+    height: 62px;
+    background-size: 40px;
+}
+
+.u134 {
+    background: url(sprites/u134.png) no-repeat;
+    width: 36px;
+    height: 35px;
+    position: absolute;
+    top: 21px;
+    left: 14px;
+}
+
+.inner-text {
+    top: 9px;
+    position: absolute;
+    left: 14px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+body {
+    min-width: 975px;
+}
+
+.rightMarkProfileRemainder {
+    height: 26px;
+    width: 26px;
+    left: -35px;
+    float: right;
+    background-position: -439px -78px;
+    background-color: transparent;
+    background-image: url(sprites/bg_iconSprite.png);
+    margin-top: 5px;
+    margin-bottom: -5px;
+}
+
+.exclaimationMarkProfileRemainder {
+    height: 26px;
+    width: 26px;
+    left: -35px;
+    float: right;
+    background-position: -504px -78px;
+    background-color: transparent;
+    background-image: url(sprites/bg_iconSprite.png);
+    margin-top: 5px;
+    margin-bottom: -5px;
+}
+
+.informationMarkProfileRemainder {
+    height: 26px;
+    width: 26px;
+    left: -35px;
+    margin-top: 0px;
+    margin-right: 08px;
+    background-position: -476px -284px;
+    background-color: transparent;
+    background-image: url(sprites/bg_iconSprite.png);
+}
+
+.lightBoxLargeProfileRemainder {
+    width: 720px;
+}
+
+.bellLogoMarkProfileRemainder {
+    height: 51px;
+    width: 81px;
+    background-image: url(sprites/bell_logo.gif);
+}
+
+.tableProfileRemainder {
+    display: table;
+}
+
+.rowProfileRemainder {
+    display: table-row;
+    font-size: 85%;
+}
+
+.rowProfileRemainder1 {
+    display: table-row;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.cellProfileRemainder {
+    display: table-cell;
+    /*border: solid;*/
+    /*border-width: thin;*/
+    border-bottom: solid;
+    border-bottom-width: thin;
+    border-bottom-color: #ccc;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 40%;
+    padding-top: 03px;
+    padding-bottom: 08px;
+}
+
+.cellProfileRemainder1 {
+    display: table-cell;
+    /*border: solid;*/
+    /*border-width: thin;*/
+    border-bottom: solid;
+    border-bottom-width: thin;
+    border-bottom-color: #ccc;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 35%;
+}
+
+.cellProfileRemainder2 {
+    display: table-cell;
+    /*border: solid;*/
+    /*border-width: thin;*/
+    border-bottom: solid;
+    border-bottom-width: thin;
+    border-bottom-color: #ccc;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 05%;
+}
+
+.cellProfileRemainder3 {
+    display: table-cell;
+    /*border: solid;*/
+    /*border-width: thin;*/
+    border-bottom: solid;
+    border-bottom-width: thin;
+    border-bottom-color: #ccc;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 60%;
+}
+

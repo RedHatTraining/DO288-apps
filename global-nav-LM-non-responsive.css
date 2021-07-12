@@ -1,0 +1,82 @@
+﻿/*header fix*/
+.lm-non-responsive .rsx-lgc-header-nav-areas {
+    left: unset;
+    right: 0;
+}
+
+.lm-non-responsive .footer-header-current-language::after {
+    background-color: unset;
+    content: unset;
+    display: unset;
+    height: unset;
+    margin: unset;
+    vertical-align: unset;
+    width: unset;
+}
+
+.lm-non-responsive .connector-active-lob ul, .lm-non-responsive ul.connector-lob-flyout-content {
+    display: flex;
+    justify-content: center;
+}
+
+.lm-non-responsive ul li {
+    padding-left: 0;
+}
+
+.lm-non-responsive li {
+    position: unset;
+    margin-bottom: 0px;
+}
+
+.shell.shellThemeD.nav {
+    padding-top: 24px;
+}
+
+body .lm-non-responsive {
+    font: 14px/1.5 Arial, Helvetica, sans-serif;
+}
+
+body.inner01 {
+    background-position: 0px 6px;
+}
+
+.lm-non-responsive .container {
+    width: 970px !important;
+}
+
+.tabbed-content {
+    background-color: #f2f2f2;
+    padding-top: 26px;
+    border-left: 1px solid #dadada;
+    border-bottom: 1px solid #dadada;
+    border-right: 1px solid #dadada;
+}
+
+    .tabbed-content .cWrap.pgTitle {
+        padding-left: 15px
+    }
+
+    .tabbed-content .pgTitleOptions {
+        right: 63px;
+        top: 10px;
+        float: right
+    }
+
+        .tabbed-content .pgTitleOptions a {
+            float: right
+        }
+/* CSS3=connector */
+.lm-non-responsive .connector {
+    min-height: unset !important;
+    border-bottom: unset !important;
+    background: #fff;
+    -webkit-box-shadow: unset !important;
+    box-shadow: unset !important;
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255,255,255,255) 0%, rgba(255,255,255,255) 20%, rgba(255,255,255,255) 70%, rgba(255,255,255,255) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,255)), color-stop(20%,rgba(255,255,255,255)), color-stop(70%,rgba(255,255,255,255)), color-stop(100%,rgba(255,255,255,255))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,255) 0%,rgba(255,255,255,255) 20%,rgba(255,255,255,255) 70%,rgba(255,255,255,255) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(255,255,255,255) 0%,rgba(255,255,255,255) 20%,rgba(255,255,255,255) 70%,rgba(255,255,255,255) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,rgba(255,255,255,255) 0%,rgba(255,255,255,255) 20%,rgba(255,255,255,255) 70%,rgba(255,255,255,255) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255,255,255,255) 0%,rgba(255,255,255,255) 20%,rgba(255,255,255,255) 70%,rgba(255,255,255,255) 100%); /* W3C */
+}

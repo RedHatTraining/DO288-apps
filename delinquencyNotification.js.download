@@ -1,0 +1,89 @@
+(function (delinquencyNotification, $, undefined) {
+    delinquencyNotification.popUp = function () {
+        var openCallback,
+            closeCallback,
+            setDelinquentPopupState = function (state) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Notifications/SetDelinquentPopupState?state=" + state,
+                    contentType: "application/json",
+                    success: function (response) { 
+                        console.log('Delinquent Popup status set: ' + response);
+                    },
+                    error: function () {
+                        console.log('Error on setting status for Delinquent Account Notification Popup.');
+                    }
+                });
+            },
+            setStateAsVisited = function () {
+                setDelinquentPopupState("Visited");
+            },
+            isOmnitureSent = false,
+            sendOmnitureStats = function () {
+                if (!isOmnitureSent) {
+                    var errorMessage = $("[name='delinqeuntAccountLightBoxNotice']").text().trim().slice(0, 42);
+                    var lighbox_s_oPLE = errorMessage + ":E:[" + s_oARS + "]";
+                    
+                    s_oTrackPage({
+                        s_oAPT: '104-2-2', // Generic
+                        s_oPRM: $("[name='delinqeuntAccountLightBoxTitle']").text().trim(), //Dynamic
+                        s_oLBC: errorMessage, // Dynamic
+                        s_oARS: s_oARS, //Generic
+                        s_oERR_CLASS: s_oERR_CLASS, //Generic
+                        s_oERR_DESC: s_oERR_DESC, //Generic
+                        s_oPLE: lighbox_s_oPLE, // Generic
+                        s_oPGN: s_oPGN, //Static
+                        s_oSS3: s_oSS3 //Static
+                    });
+                    isOmnitureSent = true;
+                }
+            },
+            openPopup = function () {
+                openCallback();
+                sendOmnitureStats();
+            },
+            closePopup = function (sender) {
+                closeCallback(sender);
+                setDelinquentPopupState("Visited");
+            },
+            wireHandlers = function () {
+                $("#delinquentPopupClose, #delinquencyPopUpGoToMyServices").click(function () {
+                    closePopup(this);
+                });
+
+                $("#delinquencyPopUpMakePayment, #delinquencyPopUpSetUpPayment, #delinquencyPopUpMoreInfo")
+                    .click(function () {
+                        setStateAsVisited();
+                    });
+                openPopup();
+            },
+            init = function (openCallbackFunc, closeCallbackFunc) {
+                openCallback = openCallbackFunc;
+                closeCallback = closeCallbackFunc;
+                wireHandlers();
+            };
+        return {
+            init: init,
+            open: openPopup,
+            bind: wireHandlers
+        }
+    }();
+}(window.delinquencyNotification = window.delinquencyNotification || {}, jQuery));
+
+(function (delinquencyOmniture, $, undefined) {
+
+    delinquencyOmniture.appendOmnitureTrackingCode = function () {
+        var paymentAnchor = $('.delinquentRhsNotification a');
+        if (paymentAnchor.length) {
+            paymentAnchor.each(function() {
+                var $this = $(this);
+                var href = $this.attr("href");
+                $this.attr("href", href + '&INT=MOB_Myservmob_BTN_makepayment_Mass_042317_es_pastdue');
+            });
+        }
+    };
+}(window.delinquencyOmniture = window.delinquencyOmniture || {}, jQuery));
+
+$(document).ready(function () {
+    delinquencyOmniture.appendOmnitureTrackingCode();
+});

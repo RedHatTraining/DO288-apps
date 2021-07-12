@@ -1,0 +1,928 @@
+/*Latest update: 2015.Aug.14 */
+
+/*framework js*/
+var ie6 = false, ie7 = false, ie8 = false, ie = false, ieCompView = false, docWidth = document.documentElement.offsetWidth;
+if (typeof window.orientation !== 'undefined') { isMobile = true }
+else { isMobile = false }
+$(document).ready(function () {
+    ie_fn();
+    // if browserRemoveIncompatible class is present, remove instead of hide
+    if (ie6 || ie7 || ie8 || ieCompView) {
+        //$('body').append('<div style="position:fixed; top:0; left:0">' + $('.oldBrowsers').attr('class') + '</div>')
+        $('.oldBrowsers').removeClass("hide");
+        $('.newBrowsers.browserRemoveIncompatible').remove();
+        $('.newBrowsers').addClass("hide");
+    }
+    else {
+        $('.newBrowsers').removeClass("hide"); //to support CSS3
+        $('.oldBrowsers.browserRemoveIncompatible').remove();
+        $('.oldBrowsers').addClass("hide"); //to support older IE
+    }
+    btn_fn();
+    rowH_fn();
+    setDateLanguage();
+    DCXSelectBoxes();
+    shopSideMenu();
+    if (ie6 || ie7 || ie8 || ieCompView) {
+    }
+    else { window.addEventListener("resize", resetRowHeightFn); }
+});
+// to control the mouse click outside a dropdown
+function _drg_On(e) {
+    if (e == null) e = window.event; // IE is retarded and doesn't pass the event object
+    var t = e.target != null ? e.target : e.srcElement; // IE uses srcElement, non IE use target
+    // for IE left click == 1; non IE left click == 0    
+    if ((e.button == 1 && window.event != null || e.button == 0) && $(t).parents('.dcx_select').length) { }
+    else {
+        if ($('.dcx_select .on').length) {
+            $('.dcx_select .on').removeClass('on')
+            $('.dcx_select_options').addClass('hide')
+        }
+    }
+}
+function _drg_Off(e) { }
+function ie_fn() {
+    if ($.browser.msie && $.browser.version == 6) { $('body').addClass('ie6'); ie6 = true }
+    if ($.browser.msie && $.browser.version == 7) {
+        if (document.documentMode == 7) { $('body').addClass('ie7'); ie7 = true }
+        else { $('body').addClass('ieCompView'); ieCompView = true }
+    }
+    if ($.browser.msie && $.browser.version == 8) { $('body').addClass('ie8'); ie8 = true }
+    if ($.browser.msie && $.browser.version != 6 && $.browser.version != 7 && $.browser.version != 8) { $('body').addClass('ie'); ie = true }
+    if (ie6 || ie7 || ie8 || ieCompView || $.browser.msie && $.browser.version == 9) {
+        $('#menuLocator input:text[placeholder]').each(function () {
+            $(this).val($(this).attr('placeholder'))
+            if ($.browser.msie && $.browser.version == 9) {
+                $(this).css({ 'height': '40px', 'padding-top': '2px' })
+            }
+            else {
+                $(this).css({ 'height': '29px', 'padding-top': '13px' })
+            }
+            $(this).focus(function () {
+                if ($(this).val() == $(this).attr('placeholder')) {
+                    $(this).val('')
+                }
+            });
+            $(this).blur(function () {
+                if ($(this).val() == '') {
+                    $(this).val($(this).attr('placeholder'))
+                }
+            });
+
+        })
+    }
+}
+function rowH_fn() {
+    $('.sameHeightCol').each(function () {
+        var cell = $(this), parent = $($(cell.parents('.sameHeightRow'))[0]), recordHiddenObjs = [];
+        if (cell.hasClass('hide')) { recordHiddenObjs.push(cell) }
+        if (cell.parents().hasClass('hide')) { recordHiddenObjs.push(cell.parents('.hide')) }
+        for (i = 0; i < recordHiddenObjs.length; i++) { recordHiddenObjs[i].removeClass('hide') }
+        var maxH = parent.height();
+        parent.css({ 'height': maxH });
+        cell.css({ 'height': maxH });
+        for (i = 0; i < recordHiddenObjs.length; i++) { recordHiddenObjs[i].addClass('hide') }
+    });
+    dynamicMidAlign_fn()
+}
+function resetRowHeightFn() {
+    $('.sameHeightCol').css({ 'height': '' });
+    $('.sameHeightRow').css({ 'height': '' });
+    $('.sameHeightCol .dynamicMidAlign').css({ 'padding-top': '' });
+    rowH_fn();
+}
+function btn_fn() {
+    if (ie7) {
+        $('.button').each(function () {
+            $(this).css('width', '')
+            var objToAlign = $(this), recordHiddenObjs = [];
+            if (objToAlign.hasClass('hide')) { recordHiddenObjs.push(objToAlign) }
+            if (objToAlign.parents().hasClass('hide')) { recordHiddenObjs.push(objToAlign.parents('.hide')) }
+            for (i = 0; i < recordHiddenObjs.length; i++) { recordHiddenObjs[i].removeClass('hide') }
+            $(this).css('width', $(this).width())
+            for (i = 0; i < recordHiddenObjs.length; i++) { recordHiddenObjs[i].addClass('hide') }
+        })
+    }
+}
+function ids_openLightbox(btn, target) {
+    var box = $(target), wrap, content;
+    if (box.children('.lightBoxWrap').length) { wrap = box.children('.lightBoxWrap') }
+    else if (box.children('.sp_lightBoxWrap').length) { wrap = box.children('.sp_lightBoxWrap') }
+    content = wrap.children('.box5_ML');
+    if ($(btn).hasClass('disabled')) { return false }
+    content.css({ 'height': '', 'overflow-y': '' });
+    wrap.css({ 'margin-top': '', 'margin-left': '' });
+    box.removeClass('hide');
+    if (wrap.height() > $(window).height()) { content.css({ 'height': $(window).height() - (wrap.height() - content.height()) - 60 }) }
+    else { content.css({ 'height': '', 'overflow-y': '' }) }
+    wrap.css({ 'margin-top': 0 - (wrap.height() / 2), 'margin-left': 0 - (wrap.width() / 2) });
+}
+function ids_closeLightbox(obj) {
+    var target = $(obj).parents('.lightBoxContainer');
+    target.addClass('hide')
+}
+function dynamicWidth_fn() {
+    $('.dynamicWidth').each(function () {
+        $(this).css('width', $(this).width() + 1);
+        $(this).removeClass('dynamicWidth')
+    })
+}
+function dynamicMidAlign_fn() {
+    $('.dynamicMidAlign').each(function () {
+        var objToAlign = $(this), objHeight = false, _parent = $(objToAlign.parent()[0]), _parentHeight = false, recordHiddenObjs = [];
+        if (objToAlign.hasClass('hide')) { recordHiddenObjs.push(objToAlign) }
+        if (objToAlign.parents().hasClass('hide')) { recordHiddenObjs.push(objToAlign.parents('.hide')) }
+        for (i = 0; i < recordHiddenObjs.length; i++) { recordHiddenObjs[i].removeClass('hide') }
+        objHeight = objToAlign.height();
+        _parentHeight = _parent.height();
+        objToAlign.css('padding-top', Math.floor((_parentHeight / 2) - (objHeight / 2)) + 'px')
+        for (i = 0; i < recordHiddenObjs.length; i++) { recordHiddenObjs[i].addClass('hide') }
+        if (objToAlign.parents().hasClass('sameHeightCol')) {
+            //do not remove class dynamicMidAlign because it recalculates on col resize
+        }
+        else {
+            objToAlign.removeClass('dynamicMidAlign')
+        }
+
+    })
+}
+var dcx_dropDownMenu, dcx_dropDownContainer, dcx_dropDownOptions, dcx_dropDownW = false;
+function dcx_dropDownMenuHover_fn(o) {
+    dcx_dropDownMenu = $(o);
+    dcx_dropDownContainer = dcx_dropDownMenu.parents('.dcx_select');
+    dcx_dropDownOptions = dcx_dropDownContainer.find('.dcx_select_options');
+    dcx_dropdownOpen()
+}
+function dcx_dropDownMenuOut_fn(o) {
+    dcx_dropDownMenu = false;
+    setTimeout(function () {
+        if (!dcx_dropDownMenu) { dcx_dropdownClose() }
+    }, 500);
+}
+function dcx_dropdownClose() {
+    $('.dcx_select .on').removeClass('on');
+    $('.dcx_select_options').addClass('hide');
+    dcx_dropDownW = false
+}
+function dcx_dropdownOpen() {
+    dcx_dropDownMenu.addClass('on');
+    if (!dcx_dropDownW && dcx_dropDownOptions.hasClass('dcx_select_optionsDynamicW')) {
+        dcx_dropDownW = dcx_dropDownContainer.width() + 14;
+        dcx_dropDownOptions.css('width', dcx_dropDownW)
+    }
+    dcx_dropDownOptions.removeClass('hide');
+}
+function dcx_dropDownMenuClick_fn(o) {
+    dcx_dropDownMenu = $(o);
+    dcx_dropDownContainer = dcx_dropDownMenu.parents('.dcx_select');
+    dcx_dropDownOptions = dcx_dropDownContainer.find('.dcx_select_options');
+    var getToggleState = 0;
+    if (dcx_dropDownMenu.hasClass('on')) { getToggleState = 1 }
+    dcx_dropdownClose()
+    if (getToggleState == 0) { dcx_dropdownOpen() }
+}
+_drg_(); function _drg_() { document.onmousedown = _drg_On; document.onmouseup = _drg_Off }
+function fadeSlide(obj) {
+    var $content = $(obj), isIE = false;
+    if ($.isFunction($.isIE)) { isIE = $.isIE("<9") }
+    if (!isIE) {
+        $content.animate({ opacity: 0 }, function () {
+            $(this).slideUp(500, function () {
+                $(this).hide();
+                if (callBack) { eval(callBack) }
+            })
+        })
+    } else {
+        $content.fadeOut(500, function () { if (callBack) { eval(callBack) } })
+    }
+}
+function toggleCheckedOnSiblings_fn(obj) {
+    var o = $(obj), s = o.siblings();
+    s.removeClass('checked')
+    o.addClass('checked')
+}
+function dynamicProductImage_fn() {
+    $('.productImageDynamicSize').each(function () {
+        var _img = $(this), _max = 180;
+        dynamicProductImageResize_fn(_img, _max)
+        _img.load(function () {
+            dynamicProductImageResize_fn(_img, _max)
+        });
+        _img.removeClass('productImageDynamicSize')
+    })
+}
+function dynamicProductImageLarge_fn() {
+    $('.productImageLargeDynamicSize').each(function () {
+        var _img = $(this), _max = 230;
+        dynamicProductImageResize_fn(_img, _max)
+        _img.load(function () {
+            dynamicProductImageResize_fn(_img, _max)
+        });
+        _img.removeClass('productImageLargeDynamicSize')
+    })
+}
+function dynamicProductImageResize_fn(_img, _max) {
+    _img.removeClass('hidden')
+    var _w = _img.width(), _h = _img.height(), _ratio;
+    if (_w > _max || _h > _max) {
+        if (_w > _h) {
+            _ratio = _w / _h;
+            _w = _max;
+            _h = Math.round(_max / _ratio);
+            _img.css({ 'width': _w + 'px', 'height': _h + 'px' });
+        }
+        if (_w < _h) {
+            _ratio = _h / _w;
+            _w = Math.round(_max / _ratio);
+            _h = _max;
+            _img.css({ 'width': _w + 'px', 'height': _h + 'px' });
+        }
+        if (_w == _h) { _img.css({ 'width': _max + 'px', 'height': _max + 'px' }) }
+    }
+}
+//Global Connector
+var isMobile = '@(IsMobileDevice)' == 'True';
+//get current url
+$(document).ready(function () {
+    if (!IsGeminiCookieAvailable()) { $('#menuProvince').show() }
+    $("#topNavSearch").keypress(function (event) {
+        if (event.keyCode == 13) { $("#btnTopSearchGo").click() }
+    });
+    var username = getUserNameCookieGC();
+    if (username != "") {
+        $('#USER').val(username);
+        $('#rememberusername').attr('checked', 'checked');
+        $('#labelUserGC').val(username);
+        $('#element15').attr('checked', 'checked');
+    }
+});
+new Cookie();
+Cookie.prototype.store = _Cookie_store;
+Cookie.prototype.load = _Cookie_load;
+Cookie.prototype.remove = _Cookie_remove;
+var today = new Date();
+var expires = new Date(today.getTime() + (90 * 86400000));
+function setFocusMobile(elementId) { $(elementId).find("select").first().focus() }
+function setUserNameCookieGC(username) {
+    if ($('#element15').is(':checked')) { Set_Cookie("rememberMyBellUserName", username, expires, "/", ".luckymobile.ca") }
+    else { Set_Cookie("rememberMyBellUserName", username, new Date(today.getTime()), "/", ".luckymobile.ca") }
+}
+function getUserNameCookieGC() {
+    var mybellUserName = getCookieValue("rememberMyBellUserName");
+    if (mybellUserName != null) { return mybellUserName }
+    return ""
+}
+function setUserNameCookie(aForm) {
+    if (aForm.rememberusername.checked) { Set_Cookie("rememberMyBellUserName", aForm.USER.value, expires, "/", ".luckymobile.ca") }
+    else { Set_Cookie("rememberMyBellUserName", aForm.USER.value, new Date(today.getTime()), "/", ".luckymobile.ca") }
+}
+function getUserNameCookie(aForm) {
+    var mybellUserName = getCookieValue("rememberMyBellUserName");
+    if (mybellUserName != null) {
+        aForm.USER.value = mybellUserName;
+        aForm.rememberusername.checked = true;
+    }
+}
+function getCookieValue(name) {
+    var aCookie = new Cookie(document, name);
+    if (aCookie.load() && (aCookie.$value != ""))
+        return aCookie.$value;
+    else
+        return null;
+}
+function Set_Cookie(name, value, expires, path, domain, secure) {
+    document.cookie = name + "=" + escape(value) + ((expires) ? ";expires=" + expires.toGMTString() : "") + ((path) ? ";path=" + path : "") + ((domain) ? ";domain=" + domain : "") + ((secure) ? ";secure" : "");
+}
+function ClickOnTopSearchGo(searchTip, topSerachPage) {
+    var topSearchPage = topSerachPage;
+    var personal = "Off";
+    var business = "Off";
+    var qBox = $("#topNavSearch").val();
+    qBox = qBox.replace("/[%<>()*;:/|]/g", "\\");
+    if (qBox.length == 0) { return false }
+    else {
+        topSearchPage = topSearchPage.replace("#qboxConnector#", qBox);
+        window.location = topSearchPage;
+    }
+}
+function filterLanguages(obj, region) {
+}
+function Cookie(document, name, hours, path, domain, secure) {
+    // All the predefined properties of this object begin with '$'
+    // to distinguish them from other properties which are the values to
+    // be stored in the cookie.
+    this.$document = document;
+    this.$name = name;
+    if (hours)
+        this.$expiration = new Date((new Date()).getTime() + hours * 3600000);
+    else this.$expiration = null;
+    if (path) this.$path = path; else this.$path = null;
+    if (domain) this.$domain = domain; else this.$domain = null;
+    if (secure) this.$secure = true; else this.$secure = false;
+}
+function _Cookie_store() {
+    var cookieval = "";
+    if (this.$isSingleValue) { cookieval = this.$value }
+    else {
+        for (var prop in this) {
+            // Ignore properties with names that begin with '$' and also methods.
+            if ((prop.charAt(0) == '$') || ((typeof this[prop]) == 'function'))
+                continue;
+            if (cookieval != "") cookieval += '&';
+            cookieval += prop + ':' + escape(this[prop]);
+        }
+    }
+    // Now that we have the value of the cookie, put together the 
+    // complete cookie string, which includes the name and the various
+    // attributes specified when the Cookie object was created.
+    var cookie = this.$name + '=' + cookieval;
+    if (this.$expiration)
+        cookie += '; expires=' + this.$expiration.toGMTString();
+    if (this.$path) cookie += '; path=' + this.$path;
+    if (this.$domain) cookie += '; domain=' + this.$domain;
+    if (this.$secure) cookie += '; secure';
+    // Now store the cookie by setting the magic Document.cookie property.
+    this.$document.cookie = cookie;
+}
+function _Cookie_load() {
+    // First, get a list of all cookies that pertain to this document.
+    // We do this by reading the magic Document.cookie property.
+    var allcookies = this.$document.cookie;
+    if (allcookies == "") return false;
+    // Now extract just the named cookie from that list.
+    var start = allcookies.indexOf(this.$name + '=');
+    if (start == -1) return false;   // Cookie not defined for this page.
+    start += this.$name.length + 1;  // Skip name and equals sign.
+    var end = allcookies.indexOf(';', start);
+    if (end == -1) end = allcookies.length;
+    var cookieval = allcookies.substring(start, end);
+    this.$value = cookieval;   // Set the complete string to a variable that can be used later.
+    // Now that we've extracted the value of the named cookie, we've
+    // got to break that value down into individual state variable 
+    // names and values. The name/value pairs are separated from each
+    // other by ampersands, and the individual names and values are
+    // separated from each other by colons. We use the split method
+    // to parse everything.
+    var a = cookieval.split('&');    // Break it into array of name/value pairs.
+    for (var i = 0; i < a.length; i++)  // Break each pair into an array.
+        a[i] = a[i].split(':');
+    // Now that we've parsed the cookie value, set all the names and values
+    // of the state variables in this Cookie object. Note that we unescape()
+    // the property value, because we called escape() when we stored it.
+    for (var j = 0; j < a.length; j++) { this[a[j][0]] = unescape(a[j][1]) }
+    // We're done, so return the success code.
+    return true;
+}
+function _Cookie_remove() {
+    var cookie;
+    cookie = this.$name + '=';
+    if (this.$path) cookie += '; path=' + this.$path;
+    if (this.$domain) cookie += '; domain=' + this.$domain;
+    cookie += '; expires=Fri, 02-Jan-1970 00:00:00 GMT';
+    this.$document.cookie = cookie;
+}
+function set_cookie(name, value, days, domain) {
+    var expires = "", date;
+    date = new Date();
+    if (!days || isNaN(days)) { days = 365 }
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toGMTString();
+    var setCookieVal = name + "=" + value + expires + "; path=/";
+    document.cookie = setCookieVal;
+}
+function setFocus(elementId) { $(elementId).focus() }
+function IsGeminiCookieAvailable() {
+    var geminiCookieName = "gemini";
+    var cookV = $.cookies.get(geminiCookieName);
+    return cookV;
+}
+function popper(thisUrl, thisWindow, thisWidth, thisHeight, thisTop, thisLeft) {
+    optionString = ('width=' + thisWidth + ',height=' + thisHeight + ',top=' + thisTop + ',left=' + thisLeft + ',status=no,menubar=no,resizable=yes,scrollbars=yes');
+    mainWin = window.open(thisUrl, thisWindow, optionString);
+}
+function popperNoScroll(thisUrl, thisWindow, thisWidth, thisHeight, thisTop, thisLeft) {
+    optionString = ('width=' + thisWidth + ',height=' + thisHeight + ',top=' + thisTop + ',left=' + thisLeft + ',status=no,menubar=no,resizable=no,scrollbars=no');
+    mainWin = window.open(thisUrl, thisWindow, optionString);
+}
+//  Start: Functions copied from  Main.js
+function setLanguageRegionCookieValue(lang, region, bIgnorePreviousCookie) {
+    var geminiCookieName = "gemini";
+    var cookieVal = bIgnorePreviousCookie == true ? null : $.cookies.get(geminiCookieName);
+    var geminiCookieVal = getGeminiString(lang, region, cookieVal);
+    //if we set domain ".luckymobile.ca" in DIT/SIT or even localhost. it will not save cookie
+    //we should add domain only on production 
+    //set_cookie(geminiCookieName, geminiCookieVal, 90, ".luckymobile.ca");
+    var hostname = window.location.hostname;
+    var domain = "";
+    if (window.location.hostname != null && hostname.indexOf("bell.ca") > 0) { domain = ".luckymobile.ca" }
+    set_cookie(geminiCookieName, geminiCookieVal, 90, domain);
+}
+function getGeminiString(lang, region, cval) {
+    var retVal = "region=" + region + "|language=" + lang + "|province=" + region;
+    if (cval != null) {
+        var strSpl = cval.split('|');
+        if (region == null || region.length == 0)
+            strSpl[1] = "language=" + lang;
+        if (lang == null || lang.length == 0)
+            strSpl[2] = "province=" + region;
+        retVal = strSpl[0] + "|" + strSpl[1] + "|" + strSpl[2];
+    }
+    return retVal;
+}
+var ajaxExceptionStatus = { ERROR: "error", TIMEOUT: "timeout", ABORT: "abort", PARSERROR: "parseerror" };
+var errorCode = "";
+function setErrorCode(error) {
+    if (errorCode.length > 0)
+        errorCode = errorCode + ",";
+    errorCode = errorCode + error;
+}
+function getErrorCode() { return errorCode }
+function clearErrorCode() { errorCode = "" }
+function getCurrentLanguageCode() {
+    return document.getElementById("myBell").getAttribute("lang")
+}
+function HandleAjaxFail(xhr, arrErrors) {
+    var error = "";
+    var valueColl = arrErrors.split(':');
+    if (xhr == ajaxExceptionStatus.ERROR) {
+        error = valueColl[0]
+    }
+    else if (xhr == ajaxExceptionStatus.TIMEOUT) {
+        error = valueColl[1]
+    }
+    else if (xhr == ajaxExceptionStatus.ABORT) {
+        error = valueColl[2]
+    }
+    else if (xhr == ajaxExceptionStatus.PARSERROR) {
+        error = valueColl[3]
+    }
+    if (error != '') {
+        setErrorCode(error)
+    }
+}
+function ClickOnTopSearchGo(searchTip, topSerachPage) {
+    var topSearchPage = topSerachPage;
+    var personal = "Off";
+    var business = "Off";
+    var qBox = $("#topNavSearch").val();
+    qBox = qBox.replace("/[%<>()*;:/|]/g", "\\");
+    if (qBox.length == 0) {
+        return false
+    }
+    else {
+        topSearchPage = topSearchPage.replace("#qboxConnector#", qBox);
+        window.location = topSearchPage;
+    }
+}
+function filterLanguages(obj, region) {
+    if (obj != null) {
+        if ($(obj).hasClass('disabled')) { return }
+        if (!$(obj).find('.inputImageConnector').is(':visible')) { return }
+    }
+    var lRegion = region.toLowerCase();
+    if ($('#lang-fr') != null && $('#lang-fr').html() != null) {
+        if (lRegion == "ab" || lRegion == "bc") {
+            $('#lang-fr').addClass("disabled");
+            $('#lang-fr').parent().addClass("disabled");
+            var lbl1 = $('#lang-fr').parent().find('label');
+            $(lbl1).attr('for', "_" + $(lbl1).attr('for'));
+            if ($('#lang-fr').parent().hasClass('checked')) {
+                $('#lang-fr').parent().removeClass('checked');
+                $('#lang-en').parent().addClass('checked');
+            }
+        }
+        else {
+            $('#lang-fr').removeClass("disabled");
+            $('#lang-fr').parent().removeClass("disabled");
+            var lbl1 = $('#lang-fr').parent().find('label');
+            if ($(lbl1).attr('for').match("^_")) {
+                $(lbl1).attr('for', $(lbl1).attr('for').substring(1))
+            }
+        }
+    }
+}
+function setDateLanguage() {
+    var body = $('body');
+    if ($.datepicker !== undefined) {
+        if (body.hasClass('fr')) {
+            $.datepicker.setDefaults($.datepicker.regional["fr"]);
+        } else {
+            $.datepicker.setDefaults($.datepicker.regional[""]);
+        }
+    }
+    try {
+        $('input[id^=datepicker]').datepicker({
+            buttonImage: "../web/common/all_languages/all_regions/skin/ic_cal.gif",
+            showOn: "button",
+            dateFormat: 'mm/dd/yy'
+        });
+    } catch (ex) { }
+}
+//Generic expand/collapse function for Markups\DCX-Framework\Bell\myBell\MyMobility\2.4.1 - Installment detail - discount.html
+function expandCollapse_fn(o, e) {
+    var divToToggle = $(o).parents('.contentMain').next();
+    var btn = $(o),
+        icon = $(o).find('.icon');
+    if (icon.hasClass('expand')) {
+        icon.removeClass('expand').addClass('collapse');
+        if (ie7 || ie8) {
+            divToToggle.show();
+        } else {
+            divToToggle.slideDown();
+        }
+    } else {
+        icon.removeClass('collapse').addClass('expand');
+        if (ie7 || ie8) {
+            divToToggle.hide();
+        } else {
+            divToToggle.slideUp();
+        }
+    }
+}
+
+/* DEVELOPER NOTE: after the installment meter is dynamically created, trigger the function placeCurrentBalance(meter) 
+in order to place the .currentBalance div with the correct margin-left and margin-top. 
+This function also reverses the position of the currentBalance div to the left of the 
+installmentBalanceLine when there is no room on the right for it.*/
+
+$(document).ready(function () {
+    placeCurrentBalance('.installmentMeter12');
+    placeCurrentBalance('.installmentMeter24');
+    placeCurrentBalance('.installmentMeter36');
+});
+function placeCurrentBalance(meter) {
+    if ($(meter).length > 0) {
+        var monthsPast,
+            monthsFuture = $(meter).find('.bgGray'),
+            currentBalanceDiv = $(meter).next().next(),
+            currentBalanceW = currentBalanceDiv.width() - 1,
+            monthW;
+        if ($('.bgGreen').length > 0) {
+            monthsPast = $(meter).find('.bgGreen');
+        } else if ($('.bgBlueDark').length > 0) {
+            monthsPast = $(meter).find('.bgBlueDark');
+        }
+        monthW = $(meter).width() / (monthsPast.length + monthsFuture.length);
+        currentBalanceMargin = (monthsPast.length * monthW);
+        if (monthsPast.length > monthsFuture.length) {
+            currentBalanceMargin = currentBalanceMargin - currentBalanceW;
+            currentBalanceDiv.width(currentBalanceW + 1); // this is important, otherwise in IE7 the currentBalancsDiv goes full-width when you float the installmentBalanceLine to the right. It locks the width so this does not happen.
+            currentBalanceDiv.find('.installmentBalanceLine').removeClass('floatL').addClass('floatR');
+        }
+        currentBalanceDiv.css({ 'margin-left': currentBalanceMargin - 1, 'margin-top': '-10px' });
+    }
+}
+
+/*tooltip js*/
+//DCX Tooltip
+function ids_ToolTip(obj, offset, eventType) {
+    /* function signature parameters explanation:
+    *  - obj: the object generating the event
+    *  - offset: only for ie7 to fix missalignment
+    *  - eventType: string 'click' - for mobiles when we will show the close button inside the tooltip
+    */
+    $('.ids_ToolTip').addClass('hide');
+    $('.ids_ToolTip').attr("aria-hidden", "true");
+    var button = $(obj),
+        wrapper = button.parents('.toolTipWrapper'),
+        tooltipTarget = wrapper.find('.ids_ToolTipTarget'),
+        tooltipTargetT = 0,
+        tooltipTargetL = 0,
+        tooltipTargetW = 0,
+        tooltipTargetH = 0,
+        tooltip = wrapper.find('.ids_ToolTip'),
+        tooltipH = 0,
+        tooltipW = 0,
+        arrow = wrapper.find('.ids_ToolTipArrow'),
+        arrowW = 0,
+        arrowH = 0,
+        arrowOffset = 30, // value used to shift the arrow away from the corners
+        targetOffset = 0,
+        closeBtn = wrapper.find('.ids_tourStepInfoClose,.ids_tourStepInfoClose2'),
+        fixH = 24, // fixH is required for various places where the H of the tooltip is not the exact value required because the shadows also add up but as example the Arrow position should be at the base of the border and not base of shadows         
+        fixT = 10, // again we need to fix the Top position based on shadows to have a better alignment target/tooltip
+        fixL = -10; // again we need to fix the Left position based on shadows to have a better alignment target/tooltip. Also IE7 is off a few px.
+    fixR = -8; // again we need to fix the Right position based on shadows to have a better alignment target/tooltip. Also IE7 is off a few px.
+    fixOffsetL = 0; // value used to position the tooltip when the target is inline with other elements and not positioned to the left
+
+    tooltip.removeClass('hide');
+    tooltip.attr("aria-hidden", "false");
+
+    if ((eventType !== undefined && eventType == 'click') ||
+        (navigator.userAgent.match(/iPad/i) != null) ||
+        (navigator.userAgent.match(/iPhone/i) != null) ||
+        (navigator.userAgent.match(/iPod/i) != null)) {
+        $(tooltip).find('.ids_tourStepInfoClose,.ids_tourStepInfoClose2').removeClass('hide');
+
+    } else {
+        $(tooltip).find('.ids_tourStepInfoClose,.ids_tourStepInfoClose2').addClass('hide');
+    }
+
+    button.one('mouseout', function () {
+        ids_ToolTipClose(this);
+    });
+
+    if (wrapper.length) {
+    }
+    if (tooltip.length) {
+        tooltipH = tooltip.height()
+        tooltipW = tooltip.width()
+    }
+    if (arrow.length) {
+        arrowW = arrow.width()
+        arrowH = arrow.height()
+    }
+    if (tooltipTarget.length) {
+        tooltipTarget.css({ 'position': 'relative' })
+        tooltipTargetT = tooltipTarget.offset().top
+        tooltipTargetL = tooltipTarget.offset().left
+        tooltipTargetW = tooltipTarget.width()
+        tooltipTargetH = tooltipTarget.height()
+    }
+    if (ie7) {
+        if (typeof offset !== "undefined") {
+            targetOffset = offset;
+        }
+    }
+    if (tooltip.hasClass('arrowBaseLeft')) {
+        arrow.css({ 'top': tooltipH - fixH, 'left': arrowOffset })
+        tooltip.css({ 'margin-top': fixT - tooltipH, 'margin-left': fixL - arrowOffset + (tooltipTargetW / 2) + targetOffset })
+    }
+    if (tooltip.hasClass('arrowBaseMiddle')) {
+        arrow.css({ 'top': tooltipH - fixH, 'left': '50%', 'margin-left': 0 - (arrowW / 2) })
+        tooltip.css({ 'margin-top': fixT - tooltipH, 'margin-left': fixL - (tooltipW / 2) + (arrowW / 2) + (tooltipTargetW / 2) + targetOffset })
+        if(tooltipH > (window.innerHeight - 150))
+        {
+            tooltip.css({ 'width': '400px' })
+            wrapper.find('.ids_ToolTipMR').css({'background-position':'334px 0'})
+        }
+    }
+    if (tooltip.hasClass('arrowBaseRight')) {
+        arrow.css({ 'top': tooltipH - fixH, 'right': arrowOffset })
+        tooltip.css({ 'margin-top': fixT - tooltipH, 'margin-left': (tooltipTargetW / 2) - tooltipW - fixL + arrowOffset + targetOffset })
+    }
+    if (tooltip.hasClass('arrowRightTop')) {
+        arrow.css({ 'left': tooltipW + fixR, 'top': arrowOffset })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - arrowOffset - (arrowH / 2), 'margin-left': 0 - tooltipW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowLeftTop')) {
+        arrow.css({ 'left': -2, 'top': arrowOffset })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - arrowOffset - (arrowH / 2), 'margin-left': tooltipTargetW + arrowW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowMiddleRight')) {
+        arrow.css({ 'left': tooltipW + fixR, 'top': (tooltipH / 2) - arrowH })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - (tooltipH / 2) + (fixT / 2), 'margin-left': 0 - tooltipW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowMiddleLeft')) {
+        arrow.css({ 'left': -12, 'top': (tooltipH / 2) - arrowH })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - (tooltipH / 2) + (fixT / 2), 'margin-left': tooltipTargetW + arrowW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowBottomRight')) {
+        arrow.css({ 'left': tooltipW + fixR, 'bottom': arrowOffset + fixT })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - tooltipH + arrowOffset + fixT, 'margin-left': 0 - tooltipW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowBottomLeft')) {
+        arrow.css({ 'left': -12, 'bottom': arrowOffset + fixT })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - tooltipH + arrowOffset + fixT, 'margin-left': tooltipTargetW + arrowW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowUpperRight')) {
+        arrow.css({ 'top': -13, 'right': arrowOffset })
+        tooltip.css({ 'margin-top': tooltipTargetH + fixT, 'margin-left': (tooltipTargetW / 2) - tooltipW - fixL + arrowOffset + targetOffset })
+    }
+    if (tooltip.hasClass('arrowUpperMiddle')) {
+        arrow.css({ 'top': -13, 'left': '50%', 'margin-left': 0 - (arrowW / 2) })
+        tooltip.css({ 'margin-top': tooltipTargetH + fixT, 'margin-left': (tooltipTargetW / 2) - (tooltipW / 2) + targetOffset })
+    }
+    if (tooltip.hasClass('arrowUpperLeft')) {
+        arrow.css({ 'top': -13, 'left': arrowOffset })
+        tooltip.css({ 'margin-top': tooltipTargetH + fixT, 'margin-left': (tooltipTargetW / 2) - arrowOffset - fixL + targetOffset })
+    }
+
+
+}
+function ids_ToolTipClose(obj) {
+    var wrapper = $(obj).parents('.toolTipWrapper'),
+        tooltip = wrapper.find('.ids_ToolTip');
+
+    tooltip.addClass('hide');
+    tooltip.attr("aria-hidden", "true");
+    $('.ids_ToolTipTarget').css({ 'position': '' })
+}
+
+//Tooltip stays open when moused over, user must click on close button to close tooltip
+function dcx_ToolTipOpen(obj, offset, eventType) {
+    $('.ids_ToolTip').addClass('hide');
+    $('.ids_ToolTip').attr("aria-hidden", "true");
+    var button = $(obj),
+        wrapper = button.parents('.toolTipWrapper'),
+        tooltipTarget = wrapper.find('.ids_ToolTipTarget'),
+        tooltipTargetT = 0,
+        tooltipTargetL = 0,
+        tooltipTargetW = 0,
+        tooltipTargetH = 0,
+        tooltip = wrapper.find('.ids_ToolTip'),
+        tooltipH = 0,
+        tooltipW = 0,
+        arrow = wrapper.find('.ids_ToolTipArrow'),
+        arrowW = 0,
+        arrowH = 0,
+        arrowOffset = 30, // value used to shift the arrow away from the corners
+        targetOffset = 0,
+        closeBtn = wrapper.find('.ids_tourStepInfoClose,.ids_tourStepInfoClose2'),
+        fixH = 24, // fixH is required for various places where the H of the tooltip is not the exact value required because the shadows also add up but as example the Arrow position should be at the base of the border and not base of shadows         
+        fixT = 10, // again we need to fix the Top position based on shadows to have a better alignment target/tooltip
+        fixL = -10; // again we need to fix the Left position based on shadows to have a better alignment target/tooltip. Also IE7 is off a few px.
+    fixR = -8; // again we need to fix the Right position based on shadows to have a better alignment target/tooltip. Also IE7 is off a few px.
+    fixOffsetL = 0; // value used to position the tooltip when the target is inline with other elements and not positioned to the left
+
+    tooltip.removeClass('hide');
+    tooltip.attr("aria-hidden", "false");
+
+    if ((eventType !== undefined && eventType == 'mouseover')) {
+        $(tooltip).find('.ids_tourStepInfoClose,.ids_tourStepInfoClose2').removeClass('hide');
+    }
+    if (wrapper.length) {
+    }
+    if (tooltip.length) {
+        tooltipH = tooltip.height()
+        tooltipW = tooltip.width()
+    }
+    if (arrow.length) {
+        arrowW = arrow.width()
+        arrowH = arrow.height()
+    }
+    if (tooltipTarget.length) {
+        tooltipTarget.css({ 'position': 'relative' })
+        tooltipTargetT = tooltipTarget.offset().top
+        tooltipTargetL = tooltipTarget.offset().left
+        tooltipTargetW = tooltipTarget.width()
+        tooltipTargetH = tooltipTarget.height()
+    }
+    if (ie7) {
+        if (typeof offset !== "undefined") {
+            targetOffset = offset;
+        }
+    }
+    if (tooltip.hasClass('arrowBaseLeft')) {
+        arrow.css({ 'top': tooltipH - fixH, 'left': arrowOffset })
+        tooltip.css({ 'margin-top': fixT - tooltipH, 'margin-left': fixL - arrowOffset + (tooltipTargetW / 2) + targetOffset })
+    }
+    if (tooltip.hasClass('arrowBaseMiddle')) {
+        arrow.css({ 'top': tooltipH - fixH, 'left': '50%', 'margin-left': 0 - (arrowW / 2) })
+        tooltip.css({ 'margin-top': fixT - tooltipH, 'margin-left': fixL - (tooltipW / 2) + (arrowW / 2) + (tooltipTargetW / 2) + targetOffset })
+    }
+    if (tooltip.hasClass('arrowBaseRight')) {
+        arrow.css({ 'top': tooltipH - fixH, 'right': arrowOffset })
+        tooltip.css({ 'margin-top': fixT - tooltipH, 'margin-left': (tooltipTargetW / 2) - tooltipW - fixL + arrowOffset + targetOffset })
+    }
+    if (tooltip.hasClass('arrowRightTop')) {
+        arrow.css({ 'left': tooltipW + fixR, 'top': arrowOffset })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - arrowOffset - (arrowH / 2), 'margin-left': 0 - tooltipW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowLeftTop')) {
+        arrow.css({ 'left': -2, 'top': arrowOffset })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - arrowOffset - (arrowH / 2), 'margin-left': tooltipTargetW + arrowW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowMiddleRight')) {
+        arrow.css({ 'left': tooltipW + fixR, 'top': (tooltipH / 2) - arrowH })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - (tooltipH / 2) + (fixT / 2), 'margin-left': 0 - tooltipW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowMiddleLeft')) {
+        arrow.css({ 'left': -12, 'top': (tooltipH / 2) - arrowH })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - (tooltipH / 2) + (fixT / 2), 'margin-left': tooltipTargetW + arrowW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowBottomRight')) {
+        arrow.css({ 'left': tooltipW + fixR, 'bottom': arrowOffset + fixT })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - tooltipH + arrowOffset + fixT, 'margin-left': 0 - tooltipW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowBottomLeft')) {
+        arrow.css({ 'left': -12, 'bottom': arrowOffset + fixT })
+        tooltip.css({ 'margin-top': (tooltipTargetH / 2) - tooltipH + arrowOffset + fixT, 'margin-left': tooltipTargetW + arrowW + targetOffset })
+    }
+    if (tooltip.hasClass('arrowUpperRight')) {
+        arrow.css({ 'top': -13, 'right': arrowOffset })
+        tooltip.css({ 'margin-top': tooltipTargetH + fixT, 'margin-left': (tooltipTargetW / 2) - tooltipW - fixL + arrowOffset + targetOffset })
+    }
+    if (tooltip.hasClass('arrowUpperMiddle')) {
+        arrow.css({ 'top': -13, 'left': '50%', 'margin-left': 0 - (arrowW / 2) })
+        tooltip.css({ 'margin-top': tooltipTargetH + fixT, 'margin-left': (tooltipTargetW / 2) - (tooltipW / 2) + targetOffset })
+    }
+    if (tooltip.hasClass('arrowUpperLeft')) {
+        arrow.css({ 'top': -13, 'left': arrowOffset })
+        tooltip.css({ 'margin-top': tooltipTargetH + fixT, 'margin-left': (tooltipTargetW / 2) - arrowOffset - fixL + targetOffset })
+    }
+}
+
+function ids_openIncompatibleLightbox(btn, target) {
+    var box = $(target), wrap, content;
+    if (box.children('.lightBoxWrap').length) { wrap = box.children('.lightBoxWrap') }
+    else if (box.children('.sp_lightBoxWrap').length) { wrap = box.children('.sp_lightBoxWrap') }
+    content = wrap.children('.contentBody');
+    if ($(btn).hasClass('disabled')) { return false }
+    content.css({ 'height': '', 'overflow-y': '' });
+    wrap.css({ 'margin-top': '', 'margin-left': '' });
+    box.removeClass('hide');
+    if (wrap.height() > $(window).height()) { content.css({ 'height': $(window).height() - (wrap.height() - content.height()) - 60 }) }
+else { content.css({ 'height': '', 'overflow-y': '' }) }
+wrap.css({ 'margin-top': 0 - (wrap.height() / 2), 'margin-left': 0 - (wrap.width() / 2) });
+}
+
+//Custom Select Box Virgin Mobile
+function DCXSelectBoxes() {
+    $('div.selectBox').each(function () {
+        $(this).children('.selected1,.selected2').html($(this).children('.selectOptions,.selectOptions2').children('.selectOption:first').html());
+        $(this).attr('value', $(this).children('.selectOptions,.selectOptions2').children('.selectOption:first').attr('value'));
+
+        $(this).children('.selected1,.selectArrow,.selected2,.selectArrow2').click(function () {
+            if ($(this).parent().children('.selectOptions,.selectOptions2').css('display') == 'none') {
+                $(this).parent().children('.selectOptions,.selectOptions2').css('display', 'block');
+            }
+            else {
+                $(this).parent().children('.selectOptions,.selectOptions2').css('display', 'none');
+            }
+        });
+
+        $(this).find('.selectOption').click(function () {
+            $(this).parent().css('display', 'none');
+            $(this).closest('.selectBox').attr('value', $(this).attr('value'));
+            $(this).parent().siblings('.selected1,.selected2').html($(this).html());
+        });
+    });
+}
+//Bell Shop Side Menu Global Connector
+function shopSideMenu() {
+    $('.sideMenu').mouseover(function () {
+        var $sideMenu = $('#' + $(this).attr('id') + 'Content');
+        $('.sideMenuContent').addClass('hide');
+        $sideMenu.removeClass('hide');
+        rightSideSameHeight()
+    });
+    $(".button22").mouseover(function () {
+        $(".sideMenuContent").addClass('hide');
+    });
+}
+//Make the right side of the shop menu to the same height as left side if it is shorter than the left side
+//var debugTop = 0
+function rightSideSameHeight() {
+    var leftSideHeight = $('#menuShop').height(), menuShadowH = 28 //this is to adjust because the flyout does not have shadow;
+    leftSideHeight -= menuShadowH
+    //$('body').append('<div style="position:fixed; top:' + debugTop + 'px;">' + leftSideHeight + '</div>')
+    //debugTop += 20
+    $('.sideMenuRight').each(function () {
+        var flyout = $(this);
+        flyout.find('.globalConnectorFlyout').css('height', '');
+        var rightSideHeight = flyout.height();
+        //$('body').append('<div style="position:fixed; top:' + debugTop + 'px;">' + rightSideHeight + '</div>')
+        //debugTop += 20
+        if (rightSideHeight == 0) { }
+        else {
+            //$('body').append('<div style="position:fixed; top:' + debugTop + 'px;">' + rightSideHeight + '</div>')
+            //debugTop += 20
+            if (rightSideHeight - 33 < leftSideHeight) {
+                flyout.find('.globalConnectorFlyout').css('height', leftSideHeight);
+            }
+        }
+    });
+    $('.sideMenuContent').each(function () {
+        var hover = $(this).find('.sideMenuHover');
+        hover.css('height', leftSideHeight + 10);
+    });
+    if ($(".shopServicesBtn").hasClass("hide")) {
+        $('.menuBridge1,.menuItem1').css({ 'top': 12 });
+        $('.menuBridge2,.menuItem2').css({ 'top': 103 });
+        $('.menuBridge3,.menuItem3').css({ 'top': 194 });
+        $('.menuBridge4,.menuItem4').css({ 'top': 285 });
+        $('.menuBridge5,.menuItem5').css({ 'top': 376 });
+    }
+}
+//Tabs content
+$(document).ready(function () {
+    $(".tabs-menu a").click(function (event) {
+        event.preventDefault();
+        $(this).parent().addClass("active");
+        $(this).parent().siblings().removeClass("active");
+        var tab = $(this).attr("href");
+        $(".tab-content").not(tab).css("display", "none");
+        $(tab).fadeIn();
+    });
+});
+//Dynamic font resize
+$(document).ready(function () {
+    $('.dynaFontSize').addClass(function () {
+        return this.innerHTML.length > 4 ? 'txtSize16' : '';
+    });
+    //Font resizing for charges that appear with "CR" in front
+    $('.dynaFontSizeXS').addClass(function () {
+        return this.innerHTML.length > 1 ? 'txtSize16' : '';
+    });
+    $('.dynaFontSizeXS').addClass(function () {
+        return this.innerHTML.length > 2 ? 'txtSize13' : '';
+    });
+    //Font resizing for charges that appear with "CR" in front and iIcon on the right
+    $('.dynaFontSizeXSIcon').addClass(function () {
+        return this.innerHTML.length > 8 ? 'txtSize12' : '';
+    });
+});
+
+
+

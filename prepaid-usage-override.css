@@ -1,0 +1,425 @@
+.blank-data-card .usage-data {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    padding: 50px;
+}
+
+.blank-data-card .centerDiv {
+    top: calc(50% - 33px);
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.allowance-details-modal thead th {
+    padding: 9px 30px;
+    line-height: 30px;
+}
+
+.usage-data > div.donutCont-col2 {
+    width: calc(50% - 5px);
+    float: left;
+    margin: 0 2px;
+}
+
+#prepaid-dashboard-dial-cards-wrap .slick-list {
+    margin-top: 0;
+}
+
+.indicator {
+    position: relative;
+}
+
+
+.slick-initialized .slick-slide {
+    padding-bottom: 0px;
+}
+
+.icon-unlimited:before {
+    color: unset;
+}
+
+.opacity-effect {
+    pointer-events: none;
+}
+
+@media (max-width: 999px) and (min-width: 768px) {
+    #prepaid-dashboard-dial-cards-wrap {
+        min-height: 370px;
+        width: 100%;
+    }
+
+
+
+    #prepaid-usage-overview-wrap .indicator {
+        margin-top: 0px;
+    }
+
+    .slicker {
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 767px) and (min-width: 320px) {
+    #prepaid-dashboard-dial-cards-wrap {
+        min-height: 370px;
+        width: 100%;
+    }
+
+
+
+    #prepaid-usage-overview-wrap .indicator {
+        margin-top: 0px;
+    }
+
+    .slicker {
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 1000px) {
+    .slick-slide h3 {
+        padding: 0 25px;
+    }
+}
+
+#prepaid-usage-details-container .errorMsg {
+    display: none;
+    float: right;
+    width: 100% !important;
+    padding-top: 0px !important;
+    margin-bottom: -14px;
+    color: red;
+    padding-left: 49%;
+}
+
+#prepaid-usage-details-container .searchBoxHide {
+    display: none;
+}
+
+#prepaid-usage-details-container .error-message {
+    color: #D32020 !important;
+    display: none;
+}
+
+#prepaid-usage-details-container .adjustResetFilters {
+    width: 100%;
+    padding-top: 0px !important;
+}
+
+#prepaid-usage-details-container .btn-select ul li {
+    padding-left: 38px !important;
+}
+
+#prepaid-usage-details-container .filter-check-section {
+    float: left;
+    margin-right: 40px;
+}
+
+.icon {
+    background-image: none;
+}
+
+#prepaid-usage-details-container .tech-error {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 100px;
+    height: 100px;
+}
+
+div:focus {
+    outline: none;
+}
+
+#prepaid-usage-details-container .enabled-button {
+    color: #002D72;
+}
+
+#prepaid-usage-details-container .searchNumberSection .lm-search-button {
+    height: 16px;
+    width: 16px;
+    font-size: 17px;
+}
+
+#prepaid-usage-details-container .lm-clear-button.active {
+    display: inline-block;
+}
+
+#prepaid-usage-details-container .shift_searchbox {
+    right: 75px;
+}
+
+#prepaid-usage-details-container .expand, #prepaid-usage-details-container .collapse {
+    height: initial;
+    width: initial;
+    cursor: initial;
+}
+
+
+
+#prepaid-usage-details-container .tooltip {
+    pointer-events: none;
+}
+
+#prepaid-usage-details-container input[type=checkbox] {
+    margin-top: 16px;
+    margin-left: 10px;
+}
+
+@media (max-width:767px) {
+    #prepaid-usage-details-container .table-content .shadowDT,
+    #prepaid-usage-details-container .table-content .shadowDT-left {
+        position: relative;
+    }
+
+        #prepaid-usage-details-container .table-content .shadowDT:after {
+            pointer-events: none;
+            content: "";
+            width: 10%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 1%, rgba(149, 0, 0, 0) 0%, rgba(255,255,255, 0.8) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 1%, rgba(149, 0, 0, 0) 0%, rgba(255,255,255, 0.8) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right, rgba(0, 0, 0, 0) 1%, rgba(149, 0, 0, 0) 0%, rgba(255,255,255, 0.8) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        }
+
+        #prepaid-usage-details-container .table-content .shadowDT-left:before {
+            pointer-events: none;
+            content: "";
+            width: 10%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            background: -moz-linear-gradient(right, rgba(0, 0, 0, 0) 1%, rgba(149, 0, 0, 0) 0%, rgba(255,255,255, 0.8) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(right, rgba(0, 0, 0, 0) 1%, rgba(149, 0, 0, 0) 0%, rgba(255,255,255, 0.8) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to left, rgba(0, 0, 0, 0) 1%, rgba(149, 0, 0, 0) 0%, rgba(255,255,255, 0.8) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        }
+}
+
+input:required {
+    box-shadow: none !important;
+}
+
+@media (max-width:767px) {
+    #prepaid-usage-details-container .errorMsg {
+        padding-left: 0 !important;
+        margin-bottom: 1px !important;
+        margin-top: -11px !important;
+    }
+}
+
+@media (max-width:767px) {
+    #prepaid-transaction-history-container .errorMsg {
+        padding-left: 0 !important;
+        margin-bottom: 1px !important;
+        margin-top: -11px !important;
+    }
+}
+
+#prepaid-transaction-history-container .tech-error {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 100px;
+    height: 100px;
+}
+
+#prepaid-transaction-history-container .errorMsg {
+    clear: both;
+    padding: 8px;
+    margin-left: -1%;
+    color: #d32020;
+    display: none;
+}
+
+.fullWidth td.no-matching-record {
+    padding: 30px 20px;
+}
+
+
+.prepaid-usage-unlimited-card-details-link {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    color: #002D72;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#prepaid-usage-overview-wrap .card-header-component h3 {
+    height: 40px;
+}
+
+#prepaid-usage-overview-wrap .usage-data .indicator {
+    margin-bottom: 0;
+}
+
+.in-plan-msg-panel {
+    margin-left: 21px;
+    margin-right: 17px;
+    margin-bottom: 0px !important;
+}
+
+.in-plan-msg-top-line {
+    font-weight: bold;
+    color: black;
+    font-size: 15px !important
+}
+
+.in-plan-msg-path2::before {
+    content: "\e930";
+    color: white;
+    margin-left: -1em;
+}
+
+.in-plan-msg-path3::before {
+    content: "\e931";
+    color: white;
+    margin-left: -1em;
+}
+
+.in-plan-msg-borderB-grey {
+    border-bottom: 1px solid #d4d4d4;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.in-plan-msg-icon {
+    font-size: 21px;
+    top: 1px;
+}
+
+
+
+/* Footer Focus Outline Override */
+.footer--focus-outline a:focus {
+    outline: none !important;
+    box-shadow: 0 0 0px 3px #fff, 0 0 2px 3px #fff, 0 0 4px 5px #000, 0 0 2px 5px #000;
+}
+
+.footer--focus-outline .connector-brand {
+    line-height: normal;
+}
+
+.footer--focus-outline .connector-brand:focus {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.footer--focus-outline .connector-brand:focus span.icon-lm-logo {
+    outline: none !important;
+    box-shadow: 0 0 0px 3px #fff, 0 0 2px 3px #fff, 0 0 4px 5px #000, 0 0 2px 5px #000;
+}
+
+.footer--focus-outline a:focus, .footer--focus-outline a:hover {
+    color: #666;
+}
+
+.footer--focus-outline .skip-to-main-link1 {
+    border-radius: 0;
+}
+
+@media (max-width: 768px) {
+    .footer--focus-outline .footer-main-menu a {
+        display: block;
+    }
+}
+
+/* Content Focus Outline Override */
+/* Payment History */
+#prepaid-transaction-history-maincontent input:focus,
+#prepaid-transaction-history-maincontent select:focus,
+#prepaid-transaction-history-maincontent button:focus, 
+#prepaid-transaction-history-maincontent a:focus  {
+    outline: none !important;
+    box-shadow: 0 0 0px 3px #fff, 0 0 2px 3px #fff, 0 0 4px 5px #000, 0 0 2px 5px #000 !important;
+}
+
+#prepaid-transaction-history-maincontent #reset-filters:focus {
+    outline: none !important;
+    box-shadow: 0 0 0px 3px #e1e1e1, 0 0 2px 3px #e1e1e1, 0 0 4px 5px #000, 0 0 2px 5px #000;
+}
+
+#prepaid-transaction-history-maincontent #all-radio-button:focus ~ .lm-radio-element, 
+#prepaid-transaction-history-maincontent #from-radio-button:focus ~ .lm-radio-element
+{
+    outline: none !important;
+    box-shadow: 0 0 0px 3px #fff, 0 0 2px 3px #fff, 0 0 4px 5px #000, 0 0 2px 5px #000;
+}
+
+#prepaid-transaction-history-maincontent .this-table th {
+    outline: none !important;
+    box-shadow: none !important;
+    position: relative;
+}
+
+#prepaid-transaction-history-maincontent .this-table th:focus::before {
+    content: '';
+    height: calc(100% + 6px);
+    width: calc(100% + 6px);
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    display: block;
+    box-shadow: 0 0 3px 1px #000, 0 0 3px 2px #000;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+
+/* All Usage Details */
+#prepaid-usage-details-container input:focus,
+#prepaid-usage-details-container select:focus,
+#prepaid-usage-details-container button:focus, 
+#prepaid-usage-details-container a:focus  {
+    outline: none !important;
+    box-shadow: 0 0 0px 3px #fff, 0 0 2px 3px #fff, 0 0 4px 5px #000, 0 0 2px 5px #000 !important;
+}
+
+#prepaid-usage-details-container #reset-filters:focus {
+    outline: none !important;
+    box-shadow: 0 0 0px 3px #e1e1e1, 0 0 2px 3px #e1e1e1, 0 0 4px 5px #000, 0 0 2px 5px #000;
+}
+
+#prepaid-usage-details-container #all-radio-button:focus ~ .lm-radio-element, 
+#prepaid-usage-details-container #from-radio-button:focus ~ .lm-radio-element
+{
+    outline: none !important;
+    box-shadow: 0 0 0px 3px #fff, 0 0 2px 3px #fff, 0 0 4px 5px #000, 0 0 2px 5px #000;
+}
+
+#prepaid-usage-details-container .table-holder {
+    overflow-x: unset;
+    overflow-y: unset;
+}
+
+#prepaid-usage-details-container #usage-details-table th {
+    outline: none !important;
+    box-shadow: none !important;
+    position: relative;
+}
+
+#prepaid-usage-details-container #usage-details-table th:focus::before {
+    content: '';
+    height: calc(100% + 6px);
+    width: calc(100% + 6px);
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    display: block;
+    box-shadow: 0 0 3px 1px #000, 0 0 3px 2px #000;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* My Usage */
+#prepaid-usage-maincontent button:focus,
+#prepaid-usage-maincontent a:focus {
+    outline: none !important;
+    box-shadow: 0 0 0px 3px #fff, 0 0 2px 3px #fff, 0 0 4px 5px #000, 0 0 2px 5px #000 !important;
+}

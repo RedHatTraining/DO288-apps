@@ -1,0 +1,586 @@
+﻿/* function is used to send values for all required Omniture variables. */
+function PassValuesToOmnitureVariables(fieldValue, replaceConditions) {
+    var returnval;
+    var keyvalueColl = replaceConditions.split('^');
+    for (var i = 0; i < keyvalueColl.length; i++) {
+        keyvaluepair = keyvalueColl[i].split(':');
+        returnval = fieldValue.replace(keyvaluepair[0].toString(), keyvaluepair[1].toString());
+        fieldValue = returnval;
+    }
+    TrackVariables(fieldValue);
+}
+
+
+function TrackVariables(omniVal) {
+   s_oTrackPage(eval("(" + omniVal + ")"));
+}
+
+function SendJSVariablesToOmniture(fieldValue, replaceConditions, errorCode) {
+    fieldValue = fieldValue.replace("#ARS#", errorCode); 
+    PassValuesToOmnitureVariables(fieldValue, replaceConditions);
+}
+
+
+/* Omniture P31463 
+   As per P31463 requirement new varibale for each LOB is to be tracked.
+   This variable is in general the account number
+   the below updated functions are to cover this new requirement
+   Developers are henceforth supposed to used this functions for any new implementation 
+*/
+function PassValuesToOmnitureVariablesNew(fieldValue, replaceConditions, accountid) {
+    var returnval;
+    var keyvalueColl = replaceConditions.split('^');
+    for (var i = 0; i < keyvalueColl.length; i++) {
+        keyvaluepair = keyvalueColl[i].split(':');
+        returnval = fieldValue.replace(keyvaluepair[0].toString(), keyvaluepair[1].toString());
+        fieldValue = returnval;
+    }
+    accountid = accountid;
+    TrackVariablesNew(fieldValue, accountid);
+}
+
+
+function TrackVariablesNew(omniVal, accountid) {
+    omniVal = omniVal.substring(0, omniVal.length - 1);
+    omniVal += ',' + accountid + '}';
+    s_oTrackPage(eval("(" + omniVal + ")"));
+}
+
+//Pass JS VAriables to Omniture with Errorcode
+function SendJSVariablesToOmnitureNew(fieldValue, replaceConditions, errorCode, accountid) {
+    fieldValue = fieldValue.replace("#ARS#", errorCode);
+    accountid = accountid;
+    PassValuesToOmnitureVariablesNew(fieldValue, replaceConditions, accountid);
+}
+
+/* Omniture P31463 
+---END---- 
+*/
+function SetUsagePageNames(omniVal, i) {
+   if (omniVal.indexOf("#PGN#") != -1) {
+        if (i == 0) {
+            omniVal = omniVal.replace("#PGN#", "Usage:Tab:Usage summary");
+        }
+        else if (i == 1) {
+            omniVal = omniVal.replace("#PGN#", "Usage:Tab:Detailed usage");
+        }
+        else if (i == 2) {
+            omniVal = omniVal.replace("#PGN#", "Usage:Tab:6-month trend");
+        }
+    }
+    return omniVal;
+}
+
+//Remove HTML Tags
+function RemoveHtmlTags(Val) {
+    Val = Val.replace(/<\/?[^>]+(>|$)/g, "");
+    Val = Val.trim();
+return Val;
+}
+
+function RemoveSepecialCharacters(Val) {
+    Val = Val.replace("'", "&#39;");
+    Val = Val.replace("&#39;", "'");
+    Val = Val.replace(/[^a-zA-Z 0-9]+/g, '');
+    return Val;
+}
+
+function SetePostMobilityUsagePageNames(omniVal, i) {
+    if (omniVal.indexOf("#PGN#") != -1) {
+        if (i == 0) {
+            omniVal = omniVal.replace("#PGN#", "Usage:Tab:Usage summary");
+        }
+        else if (i == 1) {
+            omniVal = omniVal.replace("#PGN#", "Usage:Tab:Detailed usage");
+        }
+        else if (i == 2) {
+            omniVal = omniVal.replace("#PGN#", "Usage:Tab:6-month trend");
+        }
+        else if (i == 3) {
+            omniVal = omniVal.replace("#PGN#", "Usage:Tab:Shared usage");
+        }
+        else if (i == 4) {
+            omniVal = omniVal.replace("#PGN#", "Usage:Tab:Shared usage trend");
+        }
+    }
+    return omniVal;
+}
+
+//Excepts a Json object . Item Array of eCareError.cs Class objects and return formatted string for 
+// s_oARS , s_oERR_CLASS , s_oERR_DESC Omniture Variables
+function getErrorVariablesFromJsonErrors(JsonAllErrors) {
+    var jsonOmniVariables = {};
+
+    var s_oARS_Value = "";
+    var s_oERR_CLASS_Value = "";
+    var s_oERR_DESC_Value = "";
+
+    jQuery(JsonAllErrors).each(function (index, el) {
+        s_oARS_Value = s_oARS_Value + "," + el.ErrorCode;
+        s_oERR_CLASS_Value = s_oERR_CLASS_Value + "," + el.ERR_CLASS;
+        s_oERR_DESC_Value = s_oERR_DESC_Value + "," + el.ERR_DESC;
+
+    });
+
+
+    s_oARS_Value = s_oARS_Value.substring(1, s_oARS_Value.length);
+    s_oERR_CLASS_Value = s_oERR_CLASS_Value.substring(1, s_oERR_CLASS_Value.length);
+    s_oERR_DESC_Value = s_oERR_DESC_Value.substring(1, s_oERR_DESC_Value.length);
+
+    jsonOmniVariables["s_oARS_Value"] = s_oARS_Value;
+    jsonOmniVariables["s_oERR_CLASS_Value"] = s_oERR_CLASS_Value;
+    jsonOmniVariables["s_oERR_DESC_Value"] = s_oERR_DESC_Value;
+
+    return jsonOmniVariables;
+}
+
+// Return Messages in Omniture Format ( s_oPLE value) 
+function getMessagesVariablesFromJson(JsonAllMessages) {
+    var jsonOmniVariables = {
+};
+
+    var s_oPLE_Value = "";
+   
+
+    jQuery(JsonAllMessages).each(function (index, el) {
+        s_oPLE_Value = s_oPLE_Value + "," + el.PLE;
+        });
+
+
+        s_oPLE_Value = s_oPLE_Value.substring(1, s_oPLE_Value.length);
+
+    jsonOmniVariables["s_oPLE_Value"] = s_oPLE_Value;
+
+    return jsonOmniVariables;
+    }
+
+
+// Find all hidn Errors which is coming from response and Parse it
+function ParseErrorsJsonFromResponse(responseText, IsAjaxDataTypeJSON) {
+    var obj;
+    if (!IsAjaxDataTypeJSON) {
+        var errors = '';
+
+        try {
+            errors = jQuery(responseText).find("input[id^='hdnAllErrors']");
+            obj = eval('(' + errors.val() + ')');
+        }
+        catch (e)
+        { obj = null }
+
+        if (obj == null) {
+
+            try {
+
+                return jQuery.parseJSON(errors);
+
+            }
+            catch (e) {
+                return null;
+        }
+        }
+        else {
+            return obj;
+        }
+
+
+    }
+    else {
+        try {
+            obj = jQuery.parseJSON(responseText);
+        }
+        catch (e)
+        {
+            
+            obj = null
+        }
+
+        if (obj == null) {
+            var json_pattr = /\[.*\]/g;
+            var json_str = json_pattr.exec(responseText)[0];
+            var json_data = eval('(' + json_str.substr(1, json_str.length - 2) + ')');
+            if (json_data.AllErrors === undefined || json_data.AllErrors == null) {
+                return json_data
+            }
+            else {
+                return json_data.AllErrors;
+            }
+        }
+        else {
+            return obj.AllErrors;
+        }
+    }
+}
+
+// Parse Messages from Response HTML
+function ParseMessagesJsonFromResponse(responseText, IsAjaxDataTypeJSON) {
+    var obj;
+    if (!IsAjaxDataTypeJSON) {
+        var messages = jQuery(responseText).find("input[id^='hdnAllMessages']");
+
+        try {
+            obj = eval('(' + messages.val() + ')');
+            }
+        catch (e)
+            { obj = null }
+
+        if (obj == null) {
+
+            try {
+
+                return jQuery.parseJSON(messages);
+
+                }
+                catch (e) {
+                    return null;
+}
+}
+else {
+            return obj;
+        }
+
+
+        }
+        else {
+        try {
+            obj = jQuery.parseJSON(responseText);
+}
+        catch (e) {
+obj = null
+}
+
+        if (obj == null) {
+            var json_pattr = /\[.*\]/g;
+            var json_str = json_pattr.exec(responseText)[0];
+            var json_data = eval('(' + json_str.substr(1, json_str.length - 2) + ')');
+            return json_data.AllMessages;
+            }
+        else {
+            return obj.AllMessages;
+            }
+            }
+        }
+
+
+function getAPTValue(fieldValue, replaceConditions) {
+    var returnval;
+    var keyvalueColl = replaceConditions.split('^');
+    for (var i = 0; i < keyvalueColl.length; i++) {
+        keyvaluepair = keyvalueColl[i].split(':');
+        returnval = fieldValue.replace(keyvaluepair[0].toString(), keyvaluepair[1].toString());
+        fieldValue = returnval;
+    }
+
+    return fieldValue;
+}
+
+
+function getClientDate() {
+    return jQuery.datepicker.formatDate('yy-mm-dd', new Date());
+}
+
+
+
+function getClientTime() {
+    var d = new Date();
+    var returnDate = d.toTimeString().split(' ')[0] + ":" + d.getMilliseconds();
+    return returnDate;
+
+
+}
+//  Remove HTML tags and remove  ":", ",", "[", "]".
+    // Also truncate till 50 characters
+function formatMsg(text) {
+    var returnText = RemoveHtmlTags(text);
+    returnText = returnText.replace(/[[\]\,\:]/g, '');
+    returnText = returnText.substr(0, 50);
+    return returnText;
+}
+
+function formatMsgFirst100(text) {
+    var returnText = RemoveHtmlTags(text);
+    returnText = returnText.replace(/[[\]\,\:]/g, '');
+    returnText = returnText.substr(0, 100);
+    return returnText;
+}
+
+
+function queryJson(obj, key, val) {
+    if (typeof val == 'undefined')
+        return obj;
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(queryJson(obj[i], key, val));
+        }
+        else if (i == key && obj[key] == val) {
+            objects.push(obj);
+        }
+    }
+    return objects;
+}
+
+//function queryJsonErrors(obj, key, val, objct) {
+//    if (typeof val == 'undefined')
+//        return obj;
+//    if (typeof objct == 'undefined' || objct == null) {
+//        var objects = [];
+//    }
+//    else {
+//        var objects = objct;
+//    }
+//    for (var i in obj) {
+//        if (!obj.hasOwnProperty(i)) continue;
+//        if (typeof obj[i] == 'object') {
+//            objects = objects.concat(queryJson(obj[i], key, val));
+//        }
+//        else if (i == key && obj[key] == val) {
+//            objects.push(obj);
+//        }
+//    }
+//    return objects;
+//}
+
+function queryJsonErrors(obj, key, val, objct) {    
+    if (typeof val == 'undefined')
+        return obj;
+    if (typeof objct == 'undefined' || objct == null) {
+        var objects = [];
+    }
+    else {
+        var objects = objct;
+    }
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(queryJson(obj[i], key, val));
+        }
+        else if (i == key && obj[key] == val) {
+            objects.push(obj);
+        }
+    }
+    return objects;
+}
+
+
+// This method formats lightbox content as method Formatted_Omniture_LBContent does and also removes two or more  white spaces
+function FormatLightBoxContent(LigthboxContent)
+{
+    LigthboxContent = RemoveHtmlTags(LigthboxContent);
+    LigthboxContent = LigthboxContent.replace(/[[\]\,\:]/g, '');
+    LigthboxContent = LigthboxContent.replace(/\s{2,}/g, ' ');
+    LigthboxContent = LigthboxContent.slice(0, 100);
+    return LigthboxContent;
+
+}
+
+// This method is being used to format lightbox content//
+function Formatted_Omniture_LBContent(LigthboxContent) {
+    LigthboxContent = LigthboxContent.replace(/[ÀÁÂÃÄÅà]/g, "a");
+    LigthboxContent = LigthboxContent.replace(/[é]/g, "e");   
+    LigthboxContent = RemoveHtmlTags(LigthboxContent);
+    LigthboxContent = LigthboxContent.replace(/[[\]\,\:\’]/g, '');
+    LigthboxContent = LigthboxContent.slice(0, 100);
+
+    return LigthboxContent;
+}
+
+ //This is the method generated generally when there is no kind of Icon colour. There is only general lightbox having some message.We need to tag PLE value for the same.
+function Omniture_LBContent(lightboxId, LigthboxContent) {
+     
+    
+        try {
+            var lightboxTitle = jQuery(lightboxId + ' .bellSlim').first().html().trim();
+            var lightboxContent = Formatted_Omniture_LBContent(LigthboxContent);
+            lightboxTitle = Formatted_Omniture_LBContent(lightboxTitle);
+            var parameter = 'open, ' + lightboxTitle;
+            //If no color icon then lightbox content will be same as PLE variable
+            //            1.	Lightboxes having no icon but only messages .
+            //            2.	Lightboxes having no icon ,having message and HTML content(like Tables, RadioButtons etc).
+            //We tag with s_oTrackPage({s_oAPT: '104-0-0', s_oPRM: parameter, s_oLBC: lightboxContent });
+            if (LigthboxContent != null && LigthboxContent != '') {
+                s_oTrackPage({
+                    s_oAPT: '104-0-0', s_oPRM: parameter, s_oLBC: lightboxContent
+                });
+            }
+            else {
+            //          3.	Lightboxes having no icon and only HTML content(like Tables, RadioButtons etc).
+            //We tag with s_oTrackPage({s_oAPT: '104-0-0', s_oPRM: parameter });
+                s_oTrackPage({
+                    s_oAPT: '104-0-0', s_oPRM: parameter
+                });
+            }
+    } catch (e) {
+     
+    }
+    }
+
+//This is the method generated generally when there is no kind of Icon colour. There is only general lightbox having some message.We need to tag PLE value for the same.
+function Omniture_LBTitleAndContent(lightboxId, lightboxTitle, ligthboxContent) {
+    try {
+        var lbTitle = Formatted_Omniture_LBContent(lightboxTitle);
+        var lbContent = Formatted_Omniture_LBContent(ligthboxContent);
+        var parameter = 'open, ' + lbTitle;
+
+        //We tag with s_oTrackPage({s_oAPT: '104-0-0', s_oPRM: parameter, s_oLBC: lightboxContent });
+        if (lbContent != null && lbContent != '') {
+            s_oTrackPage({
+                s_oAPT: '104-0-0', s_oPRM: parameter, s_oLBC: lbContent, s_oMOID:'', s_oSRG:'',s_oPLE:''
+            });
+        }
+        else {
+            //          3.	Lightboxes having no icon and only HTML content(like Tables, RadioButtons etc).
+            //We tag with s_oTrackPage({s_oAPT: '104-0-0', s_oPRM: parameter });
+            s_oTrackPage({
+                s_oAPT: '104-0-0', s_oPRM: parameter, s_oMOID: '', s_oSRG: '', s_oPLE: ''
+            });
+        }
+    } catch (e) {
+        //  alert(e);
+    }
+}
+
+//Below Lightbox Method is being written to track lightboxes which have Error, Warning or Informational Messages with colour Icons(Red,Yellow,Blue respectively)
+function Omniture_LBContent_ErrorTracking(lightboxId, errorCode, LigthboxContent, ErrorType) {
+    try {
+        var lightboxTitle = "";
+        if (jQuery(lightboxId).find('div.virginUltra').length > 0) {
+            lightboxTitle = jQuery(lightboxId + ' .virginUltra').first().html().trim();
+        }
+        else if (jQuery(lightboxId).find('div.virginSlim').length > 0) {
+            lightboxTitle = jQuery(lightboxId + ' .virginSlim').first().html().trim();
+        }
+        else if (jQuery(lightboxId).find('div.bellSlimSemibold').length > 0) {
+            lightboxTitle = jQuery(lightboxId + ' .bellSlimSemibold').first().html().trim();
+        }
+        else {
+            lightboxTitle = jQuery(lightboxId + ' .bellSlim').first().html().trim();
+        }
+        var lightboxContent = formatMsg(LigthboxContent);
+        var ErrorCode = errorCode;
+        var parameter = 'open, ' + lightboxTitle;
+        var s_oERR_CLASS_Value = "";
+        if (ErrorType == MessageCatgEnumJS.Error) {
+            var s_oPLE_Value = lightboxContent + ":" + MessageCatgEnumJS.Error + ":[" + ErrorCode + "]";
+            var s_oERR_DESC_Value = ErrorCode + ":" + LigthboxContent.slice(0, 50);
+            //Below is the code added for special case when Email is not sent .This is only case for HUG Device Page Email Button.This is a Service Grid Layer Error Not Business
+            if (errorCode == "CLNTERR-50217") {
+                s_oERR_CLASS_Value = ErrorCode + ":[E|SG]";
+            }
+            else {
+                s_oERR_CLASS_Value = ErrorCode + ":[T|BE]";
+            }
+
+            s_oTrackPage({
+                s_oAPT: '104-2-2', s_oPRM: parameter, s_oLBC: lightboxContent, s_oARS: ErrorCode, s_oERR_CLASS: s_oERR_CLASS_Value,
+                s_oERR_DESC: s_oERR_DESC_Value, s_oPLE: s_oPLE_Value
+            });
+
+        }
+        else if (ErrorType == MessageCatgEnumJS.Warning || ErrorType == MessageCatgEnumJS.Information) {
+            var s_oPLE_Value = lightboxContent + ":" + ErrorType;
+            s_oTrackPage({
+                s_oAPT: '104-2-2', s_oPRM: parameter, s_oLBC: formatMsgFirst100(LigthboxContent), s_oPLE: s_oPLE_Value
+            });
+        }
+
+        else if (ErrorType == MessageCatgEnumJS.Confirmation) {
+            var s_oPLE_Value = lightboxContent + ":" + ErrorType;
+            s_oTrackPage({
+                s_oAPT: '104-2-1', s_oPRM: parameter, s_oLBC: formatMsgFirst100(LigthboxContent), s_oPLE: s_oPLE_Value
+            });
+       }
+
+    } catch (e) { }
+}
+
+
+//Parse Json Errors and pass it to omniture
+function PassAjaxErrorsToOmniture(xhr, textStatus, APT_Value) {
+    var returnValue = false;
+
+    var _allErrorsJson = jQuery.parseJSON(jQuery("#hdnknownJsAndAjaxErrorCodes").val());
+    var errVar;
+    if (xhr.status == 404) {
+        var filterItem = queryJson(_allErrorsJson, 'ErrorCode', 'CLNTERR-50006');
+        errVar = getErrorVariablesFromJsonErrors(filterItem);
+        s_oPLE_Value = "Ajax Page Not Found Error:E:[CLNTERR-50006]";
+        returnValue = true;
+    } else if (textStatus === 'parsererror') {
+        var filterItem = queryJson(_allErrorsJson, 'ErrorCode', 'CLNTERR-50004');
+        errVar = getErrorVariablesFromJsonErrors(filterItem);
+        s_oPLE_Value = "Ajax Parse Error:E:[CLNTERR-50004]";
+        returnValue = true;
+    } else if (textStatus === 'timeout') {
+        var filterItem = queryJson(_allErrorsJson, 'ErrorCode', 'CLNTERR-50002');
+        errVar = getErrorVariablesFromJsonErrors(filterItem);
+        s_oPLE_Value = "Ajax Timeout Error:E:[CLNTERR-50002]";
+        returnValue = true;
+    } else if (textStatus === 'abort') {
+        var filterItem = queryJson(_allErrorsJson, 'ErrorCode', 'CLNTERR-50003');
+        errVar = getErrorVariablesFromJsonErrors(filterItem);
+        s_oPLE_Value = "Ajax Abort Error:E:[CLNTERR-50003]";
+        returnValue = true;
+    }
+    //Making PLE value empty as for these type of errors messages are not displayed on UI.So PLE value will be empty: FIX for Defect :121769
+    if (returnValue) {
+        s_oTrackPage({
+            s_oAPT: APT_Value, s_oAJC: true, s_oARS: errVar.s_oARS_Value,
+            s_oERR_CLASS: errVar.s_oERR_CLASS_Value, s_oERR_DESC: errVar.s_oERR_DESC_Value, s_oPLE: ""
+        });
+    }
+
+    return returnValue;
+
+}
+//function to capture client side validation messages
+function addOmnitureValidationError(errCode, errDesc) {
+    try {
+        var length = _ValidationErrors;
+    } catch (e) {
+        _ValidationErrors = [];
+    }
+    try {
+        var length = _ValidationMessages;
+    } catch (e) {
+        _ValidationMessages = [];
+    }
+    var error = {
+        "ErrorCode": errCode,
+        "ErrorType": "T",
+        "ErrorLayer": "FE",
+        "ErrorDesc": errDesc,
+        "IsUnknownTechnicalError": false,
+        "ERR_CLASS": errCode + ":[V|FE]",
+        "ERR_DESC": errCode + ":" + errDesc
+    }
+    var message = {
+        "ErrorCodes": [errCode],
+        "MsgCategory": "E",
+        "MsgText": errDesc,
+        "PLE": errDesc + ":E:[" + errCode + "]"
+    }
+    _ValidationErrors[_ValidationErrors.length] = error
+    _ValidationMessages[_ValidationMessages.length] = message
+}
+// Message Category Enums
+var MessageCatgEnumJS = {
+    /// <summary>
+    /// Information – blue icon 
+    /// </summary>
+    "Information": "I",
+    /// <summary>
+    /// Confirmation – green icon 
+    /// </summary>
+    "Confirmation": "C",
+    /// <summary>
+    /// Attention/Warning – yellow icon 
+    /// </summary>
+    "Warning": "W",
+    /// <summary>
+    /// Critical/Error – red icon 
+    /// </summary>
+    "Error": "E"
+}
+

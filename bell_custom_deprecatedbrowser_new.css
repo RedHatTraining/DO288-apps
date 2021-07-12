@@ -1,0 +1,34 @@
+﻿/* Use This file to change or overwrite core CSS files  */
+/*!:: BELL CANADA v1.2830 */
+
+/* CSS from version 1.2106 bell_prime.css - Merged on May 12th, 2010 at 10:51PM EST */
+/*:: =CR6: ACN pages ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+.ieDeprecateBrowserMessageCloseButton {
+    display:block; 
+    width:20px; 
+    height:20px; 
+    background-image:url(sprites/icons_ie_deprecatedmessage.png);
+    background-position: 0 -40px;
+}
+
+.ieDeprecateBrowserMessageIconInformation {
+    display:block;
+    width:38px; 
+    height:38px; 
+    background-image:url(sprites/icons_ie_deprecatedmessage.png); 
+    background-position: 0 0;
+}
+
+.ieDeprecateBrowserMessageRightArrow {
+    background-image:url(sprites/icons_ie_deprecatedmessage.png); 
+    background-position: 0 -70px; 
+    height: 17px; 
+    width: 17px;
+}
+
+.ieDeprecateBrowserMessageMainDiv {
+    display:none;
+    position:relative; 
+    background-color: #1a1a1e; 
+    z-index: 51;
+}

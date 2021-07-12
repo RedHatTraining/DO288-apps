@@ -1,0 +1,1234 @@
+$(document).ready(function () {
+
+    $('.addht').click(function () {
+
+        $('.removeHeight').toggleClass('addHeight')
+    });
+
+
+    $('.togg_body').hide();
+    $('.collapse').hide();
+
+    $('.collapseToggle_head').click(function () {
+
+        var $this = $(this);
+        $this.parents().next('div.togg_body').slideToggle(300, function () {
+            $this.find('.img').toggle();
+        });
+
+    });
+
+
+
+
+
+    /*EqualHeight Columns
+           ------------------- */
+    $(function () {
+        $.fn.equalHeightfy = function () {
+            var highest = 0;
+            $(this).each(function () {
+                if ($(this).height() > highest) {
+                    highest = $(this).height();
+                }
+            });
+            $(this).height(highest);
+        }
+    });
+
+    $(function () {
+        if ($('.collapse_panel').length) {
+            $('.collapse_panel').equalHeightfy();
+        }
+        if ($('.collapse_head').length) {
+            $('.collapse_head').equalHeightfy();
+        }
+        if ($('.collapse_panel1').length) {
+            $('.collapse_panel1').equalHeightfy();
+        }
+        if ($('.collapse_head1').length) {
+            $('.collapse_head1').equalHeightfy();
+        }
+        if ($('.collapse_footer').length) {
+            $('.collapse_footer').equalHeightfy();
+        }
+    });
+
+})
+function expCollapse(objtoggle) {
+
+    $('.' + objtoggle).slideToggle();
+    $(this).hide();
+};
+
+
+
+var overageNoticeTrigger = 90;
+
+var isFrench = false;
+
+$(document).ready(function () {
+
+    // determine the page language, assume it is 'en'    
+        if ($('html').attr('lang') == 'fr') {
+            isFrench = true;
+        }
+    // redraw using dataGraphs[*].initialData members    
+      
+function setBubbleAlignment(bubbleDiv)
+{
+        if($(bubbleDiv).is(":visible"))
+        {
+            var extraAmountBoxWidthWidth = $(bubbleDiv).width();
+            var extraAmountBoxTextDiv = $(bubbleDiv).find(".extraAmountBoxText");
+            if (typeof extraAmountBoxTextDiv != 'undefined' && extraAmountBoxTextDiv != null)
+            {
+                var extraAmountBoxTextVWidth = $(extraAmountBoxTextDiv).width();
+                var linktDiv = $(extraAmountBoxTextDiv).next();
+                    if (typeof linktDiv != 'undefined' && linktDiv != null) {
+                        var linktVWidth = $(linktDiv).width();
+                        if (extraAmountBoxWidthWidth != null && extraAmountBoxTextVWidth != null && linktVWidth != null)
+                        {
+                            if((extraAmountBoxTextVWidth +linktVWidth +45) > extraAmountBoxWidthWidth) {
+                                if (extraAmountBoxTextVWidth >= linktVWidth) {
+                                    $(extraAmountBoxTextDiv).parent().width((extraAmountBoxTextVWidth +5).toString() + "px");
+                                }
+                                else {
+                                    $(extraAmountBoxTextDiv).parent().width((linktVWidth +5).toString() + "px");
+                                }
+                            }
+                        }
+
+                    }
+            }
+        }
+}
+
+ $(".extraAmountBoxWidth").each(function () {
+            setBubbleAlignment(this);
+       })
+    $(".extraAmountBoxWidth60").each(function () {
+            setBubbleAlignment(this);
+            })
+});
+
+function placeCurrentBalance(meter) {
+    if ($(meter).length > 0) {
+        var monthsPast,
+            monthsFuture = $(meter).find('.bgGray'),
+            currentBalanceDiv = $(meter).next().next(),
+            currentBalanceW = currentBalanceDiv.width(),
+            monthW;
+        if ($('.bgGreen').length > 0) {
+            monthsPast = $(meter).find('.bgGreen');
+        } else if ($('.bgBlueDark').length > 0) {
+            monthsPast = $(meter).find('.bgBlueDark');
+        }
+        monthW = $(meter).width() / (monthsPast.length + monthsFuture.length);
+        currentBalanceMargin = (monthsPast.length * monthW);
+        if (monthsPast.length > monthsFuture.length) {
+            currentBalanceMargin = currentBalanceMargin - currentBalanceW;
+            currentBalanceDiv.width(currentBalanceW + 1); // this is important, otherwise in IE7 the currentBalancsDiv goes full-width when you float the installmentBalanceLine to the right. It locks the width so this does not happen. The +1 is to get around an IE10 bug.
+            currentBalanceDiv.find('.installmentBalanceLine').removeClass('floatL').addClass('floatR');
+        }
+        currentBalanceDiv.css({ 'margin-left': currentBalanceMargin - 1, 'margin-top': '-10px' });
+    }
+}
+function placeTier_marker(graphID) {
+    var graph = $(graphID),
+        markerR = graph.find('.total_product_usage').find('.tier_markerR'),
+        markerL = graph.find('.extra_product_usage').find('.tier_markerL');
+    markerR.addClass('hide');
+    markerL.addClass('hide');
+    var totalWidth = graph.find('.total_product_usage').width() + graph.find('.extra_product_usage ').width();
+    if (((graph.find('.total_product_usage').width() / totalWidth) * 100) > 30) {
+        markerR.removeClass('hide');
+    }
+    else {
+        markerL.removeClass('hide');
+    }
+}
+function initMobilityGraphs(dataSets) {
+    for (var i = 0; i < arguments.length; i++) {
+        createMobilityOverviewGraph(arguments[i].graph, arguments[i].graphType, arguments[i].dataAllowance, arguments[i].dataUsed, arguments[i].usageType, arguments[i].units, arguments[i].incomingCalls, arguments[i].isBillingOverage);
+    }
+}
+
+//This code creates graphs by populating existing HTML structures with the correct numbers, widths, background colors and font colors.
+function createMobilityOverviewGraph(graphID, graphType, dataAllowance, dataUsed, usageType, units, incomingCalls, isBillingOverage) {
+    var graph = $(graphID),
+        graphType = graphType,
+        dataAllowanceNum = dataAllowance,
+        dataUsedNum = dataUsed,
+        usageType = usageType,
+        units = units,
+        incomingCallNum = incomingCalls,
+        isBillingOverage = isBillingOverage,
+        tiers,
+        tier1,
+        tierLast,
+        graphLPercent,
+        graphRPercent,
+        dataString,
+        overage,
+        overageToGb,
+        overageToMb,
+        dataUsedToGb,
+        dataUsedToMb,
+        dataAllowanceToGb,
+        dataAllowanceToMb,
+        tierOverage,
+        tierOverageToGb,
+        tierOverageToMb,
+        unitsAlt,
+        unitsAlt2,
+        overageRed;
+    if (typeof dataAllowanceFlexGraph2Data != 'undefined') {
+        tiers = dataAllowanceFlexGraph2Data.tiers;
+        tier1 = tiers[0];
+        tier1 = Number(tier1);
+        tierLast = tiers[(tiers.length - 1)];
+        tierLast = Number(tierLast);
+    }
+
+    if (units == 'GB' || units == 'MB') {
+        unitsAlt = 'GB';
+        unitsAlt2 = 'MB';
+    } else if (units == 'Go' || units == 'Mo') {
+        unitsAlt = 'Go';
+        unitsAlt2 = 'Mo';
+    }
+    graph.find('.newTag').addClass('hide');
+
+    function setDataAllowanceNum() {
+        if (units == 'MB' || units == 'Mo') {
+            if (dataAllowanceNum >= 1024) {
+                graph.find('.dataAllowanceNum').html(dataAllowanceToGb);
+                graph.find('.dataAllowanceNum').next().html(unitsAlt);
+            } else {
+                graph.find('.dataAllowanceNum').html(dataAllowanceNum);
+                graph.find('.dataAllowanceNum').next().html(units);
+            }
+
+        } else if (units == 'GB' || units == 'Go') {
+            if (dataAllowanceNum < 1) {
+                graph.find('.dataAllowanceNum').html(dataAllowanceToMb);
+                graph.find('.dataAllowanceNum').next().html(unitsAlt2);
+            } else {
+                graph.find('.dataAllowanceNum').html(dataAllowanceNum);
+                graph.find('.dataAllowanceNum').next().html(units);
+            }
+        } else {
+            graph.find('.dataAllowanceNum').html(dataAllowanceNum);
+        }
+    }
+
+    if (dataAllowanceNum < dataUsedNum) {
+        overage = dataUsedNum - dataAllowanceNum;
+        //overage = parseFloat(overage.toFixed(2));
+        if (Math.floor(overage) == overage) {
+            overage = Math.floor(overage);
+        }
+    } else if (dataAllowanceNum >= dataUsedNum) {
+        overage = dataAllowanceNum - dataUsedNum;
+        //overage = parseFloat(overage.toFixed(2));
+        if (Math.floor(overage) == overage) {
+            overage = Math.floor(overage);
+        }
+    }
+    if (tierLast < dataUsedNum) {
+        tierOverage = dataUsedNum - tierLast;
+        tierOverage = parseFloat(tierOverage.toFixed(2));
+        if (Math.floor(tierOverage) == tierOverage) {
+            tierOverage = Math.floor(tierOverage);
+        }
+    } else if (tierLast >= dataUsedNum) {
+        tierOverage = tierLast - dataUsedNum;
+        tierOverage = parseFloat(tierOverage.toFixed(2));
+        if (Math.floor(tierOverage) == tierOverage) {
+            tierOverage = Math.floor(tierOverage);
+        }
+    }
+    if (units == 'MB' || units == 'Mo') {
+        if (overage >= 1024) {
+            overageToGb = parseFloat((overage / 1024).toFixed(2));
+            if (Math.floor(overageToGb) == overageToGb) {
+                overageToGb = Math.floor(overageToGb);
+            }
+        }
+        if (dataAllowanceNum >= 1024) {
+            dataAllowanceToGb = parseFloat((dataAllowanceNum / 1024).toFixed(2));
+            if (Math.floor(dataAllowanceToGb) == dataAllowanceToGb) {
+                dataAllowanceToGb = Math.floor(dataAllowanceToGb);
+            }
+        }
+        if (dataUsedNum >= 1024) {
+            dataUsedToGb = parseFloat((dataUsedNum / 1024).toFixed(2));
+            if (Math.floor(dataUsedToGb) == dataUsedToGb) {
+                dataUsedToGb = Math.floor(dataUsedToGb);
+            }
+        }
+        if (tierLast >= 1024) {
+            tiertierLastToGb = parseFloat((tierLast / 1024).toFixed(2));
+            if (Math.floor(tiertierLastToGb) == tiertierLastToGb) {
+                tiertierLastToGb = Math.floor(tiertierLastToGb);
+            }
+        }
+        if (tierOverage >= 1024) {
+            tierOverageToGb = parseFloat((tierOverage / 1024).toFixed(2));
+            if (Math.floor(tierOverageToGb) == tierOverageToGb) {
+                tierOverageToGb = Math.floor(tierOverageToGb);
+            }
+        }
+    } else if (units == 'GB' || units == 'Go') {
+        if (overage < 1) {
+            overageToMb = parseFloat((overage * 1024).toFixed(0));
+        }
+        if (dataAllowanceNum < 0) {
+            dataAllowanceToMb = parseFloat((dataAllowanceNum * 1024).toFixed(0));
+        }
+        if (dataUsedNum < 1) {
+            dataUsedToMb = parseFloat((dataUsedNum * 1024).toFixed(0));
+        }
+        if (tierLast < 1) {
+            tierLastToMb = parseFloat((tierLast * 1024).toFixed(0));
+        }
+        if (tierOverage < 1) {
+            tierOverageToMb = parseFloat((overage * 1024).toFixed(0));
+        }
+    }
+    graph.find('.units').html(units);
+    graph.find('.usageType').html(usageType);
+
+    if (dataAllowanceNum < dataUsedNum) {
+
+        graphLPercent = parseFloat((dataAllowanceNum / dataUsedNum).toFixed(2)) * 100;
+        graphRPercent = parseFloat((overage / dataUsedNum).toFixed(2)) * 100;
+        if ((graphLPercent + graphRPercent) > 100) {
+            graphRPercent = 100 - graphLPercent;
+        }
+        graph.find('.total_product_usage').width(graphLPercent + '%');
+        graph.find('.extra_product_usage').width(graphRPercent + '%');
+
+        setDataAllowanceNum();
+
+        if (graphType == '.dataAllowanceFlexGraph2') {
+            var redGraphPercent = 0;//parseFloat(((tierLast - tierLast) / tierLast)) * 100;
+            graph.find('.overageRed').width(redGraphPercent + '%');
+            if (tierLast < dataUsedNum) {
+                graph.find('.extraAmountText').addClass('txtRed');
+                graph.find('.extraAmountBoxText').addClass('txtRed');
+                graph.find('.extraAmountBox').removeClass('hide');
+                graph.find('.extraAmountContainer').addClass('hide');
+            }
+
+        } else {
+            graph.find('.extraAmountText').addClass('txtRed');
+            graph.find('.extraAmountBoxText').addClass('txtRed');
+            graph.find('.extraAmountBox').removeClass('hide');
+            graph.find('.extraAmountContainer').addClass('hide');
+        }
+
+        if (graphType == '.dataAllowanceFlexGraph2') {
+            if (units == 'MB' || units == 'Mo') {
+                if (tierOverage >= 1024) {
+                    if (tierLast < dataUsedNum) {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToGb + '</span> <span class="units2">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                    } else {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToGb + '</span> <span class="units2">' + unitsAlt + '</span> <span>' + leftWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + leftWord + '</span>');
+                    }
+                } else {
+                    if (tierLast < dataUsedNum) {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverage.toFixed(0) + '</span> <span class="units2">' + units + '</span> <span>' + overWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverage.toFixed(0) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                    } else {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverage.toFixed(0) + '</span> <span class="units2">' + units + '</span> <span>' + leftWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverage.toFixed(0) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+                    }
+                }
+            } else if (units == 'GB' || units == 'Go') {
+                if (tierOverage < 1) {
+                    if (tierLast < dataUsedNum) {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToMb.toFixed(0) + '</span> <span class="units2">' + unitsAlt2 + '</span> <span>' + overWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverageToMb.toFixed(0) + '</span> <span class="unitsInBox">' + unitsAlt2 + '</span> <span>' + overWord + '</span>');
+                    } else {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToMb.toFixed(0) + '</span> <span class="units2">' + unitsAlt2 + '</span> <span>' + leftWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverageToMb.toFixed(0) + '</span> <span class="unitsInBox">' + unitsAlt2 + '</span> <span>' + leftWord + '</span>');
+                    }
+
+                } else if (tierOverage >= 1) {
+                    if (tierLast < dataUsedNum) {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverage.toFixed(2) + '</span> <span class="units2">' + units + '</span> <span>' + overWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverage.toFixed(2) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                    } else {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverage.toFixed(2) + '</span> <span class="units2">' + units + '</span> <span>' + leftWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverage.toFixed(2) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+                    }
+                }
+            }
+            if (units == 'MB' || units == 'Mo') {
+                if (tierLast >= 1024 && tierOverage < 1024) {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + tiertierLastToGb.toFixed(2) + ' ' + unitsAlt + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverage.toFixed(0) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                } else if (tierLast >= 1024 && overage >= 1024) {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + tiertierLastToGb.toFixed(2) + ' ' + unitsAlt + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                } else if (tierLast < 1024 && overage >= 1024) {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + tierLast.toFixed(0) + ' ' + units + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                } else {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + tierLast.toFixed(0) + ' ' + units + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverage.toFixed(0) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                }
+            } else if (units == 'GB' || units == 'Go') {
+                if (tierLast < 1 && overage >= 1) {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + tierLastToMb.toFixed(0) + ' ' + unitsAlt2 + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                } else if (tierLast < 1 && overage < 1) {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + tierLastToMb.toFixed(0) + ' ' + unitsAlt2 + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverageToMb + '</span> <span class="unitsInBox">' + unitsAlt2 + '</span> <span>' + overWord + '</span>');
+                } else if (tierLast >= 1 && overage < 1) {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + tierLast.toFixed(2) + ' ' + units + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverageToMb + '</span> <span class="unitsInBox">' + unitsAlt2 + '</span> <span>' + overWord + '</span>');
+                } else {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + tierLast.toFixed(2) + ' ' + units + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' +tierOverage + '</span> <span class="unitsInBox">' + units + '</span> <span>' +overWord + '</span>');
+                }
+            }
+
+            graph.find('.flexTiers').html('');
+            graph.find('.flexTiers2').html('');
+
+            var graphLW = graph.find('.total_product_usage').width(),
+                grapgRW = graph.find('.extra_product_usage').width(),
+                graphTotalW = graphLW + grapgRW;
+            //alert('graphLW is: ' + graphLW + ' and graphLPercent is: ' + graphLPercent +  ' grapgRW is: ' + grapgRW);
+            for (var i = 0; i < tiers.length - 1; i++) {
+                var tierDiv,
+                    tierDivW,
+                    marginLInPixels,
+                    marginInPercent,
+                    marginLInPixels2,
+                    marginInPercent2;
+                if (i % 2 != 0) {
+                    if (tiers[i] >= 1024) {
+                        var MbToGb = parseFloat((tiers[i] / 1024).toFixed(2));
+                        if (Math.floor(MbToGb) == MbToGb) {
+                            MbToGb = Math.floor(MbToGb);
+                        }
+                        graph.find('.flexTiers').append('<div class="flexTierMarker floatL"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                    }
+                    else {
+                        graph.find('.flexTiers').append('<div class="flexTierMarker floatL"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + tiers[i] + ' ' + units + '</div></div>');
+                    }
+
+                    tierDiv = graph.find('.flexTiers').find('.flexTierMarker')[i],
+                    tierDivW = $(tierDiv).width(),
+                    marginLInPixels = (((tiers[i] / tiers[tiers.length - 1]) * graphLW) - (tierDivW / 2)) - 10;
+                    marginInPercent = (marginLInPixels / graphLW) * 100;
+                    $(tierDiv).css('left', marginInPercent + '%');
+
+                    marginLInPixels2 = (((tiers[i] / tiers[tiers.length - 1]) * graphTotalW) - (tierDivW / 2)) - 10;
+                    marginInPercent2 = (marginLInPixels2 / graphTotalW) * 100;
+
+                    //alert('graphLW = ' + graphLW + ' odd, tierDivW is: ' +tierDivW + ' and marginInPercent2 = ' +marginInPercent2 + ' and marginInPercent = ' + marginInPercent);
+                    if (tiers[i] >= 1024) {
+                        var MbToGb = parseFloat((tiers[i] / 1024).toFixed(2));
+                        if (Math.floor(MbToGb) == MbToGb) {
+                            MbToGb = Math.floor(MbToGb);
+                        }
+                        graph.find('.flexTiers2').append('<div class="flexTierMarker floatL" style = "left:' + marginInPercent2 + '%"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                    }
+                    else {
+                        graph.find('.flexTiers2').append('<div class="flexTierMarker floatL" style = "left:' + marginInPercent2 + '%"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + tiers[i] + ' ' + units + '</div></div>');
+                    }
+
+
+
+                } else {
+                    if (tiers[i] >= 1024) {
+                        var MbToGb = parseFloat((tiers[i] / 1024).toFixed(2));
+                        if (Math.floor(MbToGb) == MbToGb) {
+                            MbToGb = Math.floor(MbToGb);
+                        }
+                        graph.find('.flexTiers').append('<div class="flexTierMarker floatL"><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                    }
+                    else {
+                        graph.find('.flexTiers').append('<div class="flexTierMarker floatL"><div class="tierText txtSize10">' + tiers[i] + ' ' + units + '</div></div>');
+                    }
+
+
+                    tierDiv = graph.find('.flexTiers').find('.flexTierMarker')[i],
+                    tierDivW = $(tierDiv).width(),
+                    marginLInPixels = ((tiers[i] / tiers[tiers.length - 1]) * graphLW) - (tierDivW / 2) - 10;
+                    marginInPercent = (marginLInPixels / graphLW) * 100;
+                    $(tierDiv).css('left', marginInPercent + '%');
+                    marginLInPixels2 = ((tiers[i] / tiers[tiers.length - 1]) * graphTotalW) - (tierDivW / 2) - 10;
+                    marginInPercent2 = (marginLInPixels2 / graphTotalW) * 100;
+
+                    //alert('graphLW is: ' + graphLW + ' even, tierDivW is: ' +tierDivW + ' and marginInPercent2 = ' +marginInPercent2 + ' and marginInPercent = ' +marginInPercent + ' marginLInPixels is: ' +marginLInPixels);
+                    if (tiers[i] >= 1024) {
+                        var MbToGb = parseFloat((tiers[i] / 1024).toFixed(2));
+                        if (Math.floor(MbToGb) == MbToGb) {
+                            MbToGb = Math.floor(MbToGb);
+                        }
+                        graph.find('.flexTiers2').append('<div class="flexTierMarker floatL" style = "left:' + marginInPercent2 + '%"><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                    }
+                    else {
+                        graph.find('.flexTiers2').append('<div class="flexTierMarker floatL" style = "left:' + marginInPercent2 + '%"><div class="tierText txtSize10">' + tiers[i] + ' ' + units + '</div></div>');
+                    }
+                }
+            }
+            if (tiers.length > 1) {
+                if (tiers[tiers.length - 1] >= 1024) {
+                    var MbToGb = parseFloat((tiers[tiers.length - 1] / 1024).toFixed(2));
+                    if (Math.floor(MbToGb) == MbToGb) {
+                        MbToGb = Math.floor(MbToGb);
+                    }
+                    graph.find('.flexTiers').append('<div class="flexTierMarker last" style="right: 0;"><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                    graph.find('.flexTiers2').append('<div class="flexTierMarker last" style="right: 0;"><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                }
+                else {
+                    graph.find('.flexTiers').append('<div class="flexTierMarker last" style="right: 0;"><div class="tierText txtSize10">' + tiers[tiers.length - 1] + ' ' + units + '</div></div>');
+                    graph.find('.flexTiers2').append('<div class="flexTierMarker last" style="right: 0;"><div class="tierText txtSize10">' + tiers[tiers.length - 1] + ' ' + units + '</div></div>');
+                }
+            }
+            else {
+                var tierDiv,
+                    tierDivW,
+                    marginLInPixels,
+                    marginInPercent,
+                    marginLInPixels2,
+                    marginInPercent2;
+                if (tiers[0] >= 1024) {
+                    var MbToGb = parseFloat((tiers[0] / 1024).toFixed(2));
+                    if (Math.floor(MbToGb) == MbToGb) {
+                        MbToGb = Math.floor(MbToGb);
+                    }
+                    graph.find('.flexTiers').append('<div class="flexTierMarker floatL"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                }
+                else {
+                    graph.find('.flexTiers').append('<div class="flexTierMarker floatL"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + tiers[i] + ' ' + units + '</div></div>');
+                }
+
+                tierDiv = graph.find('.flexTiers').find('.flexTierMarker')[0],
+                tierDivW = $(tierDiv).width(),
+                marginLInPixels = (((tiers[0] / tiers[tiers.length - 1]) * graphLW) - (tierDivW / 2)) - 11;
+                marginInPercent = (marginLInPixels / graphLW) * 100;
+                $(tierDiv).css('left', marginInPercent + '%');
+
+                marginLInPixels2 = (((tiers[i] / tiers[tiers.length - 1]) * graphTotalW) - (tierDivW / 2)) - 11;
+                marginInPercent2 = (marginLInPixels2 / graphTotalW) * 100;
+
+                //alert('graphLW = ' + graphLW + ' odd, tierDivW is: ' +tierDivW + ' and marginInPercent2 = ' +marginInPercent2 + ' and marginInPercent = ' + marginInPercent);
+                if (tiers[0] >= 1024) {
+                    var MbToGb = parseFloat((tiers[0] / 1024).toFixed(2));
+                    if (Math.floor(MbToGb) == MbToGb) {
+                        MbToGb = Math.floor(MbToGb);
+                    }
+                    graph.find('.flexTiers2').append('<div class="flexTierMarker floatL" style = "left:' + marginInPercent2 + '%"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                }
+                else {
+                    graph.find('.flexTiers2').append('<div class="flexTierMarker floatL" style = "left:' + marginInPercent2 + '%"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + tiers[i] + ' ' + units + '</div></div>');
+                }
+
+
+            }
+            graph.find('.flexTiers').append('<div class="spacer0 noTxt clear"></div>');
+            graph.find('.flexTiers2').append('<div class="spacer0 noTxt clear"></div>');
+            if (dataAllowanceFlexGraph2Data.dataAllowance < dataAllowanceFlexGraph2Data.dataUsed) {
+                graph.find('.flexTiers2').addClass('hide');
+                graph.find('.flexTiers').removeClass('hide');
+            } else {
+                graph.find('.flexTiers').addClass('hide');
+                graph.find('.flexTiers2').removeClass('hide');
+            }
+        }
+
+        if (graphType == '.dataAllowanceGraph' || graphType == '.sharePlanGraph') {
+            if (units == 'MB' || units == 'Mo') {
+                if (overage >= 1024) {
+                    graph.find('.extraAmountText').html('<span class="extraAmount">' + overageToGb + '</span> <span class="units2">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                    graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                } else {
+                    graph.find('.extraAmountText').html('<span class="extraAmount">' + overage + '</span> <span class="units2">' + units + '</span> <span>' + overWord + '</span>');
+                    graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                }
+            } else if (units == 'GB' || units == 'Go') {
+                if (overage < 1) {
+                    graph.find('.extraAmountText').html('<span class="extraAmount">' + overageToMb.toFixed(0) + '</span> <span class="units2">' + unitsAlt2 + '</span> <span>' + overWord + '</span>');
+                    graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overageToMb.toFixed(0) + '</span> <span class="unitsInBox">' + unitsAlt2 + '</span> <span>' + overWord + '</span>');
+                } else {
+                    graph.find('.extraAmountText').html('<span class="extraAmount">' + overage + '</span> <span class="units2">' + units + '</span> <span>' + overWord + '</span>');
+                    graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                }
+            }
+
+           if (units == 'MB' || units == 'Mo') {
+                if (dataAllowanceNum >= 1024) {
+                    var dataAllowanceNumToGb = parseFloat((dataAllowanceNum / 1024).toFixed(2));
+                    if (Math.floor(dataAllowanceNumToGb) == dataAllowanceNumToGb) {
+                        dataAllowanceNumToGb = Math.floor(dataAllowanceNumToGb);
+                    }
+                    graph.find('.tier_markerR').html(dataAllowanceNumToGb + ' ' + unitsAlt + ' ' + usedWord);
+                    graph.find('.tier_markerL').html(dataAllowanceNumToGb + ' ' + unitsAlt + ' ' + usedWord);
+                    //alert('dataAllowanceNum >= 1024 and graphType is: ' + graphType);
+                } else {
+                    graph.find('.tier_markerR').html(dataAllowanceNum + ' ' + units + ' ' + usedWord);
+                    graph.find('.tier_markerL').html(dataAllowanceNum + ' ' + units + ' ' + usedWord);
+               //alert('dataAllowanceNum < 1024 && units = MB and graphType is: ' +graphType);
+               }
+            } else if (units == 'GB' || units == 'Go') {
+                if (dataAllowanceNum < 1) {
+                    var dataAllowanceNumToMb = parseFloat((dataAllowanceNum * 1024).toFixed(0));
+                    graph.find('.tier_markerR').html(dataAllowanceNumToMb + ' ' + unitsAlt2 + ' ' + usedWord);
+                    graph.find('.tier_markerL').html(dataAllowanceNumToMb + ' ' + unitsAlt2 + ' ' + usedWord);
+                    //alert('dataAllowanceNum < 1');
+                    } else {
+                    graph.find('.tier_markerR').html(dataAllowanceNum.toFixed(2) + ' ' + units + ' ' + usedWord);
+                    graph.find('.tier_markerL').html(dataAllowanceNum.toFixed(2) + ' ' + units + ' ' + usedWord);
+            //alert('dataAllowanceNum >= 1');
+            }
+        }
+
+            graph.find('.extra_product_usage').removeClass('bgGray').addClass('bgRed');
+
+
+            placeTier_marker(graph);
+
+        }
+        else if (graphType == '.textMessagingGraph') {
+            graph.find('.extraAmountText').html('<span class="extraAmount">' + overage + '</span> <span class="units2">' + units + '</span> <span>' + overWord + '</span>');
+            graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+            graph.find('.tier_markerR').html(dataAllowanceNum + ' ' + units + ' ' + usedWord);
+            graph.find('.tier_markerL').html(dataAllowanceNum + ' ' + units + ' ' + usedWord);
+            graph.find('.extraAmount').html(overage);
+            graph.find('.extra_product_usage').removeClass('bgGray').addClass('bgRed');
+            placeTier_marker(graph);
+        }
+
+            // localCallingGraph and localCallingCR04Graph2 are identical except for the names
+        else if (graphType == '.localCallingGraph' || graphType == '.localCallingCR04Graph2') {
+            graph.find('.extraAmountText').html('<span class="extraAmount">' + overage + '</span> <span class="units2">' + units + '</span> <span>' + overWord + '</span>');
+            graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+            graph.find('.tier_markerR').html(dataAllowanceNum + ' ' + units + ' ' + usedWord);
+            graph.find('.tier_markerL').html(dataAllowanceNum + ' ' + units + ' ' + usedWord);
+            graph.find('.extraAmount').html(overage);
+            graph.find('.extra_product_usage').removeClass('bgGray').addClass('bgRed');
+            placeTier_marker(graph);
+        }
+            // longDistanceGraph and longDistancePPUGraph are identical except for the names
+        else if (graphType == '.longDistanceGraph' || graphType == '.longDistancePPUGraph') {
+            if (dataAllowanceNum == 0) {
+                //alert('dataAllowanceNum < dataUsedNum && dataAllowanceNum == 0');
+                graph.find('.extraAmountBox').addClass('hide');
+                graph.find('.extra_product_usage').removeClass('bgGray').removeClass('bgRed').addClass('payPerUse');
+                graph.find('.tier_markerL').addClass('hide');
+                graph.find('.tier_markerR').addClass('hide');
+                graph.find('.extraAmountText').addClass('hide');
+                graph.find('.addMinutes').removeClass('hide');
+                graph.find('.payPerUseDiv').removeClass('hide');
+                graph.find('.payPerUseNum').html(dataUsedNum);
+            } else {
+                //alert('dataAllowanceNum < dataUsedNum && dataAllowanceNum != 0');
+                graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                graph.find('.extra_product_usage').removeClass('payPerUse').removeClass('bgGray').addClass('bgRed');
+                graph.find('.extraAmountBox').removeClass('hide');
+                graph.find('.addMinutes').addClass('hide');
+                graph.find('.tier_markerR').html(dataAllowanceNum + ' ' + units + ' ' + usedWord);
+                graph.find('.tier_markerL').html(dataAllowanceNum + ' ' + units + ' ' + usedWord);
+                graph.find('.tier_markerL').addClass('hide');
+                graph.find('.tier_markerR').addClass('hide');
+                graph.find('.extraAmountText').html('<span class="extraAmount">' + overage + '</span> <span class="units">' + units + '</span> <span>' + overWord + '</span>');
+                graph.find('.extraAmountText').addClass('hide');
+                graph.find('.payPerUseDiv').addClass('hide');
+                graph.find('.payPerUseNum').html(dataUsedNum);
+                placeTier_marker(graph);
+            }
+        }
+    } else if (dataAllowanceNum >= dataUsedNum) {
+
+        graphLPercent = parseFloat((dataUsedNum / dataAllowanceNum)) * 100;
+        graphRPercent = parseFloat((overage / dataAllowanceNum)) * 100;
+        if ((graphLPercent + graphRPercent) > 100) {
+            graphRPercent = 100 - graphLPercent;
+        }
+        graph.find('.total_product_usage').width(graphLPercent + '%');
+        graph.find('.extra_product_usage').width(graphRPercent + '%');
+
+        setDataAllowanceNum();
+
+        if (graphType == '.dataAllowanceFlexGraph2') {
+            if (tierLast < dataUsedNum) {
+                graph.find('.extraAmountText').addClass('txtRed');
+                graph.find('.extraAmountBoxText').addClass('txtRed');
+                var totalProductUsageWidth = graph.find('.total_product_usage').width(),
+                    overageWidth = (tierOverage / dataUsedNum) * totalProductUsageWidth;
+                graph.find('.overageRed').width(overageWidth - 1);
+            }
+            else if (tierLast >= dataUsedNum) {
+                graph.find('.extraAmountText').removeClass('txtRed');
+                graph.find('.extraAmountBoxText').removeClass('txtRed');
+                graph.find('.extraAmountText').removeClass('txtBold');
+                graph.find('.extraAmountBoxText').removeClass('txtBold');
+            }
+            if ((overageNoticeTrigger > 0 || isBillingOverage === 'True') && parseFloat((dataUsedNum / tierLast).toFixed(2)) * 100 >= overageNoticeTrigger) {
+                graph.find('.extraAmountBox').removeClass('hide');
+                graph.find('.extraAmountText').addClass('hide');
+            } else {
+                graph.find('.extraAmountBox').addClass('hide');
+                graph.find('.extraAmountText').removeClass('hide');
+            }
+            if (units == 'MB' || units == 'Mo') {
+                if (tierLast < dataUsedNum) {
+                    if (tierOverage >= 1024) {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToGb + '</span> <span class="units2">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                    } else {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverage.toFixed(0) + '</span> <span class="units2">' + units + '</span> <span>' + overWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverage.toFixed(0) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                    }
+                } else {
+                    if (tierOverage >= 1024) {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToGb + '</span> <span class="units2">' + unitsAlt + '</span> <span>' + leftWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + leftWord + '</span>');
+                    } else {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverage.toFixed(0) + '</span> <span class="units2">' + units + '</span> <span>' + leftWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverage.toFixed(0) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+                    }
+                }
+
+            } else if (units == 'GB' || units == 'Go') {
+                if (tierLast < dataUsedNum) {
+                    if (tierOverage < 1) {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToMb.toFixed(0) + '</span> <span class="units2">' + unitsAlt2 + '</span> <span>' + overWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverageToMb.toFixed(0) + '</span> <span class="unitsInBox">' + unitsAlt2 + '</span> <span>' + overWord + '</span>');
+                    } else {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverage + '</span> <span class="units2">' + units + '</span> <span>' + overWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                    }
+                } else {
+                    if (tierOverage < 1) {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToMb.toFixed(0) + '</span> <span class="units2">' + unitsAlt2 + '</span> <span>' + leftWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverageToMb.toFixed(0) + '</span> <span class="unitsInBox">' + unitsAlt2 + '</span> <span>' + leftWord + '</span>');
+                    } else {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverage.toFixed(2) + '</span> <span class="units2">' + units + '</span> <span>' + leftWord + '</span>');
+                        graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + tierOverage.toFixed(2) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+                    }
+                }
+
+            }
+
+            if (units == 'MB' || units == 'Mo') {
+                if (tierLast < dataUsedNum) {
+                    if (tierOverage >= 1024) {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToGb + '</span> <span class="units2">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                    }
+                    if (dataUsedNum >= 1024 && tierOverage < 1024) {
+                        graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedToGb + ' ' + unitsAlt + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                    } else if (dataUsedNum >= 1024 && tierOverage >= 1024) {
+                        graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedToGb + ' ' + unitsAlt + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                    } else if (dataUsedNum < 1024 && tierOverage >= 1024) {
+                        graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedNum.toFixed(0) + ' ' + units + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + overWord + '</span>');
+                    } else {
+                        graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedNum.toFixed(0) + ' ' + units + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverage.toFixed(0) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + overWord + '</span>');
+                    }
+                } else {
+                    if (tierOverage >= 1024) {
+                        graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToGb + '</span> <span class="units2">' + unitsAlt + '</span> <span>' + leftWord + '</span>');
+                    }
+                    if (dataUsedNum >= 1024 && tierOverage < 1024) {
+                        graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedToGb + ' ' + unitsAlt + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+                    } else if (dataUsedNum >= 1024 && tierOverage >= 1024) {
+                        graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedToGb + ' ' + unitsAlt + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + leftWord + '</span>');
+                    } else if (dataUsedNum < 1024 && tierOverage >= 1024) {
+                        graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedNum.toFixed(0) + ' ' + units + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + leftWord + '</span>');
+                    } else {
+                        graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedNum.toFixed(0) + ' ' + units + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverage.toFixed(0) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+                    }
+                }
+
+            } else if (units == 'GB' || units == 'Go') {
+                if (tierOverage < 1) {
+                    graph.find('.extraAmountText').html('<span class="extraAmount">' + tierOverageToMb + '</span> <span class="units2">' + unitsAlt2 + '</span> <span>' + leftWord + '</span>');
+                }
+                if (dataUsedNum < 1 && tierOverage >= 1) {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedToMb + ' ' + unitsAlt2 + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+                } else if (dataUsedNum < 1 && tierOverage < 1) {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedToMb + ' ' + unitsAlt2 + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverageToMb + '</span> <span class="unitsInBox">' + unitsAlt2 + '</span> <span>' + leftWord + '</span>');
+                } else if (dataUsedNum >= 1 && tierOverage < 1) {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedNum.toFixed(2) + ' ' + units + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverageToMb + '</span> <span class="unitsInBox">' + unitsAlt2 + '</span> <span>' + leftWord + '</span>');
+                } else {
+                    graph.find('.extraAmountBoxText').html('<span class="txtBlackLight">' + dataUsedNum.toFixed(2) + ' ' + units + ' ' + usedWord + ' + </span> <span class="extraAmountInBox">' + tierOverage.toFixed(2) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+                }
+            }
+
+            graph.find('.flexTiers').html('');
+            graph.find('.flexTiers2').html('');
+
+            var graphLW = graph.find('.total_product_usage').width(),
+                grapgRW = graph.find('.extra_product_usage').width(),
+                graphTotalW = graphLW + grapgRW;
+            //alert('graphLW is: ' + graphLW + ' and graphLPercent is: ' + graphLPercent +  ' grapgRW is: ' + grapgRW);
+            for (var i = 0; i < tiers.length - 1; i++) {
+                var tierDiv,
+                    tierDivW,
+                    marginLInPixels,
+                    marginInPercent,
+                    marginLInPixels2,
+                    marginInPercent2;
+                if (i % 2 != 0) {
+                    if (tiers[i] >= 1024) {
+                        var MbToGb = parseFloat((tiers[i] / 1024).toFixed(2));
+                        if (Math.floor(MbToGb) == MbToGb) {
+                            MbToGb = Math.floor(MbToGb);
+                        }
+                        graph.find('.flexTiers').append('<div class="flexTierMarker floatL"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                    }
+                    else {
+                        graph.find('.flexTiers').append('<div class="flexTierMarker floatL"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + tiers[i] + ' ' + units + '</div></div>');
+                    }
+                    tierDiv = graph.find('.flexTiers').find('.flexTierMarker')[i],
+                    tierDivW = $(tierDiv).width(),
+                    marginLInPixels = (((tiers[i] / tiers[tiers.length - 1]) * graphLW) - (tierDivW / 2)) - 10;
+                    marginInPercent = (marginLInPixels / graphLW) * 100;
+                    $(tierDiv).css('left', marginInPercent + '%');
+
+                    marginLInPixels2 = (((tiers[i] / tiers[tiers.length - 1]) * graphTotalW) - (tierDivW / 2)) - 10;
+                    marginInPercent2 = (marginLInPixels2 / graphTotalW) * 100;
+
+                    if (tiers[i] >= 1024) {
+                        var MbToGb = parseFloat((tiers[i] / 1024).toFixed(2));
+                        if (Math.floor(MbToGb) == MbToGb) {
+                            MbToGb = Math.floor(MbToGb);
+                        }
+                        graph.find('.flexTiers2').append('<div class="flexTierMarker floatL" style = "left:' + marginInPercent2 + '%"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                    }
+                    else {
+                        graph.find('.flexTiers2').append('<div class="flexTierMarker floatL" style = "left:' + marginInPercent2 + '%"><div class="spacer15 clear">&nbsp;</div><div class="tierText txtSize10">' + tiers[i] + ' ' + units + '</div></div>');
+                    }
+                    //alert('graphLW = ' + graphLW + ' odd, tierDivW is: ' +tierDivW + ' and marginInPercent2 = ' +marginInPercent2 + ' and marginInPercent = ' + marginInPercent);
+                } else {
+                    if (tiers[i] >= 1024) {
+                        var MbToGb = parseFloat((tiers[i] / 1024).toFixed(2));
+                        if (Math.floor(MbToGb) == MbToGb) {
+                            MbToGb = Math.floor(MbToGb);
+                        }
+                        graph.find('.flexTiers').append('<div class="flexTierMarker floatL"><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                    }
+                    else {
+                        graph.find('.flexTiers').append('<div class="flexTierMarker floatL"><div class="tierText txtSize10">' + tiers[i] + ' ' + units + '</div></div>');
+                    }
+
+                    tierDiv = graph.find('.flexTiers').find('.flexTierMarker')[i],
+                    tierDivW = $(tierDiv).width(),
+                    marginLInPixels = ((tiers[i] / tiers[tiers.length - 1]) * graphLW) - (tierDivW / 2) - 10;
+                    marginInPercent = (marginLInPixels / graphLW) * 100;
+                    $(tierDiv).css('left', marginInPercent + '%');
+                    marginLInPixels2 = ((tiers[i] / tiers[tiers.length - 1]) * graphTotalW) - (tierDivW / 2) - 10;
+                    marginInPercent2 = (marginLInPixels2 / graphTotalW) * 100;
+
+                    //alert('graphLW is: ' + graphLW + ' even, tierDivW is: ' +tierDivW + ' and marginInPercent2 = ' +marginInPercent2 + ' and marginInPercent = ' +marginInPercent + ' marginLInPixels is: ' +marginLInPixels);
+                    if (tiers[i] >= 1024) {
+                        var MbToGb = parseFloat((tiers[i] / 1024).toFixed(2));
+                        if (Math.floor(MbToGb) == MbToGb) {
+                            MbToGb = Math.floor(MbToGb);
+                        }
+                        graph.find('.flexTiers2').append('<div class="flexTierMarker floatL" style = "left:' + marginInPercent2 + '%"><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                    }
+                    else {
+                        graph.find('.flexTiers2').append('<div class="flexTierMarker floatL" style = "left:' + marginInPercent2 + '%"><div class="tierText txtSize10">' + tiers[i] + ' ' + units + '</div></div>');
+                    }
+
+                }
+            }
+            if (tiers[tiers.length - 1] >= 1024) {
+                var MbToGb = parseFloat((tiers[i] / 1024).toFixed(2));
+                if (Math.floor(MbToGb) == MbToGb) {
+                    MbToGb = Math.floor(MbToGb);
+                }
+                graph.find('.flexTiers').append('<div class="flexTierMarker last" style="right: 0;"><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+                graph.find('.flexTiers2').append('<div class="flexTierMarker last" style="right: 0;"><div class="tierText txtSize10">' + MbToGb + ' ' + unitsAlt + '</div></div>');
+            }
+            else {
+                graph.find('.flexTiers').append('<div class="flexTierMarker last" style="right: 0;"><div class="tierText txtSize10">' + tiers[tiers.length - 1] + ' ' + units + '</div></div>');
+                graph.find('.flexTiers2').append('<div class="flexTierMarker last" style="right: 0;"><div class="tierText txtSize10">' + tiers[tiers.length - 1] + ' ' + units + '</div></div>');
+            }
+            graph.find('.flexTiers').append('<div class="spacer0 noTxt clear"></div>');
+            graph.find('.flexTiers2').append('<div class="spacer0 noTxt clear"></div>');
+            if (dataAllowanceFlexGraph2Data.dataAllowance < dataAllowanceFlexGraph2Data.dataUsed) {
+                graph.find('.flexTiers2').addClass('hide');
+                graph.find('.flexTiers').removeClass('hide');
+            } else {
+                graph.find('.flexTiers').addClass('hide');
+                graph.find('.flexTiers2').removeClass('hide');
+            }
+
+
+        } else {
+            graph.find('.extraAmountText').removeClass('txtRed');
+            graph.find('.extraAmountBoxText').removeClass('txtRed');
+            graph.find('.extraAmountText').removeClass('txtBold');
+            graph.find('.extraAmountBoxText').removeClass('txtBold');
+        }
+
+
+        if (graphType == '.dataAllowanceGraph' || graphType == '.sharePlanGraph') {
+            if ((overageNoticeTrigger > 0 || isBillingOverage === 'True') && parseFloat((dataUsedNum / dataAllowanceNum).toFixed(2)) * 100 >= overageNoticeTrigger) {
+                graph.find('.extraAmountBox').removeClass('hide');
+                graph.find('.extraAmountText').addClass('hide');
+            } else {
+                graph.find('.extraAmountBox').addClass('hide');
+                graph.find('.extraAmountText').removeClass('hide');
+            }
+
+            if (units == 'MB' || units == 'Mo') {
+                if (overage >= 1024) {
+                    graph.find('.extraAmountText').html('<span class="extraAmount">' + overageToGb + '</span> <span class="units2">' + unitsAlt + '</span> <span>' + leftWord + '</span>');
+                    graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overageToGb + '</span> <span class="unitsInBox">' + unitsAlt + '</span> <span>' + leftWord + '</span>');
+                } else {
+                    graph.find('.extraAmountText').html('<span class="extraAmount">' + overage.toFixed(0) + '</span> <span class="units2">' + units + '</span> <span>' + leftWord + '</span>');
+                    graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overage.toFixed(0) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+                }
+            } else if (units == 'GB' || units == 'Go') {
+                if (overage < 1) {
+                    graph.find('.extraAmountText').html('<span class="extraAmount">' + overageToMb.toFixed(0) + '</span> <span class="units2">' + unitsAlt2 + '</span> <span>' + leftWord + '</span>');
+                    graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overageToMb.toFixed(0) + '</span> <span class="unitsInBox">' + unitsAlt2 + '</span> <span>' + leftWord + '</span>');
+                } else {
+                    graph.find('.extraAmountText').html('<span class="extraAmount">' + overage.toFixed(2) + '</span> <span class="units2">' + units + '</span> <span>' + leftWord + '</span>');
+                    graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overage.toFixed(2) + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+                }
+            }
+
+             if (units == 'MB' || units == 'Mo') {
+                if (dataUsedNum >= 1024) {
+                    var dataUsedNumToGb = parseFloat((dataUsedNum / 1024).toFixed(2));
+                    if (Math.floor(dataAllowanceNumToGb) == dataUsedNumToGb) {
+                        dataUsedNumToGb = Math.floor(dataUsedNumToGb);
+                        }
+                    graph.find('.tier_markerR').html(dataUsedNumToGb + ' ' + unitsAlt + ' ' + usedWord);
+                    graph.find('.tier_markerL').html(dataUsedNumToGb + ' ' + unitsAlt + ' ' + usedWord);
+                        //alert('dataAllowanceNum >= 1024 and graphType is: ' + graphType);
+                        } else {
+                    graph.find('.tier_markerR').html(dataUsedNum.toFixed(0) + ' ' + units + ' ' + usedWord);
+                    graph.find('.tier_markerL').html(dataUsedNum.toFixed(0) + ' ' + units + ' ' + usedWord);
+                        //alert('dataAllowanceNum < 1024 && units = MB and graphType is: ' +graphType);
+                }
+                } else if (units == 'GB' || units == 'Go') {
+                if (dataUsedNum < 1) {
+                    var dataUsedNumToMb = parseFloat((dataUsedNum * 1024).toFixed(0));
+                    graph.find('.tier_markerR').html(dataUsedNumToMb + ' ' + unitsAlt2 + ' ' + usedWord);
+                    graph.find('.tier_markerL').html(dataUsedNumToMb + ' ' + unitsAlt2 + ' ' + usedWord);
+                        //alert('dataAllowanceNum < 1');
+                    } else {
+                    graph.find('.tier_markerR').html(dataUsedNum.toFixed(2) + ' ' + units + ' ' + usedWord);
+                    graph.find('.tier_markerL').html(dataUsedNum.toFixed(2) + ' ' + units + ' ' + usedWord);
+                    //alert('dataAllowanceNum >= 1');
+                    }
+                    }
+
+            placeTier_marker(graph);
+
+        } else if (graphType == '.textMessagingGraph') {
+            graph.find('.extraAmountText').html('<span class="extraAmount">' + overage + '</span> <span class="units2">' + units + '</span> <span>' + leftWord + '</span>');
+            graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+            if (isBillingOverage === 'True') {
+                graph.find('.extraAmountText').addClass('hide');
+                graph.find('.extraAmountBox').removeClass('hide');
+            } else {
+                graph.find('.extraAmountText').removeClass('hide');
+                graph.find('.extraAmountBox').addClass('hide');
+            }
+
+            graph.find('.tier_markerR').html(dataUsedNum + ' ' + units + ' ' + usedWord);
+            graph.find('.tier_markerL').html(dataUsedNum + ' ' + units + ' ' + usedWord);
+           graph.find('.extraAmount').html(overage);
+            placeTier_marker(graph);
+        } else if (graphType == '.localCallingGraph' || graphType == '.longDistanceGraph' || graphType == '.longDistancePPUGraph' || graphType == '.localCallingCR04Graph2') {
+            if (graphType == '.longDistanceGraph' || graphType == '.longDistancePPUGraph') {
+                graph.find('.addMinutes').addClass('hide');
+            }
+            graph.find('.extraAmountText').html('<span class="extraAmount">' + overage + '</span> <span class="units2">' + units + '</span> <span>' + leftWord + '</span>');
+            graph.find('.extraAmountBoxText').html('<span class="extraAmountInBox">' + overage + '</span> <span class="unitsInBox">' + units + '</span> <span>' + leftWord + '</span>');
+
+            if (isBillingOverage === 'True') {
+                graph.find('.extraAmountText').addClass('hide');
+                graph.find('.extraAmountBox').removeClass('hide');
+            } else {
+                graph.find('.extraAmountText').removeClass('hide');
+                graph.find('.extraAmountBox').addClass('hide');
+            }
+
+            graph.find('.tier_markerR').html(dataUsedNum + ' ' + units + ' ' + usedWord);
+            graph.find('.tier_markerL').html(dataUsedNum + ' ' + units + ' ' + usedWord);
+            graph.find('.extraAmount').html(overage);
+            placeTier_marker(graph);
+        }
+        graph.find('.extra_product_usage').removeClass('bgRed').addClass('bgGray');
+
+    }
+
+    if (graphType == '.localCallingCR04Graph2' || graphType == '.sharePlanGraph') {
+        graph.find('.groupText').removeClass('hide');
+    } else {
+        graph.find('.groupText').addClass('hide');
+    }
+    if ($('html').attr('lang') == 'fr') {
+        isFrench = true;
+    }
+    if (isFrench) {
+        $(".extraAmount").text(function () {
+            return $(this).text().replace(".", ",");
+        });
+        $(".extraAmountInBox").text(function () {
+            return $(this).text().replace(".", ",");
+        });
+        $(".extra_product_usage").find('.tier_markerL').text(function () {
+            return $(this).text().replace(".", ",");
+        });
+        $(".total_product_usage").find('.tier_markerR').text(function () {
+            return $(this).text().replace(".", ",");
+        }); 
+    }
+}
+
+/*--- code taken and updated from tour_ids.js starts---*/
+function ids_tour_overlay_black() {
+    $('body').append('<div class="ids_tourOverlayAll"> </div><div class="ids_tour_overlay_black ids_tourOverlayTop"> </div><div class="ids_tour_overlay_black ids_tourOverlayBottom"> </div><div class="ids_tour_overlay_black ids_tourOverlayLeft"> </div><div class="ids_tour_overlay_black ids_tourOverlayRight"> </div>')
+}
+
+function remove_Ids_tour_overlay_black() {
+    $('.ids_tour_overlay_black').remove();
+}
+function ids_Featuretour_start() {
+
+
+    ids_FeaturetourStep_fn();
+
+    ids_tour_select_i = 1;
+    if (ie8 || ie7) {
+        $('.ids_tour_step_1_toolTip').show()
+    }
+    else {
+        $('.ids_tour_step_1_toolTip').fadeIn()
+    }
+    if ($('.ids_tour_step_1_toolTip').hasClass('ids_tour_toolTip_top')) { tourScrollTopFix += $('.ids_tour_step_1_toolTip .ids_tourStepInfo').height() - 40 }
+    $('html, body').animate({
+        scrollTop: $('.ids_tour_step_1_toolTip').offset().top - tourScrollTopFix
+    }, 1000);
+    tourScrollTopFix = 50;
+    ids_tour_overlay_black();
+    ids_tour_selectDefault();
+    ids_tour_overlayPosition();
+    //$($('.ids_tour_next')[0]).focus()
+}
+
+function ids_FeaturetourStep_fn() {
+
+    $('.ids_tourStep').removeClass('hide');
+    $('.ids_tourStep').each(function (i, obj) {
+        var step = $(obj),
+            target = 'ids_tour_step_' + [i + 1],
+            width = Math.floor($('.' + target).width()) + Math.floor(parseInt($('.' + target).css('padding-left'))) + Math.floor(parseInt($('.' + target).css('padding-right'))) + 14 + 14,
+            height = Math.floor($('.' + target).height()) + Math.floor(parseInt($('.' + target).css('padding-top'))) + Math.floor(parseInt($('.' + target).css('padding-bottom'))) + 14 + 135;
+
+        targetTop = 0,
+        targetParent = $($('.' + target).parents()[0]),
+        targetParentTop = Math.floor(targetParent.offset().top);
+
+        if ($('.' + target).length) {
+            var cbox,
+                cboxTop;
+            if ($('.' + target).hasClass('cBox, box2_ML')) {
+                cbox = $('.' + target);
+            }
+            else {
+                cbox = $('.' + target).parents('.cBox, .box2_ML');
+                targetTop = Math.floor($('.' + target).offset().top);
+            }
+
+            cboxTop = Math.floor(cbox.offset().top);
+            if (targetTop > 0 && targetTop > cboxTop) {
+                targetTop -= cboxTop;
+            }
+
+            var top = cboxTop + targetTop - 7 - 4 - 530;
+            var left = $('.wrapper, .content').offset().left + (Math.floor($('.' + target).offset().left) - $('.wrapper, .content').offset().left) - 7 - 6;
+            if (height < 60) {
+                top -= 6;
+                step.children('.ids_tourStepMRM').css({ 'height': height - 20 });
+                step.children('.ids_tourStepMLM').css({ 'height': height - 20 });
+            }
+
+            if (height < 113 && height > 59) {
+                step.children('.ids_tourStepMRM').css({ 'height': height - 14 });
+                step.children('.ids_tourStepMLM').css({ 'height': height - 14 });
+            }
+
+            step.css({ 'top': top, 'left': left, 'width': width, 'height': height });
+            step.children('.ids_tourStepMRT').css({ 'height': height - 100 });
+            step.children('.ids_tourStepMLT').css({ 'height': height - 100 });
+        }
+    });
+
+    $('.ids_tour_toolTip_top .ids_tourToolTipArrow').each(function () {
+        var arrow = $(this),
+            target = arrow.parents('.ids_tourStep'),
+            toolTip = arrow.parents('.ids_tourStepInfo'),
+            bordersHeight = 25;
+        if (ie7 == true) { bordersHeight = 26 }
+        arrow.css({ 'margin-top': toolTip.height() - bordersHeight - 135 });
+    })
+
+    $('.ids_tour_toolTip_top .ids_tourStepInfo').each(function () {
+        var toolTip = $(this),
+            target = toolTip.parents('.ids_tourStep'),
+            bordersHeight = -8;
+        toolTip.css({ 'margin-top': 0 - (toolTip.height() + target.height() + bordersHeight + 50) })
+    })
+    $('.ids_tour_toolTip_right .ids_tourStepInfo').each(function () {
+        var toolTip = $(this),
+            target = toolTip.parents('.ids_tourStep'),
+            targetH = target.height(),
+            bordersHeight = 100;
+        if (targetH < 120) { targetH += 30 }
+        toolTip.css({ 'margin-top': 0 - targetH - bordersHeight - 135 })
+        toolTip.css({ 'margin-left': target.width() })
+    })
+    $('.ids_tour_toolTip_left .ids_tourStepInfo').each(function () {
+        var toolTip = $(this),
+            target = toolTip.parents('.ids_tourStep'),
+            targetH = target.height(),
+            bordersHeight = 10;
+        if (targetH < 120) { targetH += 30 }
+        toolTip.css({ 'margin-top': 119 - targetH - bordersHeight - 135 })
+        toolTip.css({ 'margin-left': 0 - toolTip.width() - 5 })
+    })
+    $('.ids_tourStep').addClass('hide');
+    $('.ids_tourStep').last().addClass('ids_tourStep_last');
+
+}
+/*--- code taken and updated from tour_ids.js ends---*/
+
+/*add for dymanic graph--*/
+
+
+$(document).ready(function () {
+    setProg(80);
+    //width should not exceed more then 80 otherwise will break the layout
+
+    if ($(".progressbar_blueDark").width() > $(".prgressbar_container").width() * 79 / 100) {
+        $('.progressbar_red').show()
+    }
+    else {
+        $('.progressbar_red').hide()
+    }
+
+});
+function setProg(progress) {
+    var progressBarWidth = progress * $(".prgressbar_container").width() / 100;
+    $(".progressbar_blueDark").width(progressBarWidth);
+
+
+
+}
+$(document).ready(function () {
+    setProgress(90.6);
+    //width should not exceed more then 90.6 otherwise will break the layout
+
+    if ($(".progressbar_blue_Dark").width() > $(".prgressbar_container").width() * 89.6 / 100) {
+        $('.progress_bar_red').show()
+    }
+    else {
+        $('.progress_bar_red').hide()
+    }
+
+});
+function setProgress(progress) {
+    var progressBarWidth = progress * $(".prgressbar_container").width() / 100;
+    $(".progressbar_blue_Dark").width(progressBarWidth);
+
+
+
+}
+
+
+$(document).ready(function () {
+    $("#featureChangeTable tr:even  ").css("background-color", "#f2f2f2");
+    $("#featureChangeTable tr:odd").css("background-color", "#ffffff");
+})
+/*ended for dymanic graph--*/
+
+
+//Taken from rate_plan.js - code for dock and for fraturesNav
+$(window).load(function () {
+    slidesDown();
+});
+var slideDownTime = 2000;
+function slidesDown() {
+    if ($('.prp_slidesDown').length) {
+        setTimeout(function () {
+            var h = $('.HUG').length ? 145 : 120;
+            if ($('.prp_slidesDown').length) {
+                $('.toggleFooter').animate({
+                    'height': h
+                }, 750, function () { $('.toggleFooter').removeClass('up'); $('.toggleFooter').css('height', '') });
+            }
+        }, slideDownTime);
+    }
+}
+
+function ids_input(obj) {
+    var inputBtn = $(obj),
+        inputItem = $(obj).parents('.ids_inputItem'),
+        inputGroup = $(obj).parents('.ids_inputGroup'),
+        inputItems = inputGroup.find('.ids_inputItem'),
+        inputBtns = inputGroup.find('input'),
+        setInput = function () {
+            inputBtns.removeAttr('checked');
+            inputItems.removeClass('checked');
+            inputBtn.prop('checked', true);
+            inputItem.addClass('checked');
+        };
+    if (obj.nodeName === 'INPUT') {
+        if ($(obj).parents('.ids_inputGroup').find('input:radio').length) setInput();
+        if ($(obj).parents('.ids_inputGroup').find('input:checkbox').length) {
+            if (inputGroup.hasClass('bundle')) {
+                setInput();
+            } else {
+                inputBtn.prop('checked') ? inputItem.addClass('checked') : inputItem.removeClass('checked');
+            }
+        }
+    }
+    if (obj.nodeName === 'LABEL') {
+        $(obj).parents('.ids_inputItem').find('input').trigger('click');
+    }
+}
+
+function PRP_hideFooter() {
+    if ($('.toggleFooter').hasClass('up')) {
+        $('.toggleFooter').removeClass('up');
+    }
+    else {
+        $('.toggleFooter').addClass('up');
+    }
+}
+
+function prp_selTab(o, e) {
+    $('[class*=PricingTab]').removeClass('selected').addClass('unselected');
+    $('.prp_tabContent').addClass('hide');
+    $(o).parent().addClass('selected').removeClass('unselected');
+    var index = $(o).parent().parent().find('.selected').index();
+    $('.yourPlanBottomRow .prp_tabContent').eq(index).removeClass('hide');
+    $('.toggleFooter').addClass('up');
+}
+
+$(document).ready(function () {
+    $('.collapsemyplan').click(function () {
+        var $this = $(this);
+        $this.parents(".collapse_head").next('div.togg_body').slideToggle(300, function () {
+            $this.parents(".collapse_head").find('.img').toggle();
+        });
+    });
+
+    $('.collapsemyaddons').click(function () {
+        var $this = $(this);
+        $this.parents(".collapse_head1").next('div.togg_body').slideToggle(300, function () {
+            $this.parents(".collapse_head1").find('.img').toggle();
+        });
+    });
+})

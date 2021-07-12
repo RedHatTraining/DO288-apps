@@ -1,0 +1,114 @@
+// JavaScript Document for My Mobility
+function loadGenericImage(source, targetImageUrl) {
+    source.onerror = null;
+    source.src = targetImageUrl;
+}
+
+function resetUI() {
+    ie_fn();
+    rowH_fn();
+   // dropdown_fn();
+    btn_fn();
+}
+
+function checkswap(obj) {    
+    window.location.href = obj.toString();    
+}
+function CheckSwapStatus(obj) {
+    window.location.href = obj.toString();
+    return;    
+}
+
+function setUrl() {
+    var obj = gVar.toString();
+    window.location.href = obj;
+}
+
+function setUrlForViewButton(obj) {
+    window.location.href = obj.toString();
+}
+
+function RedirectToReceiverPage(obj) {
+    //$.lightBox.hide();
+    var newactionvalue = "exchangeReceiver";
+    var strUrl = obj.toString();
+    var strUrl1 = replaceQueryString(strUrl, "action", newactionvalue);
+    window.location.href = strUrl1.toString();
+    return;
+}
+function replaceQueryString(url, param, value) {
+    var re = new RegExp("([?|&])" + param + "=.*?(&|$)", "i");
+    if (url.match(re))
+        return url.replace(re, '$1' + param + "=" + value + '$2');
+    else
+        return url + '&' + param + "=" + value;
+}
+
+function RedirectToReceiverPageMenu() {
+    $.lightBox.hide();
+    var newactionvalue = "exchangeReceiver";
+    var strUrl = gVar.toString();
+    var strUrl1 = replaceQueryString(strUrl, "action", newactionvalue);
+    window.location.href = strUrl1;
+    return;
+}
+
+function getCookieVal(offset) {
+    var endstr = document.cookie.indexOf(";", offset);
+    
+    if(endstr == -1) {
+        endstr = document.cookie.length;
+    }
+    
+    return unescape(document.cookie.substring(offset, endstr));
+}
+
+function GetCookie(name) {
+    var arg     = name + "=";
+    var alen    = arg.length;                    
+    var clen    = document.cookie.length;                    
+    var i       = 0;
+    
+    while (i < clen) {
+        var j = i + alen;
+        
+        if(document.cookie.substring(i, j) == arg) {
+            return getCookieVal (j);
+        }
+        
+        i = document.cookie.indexOf(" ", i) + 1;
+        
+        if (i == 0) {
+            break;
+        }
+    }
+    
+    return null;
+}
+
+function DeleteCookie(name, domain, path) {
+    if(GetCookie(name)) {
+        document.cookie =   name + "=" +
+                            ((domain) ? "; domain=" + domain :"") +
+                            ((path) ? "; path=" + path : "") +
+                            "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+    }
+}
+
+function GenerateCookie(name, value, expires, domain, path) {
+    var expiresTime = new Date();   
+
+    var currentURL = window.location.href;
+    var secure = "";
+
+    if (currentURL.toLowerCase().indexOf("https") !== -1) {
+        secure = "; secure";
+    }
+             
+    expiresTime.setTime(expiresTime.getTime() + (expires * 60 * 1000)); 
+
+             document.cookie = name + "=" + escape(value) + secure +
+                        "; expires=" + expiresTime.toGMTString()+
+                        ((path) ? "; path=" + path : "") +
+                        ((domain) ? "; domain=" + domain : "") +"";
+}

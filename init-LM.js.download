@@ -1,0 +1,114 @@
+﻿
+'use strict';
+(function(lm, $) {
+    lm.brf = lm.brf || {};
+
+
+    lm.brf.utils = {
+        init: function() {
+
+            $.fn.throttledResize = function($) {
+                return $ ? this.bind('resize', lm.brf.utils.debounce($, 100)) : this.trigger('debounce');
+            };
+
+            $(document).ready(function() {
+                lm.brf.utils.hideBackToTopMobile();
+                lm.brf.utils.hideBackToTopDesktop();
+
+                $('#inqC2CImgContainer_AnchoredB').bind('DOMNodeInserted DOMSubtreeModified DOMNodeRemoved', function(event) {
+                    lm.brf.utils.checkChatMobile();
+                });
+
+                $(window).on("orientationchange", function() {
+                    if (lm.brf.utils.checkChatMobile()) {
+                        lm.brf.utils.setBackToTopMobile($('#inqC2CImgContainer_AnchoredB').height() + 10);
+                    }
+                });
+
+                //$(window).scroll($.throttle(250, function() {
+                //    lm.brf.utils.checkChatMobile();
+                //    if ($(window).innerWidth() < 1025) {
+                //        lm.brf.utils.hideBackToTopDesktop();
+                //        if ($(this).scrollTop() > ($(window).innerHeight() - 150)) {
+                //            if (lm.brf.utils.checkChatMobile()) {
+                //                lm.brf.utils.setBackToTopMobile($('#inqC2CImgContainer_AnchoredB').height() + 10);
+                //            }
+                //            lm.brf.utils.showBackToTopMobile();
+                //        } else {
+                //            lm.brf.utils.hideBackToTopMobile();
+                //        }
+                //    } else {
+                //        lm.brf.utils.hideBackToTopMobile();
+                //        lm.brf.utils.showBackToTopDesktop();
+                //    }
+                //}));
+
+                $('.brf-footer-backtotop-trigger').click(function() {
+                    $('html,body').animate({ scrollTop: 0 }, 'slow');
+                    return false;
+                });
+            });
+        },
+
+        setBackToTopMobile: function(bottomPosition) {
+            $('.brf-footer-backtotop-trigger-mobile').css('bottom', bottomPosition);
+        },
+
+        showBackToTopDesktop: function() {
+            $('.brf-footer-backtotop-desktop').show();
+            $('.brf-footer-backtotop-desktop').css('display', 'block');
+            $('.brf-footer-backtotop-trigger-desktop').show();
+            $('.brf-footer-backtotop-trigger-desktop').css('display', 'block');
+        },
+
+        hideBackToTopDesktop: function() {
+            $('.brf-footer-backtotop-desktop').hide();
+            $('.brf-footer-backtotop-desktop').css('display', 'none');
+            $('.brf-footer-backtotop-trigger-desktop').hide();
+            $('.brf-footer-backtotop-trigger-desktop').css('display', 'none');
+        },
+
+        showBackToTopMobile: function() {
+            $('.brf-footer-backtotop-mobile').show();
+            $('.brf-footer-backtotop-mobile').css('display', 'block');
+            $('.brf-footer-backtotop-trigger-mobile').show();
+            $('.brf-footer-backtotop-trigger-mobile').css('display', 'block');
+        },
+
+        hideBackToTopMobile: function() {
+            $('.brf-footer-backtotop-mobile').hide();
+            $('.brf-footer-backtotop-mobile').css('display', 'none');
+            $('.brf-footer-backtotop-trigger-mobile').hide();
+            $('.brf-footer-backtotop-trigger-mobile').css('display', 'none');
+        },
+
+        checkChatMobile: function() {
+            var chatMobile = false;
+            if ($('#inqC2CImgContainer_AnchoredB').find('input').length && $('#inqC2CImgContainer_AnchoredB input').attr('src').indexOf('lm_mob_global_anchor') > -1) {
+                chatMobile = true;
+            }
+            return chatMobile;
+        }
+
+    };
+
+    $(document).ready(function() {
+
+            $.each(lm.brf, function() {
+                if (typeof this === 'object' && typeof this.init === 'function') {
+                    try {
+                        this.init();
+                    } catch (e) {
+                        console.error("Error initializing module: ", e);
+                    }
+                }
+            });
+    });
+})(lm, $);
+
+
+(function (lm, $) {
+    $(document).ready(function () {
+        lm.brf.utils.init();
+    });
+})(lm, $);

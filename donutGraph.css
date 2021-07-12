@@ -1,0 +1,77 @@
+@charset "utf-8";
+/* CSS Document */
+.container{
+	margin: auto;
+}
+.graphContainer {
+	width: 200px;
+	height: 200px;
+}
+
+@media (min-width: 520px) {
+	.container {
+		width: 480px;
+	}
+}
+
+@media (min-width: 640px){
+	.container {
+		width: 600px;
+	}
+}
+
+@media (min-width: 1000px){
+	.container {
+		width: 960px;
+	}
+}
+
+@media (min-width: 1240px) {
+
+	.container {
+		width: 1200px;
+	}
+}
+
+
+
+
+body {
+  font: 16px/1.4em Arial, Helvetica, sans-serif;
+}
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.chart-text {
+  /*font: 16px/1.4em Arial, Helvetica, sans-serif;*/
+  fill: #000;
+  -moz-transform: translateY(0.25em);
+  -ms-transform: translateY(0.25em);
+  -webkit-transform: translateY(0.25em);
+  transform: translateY(0.25em);
+}
+.chart-label-center, .chart-label-center-sm, .chart-label-bottom-num, .chart-label-bottom-txt, .chart-label-center-red, .chart-label-center-charged {
+  text-anchor: middle;
+  -moz-transform: translateY(0.7em);
+  -ms-transform: translateY(0.7em);
+  -webkit-transform: translateY(0.7em);
+  transform: translateY(0.7em);
+}
+.chart-label-center, .chart-label-bottom-num, .chart-label-center-charged {
+	font-size: 0.2em;
+}
+
+.chart-label-bottom-txt, .chart-label-center-sm {
+  font-size: 0.15em;
+}
+.chart-label-center-charged {
+	fill: #bd2025;
+	font-size: 0.2em;
+}
+
+.chart-text .chart-label-center-red {
+	fill: #bd2025;
+ 	font-size: 0.15em;
+}

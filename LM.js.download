@@ -1,0 +1,369 @@
+//BRF Framework - Updated July.31.2018
+function initBRF() {
+    globalNav();
+    customSelectBox();
+    backButtonMobileMenuClose();
+    iOSversion();
+    setAriaLabels();
+    fnTooltipPreAdjustment();
+}
+
+//Toggle aria labels for expanded / collapse button
+function setAriaLabels() {
+
+    var language = $("html").attr("lang");
+
+    if (language === "en") {
+        setLanguage("Collapsed", "Expanded");
+    } else {
+        setLanguage("Masquer", "Afficher");
+    }
+
+    function setLanguage(collapse, expanded) {
+        var accordionIcon = $('.accordion-toggle i.icon-lm-collapse');
+        accordionIcon.attr("aria-label", collapse);
+
+        $(".accordion-toggle").on("click touch", function (e) {
+            var icon = $(e.target).find("i.icon-lm-collapse");
+            if (icon.attr("aria-label") === collapse) {
+                icon.attr("aria-label", expanded);
+            } else {
+                icon.attr("aria-label", collapse);
+            }
+        });
+    }
+
+}
+
+//Vertically center modal window and make content scrollable if modal is too long
+if ($(window).width() > 976) { //for desktop only
+    function setModalMaxHeight(element) {
+        this.$element = $(element);
+        this.$content = this.$element.find('.modal-content');
+        var borderWidth = this.$content.outerHeight() - this.$content.innerHeight();
+        var dialogMargin = $(window).width() < 768 ? 20 : 60;
+        var contentHeight = $(window).height() - (dialogMargin + borderWidth);
+        var headerHeight = this.$element.find('.modal-header').outerHeight() || 0;
+        var subHeight = this.$element.find('.modal-sub-header').outerHeight() + 1 || 0;
+        var footerHeight = this.$element.find('.modal-footer').outerHeight() || 0;
+        var maxHeight = contentHeight - (headerHeight + subHeight + footerHeight);
+
+        //this.$content.css({
+        //    'overflow': 'hidden'
+        //});
+
+        this.$element
+            .find('.modal-body').css({
+                'max-height': maxHeight,
+                'overflow-y': 'auto'
+            });
+    }
+
+    $('.modal').on('show.bs.modal', function () {
+        $(this).show();
+        setModalMaxHeight(this);
+    });
+    $(window).resize(function () {
+        if ($('.modal.in').length != 0) {
+            setModalMaxHeight($('.modal.in'));
+        }
+    });
+};
+//added to give focus to the modal close button when the modal is launched from a link. Tabbing will then start from this button onward so the first tab will always bring you to the NEXT FOCUSABLE ELEMENT INSIDE THE MODAL
+function setFocusTimeout(item) {
+    var focusTimeout = window.setTimeout(focusOnCloseBtn, 500);
+    function focusOnCloseBtn() {
+        $($(item).attr('data-target')).find('.modal-header').find('button').focus();
+        clearTimeout(focusTimeout);
+    }
+}
+
+//View more details - expand/collapse
+var iconOpen = 'icon icon-collapse-outline-circled',
+    iconClose = 'icon icon-exapnd-outline-circled';
+$(document).on('show.bs.collapse hide.bs.collapse', '.accordion', function (e) {
+    var $target = $(e.target)
+    $target.siblings('.accordion-heading')
+        .find('i').toggleClass(iconOpen + ' ' + iconClose);
+    if (e.type == 'show')
+        $target.prev('.accordion-heading').find('.accordion-toggle').addClass('active');
+    if (e.type == 'hide')
+        $(this).find('.accordion-toggle').not($target).removeClass('active');
+});
+
+//Focuses modal close button when shown
+$('.modal').on('shown.bs.modal', function () {
+    $('.close').focus();
+})
+
+//Popup tooltips/menus
+$('.trigger-popup').on('click touch keydown', function () {
+    $('.trigger-popup').next().hide();
+    $(this).next().show();
+});
+$(document).on('click touch keydown', function (event) {
+    if (!$(event.target).parents().addBack().is('.trigger-popup')) {
+        $('.popup').not(this).hide();
+    }
+});
+$('.popup').on('click touch keydown mouseover', function (event) {
+    event.stopPropagation();
+});
+
+
+//Global nav
+function globalNav() {
+    if ($(window).width() > 999) {
+        $("li.connector-area").on('mouseover click keydown touch', function () {
+            $("li.connector-area.active").addClass("inactive");
+            $('body').find(".connector-active-lob").addClass("hidden");
+            $(this).removeClass("inactive");
+            $(".connector-lob-flyout").on('mouseover click keydown touch', function () {
+                $("li.connector-area.active").addClass("inactive");
+            });
+            $(".connector").on('mouseout', function () {
+                $("li.connector-area.active").removeClass("inactive");
+                $("li.connector-area>a").removeClass("active");
+            });
+
+            $("li.connector-area>a").on('mouseout', function () {
+                $('body').find(".connector-active-lob").removeClass("hidden");
+            });
+            $(".connector-lob-flyout").on('mouseover click keydown touch', function () {
+                $('body').find(".connector-active-lob").addClass("hidden");
+            });
+            $(".connector-lob-flyout").on('mouseout', function () {
+                $('body').find(".connector-active-lob").removeClass("hidden");
+            });
+        });
+    }
+    //if ($(window).width() < 1000) {
+    //    $("li.connector-area a").on('click', function () {
+    //        $('body').find('li.connector-area a').removeClass("active");
+    //    });
+    //    $("li.connector-area.active").on('click', function () {
+    //        $('body').find('li.connector-area').removeClass("active");
+    //    });
+    //}
+}
+
+// Select dropdowns for bootstrap
+function customSelectBox() {
+    $(".btn-select").each(function (e) {
+        var value = $(this).find("ul li.selected").html();
+        if (value != undefined) {
+            $(this).find(".btn-select-input").val(value);
+            $(this).find(".btn-select-value").html(value);
+        }
+    });
+}
+
+$(document).on('click', '.btn-select', function (e) {
+    e.preventDefault();
+    var ul = $(this).find("ul");
+    if ($(this).hasClass("active")) {
+        if (ul.find("li").is(e.target)) {
+            var target = $(e.target);
+            target.addClass("selected").siblings().removeClass("selected");
+            var value = target.html();
+            $(this).find(".btn-select-input").val(value);
+            $(this).find(".btn-select-value").html(value);
+        }
+        ul.hide();
+        $(this).removeClass("active");
+    }
+    else {
+        $('.btn-select').not(this).each(function () {
+            $(this).removeClass("active").find("ul").hide();
+        });
+        ul.slideDown(50);
+        $(this).addClass("active");
+    }
+});
+
+$(document).on('click', function (e) {
+    var target = $(e.target).closest(".btn-select");
+    if (!target.length) {
+        $(".btn-select").removeClass("active").find("ul").hide();
+    }
+});
+
+//Closes mobile menu when hitting the back button
+function backButtonMobileMenuClose() {
+    if (window.history && window.history.pushState) {
+        $(window).on('popstate', function () {
+            $("body").removeClass("connector-active");
+            $("button.connector-nav-open-button").removeClass("active")
+        });
+    }
+}
+//Closes mobile menu when hitting the back button for iOS 10
+function iOSversion() {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+        window.onpageshow = function (event) {
+            if (event.persisted) {
+                window.location.reload()
+            }
+        };
+    }
+}
+
+// START focusable tooltips for screen reader compatibility
+$('[data-toggle="tooltip"]').on('shown.bs.tooltip', function () {
+    $(this).find('.tooltip-inner').attr('tabindex', 0);
+});
+// END focusable tooltips for screen reader compatibility
+
+
+// START Tooltip Auto Placement
+function fnTooltipPreAdjustment() {
+    $(this).find('.tooltip.top, .tooltip.bottom').css('opacity', 0);
+}
+
+/* modified code to handle deeper nested elements. note that this supports absolute positioned tooltips only which is the default */
+function fnTooltipAdjustment() {
+    var tooltip, parent, height, scrollTop, elementOffset, distance, height, tailHeight, marginTopDiff;
+
+    tooltip = $(this).find('.tooltip.top');
+    if (tooltip.length > 0) {
+        // check top overflow
+        parent = tooltip.parent();
+        // tooltip height doesn't include the arrow and the arrow sometimes overlap the parent, so let's compute the height manually
+        height = tooltip.height() + tooltip.find('.tooltip-arrow')[0].getBoundingClientRect().bottom - tooltip[0].getBoundingClientRect().bottom;
+        scrollTop = $(window).scrollTop();
+        elementOffset = parent.offset().top;
+        distance = (elementOffset - scrollTop);
+
+        if (height > distance) {
+            setTimeout(function () {
+                if (tooltip.hasClass('top')) {
+                    marginTopDiff = parseFloat(tooltip.css('margin-top'));
+                    tooltip.removeClass('top').addClass('bottom');
+                    marginTopDiff -= parseFloat(tooltip.css('margin-top'));
+                    tailHeight = tooltip[0].getBoundingClientRect().top - tooltip.find('.tooltip-arrow')[0].getBoundingClientRect().top;
+                    tooltip.css('top', tooltip.position().top + height + parent.height() + tailHeight + marginTopDiff + "px");
+                }
+                tooltip.css('opacity', 1);
+            }, 0);
+        } else {
+            tooltip.css('opacity', 1);
+        }
+        return;
+    }
+
+    tooltip = $(this).find('.tooltip.bottom');
+    if (tooltip.length > 0) {
+        // check bottom overflow
+        parent = tooltip.parent();
+        // tooltip height doesn't include the arrow and the arrow sometimes overlap the parent, so let's compute the height manually
+        height = tooltip.height() + tooltip[0].getBoundingClientRect().top - tooltip.find('.tooltip-arrow')[0].getBoundingClientRect().top;
+        distance = $(window).height() - parent[0].getBoundingClientRect().bottom;
+
+        if (height > distance) {
+            setTimeout(function () {
+                if (tooltip.hasClass('bottom')) {
+                    marginTopDiff = parseFloat(tooltip.css('margin-top'));
+                    tooltip.removeClass('bottom').addClass('top');
+                    marginTopDiff -= parseFloat(tooltip.css('margin-top'));
+                    tailHeight = tooltip.find('.tooltip-arrow')[0].getBoundingClientRect().bottom - tooltip[0].getBoundingClientRect().bottom;
+                    tooltip.css('top', tooltip.position().top - height - parent.height() - tailHeight + marginTopDiff + "px");
+                }
+                tooltip.css('opacity', 1);
+            }, 0);
+        } else {
+            tooltip.css('opacity', 1);
+        }
+        return;
+    }
+
+    tooltip.css('opacity', 1);
+}
+
+$('[data-toggle="tooltip"]').on('inserted.bs.tooltip', function () {
+    fnTooltipPreAdjustment.apply(this);
+});
+
+$('[data-toggle="tooltip"]').on('shown.bs.tooltip', function () {
+    fnTooltipAdjustment.apply(this);
+});
+
+// handle onscroll adjustment
+$(window).scroll(function () {
+    var timeout;
+
+    this.clearTimeout(timeout);
+    timeout = setTimeout(function () {
+        $('.tooltip.in').each(function () {
+            var triggerEl = $(this).parent().first();
+            fnTooltipPreAdjustment.apply(triggerEl);
+            fnTooltipAdjustment.apply(triggerEl);
+        });
+    }, 100);
+});
+// END Tooltip Auto Placement
+
+//Tooltip left adjustment
+$('[data-toggle="tooltip"]').on('shown.bs.tooltip', function () {
+    var tooltip, arrow, tooltipRightEdge, arrrowLeftEdge, parentLeftEdge, tooltipWidth, tooltipLeft, arrowLeft, newTooltipLeft, newArrowLeft;
+
+    // tooltip sometimes gets wrongly positioned when window is scrolled horizontally. adjust accordingly. check first if the body is separated from the arrow, then use the arrow as reference point for repositioning
+    tooltip = $(this).find('.tooltip');
+    if (tooltip.length > 0 && $(document, window).scrollLeft() > 0) {
+        arrow = tooltip.find('.tooltip-arrow');
+        tooltipRightEdge = tooltip[0].getBoundingClientRect().right;
+        arrrowLeftEdge = arrow[0].getBoundingClientRect().left;
+        parentLeftEdge = $(this)[0].getBoundingClientRect().left;
+        if (tooltipRightEdge < arrrowLeftEdge || tooltipRightEdge < parentLeftEdge) {
+            tooltipWidth = tooltip.width();
+            tooltipLeft = parseFloat(tooltip.css('left'));
+            arrowLeft = parseFloat(arrow.css('left'));
+            newTooltipLeft = (arrowLeft - tooltipWidth) / 2;
+            newArrowLeft = arrowLeft + tooltipLeft - newTooltipLeft;
+            tooltip.css('left', newTooltipLeft);
+            arrow.css('left', newArrowLeft);
+        }
+    }
+
+    fnTooltipAdjustment.apply(this);
+});
+
+// recalculate when zooming in/out
+var resizeTimer;
+$(window).on('resize', function (e) {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+        $('.tooltip').each(function () {
+            var tooltip = $(this), parent = tooltip.parent(), tooltipInner = tooltip.find('.tooltip-inner'), hasFocusParent, hasFocusTooltipInner;
+            setTimeout(function () {
+                parent.one('hidden.bs.tooltip', function () {
+                    parent.tooltip('show');
+                    if (hasFocusParent) {
+                        parent.focus();
+                    }
+                    if (hasFocusTooltipInner) {
+                        tooltipInner.focus();
+                    }
+                });
+                hasFocusParent = document.activeElement === parent[0];
+                hasFocusTooltipInner = document.activeElement === tooltipInner[0];
+                parent.tooltip('hide');
+            }, 0);
+        });
+    }, 200);
+});
+
+//Hides the flyout menus when user presses esc button
+$('.connector-area').on('mouseover focus click touch', function (e) {
+    $('.connector-lob-flyout').css({ "opacity": "1", "display": "block" });
+});
+$(document).on('keydown', function (e) {
+    if (e.keyCode === 27) {
+        $('.connector-lob-flyout').css({ "opacity": "0", "display": "none" });
+        $('.secondary-nav-dropdown').css({ "display": "none" });
+        $('.popup').css({ "display": "none" });
+    }
+});
+
+$(document).ready(function () {
+    initBRF()
+});

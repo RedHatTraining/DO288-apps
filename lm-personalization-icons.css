@@ -1,0 +1,417 @@
+@font-face {
+    font-family: 'lm-personalization-icons';
+    src: url('../fonts/lm-personalization-icons.ttf') format('truetype'),url('../fonts/lm-personalization-icons.woff') format('woff'),url('../fonts/lm-personalization-icons.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.personalization-tile-image-container .icon2[class^="icon-"], .personalization-tile-image-container .icon2[class*=" icon-"] ,
+.personalization-modal-img-container .icon2[class^="icon-"], .personalization-modal-img-container .icon2[class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'lm-personalization-icons' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    top: -2px;
+}
+
+/* START final info icons */
+
+html .icon-I2_payment_confirmation:before,
+html .icon-i2_payment_confirmation:before {
+    content: "\e900";
+}
+
+html .icon-I3_payment_received_date:before,
+html .icon-i3_payment_received_date:before {
+    content: "\e901";
+}
+
+html .icon-I4_promote_activity_online_mobility:before,
+html .icon-i4_promote_activity_online_mobility:before {
+    content: "\e902";
+}
+
+html .icon-I8_promote_activity_online_payment:before,
+html .icon-i8_promote_activity_online_payment:before {
+    content: "\e903";
+}
+
+/* added icon-I1_effective_date to make the class consistent with the same icon from bell as per IConP's requirement*/
+html .icon-I1_effective_date:before,
+html .icon-i1_effective_date:before,
+html .icon-I15_date_first_bill_available:before,
+html .icon-i15_date_first_bill_available:before {
+    content: "\e904";
+}
+
+html .icon-I16_bill_is_ready:before,
+html .icon-i16_bill_is_ready:before {
+    content: "\e905";
+}
+
+html .icon-I24_add_a_line:before,
+html .icon-i24_add_a_line:before {
+    content: "\e906";
+}
+
+html .icon-I28_credit_card_expiration_date:before,
+html .icon-i28_credit_card_expiration_date:before {
+    content: "\e907";
+}
+
+html .icon-I29_promo_soon_ending:before,
+html .icon-i29_promo_soon_ending:before {
+    content: "\e908";
+}
+
+html .icon-I30_bill_update:before,
+html .icon-i30_bill_update:before {
+    content: "\e909";
+}
+
+html .icon-I31_pay_your_bill_now:before,
+html .icon-i31_pay_your_bill_now:before {
+    content: "\e90a";
+}
+
+html .icon-I33_ebill:before,
+html .icon-i33_ebill:before {
+    content: "\e90b";
+}
+
+html .icon-I34_service_cancelled:before,
+html .icon-i34_service_cancelled:before {
+    content: "\e90c";
+}
+
+html .icon-I35_bill_with_loyalty_price:before,
+html .icon-i35_bill_with_loyalty_price:before {
+    content: "\e90d";
+}
+
+html .icon-I50_generic_exclamation:before,
+html .icon-i50_generic_exclamation:before {
+    content: "\e90e";
+}
+
+/* END final info icons */
+
+/* START final alert icons */
+
+
+html .icon-a2_payment_confirmation .path1:before,
+html .icon-A2_payment_confirmation .path1:before {
+    content: "\e931";
+    color: #ffd668;
+}
+
+html .icon-a2_payment_confirmation .path2:before,
+html .icon-A2_payment_confirmation .path2:before {
+    content: "\e932";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a2_payment_confirmation .path3:before,
+html .icon-A2_payment_confirmation .path3:before {
+    content: "\e933";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a3_payment_received_date .path1:before,
+html .icon-A3_payment_received_date .path1:before {
+    content: "\e934";
+    color: #ffd668;
+}
+
+html .icon-a3_payment_received_date .path2:before,
+html .icon-A3_payment_received_date .path2:before {
+    content: "\e935";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a3_payment_received_date .path3:before,
+html .icon-A3_payment_received_date .path3:before {
+    content: "\e936";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a4_promote_activity_online_mobility .path1:before,
+html .icon-A4_promote_activity_online_mobility .path1:before {
+    content: "\e937";
+    color: #ffd668;
+}
+
+html .icon-a4_promote_activity_online_mobility .path2:before,
+html .icon-A4_promote_activity_online_mobility .path2:before {
+    content: "\e938";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a4_promote_activity_online_mobility .path3:before,
+html .icon-A4_promote_activity_online_mobility .path3:before {
+    content: "\e939";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a8_promote_activity_online_payment .path1:before,
+html .icon-A8_promote_activity_online_payment .path1:before {
+    content: "\e93a";
+    color: #ffd668;
+}
+
+html .icon-a8_promote_activity_online_payment .path2:before,
+html .icon-A8_promote_activity_online_payment .path2:before {
+    content: "\e93b";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a8_promote_activity_online_payment .path3:before,
+html .icon-A8_promote_activity_online_payment .path3:before {
+    content: "\e93c";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a15_date_first_bill_available .path1:before,
+html .icon-A15_date_first_bill_available .path1:before {
+    content: "\e93d";
+    color: #ffd668;
+}
+
+html .icon-a15_date_first_bill_available .path2:before,
+html .icon-A15_date_first_bill_available .path2:before {
+    content: "\e93e";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a15_date_first_bill_available .path3:before,
+html .icon-A15_date_first_bill_available .path3:before {
+    content: "\e93f";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a16_bill_is_ready .path1:before,
+html .icon-A16_bill_is_ready .path1:before {
+    content: "\e940";
+    color: #ffd668;
+}
+
+html .icon-a16_bill_is_ready .path2:before,
+html .icon-A16_bill_is_ready .path2:before {
+    content: "\e941";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a16_bill_is_ready .path3:before,
+html .icon-A16_bill_is_ready .path3:before {
+    content: "\e942";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a24_add_a_line .path1:before,
+html .icon-A24_add_a_line .path1:before {
+    content: "\e943";
+    color: #ffd668;
+}
+
+html .icon-a24_add_a_line .path2:before,
+html .icon-A24_add_a_line .path2:before {
+    content: "\e944";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a24_add_a_line .path3:before,
+html .icon-A24_add_a_line .path3:before {
+    content: "\e945";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a28_credit_card_expiration_date .path1:before,
+html .icon-A28_credit_card_expiration_date .path1:before {
+    content: "\e946";
+    color: #ffd668;
+}
+
+html .icon-a28_credit_card_expiration_date .path2:before,
+html .icon-A28_credit_card_expiration_date .path2:before {
+    content: "\e947";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a28_credit_card_expiration_date .path3:before,
+html .icon-A28_credit_card_expiration_date .path3:before {
+    content: "\e948";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a29_promo_soon_ending .path1:before,
+html .icon-A29_promo_soon_ending .path1:before {
+    content: "\e949";
+    color: #ffd668;
+}
+
+html .icon-a29_promo_soon_ending .path2:before,
+html .icon-A29_promo_soon_ending .path2:before {
+    content: "\e94a";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a29_promo_soon_ending .path3:before,
+html .icon-A29_promo_soon_ending .path3:before {
+    content: "\e94b";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a30_bill_update .path1:before,
+html .icon-A30_bill_update .path1:before {
+    content: "\e94c";
+    color: #ffd668;
+}
+
+html .icon-a30_bill_update .path2:before,
+html .icon-A30_bill_update .path2:before {
+    content: "\e94d";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a30_bill_update .path3:before,
+html .icon-A30_bill_update .path3:before {
+    content: "\e94e";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a31_pay_your_bill_now .path1:before,
+html .icon-A31_pay_your_bill_now .path1:before {
+    content: "\e94f";
+    color: #ffd668;
+}
+
+html .icon-a31_pay_your_bill_now .path2:before,
+html .icon-A31_pay_your_bill_now .path2:before {
+    content: "\e950";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a31_pay_your_bill_now .path3:before,
+html .icon-A31_pay_your_bill_now .path3:before {
+    content: "\e951";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a33_ebill .path1:before,
+html .icon-A33_ebill .path1:before {
+    content: "\e952";
+    color: #ffd668;
+}
+
+html .icon-a33_ebill .path2:before,
+html .icon-A33_ebill .path2:before {
+    content: "\e953";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a33_ebill .path3:before,
+html .icon-A33_ebill .path3:before {
+    content: "\e954";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a34_service_cancelled .path1:before,
+html .icon-A34_service_cancelled .path1:before {
+    content: "\e955";
+    color: #ffd668;
+}
+
+html .icon-a34_service_cancelled .path2:before,
+html .icon-A34_service_cancelled .path2:before {
+    content: "\e956";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a34_service_cancelled .path3:before,
+html .icon-A34_service_cancelled .path3:before {
+    content: "\e957";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+html .icon-a35_bill_with_loyalty_price .path1:before,
+html .icon-A35_bill_with_loyalty_price .path1:before {
+    content: "\e958";
+    color: #ffd668;
+}
+
+html .icon-a35_bill_with_loyalty_price .path2:before,
+html .icon-A35_bill_with_loyalty_price .path2:before {
+    content: "\e959";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a35_bill_with_loyalty_price .path3:before,
+html .icon-A35_bill_with_loyalty_price .path3:before {
+    content: "\e95a";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+/* added icon-a20_account_suspend to make the class consistent with the same icon from bell as per IConP's requirement*/
+html .icon-a20_account_suspend .path1:before,
+html .icon-A20_account_suspend .path1:before,
+html .icon-a50_generic_exclamation .path1:before,
+html .icon-A50_generic_exclamation .path1:before {
+    content: "\e95b";
+    color: #ffd668;
+}
+
+html .icon-a20_account_suspend .path2:before,
+html .icon-A20_account_suspend .path2:before,
+html .icon-a50_generic_exclamation .path2:before,
+html .icon-A50_generic_exclamation .path2:before {
+    content: "\e95c";
+    margin-left: -1em;
+    color: #002d72;
+}
+
+html .icon-a20_account_suspend .path3:before,
+html .icon-A20_account_suspend .path3:before,
+html .icon-a50_generic_exclamation .path3:before,
+html .icon-A50_generic_exclamation .path3:before {
+    content: "\e95d";
+    margin-left: -1em;
+    color: #ffd668;
+}
+
+/* END final alert icons */

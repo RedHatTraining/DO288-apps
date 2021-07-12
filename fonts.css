@@ -1,0 +1,36 @@
+/* DCX-Framework - All browsers fonts styles.
+Do not modify.
+Do not use this file to host styles for custom components.
+Contact Bell IT DCX - UI Solution Architect for support and updates */
+
+/*Bell fonts*/
+@font-face {
+    font-family: 'bellslimregular';
+    src: url('../../css/font/bellslim_regular-webfont.eot');
+    src: url('../../css/font/bellslim_regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../css/font/bellslim_regular-webfont.ttf') format('truetype'), url('../../css/font/bellslim_regular-webfont.svg#bellslimregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'bellslim_mediumregular';
+    src: url('../../css/font/bellslim_medium-webfont.eot');
+    src: url('../../css/font/bellslim_medium-webfont.eot?#iefix') format('embedded-opentype'), url('../../css/font/bellslim_medium-webfont.ttf') format('truetype'), url('../../css/font/bellslim_medium-webfont.svg#bellslim_mediumregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'bellslim_semiboldregular';
+    src: url('../../css/font/bellslim_semibold-webfont.eot');
+    src: url('../../css/font/bellslim_semibold-webfont.eot?#iefix') format('embedded-opentype'), url('../../css/font/bellslim_semibold-webfont.ttf') format('truetype'), url('../../css/font/bellslim_semibold-webfont.svg#bellslim_semiboldregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.bellSlim {
+    font-family: "bellslim_mediumregular", Helvetica, Arial, sans-serif;
+}
+.bellSlimRegular {
+    font-family: "bellslimregular", Helvetica, Arial, sans-serif;
+}
+.bellSlimSemibold {
+    font-family: "bellslim_semiboldregular", Helvetica, Arial, sans-serif;
+}
