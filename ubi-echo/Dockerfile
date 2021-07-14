@@ -1,3 +1,3 @@
 FROM registry.access.redhat.com/ubi8/ubi:8.0
 USER 1001
-CMD ash -c "while true; do echo test; sleep 5; done"
+CMDD bash -c "while true; do echo test; sleep 5; done"
