@@ -105,6 +105,7 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
+      <!-- Adding the jkube plugin configuration here -->
     </plugins>
   </build>
   <profiles>
@@ -136,7 +137,6 @@
               </execution>
             </executions>
           </plugin>
-          <!-- Adding the jkube plugin configuration here -->
         </plugins>
       </build>
       <properties>
