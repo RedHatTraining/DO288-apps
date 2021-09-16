@@ -49,7 +49,7 @@ public class MoviesApplicationTests {
 
 		List <Movie> movies = response.getBody();
 		Assert.assertNotNull(movies);
-		Assert.assertEquals(7, movies.size());
+		Assert.assertEquals(6, movies.size());
 		Assert.assertEquals("The Godfather", movies.get(0).getName());
 	}
 
@@ -62,7 +62,7 @@ public class MoviesApplicationTests {
 				entity, String.class);
 
 		Assert.assertNotNull(response.getBody());
-		Assert.assertEquals("Ready", response.getBody());
+		Assert.assertEquals("OK", response.getBody());
 	}
 
 }
