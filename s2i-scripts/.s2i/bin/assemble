@@ -15,10 +15,11 @@ cp -Rf /tmp/src/* ./
 
 DATE=`date "+%b %d, %Y @ %H:%M %p"`
 
-DATE1=`date "+%Y-%m-%d"`
+DATE1=`date +%Y-%m-%d`
 
 echo "---> Creating info page"
 echo "Page built on $DATE" >> ./info.html
+echo "Page built on $DATE1" >> ./info.html
 
 echo "Page built  on $DATE1" >> ./info1.html
 
