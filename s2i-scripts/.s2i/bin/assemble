@@ -20,7 +20,7 @@ DATE1=`date "+%Y-%m-%d"`
 echo "---> Creating info page"
 echo "Page built on $DATE" >> ./info.html
 
-echo "Page built  on $DATE1" >> ./info.html
+echo "Page built  on $DATE1" >> ./info1.html
 
 echo "Proudly served by Apache HTTP Server version $HTTPD_VERSION" >> ./info.html
 
