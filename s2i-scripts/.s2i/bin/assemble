@@ -19,6 +19,11 @@ echo "---> Creating info page"
 echo "Page built on $DATE" >> ./info.html
 echo "Proudly served by Apache HTTP Server version $HTTPD_VERSION" >> ./info.html
 
+DATE1=`date +%Y-%m-%d`
+
+echo "creating info 1 page "
+echo "Page is created on $DATE1">>./info1.html
+
 ######## CUSTOMIZATION ENDS HERE ############
 
 if [ -d ./httpd-cfg ]; then
