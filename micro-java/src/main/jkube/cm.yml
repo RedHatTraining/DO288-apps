@@ -4,4 +4,7 @@ metadata:
   name: configmap-hello
 data:
   APP_MSG: this is a new value
+<<<<<<< HEAD
 
+=======
+>>>>>>> 99c3c0a4e6596fda78185a2ea17e241cbae7e8c4
