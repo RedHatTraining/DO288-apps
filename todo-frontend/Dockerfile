@@ -10,9 +10,9 @@ USER 0
 
 COPY . /tmp/todo-frontend
 
-RUN cd /tmp/todo-frontend
-RUN npm install
-RUN npm run build
+RUN cd /tmp/todo-frontend &&\
+    npm install &&\
+    npm run build
 
 # https://github.com/sclorg/nginx-container
 FROM registry.access.redhat.com/ubi8/nginx-118
@@ -22,6 +22,8 @@ LABEL description="To Do List application front-end"
 LABEL creationDate="2017-12-25"
 LABEL updatedDate="2021-05-19"
 
+USER nginx
+EXPOSE 8080
 COPY nginx.conf /etc/nginx/
 COPY --from=appbuild /tmp/todo-frontend/build /usr/share/nginx/html
 
