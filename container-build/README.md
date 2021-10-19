@@ -1,4 +1,4 @@
-# How to customise a base image
+# How to customise a base image and publish it
 ## 1. DO288 way - do a local docker build and publish the child image
 > Write a custom Dockerfile to overrid a standard docker image to use a non-privileged random user (1001) to run the container so that it can be deployed on OpenShift.
 ```
