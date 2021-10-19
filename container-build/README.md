@@ -1,5 +1,5 @@
 # How to customise a base image
-## 1. DO288 way
+## 1. DO288 way - do a local docker build and publish the child image
 > Write a custom Dockerfile to overrid a standard docker image to use a non-privileged random user (1001) to run the container so that it can be deployed on OpenShift.
 ```
 $ cd $HOME/DO288-apps/container-build
@@ -39,3 +39,18 @@ $ oc get svc
 $ oc expose --port=8080 svc/hola; get route
 $ curl hola-<project>.<clusterID>.eu-gb.containers.appdomain.cloud
 ```
+
+## 2. OpenShift build and deployment - no local docker build
+> Write a custom Dockerfile to overrid a standard docker image to use a non-privileged random user (1001) to run the container so that it can be deployed on OpenShift.
+Same step as 1. DO288 way.
+> Do an OpenShift new-app build and deployment in one go
+```
+$ oc new-app --name holav2 --strategy docker https://github.com/jackhu008/DO288-apps#master  --context-dir=container-build
+$ oc logs -f bc/holav2
+$ oc get pods -w
+$ oc get svc
+$ oc expose svc/holav2; oc get route
+$ curl holav2-jack-tzdata.morgan-stanley-rhacer-clu-ecf58268eb10995f067698dffc82d2a7-0000.eu-gb.containers.appdomain.cloud
+```
+Advantages:  no need for local docker build environment.
+Disadvantage: the image is stored in OpenShift and not available public.  It requires a further step to publish the image to a public registry, e.g. use skopeo copy, or export the 
