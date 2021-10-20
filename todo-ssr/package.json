@@ -1,0 +1,16 @@
+{
+  "name": "todo-ssr",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "pug": "^3.0.2"
+  }
+}

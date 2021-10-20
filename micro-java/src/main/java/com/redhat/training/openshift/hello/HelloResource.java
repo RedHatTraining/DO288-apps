@@ -1,26 +1,35 @@
 package com.redhat.training.openshift.hello;
 
-import javax.inject.Inject;
+import java.util.Optional;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-@Path("/")
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+@Path("/api")
+@Produces(MediaType.TEXT_PLAIN)
+@Consumes(MediaType.TEXT_PLAIN)
 public class HelloResource {
+
+    @ConfigProperty(name = "HOSTNAME", defaultValue = "unknown")
+    String hostname;
+    @ConfigProperty(name = "APP_MSG")
+    Optional<String> message;
 
     @GET
     @Path("/hello")
-    @Produces("text/plain")
     public String hello() {
-        String hostname = System.getenv().getOrDefault("HOSTNAME", "unknown");
-	      String message = System.getenv().getOrDefault("APP_MSG", null);
-	      String response = "";
+        String response = "";
 
-      	if (message == null) {
-      	  response = "Hello world from host "+hostname+"\n";
+      	if (!message.isPresent()) {
+      	  response = "Hello world from host " + hostname + "\n";
       	} else {
-      	  response = "Hello world from host ["+hostname+"].\n";
-      	  response += "Message received = "+message+"\n";
+      	  response = "Hello world from host [" + hostname + "].\n";
+      	  response += "Message received = " + message.get() + "\n";
         }
         return response;
     }
