@@ -1,1 +1,73 @@
 scratch pad for rough work
+
+[student@workstation ~]$ git remote add upstream \
+> ^C
+[student@workstation ~]$ cd DO288-apps/
+[student@workstation DO288-apps]$ 
+[student@workstation DO288-apps]$ git remote add upstream \
+> https://github.com/RedHatTraining/DO288-apps.git
+fatal: remote upstream already exists.
+[student@workstation DO288-apps]$ git pull upstream main
+warning: Pulling without specifying how to reconcile divergent branches is
+discouraged. You can squelch this message by running one of the following
+commands sometime before your next pull:
+
+  git config pull.rebase false  # merge (the default strategy)
+  git config pull.rebase true   # rebase
+  git config pull.ff only       # fast-forward only
+
+You can replace "git config" with "git config --global" to set a default
+preference for all repositories. You can also pass --rebase, --no-rebase,
+or --ff-only on the command line to override the configured default per
+invocation.
+
+From https://github.com/RedHatTraining/DO288-apps
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[student@workstation DO288-apps]$ git push origin main
+Gtk-Message: 06:24:44.254: Failed to load module "canberra-gtk-module"
+Gtk-Message: 06:24:48.495: Failed to load module "canberra-gtk-module"
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (5/5), 641 bytes | 641.00 KiB/s, done.
+Total 5 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To https://github.com/SBLANG/DO288-apps
+   1afd441..23e53a5  main -> main
+[student@workstation DO288-apps]$ git checkout main
+Already on 'main'
+Your branch is up to date with 'origin/main'.
+[student@workstation DO288-apps]$ git branch -d 1711apxc
+error: branch '1711apxc' not found.
+[student@workstation DO288-apps]$ lab 1711apxc start
+Error: unknown problem specified and not found, 1711apxc
+[student@workstation DO288-apps]$ lab source-build start
+
+Checking prerequisites for Lab: Deploying and Managing Applications on an OpenShift Cluster
+
+ Checking local clone of the applications repository:
+ · Folder '/home/student/DO288-apps' is a git repo.............  SUCCESS
+ · Git repo '/home/student/DO288-apps' has no pending changes..  SUCCESS
+ Verifying the OpenShift cluster is running:
+ · Log in on OpenShift.........................................  SUCCESS
+ · Check master node eu46k-jzrpt-master-0 is ready.............  SUCCESS
+ · Check master node eu46k-jzrpt-master-1 is ready.............  SUCCESS
+ · Check master node eu46k-jzrpt-master-2 is ready.............  SUCCESS
+ · Check the internal registry is up and running...............  SUCCESS
+ Checking required artifacts:
+ · Project 'nodejs-helloworld' exists in student's GitHub fork.  SUCCESS
+ · Module 'nodejs' exists in classroom's Nexus.................  SUCCESS
+ Checking for conflicts with existing OpenShift projects:
+ · Project 'adoczy-source-build' is absent.....................  SUCCESS
+
+Setting up the classroom for Lab: Deploying and Managing Applications on an OpenShift Cluster
+
+ · Download exercise files.....................................  SUCCESS
+ · Download solution files.....................................  SUCCESS
+
+Overall start status...........................................  SUCCESS
+
+[student@workstation DO288-apps]$ 
+
