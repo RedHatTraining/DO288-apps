@@ -1,3 +1,147 @@
+[student@workstation ~]$ git remote add upstream \
+> ^C
+[student@workstation ~]$ cd DO288-apps/
+[student@workstation DO288-apps]$ 
+[student@workstation DO288-apps]$ git remote add upstream \
+> https://github.com/RedHatTraining/DO288-apps.git
+fatal: remote upstream already exists.
+[student@workstation DO288-apps]$ git pull upstream main
+warning: Pulling without specifying how to reconcile divergent branches is
+discouraged. You can squelch this message by running one of the following
+commands sometime before your next pull:
+
+  git config pull.rebase false  # merge (the default strategy)
+  git config pull.rebase true   # rebase
+  git config pull.ff only       # fast-forward only
+
+You can replace "git config" with "git config --global" to set a default
+preference for all repositories. You can also pass --rebase, --no-rebase,
+or --ff-only on the command line to override the configured default per
+invocation.
+
+From https://github.com/RedHatTraining/DO288-apps
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[student@workstation DO288-apps]$ git push origin main
+Gtk-Message: 06:24:44.254: Failed to load module "canberra-gtk-module"
+Gtk-Message: 06:24:48.495: Failed to load module "canberra-gtk-module"
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (5/5), 641 bytes | 641.00 KiB/s, done.
+Total 5 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To https://github.com/SBLANG/DO288-apps
+   1afd441..23e53a5  main -> main
+[student@workstation DO288-apps]$ git checkout main
+Already on 'main'
+Your branch is up to date with 'origin/main'.
+[student@workstation DO288-apps]$ git branch -d 1711apxc
+error: branch '1711apxc' not found.
+[student@workstation DO288-apps]$ lab 1711apxc start
+Error: unknown problem specified and not found, 1711apxc
+[student@workstation DO288-apps]$ lab source-build start
+
+Checking prerequisites for Lab: Deploying and Managing Applications on an OpenShift Cluster
+
+ Checking local clone of the applications repository:
+ · Folder '/home/student/DO288-apps' is a git repo.............  SUCCESS
+ · Git repo '/home/student/DO288-apps' has no pending changes..  SUCCESS
+ Verifying the OpenShift cluster is running:
+ · Log in on OpenShift.........................................  SUCCESS
+ · Check master node eu46k-jzrpt-master-0 is ready.............  SUCCESS
+ · Check master node eu46k-jzrpt-master-1 is ready.............  SUCCESS
+ · Check master node eu46k-jzrpt-master-2 is ready.............  SUCCESS
+ · Check the internal registry is up and running...............  SUCCESS
+ Checking required artifacts:
+ · Project 'nodejs-helloworld' exists in student's GitHub fork.  SUCCESS
+ · Module 'nodejs' exists in classroom's Nexus.................  SUCCESS
+ Checking for conflicts with existing OpenShift projects:
+ · Project 'adoczy-source-build' is absent.....................  SUCCESS
+
+Setting up the classroom for Lab: Deploying and Managing Applications on an OpenShift Cluster
+
+ · Download exercise files.....................................  SUCCESS
+ · Download solution files.....................................  SUCCESS
+
+Overall start status...........................................  SUCCESS
+
+[student@workstation DO288-apps]$ git add ~/DO288-apps/scratch.txt 
+[student@workstation DO288-apps]$ git branch
+* main
+[student@workstation DO288-apps]$ git branch -a
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/apps-archive
+  remotes/origin/container-build_to_use_Conteinerfile
+  remotes/origin/dependabot/npm_and_yarn/books/path-parse-1.0.7
+  remotes/origin/dkolepp/ch9s6
+  remotes/origin/dkolepp/nexus3
+  remotes/origin/docker-build
+  remotes/origin/fix/jkube-issues
+  remotes/origin/gbianco/todo-backend-rewrite
+  remotes/origin/gbianco/todo-frontend-rewrite
+  remotes/origin/jordisola/ch10-review
+  remotes/origin/main
+  remotes/origin/manage-builds
+  remotes/origin/master
+  remotes/origin/maudemor/base-micro-java
+  remotes/origin/revert-135-gbianco/todo-frontend-rewrite
+  remotes/upstream/main
+[student@workstation DO288-apps]$ git branch 1711apxc
+[student@workstation DO288-apps]$ git add ~/DO288-apps/scratch.txt 
+[student@workstation DO288-apps]$ git branch
+  1711apxc
+* main
+[student@workstation DO288-apps]$ git checkout 1711apxc 
+M	scratch.txt
+Switched to branch '1711apxc'
+[student@workstation DO288-apps]$ git add ~/DO288-apps/scratch.txt 
+[student@workstation DO288-apps]$ git branch -a
+* 1711apxc
+  main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/apps-archive
+  remotes/origin/container-build_to_use_Conteinerfile
+  remotes/origin/dependabot/npm_and_yarn/books/path-parse-1.0.7
+  remotes/origin/dkolepp/ch9s6
+  remotes/origin/dkolepp/nexus3
+  remotes/origin/docker-build
+  remotes/origin/fix/jkube-issues
+  remotes/origin/gbianco/todo-backend-rewrite
+  remotes/origin/gbianco/todo-frontend-rewrite
+  remotes/origin/jordisola/ch10-review
+  remotes/origin/main
+  remotes/origin/manage-builds
+  remotes/origin/master
+  remotes/origin/maudemor/base-micro-java
+  remotes/origin/revert-135-gbianco/todo-frontend-rewrite
+  remotes/upstream/main
+[student@workstation DO288-apps]$ git push 1711apxc
+fatal: '1711apxc' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+[student@workstation DO288-apps]$ git push DO288-apps 1711apxc
+fatal: 'DO288-apps' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+[student@workstation DO288-apps]$ git push https://github.com/SBLANG/DO288-apps 1711apxc
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: 
+remote: Create a pull request for '1711apxc' on GitHub by visiting:
+remote:      https://github.com/SBLANG/DO288-apps/pull/new/1711apxc
+remote: 
+To https://github.com/SBLANG/DO288-apps
+ * [new branch]      1711apxc -> 1711apxc
+[student@workstation DO288-apps]$ git branch
+* 1711apxc
+  main
+[student@workstation DO288-apps]$ cat scratch.txt 
 scratch pad for rough work
 
 [student@workstation ~]$ git remote add upstream \
@@ -71,3 +215,98 @@ Overall start status...........................................  SUCCESS
 
 [student@workstation DO288-apps]$ 
 
+[student@workstation DO288-apps]$ git push https://github.com/SBLANG/DO288-apps 1711apxc
+Everything up-to-date
+[student@workstation DO288-apps]$ git add scratch.txt 
+[student@workstation DO288-apps]$ git status
+On branch 1711apxc
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   scratch.txt
+
+[student@workstation DO288-apps]$ git commit 1711apxc
+error: pathspec '1711apxc' did not match any file(s) known to git
+[student@workstation DO288-apps]$ git commit https://github.com/SBLANG/DO288-apps 1711apxc
+error: pathspec 'https://github.com/SBLANG/DO288-apps' did not match any file(s) known to git
+error: pathspec '1711apxc' did not match any file(s) known to git
+[student@workstation DO288-apps]$ git commit https://github.com/SBLANG/DO288-apps
+error: pathspec 'https://github.com/SBLANG/DO288-apps' did not match any file(s) known to git
+[student@workstation DO288-apps]$ git commit https://github.com/SBLANG/DO288-apps.git
+error: pathspec 'https://github.com/SBLANG/DO288-apps.git' did not match any file(s) known to git
+[student@workstation DO288-apps]$ git push https://github.com/SBLANG/DO288-apps 1711apxc~
+fatal: invalid refspec '1711apxc~'
+[student@workstation DO288-apps]$ git push https://github.com/SBLANG/DO288-apps 1711apxc
+Everything up-to-date
+[student@workstation DO288-apps]$ git status
+On branch 1711apxc
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   scratch.txt
+
+[student@workstation DO288-apps]$ git commit
+Aborting commit due to empty commit message.
+[student@workstation DO288-apps]$ history
+    1  exit
+    2  exit
+    3  dig localhost
+    4  exit
+    5  exit
+    6  ifconfig
+    7  sudo vi /etc/hosts
+    8  exit
+    9  history
+   10  exit
+   11  ll
+   12  exit
+   13  lab-configure
+   14  git clone https://github.com/SBLANG/DO288-apps
+   15  sudo yum install bash-completion
+   16  cd DO288-apps/
+   17  git status
+   18  head README.md 
+   19  ls
+   20  cd DO288-apps/
+   21  ls
+   22  touch scratch.txt
+   23  ls
+   24  vim scratch.txt 
+   25  cat scratch.txt 
+   26  git add scratch.txt 
+   27  git commit -m 'Paused at step 1.1.1.5'
+   28  exit
+   29  git remote add upstream \
+   30  cd DO288-apps/
+   31  git remote add upstream https://github.com/RedHatTraining/DO288-apps.git
+   32  git pull upstream main
+   33  git push origin main
+   34  git checkout main
+   35  git branch -d 1711apxc
+   36  lab 1711apxc start
+   37  lab source-build start
+   38  git add ~/DO288-apps/scratch.txt 
+   39  git branch
+   40  git branch -a
+   41  git branch 1711apxc
+   42  git add ~/DO288-apps/scratch.txt 
+   43  git branch
+   44  git checkout 1711apxc 
+   45  git add ~/DO288-apps/scratch.txt 
+   46  git branch -a
+   47  git push 1711apxc
+   48  git push DO288-apps 1711apxc
+   49  git push https://github.com/SBLANG/DO288-apps 1711apxc
+   50  git branch
+   51  cat scratch.txt 
+   52  git push https://github.com/SBLANG/DO288-apps 1711apxc
+   53  git add scratch.txt 
+   54  git status
+   55  git commit 1711apxc
+   56  git commit https://github.com/SBLANG/DO288-apps 1711apxc
+   57  git commit https://github.com/SBLANG/DO288-apps
+   58  git commit https://github.com/SBLANG/DO288-apps.git
+   59  git push https://github.com/SBLANG/DO288-apps 1711apxc~
+   60  git push https://github.com/SBLANG/DO288-apps 1711apxc
+   61  git status
+   62  git commit
+   63  history
+[student@workstation DO288-apps]$ 
