@@ -3,6 +3,7 @@
 set -e
 
 source ${HTTPD_CONTAINER_SCRIPTS_PATH}/common.sh
+echo ${HTTPD_CONTAINER_SCRIPTS_PATH} is value of HTTPD_CONTAINER_SCRIPTS_PATH
 
 echo "---> Enabling s2i support in httpd24 image"
 
@@ -12,6 +13,8 @@ config_s2i
 
 echo "---> Installing application source"
 cp -Rf /tmp/src/*.html ./
+pwd=$(pwd)
+echo pwd is $pwd
 
 DATE=`date "+%b %d, %Y @ %H:%M %p"`
 
