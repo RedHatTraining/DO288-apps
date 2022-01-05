@@ -1,5 +1,23 @@
+#!/bin/bash
+
+set -e
+
+source ${HTTPD_CONTAINER_SCRIPTS_PATH}/common.sh
+
+echo "---> Enabling s2i support in httpd24 image"
+
+config_s2i
 echo "------- >> copy files "
-cp -Rf /tmp/src/* ./
+cp -Rf /tmp/src/*.html ./
 echo "-------->> create info.html"
 echo $(date +"%Y-%m-%d") >> ./info.html
 echo "other msg ..." >> ./info.html
+echo "---> Installing application source"
+
+# Fix source directory permissions
+fix-permissions ./
+
+process_extending_files ${HTTPD_APP_ROOT}/src/httpd-post-assemble/ ${HTTPD_CONTAINER_SCRIPTS_PATH}/post-assemble/
+
+# Fix source directory permissions
+fix-permissions ./
