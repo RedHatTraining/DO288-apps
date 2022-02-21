@@ -31,6 +31,7 @@
     <!-- maven-compiler-plugin -->
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
+    <jkube.build.switchToDeployment>true</jkube.build.switchToDeployment>
   </properties>
 
 
@@ -91,6 +92,12 @@
         </executions>
       </plugin>
     </plugins>
+       <!-- JKube Maven plugin -->
+       <plugin>
+         <groupId>org.eclipse.jkube</groupId>
+         <artifactId>openshift-maven-plugin</artifactId>
+         <version>1.2.0</version>
+       </plugin>
   </build>
 
 </project>
