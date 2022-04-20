@@ -6,7 +6,7 @@ import (
     "fmt"
 )
 
-var lang = flag.String("lang", "en", "run app with language support - default is english")
+var lang = flag.String("lang", "en", "run app with language support - default is english: basic one")
 
 func main() {
     var port = "8080"
