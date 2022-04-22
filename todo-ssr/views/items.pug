@@ -1,0 +1,11 @@
+html
+  head
+    title Todo Items
+  body
+    h1 Todo List
+    p Note that this version is non-interactive
+    ul
+      each item in items
+        li
+          input(type="checkbox" disabled="disabled" checked=item.done ? "checked" : "")
+          span= item.description
