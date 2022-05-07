@@ -3,7 +3,7 @@ var fs = require('fs')
 app = express();
 
 // read in the APP_MSG env var
-var msg = process.env.MPM_RUN;
+var msg = process.env.NPM_RUN;
 
 var response;
 
