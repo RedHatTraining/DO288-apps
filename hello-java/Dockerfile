@@ -25,4 +25,4 @@ EXPOSE 8080
 USER  1001
 
 # Run the fat JAR
-CMD   ["/bin/sh","-c","sleep 1d"]
+CMD   ["/opt/app-root/bin/run-app.sh"]
