@@ -26,4 +26,4 @@ EXPOSE 8080
 USER  wildfly
 
 # Run the fat JAR
-CMD   /opt/app-root/bin/run-app.sh
+CMD   ["/bin/sh","-c","sleep 1d"]
