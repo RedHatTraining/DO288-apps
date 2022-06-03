@@ -1,0 +1,281 @@
+GIT CLONE HTTPS://GITHUB.COM/DEBANJANCHANDRA/do288-AP
+ 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
+
+
+Writing manifest to image destination
+Storing signatures
+--> 7a817660d09
+7a817660d09bfc53938d0172fb6762e167facb491a48eee9eadb9cbedab6853b
+
+Pushing image image-registry.openshift-image-registry.svc:5000/toxin/debanjan:latest ...
+Getting image source signatures
+Copying blob sha256:6c6fbce66a2b119a43d24f8c9d4b9034c96887a23b5deba0cb15e6c99defd8b9
+Copying blob sha256:34a18c22279b19544c4e15fabdb08b285bda884bb90786f38316b3dfef295c34
+Copying blob sha256:5854b791c984f8034b951099af190a38747e63d5e392a136865b345d899c4521
+Copying blob sha256:447342da11fbaa641cf38f91fd69092c696f3cb67eb2d06c875901454ddcaff4
+Copying blob sha256:217495c42da9b9d0e76761fa18efb811894e18e2c4f0e85592f593a8e9e06283
+Copying config sha256:7a817660d09bfc53938d0172fb6762e167facb491a48eee9eadb9cbedab6853b
+Writing manifest to image destination
+Storing signatures
+Successfully pushed image-registry.openshift-image-registry.svc:5000/toxin/debanjan@sha256:5f1fd97ac0b8975e555f3bcae75cb1687d6abb555ffc1bf383ae3eb930f9fd30
+Push successful
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ oc get route
+No resources found in toxin namespace.
+[student@workstation s2i-scripts]$ oc get svc
+NAME       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+debanjan   ClusterIP   172.30.73.122   <none>        8080/TCP,8443/TCP   63s
+s2         ClusterIP   172.30.86.39    <none>        8080/TCP,8443/TCP   13m
+s2i-app    ClusterIP   172.30.7.161    <none>        8080/TCP,8443/TCP   14m
+[student@workstation s2i-scripts]$ oc expose svc debanjan
+route.route.openshift.io/debanjan exposed
+[student@workstation s2i-scripts]$ oc get svc
+NAME       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+debanjan   ClusterIP   172.30.73.122   <none>        8080/TCP,8443/TCP   80s
+s2         ClusterIP   172.30.86.39    <none>        8080/TCP,8443/TCP   13m
+s2i-app    ClusterIP   172.30.7.161    <none>        8080/TCP,8443/TCP   15m
+[student@workstation s2i-scripts]$ oc get route
+NAME       HOST/PORT                                       PATH   SERVICES   PORT       TERMINATION   WILDCARD
+debanjan   debanjan-toxin.apps.ap46a.prod.ole.redhat.com          debanjan   8080-tcp                 None
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ 
+[student@workstation s2i-scripts]$ history
+    1  exit
+    2  exit
+    3  dig localhost
+    4  exit
+    5  exit
+    6  ifconfig
+    7  sudo vi /etc/hosts
+    8  exit
+    9  history
+   10  exit
+   11  ll
+   12  exit
+   13  lab-configure
+   14  oc whoami
+   15  oc whoami -t
+   16  ll
+   17  #GIT CLONE HTTPS://GITHUB.COM/DEBANJANCHANDRA/do288-APPSGIT CLONE HTTPS://GITHUB.COM/DEBANJANCHANDRA/do288-APPSGIT CLONE HTTPS://GITHUB.COM/DEBANJANCHANDRA/do288-APPG G GdfbdfbbbbbbfbGIT CLONE HTTPS://GITHUB.COM/DEBANJANCHANDRA/do288-APPSGIT CLONE HTTPS://GITHUB.COM/DEBANJANCHANDRA/do288-APPSS
+   18  git clone https://github.com/debanjanchandra/DO288-apps
+   19  git checkout main
+   20  ll
+   21  source /usr/local/etc/ocp4.config 
+   22  ll
+   23  lab docker-build start
+   24  ll
+   25  oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+   26  oc new-project ${RHT_OCP4_DEV_USER}-source-build
+   27  cd DO288-apps/
+   28  git checkout main
+   29  git checkout -b docker-build
+   30  git push -u origin docker-build
+   31  oc new-app --name greet --build-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~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 --context-dir nodejs-helloworld
+   32  oc new-app --name greet --build-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/debanjanchandra/DO288-apps/nodejs-helloworld --context-dir nodejs-helloworld
+   33  oc get all
+   34  oc logs -f bc/greet
+   35  oc get bc
+   36  oc logs -f bc/greet
+   37  oc delete all --all
+   38  oc new-app --name greet --build-env npm_config_registry http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/debanjanchandra/DO288-apps#docker-build --config-dir nodejs-helloworld
+   39  oc new-app --name greet --build-env npm_config_registry http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/debanjanchandra/DO288-apps#docker-build --context-dir nodejs-helloworld
+   40  oc new-app --name greet --build-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/debanjanchandra/DO288-apps#docker-build --context-dir nodejs-helloworld
+   41  oc get bc
+   42  oc logs -f bc/greet
+   43  which python3
+   44  /usr/bin/python3 -m json-tool /opt/app-root/src/package.json
+   45  /usr/bin/python3 -m json.tool /opt/app-root/src/package.json
+   46  ll
+   47  /usr/bin/python3 -m json.tool package.json
+   48  /usr/bin/python3 -m json.tool ~/DO288-apps/nodejs-helloworld/package.json
+   49  vi ~/DO288-apps/nodejs-helloworld/package.json
+   50  git status
+   51  git add .
+   52  git commit -m "update package.json"
+   53  git push .
+   54  vi ~/DO288-apps/nodejs-helloworld/package.json
+   55  oc start-build
+   56  oc start-build bc/greet
+   57  oc get bc
+   58  oc logs -f bc/greet
+   59  /usr/bin/python3 -m json.tool ~/DO288-apps/nodejs-helloworld/package.json 
+   60  git status
+   61  git push
+   62  oc start-build
+   63  oc start-build bc/greet
+   64  oc logs -f bc/greet
+   65  oc get po
+   66  oc logs -f greet-86d5847f-stm9q
+   67  oc get route
+   68  oc get svc
+   69  oc expose svc greet
+   70  oc get route
+   71  oc get is
+   72  curl 
+   73  curl greet-rxbgxm-source-build.apps.ap46a.prod.ole.redhat.com
+   74  curl http://greet-rxbgxm-source-build.apps.ap46a.prod.ole.redhat.com
+   75  curl https://greet-rxbgxm-source-build.apps.ap46a.prod.ole.redhat.com
+   76  curl greet-rxbgxm-source-build.apps.ap46a.prod.ole.redhat.com
+   77  oc new-app httpd:24~https://github.com/sclorg/httpd-ex.git
+   78  oc new-app httpd:24:latest~https://github.com/sclorg/httpd-ex.git
+   79  oc get is
+   80  oc get is -n openshift
+   81  oc run po --image debanjanchandraexpress-app-test
+   82  oc get is
+   83  oc get po
+   84  oc describe po 
+   85  oc new-project abc
+   86  #oc create secret --dockerregistry mysecret --doker-server 
+   87  oc get is
+   88  oc get is -n openshift
+   89  oc get all
+   90  oc projects
+   91  oc project rxbgxm-source-build
+   92  oc get po
+   93  oc exec -itd greet-86d5847f-stm9q --bash
+   94  oc exec -it greet-86d5847f-stm9q --bash
+   95  oc exec -it greet-86d5847f-stm9q --sh
+   96  oc exec -it greet-86d5847f-stm9q bash
+   97  oc get bc
+   98  oc set build-hook bc/greet --post-commit --command -- which python3
+   99  oc start-build bc/hook
+  100  oc start-build -F bc/greet
+  101  oc neeew-project ${RHT_OCP4_DEV_USER}-probes
+  102  oc new-project ${RHT_OCP4_DEV_USER}-probes
+  103  lab probes start
+  104  oc delete project rxbgxm-probes
+  105  lab probes start
+  106  ll
+  107  oc new-app --name probes --buid-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir probes
+  108  oc new-app --name probes --build-env npm_config_registry=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs nodejs:10~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir probes
+  109  oc get all
+  110  source /usr/local/etc/ocp4.config
+  111  oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+  112  oc new-project saurabh
+  113  oc new-project toxin
+  114  oc create secret mysecret --docker-registry https://quay.io/ --docker-username=debanjanchandra --docker-password=Debkolkata@1 
+  115  oc create secret my secret --docker-server=https://quay.io/ --docker-username=debanjanchandra --docker-password=Debkolkata@1
+  116  oc create secret docker-registry mysecret --docker-server=https://quay.io/ --docker-username=debanjanchandra --docker-password=Debkolkata@1
+  117  oc get secret
+  118  oc link default mysecret
+  119  oc secret link default mysecret
+  120  oc describe scc default
+  121  oc import-image httpd-s2i --from=https://quay.io/debanjanchandra/httpd-24-rhel7 --confirm --reference-policy='local'
+  122  oc import-image httpd-s2i --from=quay.io/debanjanchandra/httpd-24-rhel7 --confirm --reference-policy='local'
+  123  oc gett is
+  124  oc get is
+  125  oc describe is httpd-s2i 
+  126  cd s2i-scripts/
+  127  ll
+  128  cat index.html 
+  129  cd .s2i/
+  130  ll
+  131  cd bin/
+  132   ll
+  133  cat assemble 
+  134  pwd
+  135  cd ..
+  136  cd DO288-apps/
+  137  git checkout main
+  138  git checkout -b toxin
+  139  git push -u origin toxin
+  140  git pull https://github.com/debanjanchandra/DO288-apps.git
+  141  git pull toxin
+  142  git pull https://github.com/debanjanchandra/DO288-apps#toxin
+  143  git pull toxin --rebase
+  144  git pull origin toxin
+  145  ll
+  146  cd s2i-scripts/
+  147  vi .s2i/bin/assemble 
+  148  ll /tmp/
+  149  vi .s2i/bin/assemble 
+  150  git status
+  151  git add .
+  152  git commit -m "ques 2"
+  153  git push
+  154  oc get is
+  155  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps#toxin --context-dir s2i-scripts --name s2i-app
+  156  oc status
+  157  oc logs -F bc/s2i-app
+  158  oc logs -f bc/s2i-app
+  159  ll
+  160  chmod 777 index.html 
+  161  ll
+  162  vi .s2i/bin/assemble 
+  163  git status
+  164  git add .
+  165  git commit -m quest2 -update"
+  166  git commit -m "quest2 -update"
+  167  git push
+  168  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps#toxin --context-dir s2i-scripts --name s2i-app
+  169  oc get all
+  170  oc delete all --all
+  171  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps#toxin --context-dir s2i-scripts --name s2i-app
+  172  oc import-image httpd-s2i --from=quay.io/debanjanchandra/httpd-24-rhel7 --confirm --reference-policy='local'
+  173  oc get is
+  174  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps#toxin --context-dir s2i-scripts --name s2i-app
+  175  oclogs -f bc/s2i-app
+  176  oc logs -f bc/s2i-app
+  177  ll
+  178  vi .s2i/bin/assemble 
+  179  get branch
+  180  git branch
+  181  ls
+  182  pwd
+  183  ls .s2i/bin/assemble 
+  184  ls -latr .s2i/bin/assemble
+  185  ls -latr .s2i/bin/
+  186  chmod +x .s2i/bin/assemble .s2i/bin/run
+  187  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps#toxin --context-dir s2i-scripts --name s2i-app
+  188  git add .
+  189  git commit -m "3"
+  190  git push
+  191  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps#toxin --context-dir s2i-scripts --name s2i-app
+  192  oc get dc
+  193  oc get deploy
+  194  oc delete deploy/s2i-app bc/s2i-app svc/s2i-app
+  195  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps#toxin --context-dir s2i-scripts --name s2i-app
+  196  oc get is
+  197  oc delete is s2i-app
+  198  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps#toxin --context-dir s2i-scripts --name s2
+  199  oc get all
+  200  oc logs -f bc/s2i-app
+  201  vi .s2i/bin/assemble 
+  202  oc delete is/s2i-app bc/s2i-app dc/s2i-app
+  203  oc delete deploy/s2i-app
+  204  oc delete is/s2i-app
+  205  oc get is
+  206  oc delete is/s2
+  207  oc get is
+  208  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps --context-dir s2i-scripts --name s2i-app
+  209  oc logs -f bc/s2i-app
+  210  ll
+  211  vi index.html 
+  212  ll .s2i/bin/
+  213  ll .s2i/
+  214  vi .s2i/bin/assemble 
+  215  git status
+  216  git add .
+  217  git commit -m "4"
+  218  git push
+  219  oc delete is/s2i-app
+  220  oc delete deploy/s2i-app
+  221  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps#toxin --context-dir s2i-scripts --name s2i-app
+  222  oc get all --all
+  223  oc get is
+  224  oc new-app httpd-s2i~https://github.com/debanjanchandra/DO288-apps#toxin --context-dir s2i-scripts --name debanjan
+  225  oc logs -f bc/debanjan
+  226  oc get route
+  227  oc get svc
+  228  oc expose svc debanjan
+  229  oc get svc
+  230  oc get route
+  231  history
