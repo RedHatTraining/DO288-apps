@@ -18,7 +18,7 @@ ADD   https://github.com/RedHatTraining/DO288-apps/releases/download/OCP-4.1-1/h
 COPY  run-app.sh /opt/app-root/bin/
 
 RUN   chown -R wildfly:wildfly /opt/app-root && \
-      chmod -R 700 /opt/app-root && \
+      chmod -R 770 /opt/app-root && \
       chmod +x /opt/app-root/bin/run-app.sh
 
 EXPOSE 8080
@@ -26,4 +26,4 @@ EXPOSE 8080
 USER  wildfly
 
 # Run the fat JAR
-CMD   ["/opt/app-root/bin/run-app.sh; sleep 1d"]
+CMD   /opt/app-root/bin/run-app.sh
