@@ -1,1 +1,1 @@
-a sample file new first
+a sample file new second
