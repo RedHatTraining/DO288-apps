@@ -16,8 +16,8 @@ FROM registry.access.redhat.com/ubi8/ubi:8.0
 
 LABEL name="Nexus Repository Manager" \
       vendor=Sonatype \
-      version="3.18.0-01" \
-      release="3.18.0" \
+      version="3.30.1-01" \
+      release="3.30.1" \
       url="https://sonatype.com" \
       summary="The Nexus Repository Manager server \
           with universal support for popular component formats." \
@@ -36,9 +36,9 @@ LABEL name="Nexus Repository Manager" \
       io.openshift.tags="Sonatype,Nexus,Repository Manager"
 
 
-ARG NEXUS_VERSION=3.18.0-01
+ARG NEXUS_VERSION=3.30.1-01
 ARG NEXUS_DOWNLOAD_URL=https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-unix.tar.gz
-ARG NEXUS_DOWNLOAD_SHA256_HASH=e1d9d84d8b169b2f6c735e7db35e3310cf9e242da12b4af83da4e3618acfc99e
+ARG NEXUS_DOWNLOAD_SHA256_HASH=527c5ba75ffeb4400d553cb1e9885ae3c914ff2642724c8752f75bdf79cfe411
 
 # configure nexus runtime
 ENV SONATYPE_DIR=/opt/sonatype
@@ -56,7 +56,7 @@ ADD solo.json.erb /var/chef/solo.json.erb
 # Install using chef-solo
 # Chef version locked to avoid needing to accept the EULA on behalf of whomever builds the image
 RUN yum install -y --disableplugin=subscription-manager hostname procps \
-    && curl -L https://www.getchef.com/chef/install.sh | bash -s -- -v 14.12.9 \
+    && curl -L https://www.chef.io/chef/install.sh | bash -s -- -v 14.12.9 \
     && /opt/chef/embedded/bin/erb /var/chef/solo.json.erb > /var/chef/solo.json \
     && chef-solo \
        --recipe-url ${NEXUS_REPOSITORY_MANAGER_COOKBOOK_URL} \
@@ -73,7 +73,7 @@ VOLUME ${NEXUS_DATA}
 EXPOSE 8081
 USER nexus
 
-ENV INSTALL4J_ADD_VM_PARAMS="-Xms1200m -Xmx1200m -XX:MaxDirectMemorySize=2g -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs"
+ENV INSTALL4J_ADD_VM_PARAMS="-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs"
 
 ENTRYPOINT ["/uid_entrypoint.sh"]
 CMD ["sh", "-c", "${SONATYPE_DIR}/start-nexus-repository-manager.sh"]
