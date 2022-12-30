@@ -22,7 +22,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.18.0",
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "mocha-junit-reporter": "^1.23.0",
     "nyc": "^14.1.1",
     "request": "^2.88.0"
