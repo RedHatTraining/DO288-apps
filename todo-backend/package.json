@@ -65,7 +65,7 @@
     "jsonfile": "^6.1.0",
     "module-alias": "^2.2.2",
     "mysql2": "^2.2.5",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.29.0"
   },
   "devDependencies": {
     "@types/command-line-args": "^5.0.0",
