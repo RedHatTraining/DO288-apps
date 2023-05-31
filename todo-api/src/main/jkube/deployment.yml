@@ -1,0 +1,7 @@
+spec:
+  template:
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: db-config
