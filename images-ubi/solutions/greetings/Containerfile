@@ -1,0 +1,19 @@
+FROM registry.access.redhat.com/ubi9/nodejs-18-minimal:1-51
+
+RUN mkdir /opt/app-root/src/.npm && \
+    chgrp -R 0 /opt/app-root/src/.npm && \
+    chmod -R g=u /opt/app-root/src/.npm
+
+# Application listens on this port
+ENV PORT=8080
+EXPOSE ${PORT}
+
+# Install application dependencies
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# Copy the application source code
+COPY . .
+
+# Run the server
+CMD npm start
