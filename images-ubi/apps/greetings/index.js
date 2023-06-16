@@ -15,11 +15,11 @@ async function main() {
     console.info(`Running with user ID: ${userInfo.uid}, group ID: ${userInfo.gid}`);
 
     console.info("Verifying file cache...");
-    await localization
-        .translate("greeting", "en-us")
-        .catch((error) => {
-            console.error("File cache does not work due to", error);
-        });
+    try {
+        await localization.translate("greeting", "en-us");
+    } catch(error) {
+        console.error("File cache does not work due to", error);
+    }
 
     console.info("Starting server...");
     http

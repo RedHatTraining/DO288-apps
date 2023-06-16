@@ -1,18 +1,12 @@
 FROM registry.access.redhat.com/ubi9/nodejs-18-minimal
 
-# Use root user to listen on port 80
-USER root
-
-# Application listens on this port
 ENV PORT=80
 EXPOSE ${PORT}
 
-# Add application sources
+USER root
+
 ADD . $HOME
 
-# Install dependencies.
-# Clean up cache when finished.
 RUN npm ci --omit=dev && rm -rf .npm
 
-# Run the server
 CMD npm start
