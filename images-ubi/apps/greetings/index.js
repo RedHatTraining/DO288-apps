@@ -1,47 +1,39 @@
 const os = require("os");
 const http = require("http");
+const localization = require("./LocalizationService");
 
 
 const hostname = "0.0.0.0";
 const userInfo = os.userInfo();
-const port = process.env.PORT || 80;
-const greetings = [
-    "Guten tag",
-    "Hi!",
-    "Hello, how are you?",
-    "Hola, ¿que tal?",
-    "Bonjour, ça va bien?",
-    "Ciao, come stai?",
-    "Bon dia",
-    "Salve",
-    "Olá, tudo bem?",
-    "Namaste",
-    "Hallo",
-    "Hei!",
-    "Yassou",
-    "Ahoj!",
-    "Cześć!",
-    "Hej",
-    "Hey",
-    "Privet",
-    "Annyeong",
-    "Selam"
-];
+const port = process.env.PORT || 8080;
 
 
-console.log(`User ID: ${userInfo.uid}, group ID: ${userInfo.gid}`);
+main();
 
 
-http
-    .createServer(handleRequest)
-    .listen(port, hostname, () => {
-        console.log(`Server running as at http://${hostname}:${port}/`);
-    });
+async function main() {
+    console.info(`Running with user ID: ${userInfo.uid}, group ID: ${userInfo.gid}`);
+
+    console.info("Verifying file cache...");
+    await localization
+        .translate("greeting", "en-us")
+        .catch((error) => {
+            console.error("File cache does not work due to", error);
+        });
+
+    console.info("Starting server...");
+    http
+        .createServer(handleRequest)
+        .listen(port, hostname, () => {
+            console.log(`Server listening at http://${hostname}:${port}/`);
+        });
+}
 
 
-function handleRequest(req, res)  {
-    const randomGreetingIndex = Math.floor(Math.random() * greetings.length);
-    const message = greetings[randomGreetingIndex];
+async function handleRequest(req, res) {
+    // Return a greeting message in a random language
+    const locale = localization.getRandomLocaleID();
+    const message = await localization.translate("greeting", locale);
 
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
