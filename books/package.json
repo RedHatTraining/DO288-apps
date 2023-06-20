@@ -12,7 +12,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-prettify": "^0.1.1",
-    "hbs": "~4.0.4",
+    "hbs": "~4.2.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1"
   },
@@ -22,7 +22,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.18.0",
-    "mocha": "^6.1.4",
+    "mocha": "^6.2.3",
     "mocha-junit-reporter": "^1.23.0",
     "nyc": "^14.1.1",
     "request": "^2.88.0"
