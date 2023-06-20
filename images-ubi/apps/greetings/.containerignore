@@ -1,0 +1,5 @@
+.git
+.npm
+.containerignore
+node_modules
+Containerfile
