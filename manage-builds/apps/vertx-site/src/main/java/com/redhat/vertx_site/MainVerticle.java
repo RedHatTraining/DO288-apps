@@ -1,4 +1,4 @@
-package com.redhat.vertx_helloworld;
+package com.redhat.vertx_site;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;

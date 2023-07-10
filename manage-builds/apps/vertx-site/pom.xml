@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.redhat</groupId>
-  <artifactId>vertx-helloworld</artifactId>
+  <artifactId>vertx-site</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
   <properties>
@@ -19,7 +19,7 @@
     <vertx.version>4.4.4</vertx.version>
     <junit-jupiter.version>5.9.1</junit-jupiter.version>
 
-    <main.verticle>com.redhat.vertx_helloworld.MainVerticle</main.verticle>
+    <main.verticle>com.redhat.vertx_site.MainVerticle</main.verticle>
     <launcher.class>io.vertx.core.Launcher</launcher.class>
   </properties>
 
