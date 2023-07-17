@@ -60,6 +60,9 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${compiler-plugin.version}</version>
         <configuration>
+          <configuration>
+        <release>${maven.compiler.release}</release>
+    </configuration>
           <compilerArgs>
             <arg>-parameters</arg>
           </compilerArgs>
