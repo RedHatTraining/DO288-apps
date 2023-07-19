@@ -1,5 +1,4 @@
-FROM registry.access.redhat.com/ubi8/openjdk-17
-#FROM registry.ocp4.example.com:8443/ubi8/openjdk-17:1.12
+FROM registry.ocp4.example.com:8443/ubi8/openjdk-17:1.12
 
 COPY settings.xml /home/jboss/.m2/settings.xml
 COPY pom.xml .
