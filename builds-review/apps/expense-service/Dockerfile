@@ -1,6 +1,5 @@
-FROM registry.ocp4.example.com:8443/ubi8/openjdk-17:1.16
+FROM registry.ocp4.example.com:8443/ocpdev-ubi8-openjdk-17-base:1.16
 
-COPY settings.xml /home/jboss/.m2/settings.xml
 COPY pom.xml .
 RUN mvn dependency:go-offline
 
