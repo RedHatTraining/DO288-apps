@@ -8,4 +8,4 @@
 #
 
 # Run the app
-exec --lang es /opt/app-root/app
+exec /opt/app-root/app --lang es 
