@@ -11,8 +11,8 @@ fi
 
 cd /tmp
 
-echo 'Downloading SQL script that initializes the database...'
-curl -s -L -O https://github.com/RedHatTraining/DO288-apps/releases/download/OCP-4.1-1/users.sql
+#echo 'Downloading SQL script that initializes the database...'
+#curl -s -L -O https://github.com/RedHatTraining/DO288-apps/releases/download/OCP-4.1-1/users.sql
 
 echo "Trying $HOOK_RETRIES times, sleeping $HOOK_SLEEP sec between tries:"
 while [ "$HOOK_RETRIES" != 0 ]; do
@@ -38,7 +38,8 @@ if [ "$HOOK_RETRIES" = 0 ]; then
 fi
 
 # Run the SQL script
-if mysql -h$MYSQL_SERVICE_HOST -u$MYSQL_USER -p$MYSQL_PASSWORD -P3306 $MYSQL_DATABASE < /tmp/users.sql
+if mysql -h$MYSQL_SERVICE_HOST -u$MYSQL_USER -p$MYSQL_PASSWORD -P3306 $MYSQL_DATABASE < /post-deploy/users.sql
+
 then
   echo 'Database initialized successfully'
 else
