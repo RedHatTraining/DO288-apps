@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # get timer and retries from env
-
 if [ "$HOOK_RETRIES" = "" ]; then
   HOOK_RETRIES=0
 fi
@@ -15,7 +14,7 @@ echo "Trying $HOOK_RETRIES times, sleeping $HOOK_SLEEP sec between tries:"
 while [ "$HOOK_RETRIES" != 0 ]; do
 
   echo -n 'Checking if MySQL is up...'
-  if mysqlshow -h$MYSQL_SERVICE_HOST -u$MYSQL_USER -p$MYSQL_PASSWORD -P3306 $MYSQL_DATABASE &>/dev/null
+  if mysqlshow -h$USERS_DB_SERVICE_HOST -u$MYSQL_USER -p$MYSQL_PASSWORD -P3306 $MYSQL_DATABASE &>/dev/null
   then
     echo 'Database is up'
     break
@@ -35,7 +34,7 @@ if [ "$HOOK_RETRIES" = 0 ]; then
 fi
 
 # Run the SQL script
-if mysql -h$MYSQL_SERVICE_HOST -u$MYSQL_USER -p$MYSQL_PASSWORD -P3306 $MYSQL_DATABASE < /post-deploy/users.sql
+if mysql -h$USERS_DB_SERVICE_HOST -u$MYSQL_USER -p$MYSQL_PASSWORD -P3306 $MYSQL_DATABASE < /post-deploy/users.sql
 
 then
   echo 'Database initialized successfully'
