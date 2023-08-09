@@ -18,20 +18,15 @@ public class ReadinessCheck implements HealthCheck {
     @Override
     public HealthCheckResponse call() {
 
-        boolean isHealthy = true;
+        HealthCheckResponse resp;
 
         try {
             agroalDataSource.isHealthy(false);
+            resp = HealthCheckResponse.up("Database is live");
         } catch (SQLException e) {
-            isHealthy = false;
+            resp = HealthCheckResponse.down("Database is down");
         }
 
-        if (isHealthy) {
-            return HealthCheckResponse
-                .up("Database is live");
-        }
-
-        return HealthCheckResponse
-            .down("Database is down"); 
+        return resp;
     }
 }

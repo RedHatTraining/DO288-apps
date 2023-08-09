@@ -4,13 +4,13 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class HealthSwitch {
-    private boolean isUp = true;
+    private boolean up = true;
 
     public void switchState() {
-        this.isUp = !this.isUp;
+        this.up = !this.up;
     }
 
-    public boolean getState() {
-        return this.isUp;
+    public boolean isUp() {
+        return this.up;
     }
 }

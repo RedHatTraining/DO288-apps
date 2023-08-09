@@ -4,7 +4,6 @@ import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Liveness;
 
-import io.agroal.api.AgroalDataSource;
 import jakarta.inject.Inject;
 
 @Liveness
@@ -15,13 +14,13 @@ public class LivenessCheck implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
+        
+        HealthCheckResponse resp = HealthCheckResponse.down("Application is down");
 
-        if (healthSwitch.getState() ) {
-            return HealthCheckResponse
-                .up("Application is live");
+        if (healthSwitch.isUp() ) {
+            resp = HealthCheckResponse.up("Application is live");
         }
 
-        return HealthCheckResponse
-            .down("Application is down"); 
+        return resp;
     }
 }
