@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: expense-service
   name: expense-service
 spec:
-  host: expense-service.apps.ocp4.example.com
+  host: {{ expenseService.host }}.{{ expenseService.domain }}
   port:
     targetPort: http
   to:
