@@ -1,0 +1,8 @@
+postgres:
+  user: ""
+  pass: ""
+  db: "sampledb"
+
+expenseService:
+  replicaCount: 1
+  image: "TODO"
