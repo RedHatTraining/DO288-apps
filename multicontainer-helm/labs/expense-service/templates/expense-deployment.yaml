@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: expense-service
+    app.kubernetes.io/component: expense-service
+    app.kubernetes.io/instance: expense-service
+  name: expense-service
+spec:
+  replicas: "TODO"
+  selector:
+    matchLabels:
+      deployment: expense-service
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        deployment: expense-service
+    spec:
+      containers:
+      - env:
+          - name: DATABASE_NAME
+            valueFrom:
+              secretKeyRef:
+                key: database-name
+                name: postgresql
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: database-password
+                name: postgresql
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                key: database-user
+                name: postgresql
+        image: "TODO"
+        name: expense-service
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
