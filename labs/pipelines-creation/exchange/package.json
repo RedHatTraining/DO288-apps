@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
     "lint": "eslint .",
     "test": "mocha tests"
   },
   "author": "",
-  "license": "ISC",
   "dependencies": {
     "fastify": "^4.21.0"
   },
