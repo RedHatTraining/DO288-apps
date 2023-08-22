@@ -1,8 +1,9 @@
-FROM registry.access.redhat.com/ubi9/nodejs-16:1-118 as builder
+FROM registry.access.redhat.com/ubi9/nodejs-16:1-120 as builder
 ADD . $HOME
 # Avoid using "npm ci" to prevent problems with the private NPM registry in the lab environment
 RUN npm install --omit dev
 
-FROM registry.access.redhat.com/ubi8/nodejs-16-minimal:1-128
+FROM registry.access.redhat.com/ubi9/nodejs-16-minimal:1-130
 COPY --from=builder $HOME $HOME
+EXPOSE 3000
 CMD npm run -d start

@@ -1,4 +1,66 @@
 apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: debug
+spec:
+  workspaces:
+  - name: repo
+  steps:
+    - name: debug
+      image: registry.access.redhat.com/ubi9/nodejs-16:1-120.1692771027
+      workingDir: /workspace/repo
+      command: ["/bin/bash", "-c"]
+      args:
+        - |-
+          ls -l
+      env:
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dockerconfig-secret
+stringData:
+  config.json: |
+    {
+      "auths": {
+        "quay.io": {
+          "auth": "...",
+          "email": ""
+        }
+      }
+    }
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: npm
+spec:
+  workspaces:
+    - name: source
+  params:
+    - name: context
+      type: string
+      default: "."
+      description: The path where package.json of the project is defined.
+    - name: args
+      type: array
+      default: ["version"]
+    - name: node_image
+      type: string
+      default: "registry.access.redhat.com/ubi9/nodejs-16:1-120.1692771027"
+  steps:
+    - name: npm-run
+      image: $(params.node_image)
+      command:
+        - "npm"
+      args:
+        - $(params.args)
+      workingDir: $(workspaces.source.path)/$(params.context)
+      env:
+        - name: CI
+          value: "true"
+---
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: docker-build-and-deploy-pr
@@ -24,37 +86,99 @@ spec:
         - name: revision
           value: $(params.GIT_REVISION)
         - name: subdirectory
-          value: $(params.GIT_PATH)
+          value: ""
         - name: deleteExisting
           value: 'true'
       workspaces:
         - name: output
           workspace: workspace
-    - name: build
+
+    - name: npm-install
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: workspace
+      params:
+        - name: context
+          value: $(params.GIT_PATH)
+        - name: args
+          value: ["install"]
+      runAfter:
+        - fetch-repository
+
+    - name: npm-test
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: workspace
+      params:
+        - name: context
+          value: $(params.GIT_PATH)
+        - name: args
+          value: ["test"]
+      runAfter:
+        - npm-install
+
+    - name: npm-lint
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: workspace
+      params:
+        - name: context
+          value: $(params.GIT_PATH)
+        - name: args
+          value: ["run", "lint"]
+      runAfter:
+        - npm-install
+
+    - name: build-and-push
       taskRef:
         name: buildah
         kind: ClusterTask
       params:
         - name: IMAGE
-          value: $(params.IMAGE_NAME)
+          # value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME)
+          value: quay.io/jramcast/$(params.IMAGE_NAME):$(context.pipelineRun.uid)
         - name: DOCKERFILE
-          value: ./Containerfile
+          value: $(params.GIT_PATH)/Containerfile
+        - name: CONTEXT
+          value: $(params.GIT_PATH)
         - name: TLSVERIFY
           value: 'false'
       runAfter:
-        - fetch-repository
+        - npm-test
+        - npm-lint
       workspaces:
         - name: source
           workspace: workspace
-    - name: deploy
-      params:
-        - name: SCRIPT
-          value: |
-            oc new-app --docker-image $(params.IMAGE_NAME)
-      runAfter:
-        - build
-      taskRef:
-        kind: ClusterTask
-        name: openshift-client
+        - name: dockerconfig
+          workspace: dockerconfig-ws
+    # - name: deb
+    #   taskRef:
+    #     name: debug
+    #   workspaces:
+    #     - name: repo
+    #       workspace: workspace
+    #   runAfter:
+    #     - fetch-repository
+
+    # - name: deploy
+    #   params:
+    #     - name: SCRIPT
+    #       value: |
+    #         oc new-app --docker-image image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME)
+    #   runAfter:
+    #     - build
+    #   taskRef:
+    #     kind: ClusterTask
+    #     name: openshift-client
   workspaces:
     - name: workspace
+    - name: dockerconfig-ws
