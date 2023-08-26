@@ -1,0 +1,17 @@
+
+postgresql-persistent:
+  database_service_name: quotes-db
+  config:
+    postgresql_database: alex_db
+    postgresql_password: alex_pass
+
+secret_keyref_name: quotes-db
+quotes_db_envs:
+  - name: "QUOTES_DBHOST"
+    secret_keyref_key: "famousapp-mariadb"
+  - name: "QUOTES_DBNAME"
+    secret_keyref_key: "database-name"
+  - name: "QUOTES_DBUSER"
+    secret_keyref_key: "database-user"
+  - name: "QUOTES_DBPASSWORD"
+    secret_keyref_key: "database-password"

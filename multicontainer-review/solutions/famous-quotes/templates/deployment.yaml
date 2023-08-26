@@ -1,0 +1,43 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullname := "paco" }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  selector:
+    matchLabels:
+      app: {{ $fullname }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: famous-quotes
+    spec:
+      containers:
+      - name: spring-quotes
+        image: "famous-quotes:latest"
+        imagePullPolicy: IfNotPresent
+        env: {{ $secret_key_name := printf "%s" .Values.secret_keyref_name}}
+        - name: QUOTES_DB_HOST
+          value: {{ .Values.postgresql-persistent.database_service_name }}
+        {{- range .Values.quotes_db_envs }}
+        - name: {{ .name }}
+          valueFrom:
+            secretKeyRef:
+              key:  {{ .secret_keyref_key }}
+              name: {{ $secret_key_name }}
+        {{- end }}
+        volumeMounts:
+          - name: famous-quotes-cert
+            mountPath: /etc/pki/stock/
+      volumes:
+        - name: famous-quotes-cert
+          secret:
+            defaultMode: 420
+            secretName: famous-quotes-cert
+
+
+
+
