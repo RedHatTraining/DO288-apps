@@ -46,6 +46,7 @@ public class SpringQuotesApplication {
 
             quotes = new CsvToBeanBuilder<Quote>(reader)
                     .withMappingStrategy(strategy)
+                    .withSeparator('|')
                     .build()
                     .parse();
 

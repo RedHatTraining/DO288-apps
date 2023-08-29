@@ -8,7 +8,6 @@ spring:
   data:
     redis:
       host: ${DATASTORE_HOST:localhost}
-      #username: famous-quotes
       password: ${DATASTORE_PASS:strong_pass}
 
 quotes:
