@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: expense-service
   name: expense-service
 spec:
-  host: {{ expenseService.host }}.{{ expenseService.domain }}
+  host: {{ .Values.expenseService.host }}.{{ .Values.expenseService.domain }}
   port:
     targetPort: http
   to:
