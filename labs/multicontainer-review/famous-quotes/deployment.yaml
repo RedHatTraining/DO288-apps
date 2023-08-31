@@ -1,3 +1,4 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,12 +19,12 @@ spec:
         imagePullPolicy: Always
         env:
         - name: DATASTORE_HOST
-          value: quotes-store
+          value: {{ .Values.redis.database_service_name }}
         - name: DATASTORE_PASS
           valueFrom:
             secretKeyRef:
               key: database-password
-              name: quotes-store
+              name: {{ .Values.redis.database_service_name }}
         - name: QUOTES_IMPORT_PATH
           value: /tmp/quotes/import_quotes.csv
         volumeMounts:
@@ -33,3 +34,8 @@ spec:
         - name: import-volume
           configMap:
             name: quotes-import-data
+
+
+
+
+
