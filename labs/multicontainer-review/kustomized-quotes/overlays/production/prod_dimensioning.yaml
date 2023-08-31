@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: famous-quotes
 spec:
-  replicas: 2
+  replicas: 3
   template:
     spec:
       containers:
