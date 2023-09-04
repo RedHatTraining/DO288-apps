@@ -1,0 +1,18 @@
+services:
+  quotes:
+    container_name: famous-quotes
+    build:
+      context: ./
+    ports:
+      - '8081:8080'
+    environment:
+      - DATASTORE_PASS=strong_pass
+      - DATASTORE_HOST=redis
+  redis:
+    container_name: redis
+    image: registry.redhat.io/rhel8/redis-6
+    restart: always
+    ports:
+      - '6379:6379'
+    environment:
+      - REDIS_PASSWORD=strong_pass

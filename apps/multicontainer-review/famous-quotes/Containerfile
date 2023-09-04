@@ -1,0 +1,10 @@
+FROM registry.redhat.io/ubi8/openjdk-17:1.12 as builder
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn -DskipTests package
+
+FROM registry.redhat.io/ubi8/openjdk-17-runtime:1.12
+EXPOSE 8080
+COPY --from=builder /home/jboss/target/*.jar /app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]

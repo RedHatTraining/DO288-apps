@@ -1,0 +1,11 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: famous-quotes
+spec:
+  host: famous-quotes-multicontainer-review.apps.ocp4.example.com
+  port:
+    targetPort: https
+  to:
+    kind: Service
+    name: famous-quotes
