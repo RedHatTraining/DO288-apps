@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: famousapp-famouschart
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - name: famouschart
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "256m"
