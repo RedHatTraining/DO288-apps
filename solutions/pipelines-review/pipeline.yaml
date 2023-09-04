@@ -74,14 +74,14 @@ spec:
             oc expose svc $(params.DEPLOY_APP_NAME) || echo "route exists"
 
 
-  - name: skopeo-copy
-    runAfter:
-        - "oc-deploy"
-    taskRef:
-      name: skopeo-copy-internal
-      kind: ClusterTask
-    params:
-      - name: srcImageURL
-        value: docker://default-route-openshift-image-registry.apps.ocp4.example.com/pipelines-review/$(params.DEPLOY_APP_NAME)
-      - name: destImageURL
-        value: docker://registry.ocp4.example.com:8443/developer/$(params.DEPLOY_APP_NAME)
+    - name: skopeo-copy
+      runAfter:
+          - "oc-deploy"
+      taskRef:
+        name: skopeo-copy-internal
+        kind: ClusterTask
+      params:
+        - name: srcImageURL
+          value: docker://default-route-openshift-image-registry.apps.ocp4.example.com/pipelines-review/$(params.DEPLOY_APP_NAME)
+        - name: destImageURL
+          value: docker://registry.ocp4.example.com:8443/developer/$(params.DEPLOY_APP_NAME)
