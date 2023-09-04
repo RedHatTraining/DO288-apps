@@ -68,12 +68,14 @@ spec:
         - name: SCRIPT
           value: |
             cd  "$(workspaces.manifest-dir.path)/$(params.MVN_APP_PATH)" || exit 1
-            oc new-build --name=$(params.DEPLOY_APP_NAME) -l app=$(params.DEPLOY_APP_NAME)  --binary=true --image-stream=openshift/java:8 || echo "BC already exists"
-            oc start-build $(params.DEPLOY_APP_NAME) --wait=true  --from-file=$(params.DEPLOY_ARTIFACT_NAME)
-            oc new-app $(params.DEPLOY_APP_NAME):latest --name $(params.DEPLOY_APP_NAME) || echo "application exists"
+            oc new-build --name=$(params.DEPLOY_APP_NAME) \
+              -l app=$(params.DEPLOY_APP_NAME)  --binary=true \
+              --image-stream=openshift/java:8 || echo "BC already exists"
+            oc start-build $(params.DEPLOY_APP_NAME) --wait=true \
+              --from-file=$(params.DEPLOY_ARTIFACT_NAME)
+            oc new-app $(params.DEPLOY_APP_NAME):latest \
+              --name $(params.DEPLOY_APP_NAME) || echo "application exists"
             oc expose svc $(params.DEPLOY_APP_NAME) || echo "route exists"
-
-
     - name: skopeo-copy
       runAfter:
           - "oc-deploy"
