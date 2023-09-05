@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: deployments-health
+  namespace: deployments-health
 spec:
   hard:
     requests.memory: 512Mi
@@ -11,6 +12,7 @@ apiVersion: v1
 kind: LimitRange
 metadata:
   name: deployments-health
+  namespace: deployments-health
 spec:
   limits:
   - max:
