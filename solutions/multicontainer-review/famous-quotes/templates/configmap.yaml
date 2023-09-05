@@ -1,0 +1,17 @@
+{{- if .Values.quotes.import.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: quotes-import-data
+data:
+  import_quotes.csv: |-
+    id|quote|author
+    1|When words fail, music speaks.|William Shakespeare
+    2|Happiness depends upon ourselves.|Aristotle
+    3|The secret of change is to focus all your energy not on fighting the old but on building the new.|Socrates
+    4|Nothing that glitters is gold.|Mark Twain
+    5|Imagination is more important than knowledge.|Albert Einstein
+    6|Hell, if I could explain it to the average person, it wouldn't have been worth the Nobel prize.|Richard Feynman
+    7|Young man, in mathematics you don't understand things. You just get used to them.|John von Neumann
+    8|Those who can imagine anything, can create the impossible.|Alan Turing
+{{- end}}

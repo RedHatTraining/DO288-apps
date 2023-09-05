@@ -1,0 +1,41 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: gradedrun
+  finalizers:
+    - chains.tekton.dev/pipelinerun
+  labels:
+    tekton.dev/pipeline: maven-java-pipeline
+spec:
+  params:
+    - name: GIT_REPO
+      value: 'https://git.ocp4.example.com/developer/DO288-apps'
+    - name: GIT_REVISION
+      value: master
+    - name: MVN_APP_PATH
+      value: builds-applications/apps/vertx-site
+    - name: DEPLOY_ARTIFACT_NAME
+      value: target/vertx-site-1.0.0-SNAPSHOT-fat.jar
+    - name: DEPLOY_APP_NAME
+      value: graded-app
+  pipelineRef:
+    name: maven-java-pipeline
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: shared
+      volumeClaimTemplate:
+        metadata:
+          creationTimestamp: null
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+          storageClassName: nfs-storage
+          volumeMode: Filesystem
+        status: {}
+    - name: maven_config
+      secret:
+        secretName: mvn-settings
