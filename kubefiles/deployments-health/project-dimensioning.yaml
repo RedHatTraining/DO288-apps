@@ -6,7 +6,7 @@ metadata:
   namespace: deployments-health
 spec:
   hard:
-    requests.memory: 512Mi
+    requests.memory: 650Mi
 ---
 apiVersion: v1
 kind: LimitRange
