@@ -9,21 +9,21 @@ spec:
   results:
     - name: output
   params:
-    - name: context
+    - name: CONTEXT
       type: string
       default: "."
       description: The path where package.json of the project is defined.
-    - name: args
+    - name: ARGS
       type: string
-    - name: node_image
+    - name: NODE_IMAGE
       type: string
       default: "registry.access.redhat.com/ubi9/nodejs-16:1-120.1692771027"
   steps:
     - name: npm-run
-      image: $(params.node_image)
+      image: $(params.NODE_IMAGE)
       script: |
-        npm $(params.args) | tee $(results.output.path)
-      workingDir: $(workspaces.source.path)/$(params.context)
+        npm $(params.ARGS) | tee $(results.output.path)
+      workingDir: $(workspaces.source.path)/$(params.CONTEXT)
       env:
         - name: CI
           value: "true"

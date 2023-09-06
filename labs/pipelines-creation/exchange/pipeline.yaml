@@ -26,7 +26,7 @@ spec:
   params:
     - name: IMAGE_NAME
       type: string
-      default: "changeme"
+      default: "exchange"
     - name: GIT_REPO
       type: string
       # default: "https://git.ocp4.example.com/developer/DO288-apps"
@@ -67,9 +67,9 @@ spec:
         - name: source
           workspace: shared
       params:
-        - name: context
+        - name: CONTEXT
           value: $(params.APP_PATH)
-        - name: args
+        - name: ARGS
           value: install --no-package-lock
       runAfter:
         - fetch-repository
@@ -82,9 +82,9 @@ spec:
         - name: source
           workspace: shared
       params:
-        - name: context
+        - name: CONTEXT
           value: $(params.APP_PATH)
-        - name: args
+        - name: ARGS
           value: test
       runAfter:
         - npm-install
@@ -97,9 +97,9 @@ spec:
         - name: source
           workspace: shared
       params:
-        - name: context
+        - name: CONTEXT
           value: $(params.APP_PATH)
-        - name: args
+        - name: ARGS
           value: run lint
       runAfter:
         - npm-install
@@ -112,9 +112,9 @@ spec:
         - name: source
           workspace: shared
       params:
-        - name: context
+        - name: CONTEXT
           value: $(params.APP_PATH)
-        - name: args
+        - name: ARGS
           value: version|grep exchange|cut -d\' -f2
       runAfter:
         - fetch-repository
@@ -128,10 +128,12 @@ spec:
           # value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME)
           # value: quay.io/jramcast/$(params.IMAGE_NAME):$(context.pipelineRun.uid)
           value: registry.ocp4.example.com:8443/developer/$(params.IMAGE_NAME):$(tasks.app-version.results.output)
+        # - name: IMAGE_URL
+        #   value: registry.ocp4.example.com:8443
         - name: DOCKERFILE
           value: $(params.APP_PATH)/Containerfile
-        - name: CONTEXT
-          value: $(params.APP_PATH)
+        # - name: CONTEXT
+        #   value: $(params.APP_PATH)
         - name: TLSVERIFY
           value: "false"
       runAfter:
