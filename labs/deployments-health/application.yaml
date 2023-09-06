@@ -20,6 +20,7 @@ spec:
     spec:
       containers:
       - image: quay.io/redhattraining/ocpdev-expense-service-health:4.12
+        imagePullPolicy: Always
         name: expense
         ports:
         - containerPort: 8080
