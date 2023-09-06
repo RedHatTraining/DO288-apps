@@ -1,4 +1,5 @@
 FROM registry.access.redhat.com/ubi9/nodejs-16:1-120 as builder
+# USER root
 ADD . $HOME
 # Avoid using "npm ci" to prevent problems with the private NPM registry in the lab environment
 RUN npm install --omit dev

@@ -1,19 +1,4 @@
-apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: debug
-spec:
-  workspaces:
-  - name: repo
-  steps:
-    - name: debug
-      image: registry.access.redhat.com/ubi9/nodejs-16:1-120.1692771027
-      workingDir: /workspace/repo
-      command: ["/bin/bash", "-c"]
-      args:
-        - |-
-          ls -l
-      env:
+---
 ---
 apiVersion: v1
 kind: Secret
@@ -31,50 +16,29 @@ stringData:
     }
 ---
 apiVersion: tekton.dev/v1beta1
-kind: Task
-metadata:
-  name: npm
-spec:
-  workspaces:
-    - name: source
-  params:
-    - name: context
-      type: string
-      default: "."
-      description: The path where package.json of the project is defined.
-    - name: args
-      type: array
-      default: ["version"]
-    - name: node_image
-      type: string
-      default: "registry.access.redhat.com/ubi9/nodejs-16:1-120.1692771027"
-  steps:
-    - name: npm-run
-      image: $(params.node_image)
-      command:
-        - "npm"
-      args:
-        - $(params.args)
-      workingDir: $(workspaces.source.path)/$(params.context)
-      env:
-        - name: CI
-          value: "true"
----
-apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: docker-build-and-deploy-pr
-  namespace: rht-jramirez-dev
+  name: docker-build-and-deploy
 spec:
+  workspaces:
+    - name: shared
+    - name: dockerconfig
   params:
     - name: IMAGE_NAME
       type: string
+      default: "changeme"
     - name: GIT_REPO
       type: string
+      # default: "https://git.ocp4.example.com/developer/DO288-apps"
+      default: "https://github.com/redhattraining/DO288-apps"
     - name: GIT_REVISION
       type: string
-    - name: GIT_PATH
+      default: "ge/ch07s04-implement-pipelines-ge"
+      # default: "master"
+    - name: APP_PATH
       type: string
+      default: "labs/pipelines-creation/exchange"
+
   tasks:
     - name: fetch-repository
       taskRef:
@@ -88,10 +52,12 @@ spec:
         - name: subdirectory
           value: ""
         - name: deleteExisting
-          value: 'true'
+          value: "true"
+        - name: sslVerify
+          value: "false"
       workspaces:
         - name: output
-          workspace: workspace
+          workspace: shared
 
     - name: npm-install
       taskRef:
@@ -99,12 +65,12 @@ spec:
         kind: Task
       workspaces:
         - name: source
-          workspace: workspace
+          workspace: shared
       params:
         - name: context
-          value: $(params.GIT_PATH)
+          value: $(params.APP_PATH)
         - name: args
-          value: ["install"]
+          value: install --no-package-lock
       runAfter:
         - fetch-repository
 
@@ -114,12 +80,12 @@ spec:
         kind: Task
       workspaces:
         - name: source
-          workspace: workspace
+          workspace: shared
       params:
         - name: context
-          value: $(params.GIT_PATH)
+          value: $(params.APP_PATH)
         - name: args
-          value: ["test"]
+          value: test
       runAfter:
         - npm-install
 
@@ -129,14 +95,29 @@ spec:
         kind: Task
       workspaces:
         - name: source
-          workspace: workspace
+          workspace: shared
       params:
         - name: context
-          value: $(params.GIT_PATH)
+          value: $(params.APP_PATH)
         - name: args
-          value: ["run", "lint"]
+          value: run lint
       runAfter:
         - npm-install
+
+    - name: app-version
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: shared
+      params:
+        - name: context
+          value: $(params.APP_PATH)
+        - name: args
+          value: version|grep exchange|cut -d\' -f2
+      runAfter:
+        - fetch-repository
 
     - name: build-and-push
       taskRef:
@@ -145,40 +126,31 @@ spec:
       params:
         - name: IMAGE
           # value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME)
-          value: quay.io/jramcast/$(params.IMAGE_NAME):$(context.pipelineRun.uid)
+          # value: quay.io/jramcast/$(params.IMAGE_NAME):$(context.pipelineRun.uid)
+          value: registry.ocp4.example.com:8443/developer/$(params.IMAGE_NAME):$(tasks.app-version.results.output)
         - name: DOCKERFILE
-          value: $(params.GIT_PATH)/Containerfile
+          value: $(params.APP_PATH)/Containerfile
         - name: CONTEXT
-          value: $(params.GIT_PATH)
+          value: $(params.APP_PATH)
         - name: TLSVERIFY
-          value: 'false'
+          value: "false"
       runAfter:
         - npm-test
         - npm-lint
+        - app-version
       workspaces:
         - name: source
-          workspace: workspace
+          workspace: shared
         - name: dockerconfig
-          workspace: dockerconfig-ws
-    # - name: deb
-    #   taskRef:
-    #     name: debug
-    #   workspaces:
-    #     - name: repo
-    #       workspace: workspace
-    #   runAfter:
-    #     - fetch-repository
+          workspace: dockerconfig
 
-    # - name: deploy
-    #   params:
-    #     - name: SCRIPT
-    #       value: |
-    #         oc new-app --docker-image image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME)
-    #   runAfter:
-    #     - build
-    #   taskRef:
-    #     kind: ClusterTask
-    #     name: openshift-client
-  workspaces:
-    - name: workspace
-    - name: dockerconfig-ws
+        # - name: deploy
+        #   params:
+        #     - name: SCRIPT
+        #       value: |
+        #         oc new-app --docker-image image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME)
+        #   runAfter:
+        #     - build
+        #   taskRef:
+        #     kind: ClusterTask
+        #     name: openshift-client

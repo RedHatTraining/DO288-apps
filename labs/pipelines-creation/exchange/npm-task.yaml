@@ -1,0 +1,32 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: npm
+spec:
+  workspaces:
+    - name: source
+  results:
+    - name: output
+  params:
+    - name: context
+      type: string
+      default: "."
+      description: The path where package.json of the project is defined.
+    - name: args
+      type: string
+    - name: node_image
+      type: string
+      default: "registry.access.redhat.com/ubi9/nodejs-16:1-120.1692771027"
+  steps:
+    - name: npm-run
+      image: $(params.node_image)
+      script: |
+        npm $(params.args) | tee $(results.output.path)
+      workingDir: $(workspaces.source.path)/$(params.context)
+      env:
+        - name: CI
+          value: "true"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
