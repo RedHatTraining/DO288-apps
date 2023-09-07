@@ -15,13 +15,19 @@ class ReadinessHealthResource implements HealthCheck {
 
     private int counter = 0;
 
+    private boolean once = true;
+
     @Override
     public HealthCheckResponse call() {
         counter++;
-        Log.info( counter + " ready requests received");
         if (counter >= RETRIES_TO_READY) {
+            if (once)  {
+                Log.info("Marking service ready after " +counter + "  requests");
+                once = false;
+            }
             return HealthCheckResponse.up(HEALTH_CHECK_NAME);
         }
+        Log.info(counter + " ready requests received");
         return HealthCheckResponse.down(HEALTH_CHECK_NAME);
     }
 }
