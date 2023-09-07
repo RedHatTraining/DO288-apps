@@ -1,20 +1,4 @@
 ---
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: dockerconfig-secret
-stringData:
-  config.json: |
-    {
-      "auths": {
-        "quay.io": {
-          "auth": "...",
-          "email": ""
-        }
-      }
-    }
----
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
@@ -22,7 +6,6 @@ metadata:
 spec:
   workspaces:
     - name: shared
-    - name: dockerconfig
   params:
     - name: IMAGE_NAME
       type: string
@@ -115,7 +98,7 @@ spec:
         - name: CONTEXT
           value: $(params.APP_PATH)
         - name: ARGS
-          value: version|grep exchange|cut -d\' -f2
+          value: version|grep exchange|cut -d\' -f2|tr -d '\n'
       runAfter:
         - fetch-repository
 
@@ -125,17 +108,15 @@ spec:
         kind: ClusterTask
       params:
         - name: IMAGE
-          # value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME)
-          # value: quay.io/jramcast/$(params.IMAGE_NAME):$(context.pipelineRun.uid)
           value: registry.ocp4.example.com:8443/developer/$(params.IMAGE_NAME):$(tasks.app-version.results.output)
-        # - name: IMAGE_URL
-        #   value: registry.ocp4.example.com:8443
         - name: DOCKERFILE
-          value: $(params.APP_PATH)/Containerfile
-        # - name: CONTEXT
-        #   value: $(params.APP_PATH)
+          value: Containerfile
+        - name: CONTEXT
+          value: $(params.APP_PATH)
         - name: TLSVERIFY
           value: "false"
+        - name: SKIP_PUSH
+          value: "true"
       runAfter:
         - npm-test
         - npm-lint
@@ -143,16 +124,3 @@ spec:
       workspaces:
         - name: source
           workspace: shared
-        - name: dockerconfig
-          workspace: dockerconfig
-
-        # - name: deploy
-        #   params:
-        #     - name: SCRIPT
-        #       value: |
-        #         oc new-app --docker-image image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME)
-        #   runAfter:
-        #     - build
-        #   taskRef:
-        #     kind: ClusterTask
-        #     name: openshift-client
