@@ -23,7 +23,7 @@
     <version.thorntail>2.4.0.Final</version.thorntail>
 
     <!-- MySQL JDBC Connector -->
-    <version.mysql>8.0.16</version.mysql>
+    <version.mysql>8.0.28</version.mysql>
 
     <!-- other plugin versions -->
     <version.compiler.plugin>3.1</version.compiler.plugin>
