@@ -1,0 +1,11 @@
+FROM registry.access.redhat.com/ubi8/nodejs-16-minimal
+
+COPY package.json package-lock.json ./
+
+RUN npm ci && rm -rf .npm
+
+COPY . .
+
+EXPOSE 3000
+
+CMD npm start

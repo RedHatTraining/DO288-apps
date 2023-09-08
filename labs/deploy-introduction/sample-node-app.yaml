@@ -1,0 +1,88 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: node-server
+spec:
+  source:
+    type: Dockerfile
+    dockerfile: |
+      FROM registry.ocp4.example.com:8443/ubi8/nodejs-16:latest
+
+      RUN echo "const http = require('http'); \
+      const hostname = '0.0.0.0'; \
+      const port = 4000; \
+      const server = http.createServer((req, res) => { \
+        res.statusCode = 200; \
+        res.setHeader('Content-Type', 'text/plain'); \
+        res.end('Hello World'); \
+      }); \
+      server.listen(port, hostname, () => { \
+        console.log(\`Server running: \${hostname}:\${port}\`); \
+      }); \
+      " > server.js
+
+      EXPOSE 4000
+
+      CMD ["node", "server.js"]
+  strategy:
+    type: Docker
+  output:
+    to:
+      kind: ImageStreamTag
+      name: node-server:latest
+  triggers:
+    - type: ConfigChange
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: node-server
+spec:
+  tags:
+    - name: latest
+      importPolicy:
+        insecure: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-server
+  template:
+    metadata:
+      labels:
+        app: node-server
+    spec:
+      containers:
+        - name: node-server
+          image: image-registry.openshift-image-registry.svc:5000/deploy-introduction/node-server:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-server
+spec:
+  selector:
+    app: node-server
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: node-server
+spec:
+  port:
+    targetPort: 4000
+  to:
+    kind: Service
+    name: node-server

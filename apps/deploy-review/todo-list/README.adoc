@@ -1,0 +1,14 @@
+= Application for `deploy-review` Lab
+
+The container image for this application is available at `quay.io/redhattraining/openshift-dev-deploy-review-todo-list`.
+
+
+== Disconnected Environments
+
+The exercise references this image as a repository in the internal registry: `registry.ocp4.example.com:8443/redhattraining/openshift-dev-deploy-review-todo-list`
+
+To make this container available at the internal registry, add the `quay.io/redhattraining/openshift-dev-deploy-review-todo-list` container image to the `registry_image_mirror` property of the `classroom/osp/inventory/group_vars/all/vars.yml` file.
+
+== Build and Publish
+
+To build and publish this image to quay.io, run the `build_and_push_image.sh` script.
