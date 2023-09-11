@@ -1,0 +1,55 @@
+commands:
+
+- apply:
+    component: build
+  id: build-image
+- apply:
+    component: deploy
+    group:
+      isDefault: true
+      kind: deploy
+  id: deployk8s
+
+components:
+
+- image:
+    dockerfile:
+      buildContext: .
+      rootRequired: false
+      uri: docker/Dockerfile
+    imageName: registry.ocp4.example.com:8443/redhattraining/openshift-dev-deploy-cli-weather:1.0
+  name: build
+
+- kubernetes:
+    endpoints:
+    - name: http-8081
+      targetPort: 8081
+    uri: kubernetes/deploy.yaml
+  name: deploy
+
+- container:
+    args:
+    - tail
+    - -f
+    - /dev/null
+    endpoints:
+    - name: http-python
+      targetPort: 8080
+    - exposure: none
+      name: debug
+      targetPort: 5858
+    env:
+    - name: DEBUG_PORT
+      value: "5858"
+    image: registry.ocp4.example.com:8443/ubi8/python-39:latest
+    mountSources: true
+  name: py
+
+metadata:
+  description: Example deploy
+  language: Python
+  name: weather
+  projectType: Python
+  provider: Red Hat Training
+  version: 3.0.0
+schemaVersion: 2.2.0
