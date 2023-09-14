@@ -1,140 +1,84 @@
 ---
-kind: ImageStream
-apiVersion: image.openshift.io/v1
+apiVersion: template.openshift.io/v1
+kind: Template
 metadata:
-  name: words
-labels:
-    app: words
-    app.kubernetes.io/component: words
-    app.kubernetes.io/instance: words
-    app.kubernetes.io/name: words
-    app.kubernetes.io/part-of: words
-    app.openshift.io/runtime: nodejs
-    app.openshift.io/runtime-version: 16-ubi8
-spec: {}
----
-kind: BuildConfig
-apiVersion: build.openshift.io/v1
-metadata:
-  name: words
-  labels:
-    app: words
-    app.kubernetes.io/component: words
-    app.kubernetes.io/instance: words
-    app.kubernetes.io/name: words
-    app.kubernetes.io/part-of: words
-    app.openshift.io/runtime: nodejs
-    app.openshift.io/runtime-version: 16-ubi8
-spec:
-  output:
-    to:
-      kind: ImageStreamTag
-      name: 'words:latest'
-  strategy:
-    type: Docker
-    dockerStrategy:
-      dockerfilePath: Containerfile
-  source:
-    type: Git
-    git:
-      uri: 'https://github.com/RedHatTraining/DO288-apps/'
-      ref: compreview-part-2
-    contextDir: /labs/compreview-review2/words
-  # triggers:
-  #   - type: Generic
-  #     generic:
-  #       secretReference:
-  #         name: words-generic-webhook-secret
-  #   - type: GitHub
-  #     github:
-  #       secretReference:
-  #         name: words-github-webhook-secret
-  #   - type: ConfigChange
----
-kind: Deployment
-apiVersion: apps/v1
-metadata:
+  name: ad482-amq-streams-17-topic
   annotations:
-    alpha.image.policy.openshift.io/resolve-names: '*'
-    app.openshift.io/route-disabled: 'false'
-    app.openshift.io/vcs-ref: compreview-part-2
-    app.openshift.io/vcs-uri: 'https://github.com/RedHatTraining/DO288-apps/'
-    deployment.kubernetes.io/revision: '1'
-    image.openshift.io/triggers: >-
-      [{"from":{"kind":"ImageStreamTag","name":"words:latest","namespace":"compreview-review2"},"fieldPath":"spec.template.spec.containers[?(@.name==\"words\")].image","pause":"false"}]
-    openshift.io/generated-by: OpenShiftWebConsole
-  name: words
-  namespace: compreview-review2
-  labels:
-    app: words
-    app.kubernetes.io/component: words
-    app.kubernetes.io/instance: words
-    app.kubernetes.io/name: words
-    app.kubernetes.io/part-of: words
-    app.openshift.io/runtime: nodejs
-    app.openshift.io/runtime-version: 16-ubi8
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: words
-  template:
+    description: "AD482 AMQ Streams 1.7 Topic Template"
+objects:
+  - kind: Deployment
+    apiVersion: apps/v1
     metadata:
-      creationTimestamp: null
+      name: words
+      namespace: compreview-review2
       labels:
         app: words
-        deployment: words
+        app.kubernetes.io/component: words
+        app.kubernetes.io/instance: words
+        app.kubernetes.io/name: words
+        app.kubernetes.io/part-of: words
+        app.openshift.io/runtime: nodejs
+        app.openshift.io/runtime-version: 16-ubi8
     spec:
-      containers:
-        - name: words
-          image: >-
-            image-registry.openshift-image-registry.svc:5000/compreview-review2/words:latest
-          ports:
-            - containerPort: 3000
-              protocol: TCP
-          imagePullPolicy: Always
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: words
-  labels:
-    app: words
-    app.kubernetes.io/component: words
-    app.kubernetes.io/instance: words
-    app.kubernetes.io/name: words
-    app.kubernetes.io/part-of: words
-    app.openshift.io/runtime: nodejs
-    app.openshift.io/runtime-version: 16-ubi8
-spec:
-  ports:
-    - name: 3000-tcp
-      protocol: TCP
-      port: 3000
-      targetPort: 3000
-  selector:
-    app: words
-    deployment: words
----
-kind: Route
-apiVersion: route.openshift.io/v1
-metadata:
-  name: words
-  labels:
-    app: words
-    app.kubernetes.io/component: words
-    app.kubernetes.io/instance: words
-    app.kubernetes.io/name: words
-    app.kubernetes.io/part-of: words
-    app.openshift.io/runtime: nodejs
-    app.openshift.io/runtime-version: 16-ubi8
-spec:
-  to:
-    kind: Service
-    name: words
-  port:
-    targetPort: 3000-tcp
-
-
-
-
+      replicas: 1
+      selector:
+        matchLabels:
+          app: words
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: words
+            deployment: words
+        spec:
+          containers:
+            - name: words
+              image: "${IMAGE_NAME}"
+              ports:
+                - containerPort: 3000
+                  protocol: TCP
+              imagePullPolicy: Always
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: words
+      labels:
+        app: words
+        app.kubernetes.io/component: words
+        app.kubernetes.io/instance: words
+        app.kubernetes.io/name: words
+        app.kubernetes.io/part-of: words
+        app.openshift.io/runtime: nodejs
+        app.openshift.io/runtime-version: 16-ubi8
+    spec:
+      ports:
+        - name: 3000-tcp
+          protocol: TCP
+          port: 3000
+          targetPort: 3000
+      selector:
+        app: words
+        deployment: words
+  - kind: Route
+    apiVersion: route.openshift.io/v1
+    metadata:
+      name: words
+      labels:
+        app: words
+        app.kubernetes.io/component: words
+        app.kubernetes.io/instance: words
+        app.kubernetes.io/name: words
+        app.kubernetes.io/part-of: words
+        app.openshift.io/runtime: nodejs
+        app.openshift.io/runtime-version: 16-ubi8
+    spec:
+      to:
+        kind: Service
+        name: words
+      port:
+        targetPort: 3000-tcp
+parameters:
+  - name: IMAGE_NAME
+    displayName: Image name
+    description: The full name of the image
+    required: true
