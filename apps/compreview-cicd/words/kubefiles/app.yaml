@@ -2,9 +2,9 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
-  name: ad482-amq-streams-17-topic
+  name: do288-compreview-pipelines-words-app-template
   annotations:
-    description: "AD482 AMQ Streams 1.7 Topic Template"
+    description: "DO288 Comp Review (Pipelines): Words app template"
 objects:
   - kind: Deployment
     apiVersion: apps/v1

@@ -1,0 +1,54 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: words-cicd-pipeline
+spec:
+  workspaces:
+    - name: shared
+  params:
+    - name: IMAGE_NAME
+      type: string
+      default: "words"
+    - name: GIT_REPO
+      type: string
+      # default: "https://git.ocp4.example.com/developer/DO288-apps"
+      default: "https://github.com/redhattraining/DO288-apps"
+    - name: GIT_REVISION
+      type: string
+      default: "compreview-part-2"
+      # default: "master"
+    - name: APP_PATH
+      type: string
+      default: "apps/compreview-cicd/words"
+
+  tasks:
+    - name: fetch-repository
+      # TODO: add "git-clone" taskRef
+      params:
+        # TODO: add url parameter
+        - name: revision
+          value: $(params.GIT_REVISION)
+        - name: subdirectory
+          value: ""
+        - name: deleteExisting
+          value: "true"
+        - name: sslVerify
+          value: "false"
+      workspaces:
+        # TODO: Configure workspace
+
+    - name: npm-install
+    # TODO
+
+    - name: npm-test
+    # TODO
+
+    - name: npm-lint
+    # TODO
+
+    - name: build-push-image
+    # TODO
+
+    - name: oc-deploy
+    # TODO

@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: words-cicd-pipeline-21
+  name: words-cicd-pipeline-22
   labels:
     tekton.dev/pipeline: words-cicd-pipeline
 spec:
