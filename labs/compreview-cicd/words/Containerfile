@@ -12,6 +12,6 @@ USER default
 RUN npm install --omit dev
 
 FROM registry.access.redhat.com/ubi9/nodejs-16-minimal:1-130
-COPY --from=builder . .
+COPY --from=builder $HOME $HOME
 EXPOSE 3000
 CMD npm run -d start

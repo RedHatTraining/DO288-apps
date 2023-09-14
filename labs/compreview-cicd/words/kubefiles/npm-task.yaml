@@ -22,7 +22,7 @@ spec:
     - name: npm-run
       image: $(params.NODE_IMAGE)
       script: |
-        npm $(params.ARGS) | tee $(results.output.path)
+        npm $(params.ARGS)
       workingDir: $(workspaces.source.path)/$(params.CONTEXT)
       env:
         - name: CI

@@ -9,18 +9,18 @@ spec:
   params:
     - name: IMAGE_NAME
       type: string
-      default: "exchange"
+      default: "words"
     - name: GIT_REPO
       type: string
       # default: "https://git.ocp4.example.com/developer/DO288-apps"
       default: "https://github.com/redhattraining/DO288-apps"
     - name: GIT_REVISION
       type: string
-      default: "ge/ch07s04-implement-pipelines-ge"
+      default: "compreview-part-2"
       # default: "master"
     - name: APP_PATH
       type: string
-      default: "labs/pipelines-creation/exchange"
+      default: "labs/compreview-cicd/words"
 
   tasks:
     - name: fetch-repository
@@ -87,40 +87,38 @@ spec:
       runAfter:
         - npm-install
 
-    - name: app-version
-      taskRef:
-        name: npm
-        kind: Task
-      workspaces:
-        - name: source
-          workspace: shared
-      params:
-        - name: CONTEXT
-          value: $(params.APP_PATH)
-        - name: ARGS
-          value: version|grep exchange|cut -d\' -f2|tr -d '\n'
-      runAfter:
-        - fetch-repository
-
-    - name: build-and-push
+    - name: build-push-image
       taskRef:
         name: buildah
         kind: ClusterTask
       params:
         - name: IMAGE
-          value: registry.ocp4.example.com:8443/developer/$(params.IMAGE_NAME):$(context.pipelineRun.uid)
+          value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME):$(context.pipelineRun.uid)
         - name: DOCKERFILE
-          value: Containerfile
+          value: ./Containerfile
         - name: CONTEXT
           value: $(params.APP_PATH)
-        - name: TLSVERIFY
-          value: "false"
-        - name: SKIP_PUSH
-          value: "true"
-      runAfter:
-        - npm-test
-        - npm-lint
-        - app-version
       workspaces:
         - name: source
           workspace: shared
+      runAfter:
+        - npm-test
+        - npm-lint
+
+    - name: oc-deploy
+      runAfter:
+        - build-push-image
+      taskRef:
+        name: openshift-client
+        kind: ClusterTask
+      workspaces:
+        - name: manifest-dir
+          workspace: shared
+      params:
+        - name: SCRIPT
+          value: |
+            pwd
+            ls -l
+            oc process -f $(params.APP_PATH)/kubefiles/app.yaml \
+            -p IMAGE_NAME=image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME):$(context.pipelineRun.uid) \
+            | oc apply -f -
