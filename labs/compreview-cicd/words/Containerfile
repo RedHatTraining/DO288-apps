@@ -2,8 +2,11 @@ FROM registry.access.redhat.com/ubi9/nodejs-16:1-120 as builder
 ADD . .
 
 # Allow the root group to have the same permissions as the root user
+# in the application directory
+USER root
 RUN chgrp -R 0 . && \
     chmod -R g=u .
+USER default
 
 # Avoid using "npm ci" to prevent problems with the private NPM registry in the lab environment
 RUN npm install --omit dev
