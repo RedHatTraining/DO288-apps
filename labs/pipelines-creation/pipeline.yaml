@@ -18,7 +18,7 @@ spec:
       default: "master"
     - name: APP_PATH
       type: string
-      default: "labs/pipelines-creation/exchange"
+      default: "apps/pipelines-creation/exchange"
 
   tasks:
     - name: TODO
