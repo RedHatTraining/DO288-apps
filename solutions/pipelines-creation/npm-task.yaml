@@ -1,0 +1,31 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: npm
+spec:
+  workspaces:
+    - name: source
+  results:
+    - name: output
+  params:
+    - name: CONTEXT
+      type: string
+      default: "."
+    - name: ARGS
+      type: string
+    - name: NODE_IMAGE
+      type: string
+      default: "registry.access.redhat.com/ubi8/nodejs-16:latest"
+  steps:
+    - name: npm-run
+      image: $(params.NODE_IMAGE)
+      script: |
+        npm $(params.ARGS) | tee $(results.output.path)
+      workingDir: $(workspaces.source.path)/$(params.CONTEXT)
+      env:
+        - name: CI
+          value: "true"
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
