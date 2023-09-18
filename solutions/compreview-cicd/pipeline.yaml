@@ -10,6 +10,9 @@ spec:
     - name: IMAGE_NAME
       type: string
       default: "words"
+    - name: IMAGE_REGISTRY
+      type: string
+      default: "image-registry.openshift-image-registry.svc:5000"
     - name: GIT_REPO
       type: string
       # default: "https://git.ocp4.example.com/developer/DO288-apps"
@@ -93,7 +96,7 @@ spec:
         kind: ClusterTask
       params:
         - name: IMAGE
-          value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME):$(context.pipelineRun.uid)
+          value: $(params.IMAGE_REGISTRY)/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME):$(context.pipelineRun.uid)
         - name: DOCKERFILE
           value: ./Containerfile
         - name: CONTEXT
@@ -117,8 +120,6 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            pwd
-            ls -l
             oc process -f $(params.APP_PATH)/kubefiles/app.yaml \
-            -p IMAGE_NAME=image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME):$(context.pipelineRun.uid) \
+            -p IMAGE_NAME=$(params.IMAGE_REGISTRY)/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME):$(context.pipelineRun.uid) \
             | oc apply -f -
