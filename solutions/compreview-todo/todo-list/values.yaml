@@ -5,9 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: quay.io/redhattraining/todo-backend
-  # pullPolicy: IfNotPresent
-  pullPolicy: Always
+  repository: registry.ocp4.example.com:8443/redhattraining/todo-backend
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "release-46"
 
@@ -22,7 +21,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "todouser"
+  name: ""
 
 podAnnotations: {}
 
@@ -83,6 +82,10 @@ tolerations: []
 affinity: {}
 
 mariadb:
+  global:
+    imageRegistry: "registry.ocp4.example.com:8443"
+  image:
+    tag: 10.5.10-debian-10-r0
   auth:
     username: todouser
     password: todopwd
@@ -92,13 +95,13 @@ mariadb:
       enabled: false
     containerSecurityContext:
       enabled: false
-
+ 
 env:
-  - name: DATABASE_NAME
-    value: tododb
-  - name: DATABASE_USER
-    value: todouser
-  - name: DATABASE_PASSWORD
-    value: todopwd
-  - name: DATABASE_SVC
-    value: todo-list-mariadb
+- name: DATABASE_NAME
+  value: tododb
+- name: DATABASE_USER
+  value: todouser
+- name: DATABASE_PASSWORD
+  value: todopwd
+- name: DATABASE_SVC
+  value: todo-list-mariadb

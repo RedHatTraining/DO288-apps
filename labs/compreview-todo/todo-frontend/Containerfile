@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/nodejs-14 AS appbuild
+FROM registry.access.redhat.com/ubi8/nodejs-16 AS appbuild
 
 LABEL version="1.0"
 LABEL description="To Do List application builder"
@@ -8,11 +8,13 @@ ENV REACT_APP_API_HOST=""
 
 USER 0
 
-COPY . /tmp/todo-frontend
+ADD . .
 
-RUN cd /tmp/todo-frontend
-RUN npm install
-RUN npm run build
+RUN chgrp -R 0 .
+RUN  chmod -R g=u .
+RUN  npm install
+RUN  npm run build
+
 
 # https://github.com/sclorg/nginx-container
 FROM registry.access.redhat.com/ubi8/nginx-118
@@ -23,6 +25,6 @@ LABEL creationDate="2017-12-25"
 LABEL updatedDate="2021-05-19"
 
 COPY nginx.conf /etc/nginx/
-COPY --from=appbuild /tmp/todo-frontend/build /usr/share/nginx/html
+COPY --from=appbuild /opt/app-root/src/build /usr/share/nginx/html
 
 CMD nginx -g "daemon off;"
