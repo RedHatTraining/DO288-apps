@@ -15,16 +15,13 @@ spec:
       default: "image-registry.openshift-image-registry.svc:5000"
     - name: GIT_REPO
       type: string
-      # default: "https://git.ocp4.example.com/developer/DO288-apps"
-      default: "https://github.com/redhattraining/DO288-apps"
+      default: "https://git.ocp4.example.com/developer/DO288-apps"
     - name: GIT_REVISION
       type: string
-      default: "compreview-part-2"
-      # default: "master"
+      default: "master"
     - name: APP_PATH
       type: string
-      default: "labs/compreview-cicd/words"
-
+      default: "apps/compreview-cicd/words"
   tasks:
     - name: fetch-repository
       taskRef:
@@ -35,8 +32,6 @@ spec:
           value: $(params.GIT_REPO)
         - name: revision
           value: $(params.GIT_REVISION)
-        - name: subdirectory
-          value: ""
         - name: deleteExisting
           value: "true"
         - name: sslVerify
