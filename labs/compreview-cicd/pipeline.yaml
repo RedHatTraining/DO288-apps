@@ -27,8 +27,6 @@ spec:
       # TODO
       params:
         # TODO
-        - name: revision
-          value: $(params.GIT_REVISION)
         - name: deleteExisting
           value: "true"
         - name: sslVerify
