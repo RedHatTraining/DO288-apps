@@ -1,4 +1,4 @@
-FROM registry.ocp4.example.com:8443/ubi9/nodejs-18-minimal:1-51 as builder
+FROM registry.ocp4.example.com:8443/ubi8/nodejs-16:latest as builder
 ADD . .
 
 # Allow the root group to have the same permissions as the root user
@@ -11,7 +11,7 @@ USER 1001
 # Avoid using "npm ci" to prevent problems with the private NPM registry in the lab environment
 RUN npm install --omit dev
 
-FROM registry.ocp4.example.com:8443/ubi9/nodejs-18-minimal:1-51
+FROM registry.ocp4.example.com:8443/ubi8/nodejs-16:latest
 COPY --from=builder $HOME $HOME
 EXPOSE 3000
 CMD npm run -d start
