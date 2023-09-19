@@ -10,10 +10,10 @@ USER 0
 
 ADD . .
 
-RUN chgrp -R 0 .
-RUN  chmod -R g=u .
-RUN  npm install
-RUN  npm run build
+RUN chgrp -R 0 . && \
+  chmod -R g=u . && \
+  npm install  && \
+  npm run build
 
 
 # https://github.com/sclorg/nginx-container
