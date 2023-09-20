@@ -1,0 +1,120 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: words-cicd-pipeline
+spec:
+  workspaces:
+    - name: shared
+  params:
+    - name: IMAGE_NAME
+      type: string
+      default: "words"
+    - name: IMAGE_REGISTRY
+      type: string
+      default: "image-registry.openshift-image-registry.svc:5000"
+    - name: GIT_REPO
+      type: string
+      default: "https://git.ocp4.example.com/developer/DO288-apps"
+    - name: GIT_REVISION
+      type: string
+      default: "master"
+    - name: APP_PATH
+      type: string
+      default: "apps/compreview-cicd/words"
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+        - name: url
+          value: $(params.GIT_REPO)
+        - name: revision
+          value: $(params.GIT_REVISION)
+        - name: deleteExisting
+          value: "true"
+        - name: sslVerify
+          value: "false"
+      workspaces:
+        - name: output
+          workspace: shared
+
+    - name: npm-install
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: shared
+      params:
+        - name: CONTEXT
+          value: $(params.APP_PATH)
+        - name: ARGS
+          value: install --no-package-lock
+      runAfter:
+        - fetch-repository
+
+    - name: npm-test
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: shared
+      params:
+        - name: CONTEXT
+          value: $(params.APP_PATH)
+        - name: ARGS
+          value: test
+      runAfter:
+        - npm-install
+
+    - name: npm-lint
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: shared
+      params:
+        - name: CONTEXT
+          value: $(params.APP_PATH)
+        - name: ARGS
+          value: run lint
+      runAfter:
+        - npm-install
+
+    - name: build-push-image
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE_REGISTRY)/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME):$(context.pipelineRun.uid)
+        - name: DOCKERFILE
+          value: ./Containerfile
+        - name: CONTEXT
+          value: $(params.APP_PATH)
+      workspaces:
+        - name: source
+          workspace: shared
+      runAfter:
+        - npm-test
+        - npm-lint
+
+    - name: oc-deploy
+      runAfter:
+        - build-push-image
+      taskRef:
+        name: openshift-client
+        kind: ClusterTask
+      workspaces:
+        - name: manifest-dir
+          workspace: shared
+      params:
+        - name: SCRIPT
+          value: |
+            oc process -f $(params.APP_PATH)/kubefiles/app.yaml \
+            -p IMAGE_NAME=$(params.IMAGE_REGISTRY)/$(context.pipelineRun.namespace)/$(params.IMAGE_NAME):$(context.pipelineRun.uid) \
+            | oc apply -f -

@@ -1,0 +1,19 @@
+{
+  "name": "words",
+  "version": "1.0.0",
+  "description": "word utilities service",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "lint": "eslint .",
+    "test": "mocha tests"
+  },
+  "author": "Red Hat Training",
+  "dependencies": {
+    "fastify": "^4.23.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.47.0",
+    "mocha": "^10.2.0"
+  }
+}
