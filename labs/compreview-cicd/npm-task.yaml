@@ -6,8 +6,6 @@ metadata:
 spec:
   workspaces:
     - name: source
-  results:
-    - name: output
   params:
     - name: CONTEXT
       type: string
