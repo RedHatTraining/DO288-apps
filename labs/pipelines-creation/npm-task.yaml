@@ -16,6 +16,6 @@ spec:
       type: string
     - name: NODE_IMAGE
       type: string
-      default: "registry.access.redhat.com/ubi8/nodejs-16:latest"
+      default: "registry.ocp4.example.com:8443/ubi8/nodejs-16:latest"
   steps:
     - name: TODO
