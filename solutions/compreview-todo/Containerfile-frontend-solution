@@ -16,7 +16,7 @@ RUN chgrp -R 0 . && \
   npm run build
 
 # https://github.com/sclorg/nginx-container
-FROM registry.access.redhat.com/ubi8/nginx-118
+FROM registry.ocp4.example.com:8443/ubi8/nginx-118
 
 LABEL version="1.0"
 LABEL description="To Do List application front-end"
