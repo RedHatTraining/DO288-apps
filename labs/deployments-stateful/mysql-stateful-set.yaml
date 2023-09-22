@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-db
+spec:
+  selector:
+    matchLabels:
+      app: mysql-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-db
+    spec:
+      containers:
+      - image: registry.ocp4.example.com:8443/rhel8/mysql-80
+        name: mysql-80
+        ports:
+          - containerPort: 3306
+            protocol: TCP
+        env:
+        - name: MYSQL_USER
+          value: dbuser
+        - name: MYSQL_PASSWORD
+          value: dbuser
+        - name: MYSQL_DATABASE
+          value: items
+        volumeMounts:
+          - name: mysql-db-pvc
+            mountPath: /var/lib/mysql
+            subPath: mysql-db
+          - name: init-db-volume
+            mountPath: /tmp/init-db
+      volumes:
+        - name: init-db-volume
+          configMap:
+            name: init-db-cm
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-db-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: nfs-storage
+      resources:
+        requests:
+          storage: 1Gi
