@@ -54,6 +54,7 @@ spec:
         - workspace: shared
           name: source
         - workspace: maven_config
+          name: maven_config
 
     - name: oc-deploy
       runAfter:
