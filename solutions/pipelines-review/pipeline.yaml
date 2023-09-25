@@ -88,3 +88,5 @@ spec:
           value: docker://default-route-openshift-image-registry.apps.ocp4.example.com/pipelines-review/$(params.DEPLOY_APP_NAME)
         - name: destImageURL
           value: docker://registry.ocp4.example.com:8443/developer/$(params.DEPLOY_APP_NAME)
+        - name: image
+          value: registry.ocp4.example.com:8443/ubi9/skopeo
