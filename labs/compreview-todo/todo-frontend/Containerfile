@@ -12,7 +12,7 @@ ADD . .
 
 RUN chgrp -R 0 . && \
   chmod -R g=u . && \
-  npm install  && \
+  npm install --no-package-lock  && \
   npm run build
 
 
