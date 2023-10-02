@@ -89,4 +89,4 @@ spec:
         - name: destImageURL
           value: docker://registry.ocp4.example.com:8443/developer/$(params.DEPLOY_APP_NAME)
         - name: image
-          value: registry.ocp4.example.com:8443/ubi9/skopeo
+          value: registry.ocp4.example.com:8443/ubi9/skopeo:9.2
