@@ -107,7 +107,7 @@ items:
           failurePolicy: Abort
           execNewPod:
             containerName: users-db
-            command: ["/post-deploy/import.sh"]            
+            command: ["/post-deploy/import.sh"]
     template:
       metadata:
         annotations:
