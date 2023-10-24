@@ -1,0 +1,10 @@
+apiVersion: v2
+name: etherpad
+description: A Helm chart for etherpad lite
+type: application
+version: 0.0.7
+appVersion: latest
+home: https://github.com/redhat-cop/helm-charts
+icon: https://pbs.twimg.com/profile_images/1336377123964145665/2gTadaDt_400x400.jpg
+maintainers:
+  - name: eformat
