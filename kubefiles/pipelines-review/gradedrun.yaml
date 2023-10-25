@@ -13,7 +13,7 @@ spec:
     - name: GIT_REVISION
       value: master
     - name: MVN_APP_PATH
-      value: builds-applications/apps/vertx-site
+      value: apps/pipelines-review/vertx-site
     - name: DEPLOY_ARTIFACT_NAME
       value: target/vertx-site-1.0.0-SNAPSHOT-fat.jar
     - name: DEPLOY_APP_NAME
