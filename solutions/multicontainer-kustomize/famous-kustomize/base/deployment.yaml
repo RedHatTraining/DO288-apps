@@ -1,0 +1,283 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: famousapp-mariadb
+  labels:
+    app.kubernetes.io/name: mariadb
+    app.kubernetes.io/instance: famousapp
+type: Opaque
+data:
+  mariadb-root-password: "SzRvVUJLbVo3Vw=="
+  mariadb-password: "cXVvdGVzcHdk"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: famousapp-mariadb
+  labels:
+    app.kubernetes.io/name: mariadb
+    app.kubernetes.io/instance: famousapp
+    app.kubernetes.io/component: primary
+data:
+  my.cnf: |-
+    [mysqld]
+    skip-name-resolve
+    explicit_defaults_for_timestamp
+    basedir=/opt/bitnami/mariadb
+    plugin_dir=/opt/bitnami/mariadb/plugin
+    port=3306
+    socket=/opt/bitnami/mariadb/tmp/mysql.sock
+    tmpdir=/opt/bitnami/mariadb/tmp
+    max_allowed_packet=16M
+    bind-address=0.0.0.0
+    pid-file=/opt/bitnami/mariadb/tmp/mysqld.pid
+    log-error=/opt/bitnami/mariadb/logs/mysqld.log
+    character-set-server=UTF8
+    collation-server=utf8_general_ci
+    
+    [client]
+    port=3306
+    socket=/opt/bitnami/mariadb/tmp/mysql.sock
+    default-character-set=UTF8
+    plugin_dir=/opt/bitnami/mariadb/plugin
+    
+    [manager]
+    port=3306
+    socket=/opt/bitnami/mariadb/tmp/mysql.sock
+    pid-file=/opt/bitnami/mariadb/tmp/mysqld.pid
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: famousapp-mariadb
+  labels:
+    app.kubernetes.io/name: mariadb
+    app.kubernetes.io/instance: famousapp
+    app.kubernetes.io/component: primary
+  annotations:
+spec:
+  type: ClusterIP
+  ports:
+    - name: mysql
+      port: 3306
+      protocol: TCP
+      targetPort: mysql
+      nodePort: null
+  selector: 
+    app.kubernetes.io/name: mariadb
+    app.kubernetes.io/instance: famousapp
+    app.kubernetes.io/component: primary
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: famousapp-famouschart
+  labels:
+    app.kubernetes.io/name: famouschart
+    app.kubernetes.io/instance: famousapp
+    app.kubernetes.io/version: "1.16.0"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: famouschart
+    app.kubernetes.io/instance: famousapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: famousapp-famouschart
+  labels:
+    app.kubernetes.io/name: famouschart
+    app.kubernetes.io/instance: famousapp
+    app.kubernetes.io/version: "1.16.0"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: famouschart
+      app.kubernetes.io/instance: famousapp
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: famouschart
+        app.kubernetes.io/instance: famousapp
+    spec:
+      securityContext:
+        {}
+      containers:
+        - name: famouschart
+          securityContext:
+            {}
+          image: "registry.ocp4.example.com:8443/redhattraining/famous-quotes:2.1"
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: QUOTES_HOSTNAME
+            value: famousapp-mariadb
+          - name: QUOTES_DATABASE
+            value: quotesdb
+          - name: QUOTES_USER
+            value: quotes
+          - name: QUOTES_PASSWORD
+            value: quotespwd
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: famousapp-mariadb
+  labels:
+    app.kubernetes.io/name: mariadb
+    app.kubernetes.io/instance: famousapp
+    app.kubernetes.io/component: primary
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app.kubernetes.io/name: mariadb
+      app.kubernetes.io/instance: famousapp
+      app.kubernetes.io/component: primary
+  serviceName: famousapp-mariadb
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        checksum/configuration: 68ea57c9ab60373f05868ead8353923ea87bccb131675954c21b519bc410209e
+      labels:
+        app.kubernetes.io/name: mariadb
+        app.kubernetes.io/instance: famousapp
+        app.kubernetes.io/component: primary
+    spec:
+      affinity:
+        podAffinity:
+          
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: mariadb
+                    app.kubernetes.io/instance: famousapp
+                    app.kubernetes.io/component: primary
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+        nodeAffinity:
+          
+      containers:
+        - name: mariadb
+          image: registry.ocp4.example.com:8443/bitnami/mariadb:10.5.10-debian-10-r0
+          imagePullPolicy: "IfNotPresent"
+          env:
+            - name: BITNAMI_DEBUG
+              value: "false"
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: famousapp-mariadb
+                  key: mariadb-root-password
+            - name: MARIADB_USER
+              value: "quotes"
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: famousapp-mariadb
+                  key: mariadb-password
+            - name: MARIADB_DATABASE
+              value: "quotesdb"
+          ports:
+            - name: mysql
+              containerPort: 3306
+          livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 120
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  password_aux="${MARIADB_ROOT_PASSWORD:-}"
+                  if [[ -f "${MARIADB_ROOT_PASSWORD_FILE:-}" ]]; then
+                      password_aux=$(cat "$MARIADB_ROOT_PASSWORD_FILE")
+                  fi
+                  mysqladmin status -uroot -p"${password_aux}"
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            exec:
+              command:
+                - /bin/bash
+                - -ec
+                - |
+                  password_aux="${MARIADB_ROOT_PASSWORD:-}"
+                  if [[ -f "${MARIADB_ROOT_PASSWORD_FILE:-}" ]]; then
+                      password_aux=$(cat "$MARIADB_ROOT_PASSWORD_FILE")
+                  fi
+                  mysqladmin status -uroot -p"${password_aux}"
+          resources: 
+            limits: {}
+            requests: {}
+          volumeMounts:
+            - name: data
+              mountPath: /bitnami/mariadb
+            - name: config
+              mountPath: /opt/bitnami/mariadb/conf/my.cnf
+              subPath: my.cnf
+      volumes:
+        - name: config
+          configMap:
+            name: famousapp-mariadb
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels: 
+          app.kubernetes.io/name: mariadb
+          app.kubernetes.io/instance: famousapp
+          app.kubernetes.io/component: primary
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: "1Gi"
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app.kubernetes.io/instance: famousapp
+    app.kubernetes.io/name: famouschart
+    app.kubernetes.io/version: 1.16.0
+  name: famousapp-famouschart
+spec:
+  port:
+    targetPort: http
+  to:
+    kind: Service
+    name: famousapp-famouschart
+    weight: 100
+  wildcardPolicy: None
+

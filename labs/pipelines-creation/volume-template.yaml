@@ -1,0 +1,9 @@
+---
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: nfs-storage
+  volumeMode: Filesystem

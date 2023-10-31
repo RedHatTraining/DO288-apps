@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: deployments-health
+  namespace: deployments-health
+spec:
+  hard:
+    requests.memory: 570Mi
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: deployments-health
+  namespace: deployments-health
+spec:
+  limits:
+  - max:
+      memory: 360Mi
+    type: Container

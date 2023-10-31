@@ -1,0 +1,66 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: expense
+    app.kubernetes.io/component: expense
+    app.kubernetes.io/instance: expense
+  name: expense
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: expense
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        deployment: expense
+    spec:
+      containers:
+      - image: registry.ocp4.example.com:8443/redhattraining/ocpdev-expense-service-health:4.12
+        imagePullPolicy: Always
+        name: expense
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            memory: "50Mi"
+          limits:
+            memory: "50Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: expense
+    app.kubernetes.io/component: expense
+    app.kubernetes.io/instance: expense
+  name: expense
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    deployment: expense
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: expense
+    app.kubernetes.io/component: expense
+    app.kubernetes.io/instance: expense
+  name: expense
+spec:
+  host: expense-deployments-health.apps.ocp4.example.com
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: expense
+    weight: 100

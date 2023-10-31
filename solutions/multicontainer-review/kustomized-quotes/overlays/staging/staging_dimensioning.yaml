@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: famous-quotes
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: famous-quotes
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "200m"
+            limits:
+              memory: "200Mi"

@@ -1,0 +1,84 @@
+---
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: do288-compreview-pipelines-words-app-template
+  annotations:
+    description: "DO288 Comp Review (Pipelines): Words app template"
+objects:
+  - kind: Deployment
+    apiVersion: apps/v1
+    metadata:
+      name: words
+      namespace: compreview-review2
+      labels:
+        app: words
+        app.kubernetes.io/component: words
+        app.kubernetes.io/instance: words
+        app.kubernetes.io/name: words
+        app.kubernetes.io/part-of: words
+        app.openshift.io/runtime: nodejs
+        app.openshift.io/runtime-version: 16-ubi8
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: words
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: words
+            deployment: words
+        spec:
+          containers:
+            - name: words
+              image: "${IMAGE_NAME}"
+              ports:
+                - containerPort: 3000
+                  protocol: TCP
+              imagePullPolicy: Always
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: words
+      labels:
+        app: words
+        app.kubernetes.io/component: words
+        app.kubernetes.io/instance: words
+        app.kubernetes.io/name: words
+        app.kubernetes.io/part-of: words
+        app.openshift.io/runtime: nodejs
+        app.openshift.io/runtime-version: 16-ubi8
+    spec:
+      ports:
+        - name: 3000-tcp
+          protocol: TCP
+          port: 3000
+          targetPort: 3000
+      selector:
+        app: words
+        deployment: words
+  - kind: Route
+    apiVersion: route.openshift.io/v1
+    metadata:
+      name: words
+      labels:
+        app: words
+        app.kubernetes.io/component: words
+        app.kubernetes.io/instance: words
+        app.kubernetes.io/name: words
+        app.kubernetes.io/part-of: words
+        app.openshift.io/runtime: nodejs
+        app.openshift.io/runtime-version: 16-ubi8
+    spec:
+      to:
+        kind: Service
+        name: words
+      port:
+        targetPort: 3000-tcp
+parameters:
+  - name: IMAGE_NAME
+    displayName: Image name
+    description: The full name of the image
+    required: true

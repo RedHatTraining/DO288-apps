@@ -1,0 +1,7 @@
+FROM quay.io/redhattraining/hello-world-nginx:latest
+
+USER root
+
+RUN sed -i "s/nginx/v2/g" /usr/share/nginx/html/index.html
+
+USER 1001

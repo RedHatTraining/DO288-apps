@@ -1,0 +1,17 @@
+FROM registry.ocp4.example.com:8443/ubi8/nodejs-16:latest as builder
+ADD . .
+
+# Allow the root group to have the same permissions as the root user
+# in the application directory
+USER root
+RUN chgrp -R 0 . && \
+    chmod -R g=u .
+USER 1001
+
+# Avoid using "npm ci" to prevent problems with the private NPM registry in the lab environment
+RUN npm install --omit dev --no-package-lock
+
+FROM registry.ocp4.example.com:8443/ubi8/nodejs-16:latest
+COPY --from=builder $HOME $HOME
+EXPOSE 3000
+CMD npm run -d start

@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: maven-task
+spec:
+  workspaces:
+  - name: source
+  - name: maven_config
+  params:
+  - name: app_path
+    description: Path to the application source code in the directory
+    type: string
+  steps:
+    - name: build
+      image: registry.ocp4.example.com:8443/ubi8/openjdk-11:1.16-3
+      workingDir: $(workspaces.source.path)/$(params.app_path)
+      script: |
+        mvn clean package -s $(workspaces.maven_config.path)/settings.xml
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532

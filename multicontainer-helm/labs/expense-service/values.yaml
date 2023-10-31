@@ -1,0 +1,10 @@
+postgres:
+  user: ""
+  pass: ""
+  db: "sampledb"
+
+expenseService:
+  replicaCount: 1
+  image: "TODO"
+  host: "TODO"
+  domain: "apps.ocp4.example.com"

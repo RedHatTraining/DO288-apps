@@ -1,0 +1,23 @@
+# This image serves as a base image for the application build
+# It contains java dependencies in the local .m2 repository
+# Consequently, the build of the application is faster and does not require
+# internet connection.
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.16
+
+WORKDIR /home/jboss/cache
+
+COPY settings.xml /home/jboss/.m2/settings.xml
+
+COPY pom.xml pom.xml
+RUN mvn dependency:go-offline
+
+COPY src src
+RUN mvn package
+
+WORKDIR /home/jboss
+
+USER root
+
+RUN rm -rf /home/jboss/cache
+
+USER jboss

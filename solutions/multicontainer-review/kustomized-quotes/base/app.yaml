@@ -1,0 +1,205 @@
+---
+# Source: famous-quotes/charts/redis/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    template.openshift.io/expose-password: '{.data[''database-password'']}'
+  labels:
+    template: redis-persistent-template
+  name: quotes-store
+stringData:
+  database-password: very-strong
+---
+# Source: famous-quotes/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: quotes-import-data
+data:
+  import_quotes.csv: |-
+    id|quote|author
+    1|When words fail, music speaks.|William Shakespeare
+    2|Happiness depends upon ourselves.|Aristotle
+    3|The secret of change is to focus all your energy not on fighting the old but on building the new.|Socrates
+    4|Nothing that glitters is gold.|Mark Twain
+    5|Imagination is more important than knowledge.|Albert Einstein
+    6|Hell, if I could explain it to the average person, it wouldn't have been worth the Nobel prize.|Richard Feynman
+    7|Young man, in mathematics you don't understand things. You just get used to them.|John von Neumann
+    8|Those who can imagine anything, can create the impossible.|Alan Turing
+---
+# Source: famous-quotes/charts/redis/templates/persistentvolumeclaim.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    template: redis-persistent-template
+  name: quotes-store
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+# Source: famous-quotes/charts/redis/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    template.openshift.io/expose-uri: redis://{.spec.clusterIP}:{.spec.ports[?(.name=="redis")].port}
+  labels:
+    template: redis-persistent-template
+  name: quotes-store
+spec:
+  ports:
+  - name: redis
+    nodePort: 0
+    port: 6379
+    protocol: TCP
+    targetPort: 6379
+  selector:
+    name: quotes-store
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+# Source: famous-quotes/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: famous-quotes
+spec:
+  selector:
+    app: famous-quotes
+  ports:
+    - port: 443
+      targetPort: 8080
+      name: https
+---
+# Source: famous-quotes/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: famous-quotes
+spec:
+  selector:
+    matchLabels:
+      app: famous-quotes
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: famous-quotes
+    spec:
+      containers:
+      - name: famous-quotes
+        image: registry.ocp4.example.com:8443/redhattraining/ocpdev-redis-quotes:4.12
+        imagePullPolicy: Always
+        env:
+        - name: DATASTORE_HOST
+          value: quotes-store
+        - name: DATASTORE_PASS
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: quotes-store
+        - name: QUOTES_IMPORT_PATH
+          value: /tmp/quotes/import_quotes.csv
+        volumeMounts:
+          - name: import-volume
+            mountPath: /tmp/quotes
+      volumes:
+        - name: import-volume
+          configMap:
+            name: quotes-import-data
+---
+# Source: famous-quotes/charts/redis/templates/deploymentconfig.yaml
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    template.alpha.openshift.io/wait-for-ready: "true"
+  labels:
+    template: redis-persistent-template
+  name: quotes-store
+spec:
+  replicas: 1
+  selector:
+    name: quotes-store
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: quotes-store
+    spec:
+      containers:
+      - env:
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: quotes-store
+        image: "redis:6-el9"
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          initialDelaySeconds: 30
+          tcpSocket:
+            port: 6379
+          timeoutSeconds: 1
+        name: redis
+        ports:
+        - containerPort: 6379
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -i
+            - -c
+            - test "$(redis-cli -h 127.0.0.1 -a $REDIS_PASSWORD ping)" == "PONG"
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+        resources:
+          limits:
+            memory: 512Mi
+        securityContext:
+          capabilities: {}
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        volumeMounts:
+        - mountPath: /var/lib/redis/data
+          name: quotes-store-data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      volumes:
+      - name: quotes-store-data
+        persistentVolumeClaim:
+          claimName: quotes-store
+  triggers:
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - redis
+      from:
+        kind: ImageStreamTag
+        name: redis:6-el9
+      lastTriggeredImage: ""
+    type: ImageChange
+  - type: ConfigChange
+status: {}
+---
+# Source: famous-quotes/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: famous-quotes
+spec:
+  host: famous-quotes-multicontainer-review.apps.ocp4.example.com
+  port:
+    targetPort: https
+  to:
+    kind: Service
+    name: famous-quotes

@@ -1,0 +1,68 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: weather
+spec:
+  ports:
+    - name: http-8080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: weather
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: weather
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather
+  template:
+    metadata:
+      labels:
+        app: weather
+    spec:
+      containers:
+        - name: weather
+          image: registry.ocp4.example.com:8443/redhattraining/openshift-dev-deploy-cli-weather:1.0
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "10m"
+            limits:
+              memory: "100Mi"
+              cpu: "100m"
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  labels:
+    app: app
+    app.kubernetes.io/instance: weather-api
+    app.kubernetes.io/managed-by: odo
+    app.kubernetes.io/managed-by-version: v3.11.0
+    app.kubernetes.io/part-of: app
+    app.openshift.io/runtime: python
+    odo.dev/mode: Deploy
+  name: weather
+  namespace: odo-deploy-cli
+spec:
+  host: weather-odo-deploy-cli.apps.ocp4.example.com
+  port:
+    targetPort: http-8080
+  to:
+    kind: Service
+    name: weather
+    weight: 100
+  wildcardPolicy: None
+
+
