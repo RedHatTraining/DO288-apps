@@ -1,4 +1,0 @@
-bases:
-- ../../base
-patches:
-- staging_dimensioning.yaml
