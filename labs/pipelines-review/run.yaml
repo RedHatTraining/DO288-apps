@@ -20,7 +20,8 @@ spec:
       value: vertx-site
   pipelineRef:
     name: maven-java-pipeline
-  serviceAccountName: pipeline
+  taskRunTemplate:
+    serviceAccountName: pipeline
   timeout: 1h0m0s
   workspaces:
     - name: shared

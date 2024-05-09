@@ -20,7 +20,8 @@ spec:
       value: graded-app
   pipelineRef:
     name: maven-java-pipeline
-  serviceAccountName: pipeline
+  taskRunTemplate:
+    serviceAccountName: pipeline
   timeouts:
     pipeline: 1h0m0s
     tasks: 0h15m0s
@@ -41,3 +42,4 @@ spec:
     - name: maven_config
       secret:
         secretName: mvn-settings
+        
