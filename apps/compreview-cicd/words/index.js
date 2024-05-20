@@ -8,11 +8,11 @@ const api = Fastify({ logger: true });
 api.get("/word/:input", function handler(request, reply) {
     const { input } = request.params;
 
-    const palindrome = isPalindrome(input);
+    const palidrome = isPalindrome(input);
 
     reply.send({
         input,
-        palindrome,
+        palidrome,
         length: input.length
     });
 });

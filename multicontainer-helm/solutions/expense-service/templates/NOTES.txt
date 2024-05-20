@@ -1,0 +1,15 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Your release is named {{ .Release.Name }} deployed in {{ .Release.Namespace }}.
+
+{{ $route:=lookup "route.openshift.io/v1" "Route" .Release.Namespace "expense-service" }}
+{{ if $route }}
+Your application is available at:
+
+{{ $route.spec.host}}/expenses
+{{ end }}
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
