@@ -1,0 +1,140 @@
+pipeline {
+    options {
+        // set a timeout of 60 minutes for this pipeline
+        timeout(time: 60, unit: 'MINUTES')
+    }
+    agent {
+      node {
+        //TODO: Add label for the Maven jenkins agent
+      }
+    }
+
+    environment {
+        //TODO: Customize these variables for your environment
+        DEV_PROJECT = "youruser-movies-dev"
+        STAGE_PROJECT = "youruser-movies-stage"
+        APP_GIT_URL = "https://github.com/youruser/DO288-apps"
+        NEXUS_SERVER = "http://nexus-common.apps.cluster.domain.example.com/repository/java"
+
+        // DO NOT CHANGE THE GLOBAL VARS BELOW THIS LINE
+        APP_NAME = "movies"
+    }
+
+
+    stages {
+
+        stage('Compilation Check') {
+            steps {
+                echo '### Checking for compile errors ###'
+                sh '''
+                        cd ${APP_NAME}
+                        mvn -s settings.xml -B clean compile
+                   '''
+            }
+        }
+
+        stage('Run Unit Tests') {
+            steps {
+                echo '### Running unit tests ###'
+                sh '''
+                        cd ${APP_NAME}
+                        mvn -s settings.xml -B clean test
+                   '''
+            }
+        }
+
+        stage('Static Code Analysis') {
+            steps {
+                echo '### Running pmd on code ###'
+                sh '''
+                        cd ${APP_NAME}
+                        mvn -s settings.xml -B clean pmd:check
+                   '''
+            }
+        }
+
+        stage('Create fat JAR') {
+            steps {
+                echo '### Creating fat JAR ###'
+                sh '''
+                        cd ${APP_NAME}
+                        mvn -s settings.xml -B clean package -DskipTests=true
+                   '''
+            }
+        }
+
+        stage('Launch new app in DEV env') {
+            steps {
+                echo '### Cleaning existing resources in DEV env ###'
+                sh '''
+                        oc delete all -l app=${APP_NAME} -n ${DEV_PROJECT}
+                        oc delete all -l build=${APP_NAME} -n ${DEV_PROJECT}
+                        sleep 5
+                        oc new-build java:8 --name=${APP_NAME} --binary=true -n ${DEV_PROJECT}
+                   '''
+
+                echo '### Creating a new app in DEV env ###'
+                script {
+                    openshift.withCluster() {
+                      openshift.withProject(env.DEV_PROJECT) {
+                        openshift.selector("bc", "${APP_NAME}").startBuild("--from-file=${APP_NAME}/target/${APP_NAME}.jar", "--wait=true", "--follow=true")
+                      }
+                    }
+                }
+                // TODO: Create a new OpenShift application based on the ${APP_NAME}:latest image stream
+                // TODO: Expose the ${APP_NAME} service for external access
+            }
+        }
+
+        stage('Wait for deployment in DEV env') {
+            //TODO: Watch deployment until pod is in 'Running' state
+        }
+
+        stage('Promote to Staging Env') {
+            steps {
+                timeout(time: 60, unit: 'MINUTES') {
+                    input message: "Promote to Staging?"
+                }
+                script {
+                    openshift.withCluster() {
+                    // TODO: Tag the ${APP_NAME}:latest image stream in the dev env as ${APP_NAME}:stage in staging
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Staging Env') {
+            steps {
+                echo '### Cleaning existing resources in Staging ###'
+                sh '''
+                        oc project ${STAGE_PROJECT}
+                        oc delete all -l app=${APP_NAME}
+                        sleep 5
+                   '''
+
+                echo '### Creating a new app in Staging ###'
+                // TODO: Create a new app in staging and expose the service
+            }
+        }
+
+        stage('Wait for deployment in Staging') {
+            steps {
+                sh "oc get route ${APP_NAME} -n ${STAGE_PROJECT} -o jsonpath='{ .spec.host }' --loglevel=4 > routehost"
+
+                script {
+                    routeHost = readFile('routehost').trim()
+
+                    openshift.withCluster() {
+                        openshift.withProject( "${STAGE_PROJECT}" ) {
+                            def deployment = openshift.selector("dc", "${APP_NAME}").rollout()
+                            openshift.selector("dc", "${APP_NAME}").related('pods').untilEach(1) {
+                                return (it.object().status.phase == "Running")
+                            }
+                        }
+                        echo "Deployment to Staging env is complete. Access the API endpoint at the URL http://${routeHost}/movies."
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,59 @@
+.container {
+  max-width: 40rem;
+}
+
+/* Custom color */
+.button-red {
+  background-color: salmon;
+  border-color: salmon;
+}
+.button-red.button-clear,
+.button-red.button-outline {
+  background-color: transparent;
+  color: red;
+}
+.button-red.button-clear {
+  border-color: transparent;
+}
+
+.button-orange {
+  background-color: orange;
+  border-color: orange;
+}
+.button-orange.button-clear,
+.button-orange.button-outline {
+  background-color: transparent;
+  color: orange;
+}
+.button-orange.button-clear {
+  border-color: transparent;
+}
+
+/* Custom size */
+.button-small {
+  font-size: .8rem;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  padding: 0 1.5rem;
+}
+
+.button-large {
+  font-size: 1.4rem;
+  height: 4.5rem;
+  line-height: 4.5rem;
+  padding: 0 2rem;
+}
+
+/* User message */
+.message {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+.error {
+  background-color: salmon;
+  color: white;
+}
+.success {
+  background-color: lightgreen;
+}

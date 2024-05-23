@@ -95,7 +95,7 @@ spec:
     spec:
       containers:
       - name: famous-quotes
-        image: registry.ocp4.example.com:8443/redhattraining/ocpdev-redis-quotes:4.14
+        image: registry.ocp4.example.com:8443/redhattraining/ocpdev-redis-quotes:4.12
         imagePullPolicy: Always
         env:
         - name: DATASTORE_HOST
