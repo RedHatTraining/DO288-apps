@@ -9,6 +9,6 @@
   "author": "Red Hat Training",
   "license": "Apache-2.0",
   "dependencies": {
-    "express": "4.14.0"
+    "express": "^4.14.0"
   }
 }
