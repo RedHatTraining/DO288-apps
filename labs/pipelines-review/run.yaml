@@ -22,7 +22,6 @@ spec:
     name: maven-java-pipeline
   taskRunTemplate:
     serviceAccountName: pipeline
-  timeout: 1h0m0s
   workspaces:
     - name: shared
       volumeClaimTemplate:
