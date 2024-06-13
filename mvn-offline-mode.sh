@@ -11,4 +11,7 @@ git clone https://git.ocp4.example.com/developer/DO288-apps.git
 cd /home/student/DO288/DO288-apps
 
 find . -name "pom.xml" \
-        -execdir /opt/apache-maven/bin/mvn clean dependency:go-offline test -Dmaven.test.failure.ignore=true package \;
+        find . -name "pom.xml" \
+        -execdir podman run --rm -it -v ./:/app:z -v ${HOME}/.m2:/m2:z \
+        -w /app maven:3.8.1-openjdk-17 \
+        mvn  -Dmaven.repo.local=/m2 -Dmaven.test.failure.ignore=true -T2 clean dependency:go-offline package \;
