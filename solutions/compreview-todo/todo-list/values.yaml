@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: registry.ocp4.example.com:8443/redhattraining/todo-backend
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "release-46"
 

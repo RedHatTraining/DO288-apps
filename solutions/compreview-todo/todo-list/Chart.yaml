@@ -25,5 +25,5 @@ appVersion: "1.16.0"
 
 dependencies:
 - name: mariadb
-  version: 11.0.13
-  repository: https://charts.bitnami.com/bitnami
+  version: 11.3.3
+  repository: http://helm.ocp4.example.com/charts
