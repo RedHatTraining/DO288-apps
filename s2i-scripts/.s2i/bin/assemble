@@ -11,12 +11,16 @@ config_s2i
 ######## CUSTOMIZATION STARTS HERE ############
 
 echo "---> Installing application source"
-cp -Rf /tmp/src/*.html ./
 
-DATE=`date "+%b %d, %Y @ %H:%M %p"`
+cp -Rf /tmp/src/*.html ./
+DATE=date "+%F"
+echo $DATE >> ./info.html
+echo "Astra inclinant, sed non obligant" >> ./info.html
+
+#DATE=`date "+%F @ %H:%M %p"`
 
 echo "---> Creating info page"
-echo "Page built on $DATE" >> ./info.html
+echo "This Page built on $DATE" >> ./info.html
 echo "Proudly served by Apache HTTP Server version $HTTPD_VERSION" >> ./info.html
 
 ######## CUSTOMIZATION ENDS HERE ############
