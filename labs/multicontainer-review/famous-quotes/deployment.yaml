@@ -1,0 +1,41 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: famous-quotes
+spec:
+  selector:
+    matchLabels:
+      app: famous-quotes
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: famous-quotes
+    spec:
+      containers:
+      - name: famous-quotes
+        image: registry.ocp4.example.com:8443/redhattraining/ocpdev-redis-quotes:4.12
+        imagePullPolicy: Always
+        env:
+        - name: DATASTORE_HOST
+          value: {{ .Values.redis.database_service_name }}
+        - name: DATASTORE_PASS
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: {{ .Values.redis.database_service_name }}
+        - name: QUOTES_IMPORT_PATH
+          value: /tmp/quotes/import_quotes.csv
+        volumeMounts:
+          - name: import-volume
+            mountPath: /tmp/quotes
+      volumes:
+        - name: import-volume
+          configMap:
+            name: quotes-import-data
+
+
+
+
+

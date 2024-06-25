@@ -1,0 +1,17 @@
+FROM registry.access.redhat.com/ubi8/nodejs-16-minimal:1-65
+
+ENV NPM_CACHE=/tmp/.npm
+
+RUN npm config set cache "$NPM_CACHE" --location=global
+
+COPY package.json package-lock.json ./
+
+RUN npm ci
+
+RUN chown -R 1001:0 "$NPM_CACHE" && chmod -R ugo+rwx "$NPM_CACHE"
+
+COPY . .
+
+EXPOSE 3000
+
+CMD npm start

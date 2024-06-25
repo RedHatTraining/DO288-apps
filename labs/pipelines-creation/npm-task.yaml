@@ -1,0 +1,21 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: npm
+spec:
+  workspaces:
+    - name: source
+  results:
+    - name: output
+  params:
+    - name: CONTEXT
+      type: string
+      default: "."
+    - name: ARGS
+      type: string
+    - name: NODE_IMAGE
+      type: string
+      default: "registry.ocp4.example.com:8443/ubi8/nodejs-16:latest"
+  steps:
+    - name: TODO

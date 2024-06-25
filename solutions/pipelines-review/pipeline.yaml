@@ -1,0 +1,92 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: maven-java-pipeline
+spec:
+  workspaces:
+    - name: shared
+    - name: maven_config
+  params:
+    - name: GIT_REPO
+      type: string
+      default: "https://git.ocp4.example.com/developer/DO288-apps"
+    - name: GIT_REVISION
+      type: string
+      default: "master"
+    - name: MVN_APP_PATH
+      type: string
+      default: "apps/pipelines-review/vertx-site"
+    - name: DEPLOY_ARTIFACT_NAME
+      type: string
+      default: "target/vertx-site-1.0.0-SNAPSHOT-fat.jar"
+    - name: DEPLOY_APP_NAME
+      type: string
+      default: "vertx-site"
+
+  tasks:
+    - name: clone-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+        - name: url
+          value: $(params.GIT_REPO)
+        - name: revision
+          value: $(params.GIT_REVISION)
+        - name: deleteExisting
+          value: 'true'
+        - name: sslVerify
+          value: 'false'
+      workspaces:
+        - name: output
+          workspace: shared
+
+    - name: build
+      taskRef:
+        name: maven-task
+        kind: Task
+      params:
+      - name: app_path
+        value: $(params.MVN_APP_PATH)
+      runAfter:
+        - clone-repository
+      workspaces:
+        - workspace: shared
+          name: source
+        - workspace: maven_config
+          name: maven_config
+
+    - name: oc-deploy
+      runAfter:
+        - "build"
+      taskRef:
+        name: openshift-client
+        kind: ClusterTask
+      workspaces:
+        - name: manifest-dir
+          workspace: shared
+      params:
+        - name: SCRIPT
+          value: |
+            cd  "$(workspaces.manifest-dir.path)/$(params.MVN_APP_PATH)" || exit 1
+            oc new-build --name=$(params.DEPLOY_APP_NAME) \
+              -l app=$(params.DEPLOY_APP_NAME)  --binary=true \
+              --image-stream=openshift/java:8 || echo "BC already exists"
+            oc start-build $(params.DEPLOY_APP_NAME) --wait=true \
+              --from-file=$(params.DEPLOY_ARTIFACT_NAME)
+            oc new-app $(params.DEPLOY_APP_NAME):latest \
+              --name $(params.DEPLOY_APP_NAME) || echo "application exists"
+            oc expose svc $(params.DEPLOY_APP_NAME) || echo "route exists"
+    - name: skopeo-copy
+      runAfter:
+          - "oc-deploy"
+      taskRef:
+        name: skopeo-copy-internal
+        kind: ClusterTask
+      params:
+        - name: srcImageURL
+          value: docker://default-route-openshift-image-registry.apps.ocp4.example.com/pipelines-review/$(params.DEPLOY_APP_NAME)
+        - name: destImageURL
+          value: docker://registry.ocp4.example.com:8443/developer/$(params.DEPLOY_APP_NAME)
+        - name: image
+          value: registry.ocp4.example.com:8443/ubi9/skopeo:9.2

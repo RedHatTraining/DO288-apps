@@ -1,0 +1,10 @@
+postgres:
+  user: ""
+  pass: ""
+  db: "sampledb"
+
+expenseService:
+  replicaCount: 1
+  image: "registry.ocp4.example.com:8443/redhattraining/ocpdev-expense-service:4.12"
+  host: "expense-service"
+  domain: "apps.ocp4.example.com"

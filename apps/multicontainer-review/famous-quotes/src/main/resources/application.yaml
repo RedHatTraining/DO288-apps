@@ -1,0 +1,16 @@
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+spring:
+  data:
+    redis:
+      host: ${DATASTORE_HOST:localhost}
+      password: ${DATASTORE_PASS:strong_pass}
+
+quotes:
+  import:
+    path: ${QUOTES_IMPORT_PATH:/tmp/import_quotes.csv}
+

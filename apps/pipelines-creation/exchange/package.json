@@ -1,0 +1,19 @@
+{
+  "name": "exchange",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "lint": "eslint .",
+    "test": "mocha tests"
+  },
+  "author": "",
+  "dependencies": {
+    "fastify": "^4.21.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.47.0",
+    "mocha": "^10.2.0"
+  }
+}

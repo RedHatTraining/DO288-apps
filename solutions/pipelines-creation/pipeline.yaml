@@ -1,0 +1,124 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: nodejs-build
+spec:
+  workspaces:
+    - name: shared
+  params:
+    - name: IMAGE_NAME
+      type: string
+      default: "exchange"
+    - name: GIT_REPO
+      type: string
+      default: "https://git.ocp4.example.com/developer/DO288-apps"
+    - name: GIT_REVISION
+      type: string
+      default: "master"
+    - name: APP_PATH
+      type: string
+      default: "apps/pipelines-creation/exchange"
+
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+        - name: url
+          value: $(params.GIT_REPO)
+        - name: revision
+          value: $(params.GIT_REVISION)
+        - name: subdirectory
+          value: ""
+        - name: deleteExisting
+          value: "true"
+        - name: sslVerify
+          value: "false"
+      workspaces:
+        - name: output
+          workspace: shared
+
+    - name: npm-install
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: shared
+      params:
+        - name: CONTEXT
+          value: $(params.APP_PATH)
+        - name: ARGS
+          value: install --no-package-lock
+      runAfter:
+        - fetch-repository
+
+    - name: npm-test
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: shared
+      params:
+        - name: CONTEXT
+          value: $(params.APP_PATH)
+        - name: ARGS
+          value: test
+      runAfter:
+        - npm-install
+
+    - name: npm-lint
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: shared
+      params:
+        - name: CONTEXT
+          value: $(params.APP_PATH)
+        - name: ARGS
+          value: run lint
+      runAfter:
+        - npm-install
+
+    - name: app-version
+      taskRef:
+        name: npm
+        kind: Task
+      workspaces:
+        - name: source
+          workspace: shared
+      params:
+        - name: CONTEXT
+          value: $(params.APP_PATH)
+        - name: ARGS
+          value: version|grep exchange|cut -d\' -f2|tr -d '\n'
+      runAfter:
+        - fetch-repository
+
+    - name: build-image
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      params:
+        - name: IMAGE
+          value: registry.ocp4.example.com:8443/developer/$(params.IMAGE_NAME):$(tasks.app-version.results.output)
+        - name: DOCKERFILE
+          value: Containerfile
+        - name: CONTEXT
+          value: $(params.APP_PATH)
+        - name: TLSVERIFY
+          value: "false"
+        - name: SKIP_PUSH
+          value: "true"
+      runAfter:
+        - npm-test
+        - npm-lint
+        - app-version
+      workspaces:
+        - name: source
+          workspace: shared

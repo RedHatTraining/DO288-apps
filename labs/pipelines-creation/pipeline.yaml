@@ -1,0 +1,24 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: nodejs-build
+spec:
+  workspaces:
+    - name: shared
+  params:
+    - name: IMAGE_NAME
+      type: string
+      default: "exchange"
+    - name: GIT_REPO
+      type: string
+      default: "https://git.ocp4.example.com/developer/DO288-apps"
+    - name: GIT_REVISION
+      type: string
+      default: "master"
+    - name: APP_PATH
+      type: string
+      default: "apps/pipelines-creation/exchange"
+
+  tasks:
+    - name: TODO

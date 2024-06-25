@@ -1,0 +1,14 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "Red Hat Training",
+  "dependencies": {
+    "fastify": "^4.17.0",
+    "pg": "^8.11.0"
+  }
+}

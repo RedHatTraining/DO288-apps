@@ -1,0 +1,175 @@
+apiVersion: v1
+items:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: users-db
+      app.kubernetes.io/component: users-db
+      app.kubernetes.io/instance: users-db
+    name: mysql-80
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: registry.ocp4.example.com:8443/rhel8/mysql-80
+      from:
+        kind: DockerImage
+        name: registry.ocp4.example.com:8443/rhel8/mysql-80
+      generation: null
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: ""
+  status:
+    dockerImageRepository: ""
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: users-db
+      app.kubernetes.io/component: users-db
+      app.kubernetes.io/instance: users-db
+    name: users-db
+  spec:
+    lookupPolicy:
+      local: false
+  status:
+    dockerImageRepository: ""
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: users-db
+      app.kubernetes.io/component: users-db
+      app.kubernetes.io/instance: users-db
+    name: users-db
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: users-db:latest
+    postCommit: {}
+    resources: {}
+    source:
+      contextDir: deployments-strategy/apps/users-db
+      git:
+        uri: https://git.ocp4.example.com/developer/DO288-apps
+      type: Git
+    strategy:
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: mysql-80:latest
+      type: Docker
+    triggers:
+    - github:
+        secret: g8KL0hL2L-Ovci1ihbEO
+      type: GitHub
+    - generic:
+        secret: RnyXO8q0rfUz1bJN41Fd
+      type: Generic
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+  status:
+    lastVersion: 0
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: users-db
+      app.kubernetes.io/component: users-db
+      app.kubernetes.io/instance: users-db
+    name: users-db
+  spec:
+    replicas: 1
+    selector:
+      deploymentconfig: users-db
+    strategy:
+      type: Recreate
+      recreateParams:
+        post:
+          failurePolicy: Abort
+          execNewPod:
+            containerName: users-db
+            command: ["/post-deploy/import.sh"]            
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deploymentconfig: users-db
+      spec:
+        containers:
+        - env:
+          - name: MYSQL_AIO
+            value: "0"
+          - name: MYSQL_DATABASE
+            value: users
+          - name: MYSQL_PASSWORD
+            value: redhat
+          - name: MYSQL_USER
+            value: developer
+          image: users-db:latest
+          name: users-db
+          ports:
+          - containerPort: 3306
+            protocol: TCP
+          resources: {}
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - users-db
+        from:
+          kind: ImageStreamTag
+          name: users-db:latest
+      type: ImageChange
+  status:
+    availableReplicas: 0
+    latestVersion: 0
+    observedGeneration: 0
+    replicas: 0
+    unavailableReplicas: 0
+    updatedReplicas: 0
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: users-db
+      app.kubernetes.io/component: users-db
+      app.kubernetes.io/instance: users-db
+    name: users-db
+  spec:
+    ports:
+    - name: 3306-tcp
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+    selector:
+      deploymentconfig: users-db
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}

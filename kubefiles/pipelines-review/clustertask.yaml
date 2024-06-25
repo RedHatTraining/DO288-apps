@@ -1,0 +1,61 @@
+apiVersion: tekton.dev/v1beta1
+kind: ClusterTask
+metadata:
+  annotations:
+    tekton.dev/categories: CLI
+    tekton.dev/displayName: skopeo copy
+    tekton.dev/pipelines.minVersion: 0.12.1
+    tekton.dev/platforms: linux/amd64,linux/s390x,linux/ppc64le,linux/arm64
+    tekton.dev/tags: cli
+  creationTimestamp: "2023-08-25T09:06:48Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/version: "0.2"
+    operator.tekton.dev/operand-name: openshift-pipelines-addons
+    operator.tekton.dev/provider-type: redhat
+  name: skopeo-copy-internal
+spec:
+  description: |-
+    Skopeo is a command line tool for working with remote image registries.
+    Skopeo doesn’t require a daemon to be running while performing its operations. In particular, the handy skopeo command called copy will ease the whole image copy operation. The copy command will take care of copying the image from internal.registry to production.registry. If your production registry requires credentials to login in order to push the image, skopeo can handle that as well.
+  params:
+  - default: ""
+    description: URL of the image to be copied to the destination registry
+    name: srcImageURL
+    type: string
+  - default: ""
+    description: URL of the image where the image from source should be copied to
+    name: destImageURL
+    type: string
+  - default: "false"
+    description: Verify the TLS on the src registry endpoint
+    name: srcTLSverify
+    type: string
+  - default: "false"
+    description: Verify the TLS on the dest registry endpoint
+    name: destTLSverify
+    type: string
+  - default: "developer"
+    description: Destination registry endpoint user
+    name: destUser
+    type: string
+  - default: "developer"
+    description: Destionation registry endpoint password
+    name: destPw
+    type: string
+  - default: "registry.access.redhat.com/ubi9/skopeo"
+    description: The image to use
+    name: image
+    type: string
+  steps:
+  - env:
+    - name: HOME
+      value: /tekton/home
+    image: $(params.image)
+    name: skopeo-copy
+    resources: {}
+    script: |
+        skopeo copy "$(params.srcImageURL)" "$(params.destImageURL)" --src-tls-verify="$(params.srcTLSverify)" --dest-tls-verify="$(params.destTLSverify)" --dest-creds="$(params.destUser):$(params.destPw)"
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 65532
