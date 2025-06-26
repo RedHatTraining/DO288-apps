@@ -21,7 +21,8 @@ items:
         kind: DockerImage
         name: registry.ocp4.example.com:8443/rhel8/mysql-80
       generation: null
-      importPolicy: {}
+      importPolicy:
+        importMode: Legacy
       name: latest
       referencePolicy:
         type: ""
@@ -63,7 +64,7 @@ items:
     postCommit: {}
     resources: {}
     source:
-      contextDir: deployments-strategy/apps/users-db
+      contextDir: apps/deployments-strategy/users-db
       git:
         uri: https://git.ocp4.example.com/developer/DO288-apps
       type: Git
@@ -75,20 +76,21 @@ items:
       type: Docker
     triggers:
     - github:
-        secret: g8KL0hL2L-Ovci1ihbEO
+        secret: xn0lOAWbtswZ0Ji3WUGt
       type: GitHub
     - generic:
-        secret: RnyXO8q0rfUz1bJN41Fd
+        secret: VDEYSGMS8v2aPq-fmTQ0
       type: Generic
     - type: ConfigChange
     - imageChange: {}
       type: ImageChange
   status:
     lastVersion: 0
-- apiVersion: apps.openshift.io/v1
-  kind: DeploymentConfig
+- apiVersion: apps/v1
+  kind: Deployment
   metadata:
     annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"users-db:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"users-db\")].image"}]'
       openshift.io/generated-by: OpenShiftNewApp
     creationTimestamp: null
     labels:
@@ -97,10 +99,11 @@ items:
       app.kubernetes.io/instance: users-db
     name: users-db
   spec:
-    replicas: 1
+    replicas: 5
     selector:
-      deploymentconfig: users-db
-    strategy:
+      matchLabels:
+        deployment: users-db
+    strategy: 
       type: Recreate
       recreateParams:
         post:
@@ -114,42 +117,23 @@ items:
           openshift.io/generated-by: OpenShiftNewApp
         creationTimestamp: null
         labels:
-          deploymentconfig: users-db
+          deployment: users-db
       spec:
         containers:
         - env:
-          - name: MYSQL_AIO
-            value: "0"
           - name: MYSQL_DATABASE
             value: users
           - name: MYSQL_PASSWORD
             value: redhat
           - name: MYSQL_USER
             value: developer
-          image: users-db:latest
+          image: ' '
           name: users-db
           ports:
           - containerPort: 3306
             protocol: TCP
           resources: {}
-    test: false
-    triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-        - users-db
-        from:
-          kind: ImageStreamTag
-          name: users-db:latest
-      type: ImageChange
-  status:
-    availableReplicas: 0
-    latestVersion: 0
-    observedGeneration: 0
-    replicas: 0
-    unavailableReplicas: 0
-    updatedReplicas: 0
+  status: {}
 - apiVersion: v1
   kind: Service
   metadata:
@@ -168,7 +152,7 @@ items:
       protocol: TCP
       targetPort: 3306
     selector:
-      deploymentconfig: users-db
+      deployment: users-db
   status:
     loadBalancer: {}
 kind: List
