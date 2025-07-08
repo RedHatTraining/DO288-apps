@@ -95,7 +95,7 @@ spec:
     spec:
       containers:
       - name: famous-quotes
-        image: registry.ocp4.example.com:8443/redhattraining/ocpdev-redis-quotes:4.14
+        image: registry.ocp4.example.com:8443/redhattraining/ocpdev-redis-quotes:4.18
         imagePullPolicy: Always
         env:
         - name: DATASTORE_HOST
@@ -115,19 +115,18 @@ spec:
           configMap:
             name: quotes-import-data
 ---
-# Source: famous-quotes/charts/redis/templates/deploymentconfig.yaml
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+# Source: famous-quotes/charts/redis/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  annotations:
-    template.alpha.openshift.io/wait-for-ready: "true"
   labels:
     template: redis-persistent-template
   name: quotes-store
 spec:
   replicas: 1
   selector:
-    name: quotes-store
+    matchLabels:
+      name: quotes-store
   strategy:
     type: Recreate
   template:
@@ -142,7 +141,7 @@ spec:
             secretKeyRef:
               key: database-password
               name: quotes-store
-        image: "redis:6-el9"
+        image: "registry.ocp4.example.com:8443/redhattraining/redis-6-c9s:c9s"
         imagePullPolicy: IfNotPresent
         livenessProbe:
           initialDelaySeconds: 30
@@ -164,7 +163,7 @@ spec:
           timeoutSeconds: 1
         resources:
           limits:
-            memory: 512Mi
+            memory: 400Mi
         securityContext:
           capabilities: {}
           privileged: false
@@ -178,18 +177,6 @@ spec:
       - name: quotes-store-data
         persistentVolumeClaim:
           claimName: quotes-store
-  triggers:
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - redis
-      from:
-        kind: ImageStreamTag
-        name: redis:6-el9
-      lastTriggeredImage: ""
-    type: ImageChange
-  - type: ConfigChange
-status: {}
 ---
 # Source: famous-quotes/templates/route.yaml
 apiVersion: route.openshift.io/v1
