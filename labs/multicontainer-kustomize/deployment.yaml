@@ -183,7 +183,7 @@ spec:
           
       containers:
         - name: mariadb
-          image: registry.ocp4.example.com:8443/bitnami/mariadb:10.5.10-debian-10-r0
+          image: registry.ocp4.example.com:8443/redhattraining/mariadb:10.5.10-debian-10-r0
           imagePullPolicy: "IfNotPresent"
           env:
             - name: BITNAMI_DEBUG
