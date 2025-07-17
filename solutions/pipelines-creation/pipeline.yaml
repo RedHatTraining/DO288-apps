@@ -15,7 +15,7 @@ spec:
       default: "https://git.ocp4.example.com/developer/DO288-apps"
     - name: GIT_REVISION
       type: string
-      default: "master"
+      default: "main"
     - name: APP_PATH
       type: string
       default: "apps/pipelines-creation/exchange"
@@ -23,18 +23,24 @@ spec:
   tasks:
     - name: fetch-repository
       taskRef:
-        name: git-clone
-        kind: ClusterTask
+        resolver: cluster
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: git-clone
+          - name: namespace
+            value: openshift-pipelines
       params:
-        - name: url
+        - name: URL
           value: $(params.GIT_REPO)
-        - name: revision
+        - name: REVISION
           value: $(params.GIT_REVISION)
-        - name: subdirectory
+        - name: SUBDIRECTORY
           value: ""
-        - name: deleteExisting
+        - name: DELETE_EXISTING
           value: "true"
-        - name: sslVerify
+        - name: SSL_VERIFY
           value: "false"
       workspaces:
         - name: output
@@ -102,11 +108,17 @@ spec:
 
     - name: build-image
       taskRef:
-        name: buildah
-        kind: ClusterTask
+        resolver: cluster
+        params:
+          - name: kind
+            value: task
+          - name: name
+            value: buildah
+          - name: namespace
+            value: openshift-pipelines
       params:
         - name: IMAGE
-          value: registry.ocp4.example.com:8443/developer/$(params.IMAGE_NAME):$(tasks.app-version.results.output)
+          value: registry.ocp4.example.com:8443/developer/$(params.IMAGE_NAME):latest
         - name: DOCKERFILE
           value: Containerfile
         - name: CONTEXT

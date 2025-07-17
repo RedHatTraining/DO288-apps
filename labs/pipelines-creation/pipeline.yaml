@@ -15,7 +15,7 @@ spec:
       default: "https://git.ocp4.example.com/developer/DO288-apps"
     - name: GIT_REVISION
       type: string
-      default: "master"
+      default: "main"
     - name: APP_PATH
       type: string
       default: "apps/pipelines-creation/exchange"
