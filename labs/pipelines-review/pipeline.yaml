@@ -12,7 +12,7 @@ spec:
       default: "https://git.ocp4.example.com/developer/DO288-apps"
     - name: GIT_REVISION
       type: string
-      default: "master"
+      default: "main"
     - name: MVN_APP_PATH
       type: string
       default: "builds-applications/apps/vertx-site"
@@ -29,10 +29,10 @@ spec:
         # TODO
       params:
         # TODO
-        - name: deleteExisting
-          value: 'true'
-        - name: sslVerify
-          value: 'false'
+        - name: DELETE_EXISTING
+          value: "true"
+        - name: SSL_VERIFY
+          value: "false"
       workspaces:
         # TODO
 
