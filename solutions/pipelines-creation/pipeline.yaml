@@ -118,7 +118,7 @@ spec:
             value: openshift-pipelines
       params:
         - name: IMAGE
-          value: registry.ocp4.example.com:8443/developer/$(params.IMAGE_NAME):latest
+          value: registry.ocp4.example.com:8443/developer/$(params.IMAGE_NAME):$(tasks.app-version.results.output)
         - name: DOCKERFILE
           value: Containerfile
         - name: CONTEXT
