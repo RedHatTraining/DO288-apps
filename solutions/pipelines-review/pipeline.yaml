@@ -12,7 +12,7 @@ spec:
       default: "https://git.ocp4.example.com/developer/DO288-apps"
     - name: GIT_REVISION
       type: string
-      default: "master"
+      default: "main"
     - name: MVN_APP_PATH
       type: string
       default: "builds-applications/apps/vertx-site"
@@ -40,9 +40,9 @@ spec:
         - name: REVISION
           value: $(params.GIT_REVISION)
         - name: DELETE_EXISTING
-          value: 'true'
+          value: "true"
         - name: SSL_VERIFY
-          value: 'false'
+          value: "false"
       workspaces:
         - name: output
           workspace: shared
@@ -80,9 +80,9 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            cd  "$(workspaces.manifest_dir.path)/$(params.MVN_APP_PATH)" || exit 1
+            cd "$(workspaces.manifest_dir.path)/$(params.MVN_APP_PATH)" || exit 1
             oc new-build --name=$(params.DEPLOY_APP_NAME) \
-              -l app=$(params.DEPLOY_APP_NAME)  --binary=true \
+              -l app=$(params.DEPLOY_APP_NAME) --binary=true \
               --image-stream=openshift/java:8 || echo "BC already exists"
             oc start-build $(params.DEPLOY_APP_NAME) --wait=true \
               --from-file=$(params.DEPLOY_ARTIFACT_NAME)
