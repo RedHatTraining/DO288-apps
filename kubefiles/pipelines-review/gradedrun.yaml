@@ -9,9 +9,9 @@ metadata:
 spec:
   params:
     - name: GIT_REPO
-      value: 'https://git.ocp4.example.com/developer/DO288-apps'
+      value: "https://git.ocp4.example.com/developer/DO288-apps"
     - name: GIT_REVISION
-      value: master
+      value: main
     - name: MVN_APP_PATH
       value: apps/pipelines-review/vertx-site
     - name: DEPLOY_ARTIFACT_NAME

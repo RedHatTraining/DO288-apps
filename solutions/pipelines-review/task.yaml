@@ -4,12 +4,12 @@ metadata:
   name: maven-task
 spec:
   workspaces:
-  - name: source
-  - name: maven_config
+    - name: source
+    - name: maven_config
   params:
-  - name: app_path
-    description: Path to the application source code in the directory
-    type: string
+    - name: app_path
+      description: Path to the application source code in the directory
+      type: string
   steps:
     - name: build
       image: registry.ocp4.example.com:8443/ubi8/openjdk-11:1.16-3
