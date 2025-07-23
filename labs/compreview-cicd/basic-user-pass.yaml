@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: basic-user-pass
+  annotations:
+    tekton.dev/docker-0: https://registry.ocp4.example.com:8443
+type: kubernetes.io/basic-auth
+stringData:
+  username: developer
+  password: developer
