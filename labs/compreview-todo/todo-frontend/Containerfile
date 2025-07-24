@@ -12,7 +12,7 @@ ADD . .
 
 RUN chgrp -R 0 . && \
   chmod -R g=u . && \
-  npm install --no-package-lock  && \
+  npm install --no-package-lock && \
   npm run build
 
 
@@ -22,9 +22,9 @@ FROM registry.ocp4.example.com:8443/ubi8/nginx-118
 LABEL version="1.0"
 LABEL description="To Do List application front-end"
 LABEL creationDate="2017-12-25"
-LABEL updatedDate="2021-05-19"
+LABEL updatedDate="2025-07-24"
 
 COPY nginx.conf /etc/nginx/
-COPY --from=appbuild /opt/app-root/src/build /usr/share/nginx/html
+COPY --from=appbuild /opt/app-root/src/dist /usr/share/nginx/html
 
 CMD nginx -g "daemon off;"
