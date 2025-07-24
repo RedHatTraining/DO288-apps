@@ -1,4 +1,4 @@
-FROM registry.ocp4.example.com:8443/ubi8/nodejs-18 AS appbuild
+FROM registry.ocp4.example.com:8443/ubi9/nodejs-20 AS appbuild
 
 LABEL version="1.0"
 LABEL description="To Do List application builder"
