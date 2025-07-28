@@ -35,16 +35,16 @@ spec:
         # TODO
 
     - name: npm-install
-    # TODO
+      # TODO
 
     - name: npm-test
-    # TODO
+      # TODO
 
     - name: npm-lint
-    # TODO
+      # TODO
 
     - name: build-push-image
-    # TODO
+      # TODO
 
     - name: oc-deploy
-    # TODO
+      # TODO
