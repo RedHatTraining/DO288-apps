@@ -1,6 +1,10 @@
 #!/bin/bash
 
+cd ~/DO288/labs/compreview-cicd
+
 oc login -u developer -p developer https://api.ocp4.example.com:6443
+oc project compreview-cicd
+
 
 oc apply -f basic-user-pass.yaml
 oc secret link pipeline basic-user-pass

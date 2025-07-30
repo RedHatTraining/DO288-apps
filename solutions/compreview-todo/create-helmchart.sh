@@ -51,6 +51,8 @@ sed -i '43i\          env:\n            {{- range .Values.env }}\n          - na
 
 oc login -u developer -p developer https://api.ocp4.example.com:6443
 
+oc project compreview-todo
+
 helm install todo-list .
 
 oc expose svc/todo-list

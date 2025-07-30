@@ -2,6 +2,8 @@
 
 oc login -u developer -p developer https://api.ocp4.example.com:6443
 
+oc project compreview-todo
+
 oc new-app \
   https://git.ocp4.example.com/developer/DO288-apps \
   --name todo-ssr --context-dir=/apps/compreview-todo/todo-ssr --build-env \
