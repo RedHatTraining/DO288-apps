@@ -19,12 +19,12 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "eslint": "^5.16.0",
+    "eslint": "^9.39.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.18.0",
-    "mocha": "^6.1.4",
+    "mocha": "^11.7.5",
     "mocha-junit-reporter": "^1.23.0",
-    "nyc": "^14.1.1",
+    "nyc": "^17.1.0",
     "request": "^2.88.0"
   }
 }
