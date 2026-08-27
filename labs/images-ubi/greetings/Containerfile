@@ -1,4 +1,4 @@
-FROM registry.ocp4.example.com:8443/ubi10/nodejs-22-minimal:10.0
+FROM registry.lab.example.com:8443/ubi10/nodejs-22-minimal:10.0
 
 ENV PORT=80
 EXPOSE ${PORT}
