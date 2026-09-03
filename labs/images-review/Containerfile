@@ -1,4 +1,4 @@
-FROM registry.ocp4.example.com:8443/redhattraining/hello-world-nginx:latest
+FROM registry.lab.example.com:8443/redhattraining/hello-world-nginx:latest
 
 USER root
 
