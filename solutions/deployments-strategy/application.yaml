@@ -16,10 +16,10 @@ items:
       local: false
     tags:
     - annotations:
-        openshift.io/imported-from: registry.ocp4.example.com:8443/rhel8/mysql-80
+        openshift.io/imported-from: registry.lab.example.com:8443/rhel8/mysql-80
       from:
         kind: DockerImage
-        name: registry.ocp4.example.com:8443/rhel8/mysql-80
+        name: registry.lab.example.com:8443/rhel8/mysql-80
       generation: null
       importPolicy:
         importMode: Legacy
@@ -66,7 +66,7 @@ items:
     source:
       contextDir: apps/deployments-strategy/users-db
       git:
-        uri: https://git.ocp4.example.com/developer/DO288-apps
+        uri: https://git.lab.example.com/developer/DO288-apps
       type: Git
     strategy:
       dockerStrategy:
