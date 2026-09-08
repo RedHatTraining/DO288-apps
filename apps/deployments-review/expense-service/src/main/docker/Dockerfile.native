@@ -14,7 +14,7 @@
 # docker run -i --rm -p 8080:8080 quarkus/expense-restful-service
 #
 ###
-FROM registry.ocp4.example.com:8443/ubi8/ubi-minimal:8.1
+FROM registry.lab.example.com:8443/ubi8/ubi-minimal:8.1
 WORKDIR /work/
 RUN chown 1001 /work \
     && chmod "g+rwX" /work \
