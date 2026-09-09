@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: registry.ocp4.example.com:8443/redhattraining/todo-backend
+  repository: registry.lab.example.com:8443/redhattraining/todo-backend
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "release-46"
@@ -83,7 +83,7 @@ affinity: {}
 
 mariadb:
   global:
-    imageRegistry: "registry.ocp4.example.com:8443"
+    imageRegistry: "registry.lab.example.com:8443"
   image:
     tag: 10.5.10-debian-10-r0
   auth:
