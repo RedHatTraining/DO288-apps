@@ -4,7 +4,7 @@ oc login -u developer -p developer https://api.lab.example.com:6443
 
 oc project compreview-todo
 
-oc new-app \
+oc new-app --image-stream="openshift/nodejs:20-ubi9" \
   https://git.lab.example.com/developer/DO288-apps \
   --name todo-ssr --context-dir=/apps/compreview-todo/todo-ssr --build-env \
   npm_config_registry="http://nexus-infra.apps.lab.example.com/repository/npm"
