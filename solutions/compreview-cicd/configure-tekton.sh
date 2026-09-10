@@ -2,7 +2,7 @@
 
 cd ~/DO288/labs/compreview-cicd
 
-oc login -u developer -p developer https://api.ocp4.example.com:6443
+oc login -u developer -p developer https://api.lab.example.com:6443
 oc project compreview-cicd
 
 
