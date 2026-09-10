@@ -17,7 +17,7 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-      - image: registry.ocp4.example.com:8443/rhel8/mysql-80
+      - image: registry.lab.example.com:8443/rhel8/mysql-80
         imagePullPolicy: Always
         name: mysql-80
         ports:

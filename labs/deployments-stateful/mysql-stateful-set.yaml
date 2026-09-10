@@ -13,7 +13,7 @@ spec:
         app: mysql-db
     spec:
       containers:
-      - image: registry.ocp4.example.com:8443/rhel8/mysql-80
+      - image: registry.lab.example.com:8443/rhel8/mysql-80
         name: mysql-80
         ports:
           - containerPort: 3306
