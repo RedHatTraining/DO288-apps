@@ -19,7 +19,7 @@ spec:
         deployment: expense
     spec:
       containers:
-      - image: registry.ocp4.example.com:8443/redhattraining/ocpdev-expense-service-health:4.18
+      - image: registry.lab.example.com:8443/redhattraining/ocpdev-expense-service-health:4.22
         imagePullPolicy: Always
         name: expense
         ports:
@@ -57,7 +57,7 @@ metadata:
     app.kubernetes.io/instance: expense
   name: expense
 spec:
-  host: expense-deployments-health.apps.ocp4.example.com
+  host: expense-deployments-health.apps.lab.example.com
   port:
     targetPort: 8080-tcp
   to:
