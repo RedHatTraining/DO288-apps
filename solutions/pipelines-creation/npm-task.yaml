@@ -16,7 +16,7 @@ spec:
       type: string
     - name: NODE_IMAGE
       type: string
-      default: "registry.ocp4.example.com:8443/ubi8/nodejs-16:latest"
+      default: "registry.lab.example.com:8443/ubi10/nodejs-22:latest"
   steps:
     - name: npm-run
       image: $(params.NODE_IMAGE)
