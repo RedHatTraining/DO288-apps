@@ -4,7 +4,7 @@ kind: Secret
 metadata:
   name: basic-user-pass
   annotations:
-    tekton.dev/docker-0: https://registry.ocp4.example.com:8443
+    tekton.dev/docker-0: https://registry.lab.example.com:8443
 type: kubernetes.io/basic-auth
 stringData:
   username: developer
