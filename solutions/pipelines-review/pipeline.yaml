@@ -83,7 +83,7 @@ spec:
             cd "$(workspaces.manifest_dir.path)/$(params.MVN_APP_PATH)" || exit 1
             oc new-build --name=$(params.DEPLOY_APP_NAME) \
               -l app=$(params.DEPLOY_APP_NAME) --binary=true \
-              --image-stream=openshift/java:8 || echo "BC already exists"
+              --image-stream=openshift/redhat-openjdk18-openshift:1.16 || echo "BC already exists"
             oc start-build $(params.DEPLOY_APP_NAME) --wait=true \
               --from-file=$(params.DEPLOY_ARTIFACT_NAME)
             oc new-app $(params.DEPLOY_APP_NAME):latest \
