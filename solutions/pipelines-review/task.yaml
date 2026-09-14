@@ -12,7 +12,7 @@ spec:
       type: string
   steps:
     - name: build
-      image: registry.labs.example.com:8443/ubi8/openjdk-11:1.16-3
+      image: registry.lab.example.com:8443/ubi8/openjdk-11:1.16-3
       workingDir: $(workspaces.source.path)/$(params.app_path)
       script: |
         mvn clean package -s $(workspaces.maven_config.path)/settings.xml
