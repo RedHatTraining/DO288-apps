@@ -9,7 +9,7 @@ spec:
   params:
     - name: GIT_REPO
       type: string
-      default: "https://git.ocp4.example.com/developer/DO288-apps"
+      default: "https://git.labs.example.com/developer/DO288-apps"
     - name: GIT_REVISION
       type: string
       default: "main"
