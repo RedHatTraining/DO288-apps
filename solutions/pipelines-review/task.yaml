@@ -19,3 +19,4 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 65532
+mvn clean package -s  /home/student/.m2/settings.xml
