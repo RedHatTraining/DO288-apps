@@ -9,7 +9,7 @@ spec:
   params:
     - name: GIT_REPO
       type: string
-      default: "https://git.ocp4.example.com/developer/DO288-apps"
+      default: "https://git.lab.example.com/developer/DO288-apps"
     - name: GIT_REVISION
       type: string
       default: "main"
@@ -83,7 +83,7 @@ spec:
             cd "$(workspaces.manifest_dir.path)/$(params.MVN_APP_PATH)" || exit 1
             oc new-build --name=$(params.DEPLOY_APP_NAME) \
               -l app=$(params.DEPLOY_APP_NAME) --binary=true \
-              --image-stream=openshift/java:8 || echo "BC already exists"
+              --image-stream=openshift/redhat-openjdk18-openshift:1.16 || echo "BC already exists"
             oc start-build $(params.DEPLOY_APP_NAME) --wait=true \
               --from-file=$(params.DEPLOY_ARTIFACT_NAME)
             oc new-app $(params.DEPLOY_APP_NAME):latest \
@@ -98,8 +98,8 @@ spec:
         - oc-deploy
       params:
         - name: SOURCE_IMAGE_URL
-          value: docker://default-route-openshift-image-registry.apps.ocp4.example.com/pipelines-review/$(params.DEPLOY_APP_NAME)
+          value: docker://default-route-openshift-image-registry.apps.lab.example.com/pipelines-review/$(params.DEPLOY_APP_NAME)
         - name: DESTINATION_IMAGE_URL
-          value: docker://registry.ocp4.example.com:8443/developer/$(params.DEPLOY_APP_NAME)
+          value: docker://registry.lab.example.com:8443/developer/$(params.DEPLOY_APP_NAME)
         - name: IMAGE
-          value: registry.ocp4.example.com:8443/ubi9/skopeo:9.2
+          value: registry.lab.example.com:8443/ubi9/skopeo:9.2
