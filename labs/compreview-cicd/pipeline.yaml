@@ -15,7 +15,7 @@ spec:
       default: "image-registry.openshift-image-registry.svc:5000"
     - name: GIT_REPO
       type: string
-      default: "https://git.ocp4.example.com/developer/DO288-apps"
+      default: "https://git.lab.example.com/developer/DO288-apps"
     - name: GIT_REVISION
       type: string
       default: "main"
