@@ -28,6 +28,8 @@ items:
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"weather:1.0"},"fieldPath":"spec.template.spec.containers[?(@.name==\"weather\")].image"}]'
     labels:
       app: weather
       app.kubernetes.io/component: weather
@@ -69,3 +71,19 @@ items:
       targetPort: 8080
     selector:
       deployment: weather
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    labels:
+      app: weather
+      app.kubernetes.io/component: weather
+      app.kubernetes.io/instance: weather
+    name: weather
+  spec:
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: weather
+      weight: 100
+    wildcardPolicy: None      
