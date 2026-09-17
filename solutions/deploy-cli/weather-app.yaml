@@ -1,0 +1,89 @@
+
+kind: List
+metadata: {}
+apiVersion: v1
+items:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    labels:
+      app: weather
+      app.kubernetes.io/component: weather
+      app.kubernetes.io/instance: weather
+    name: weather
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: registry.lab.example.com:8443/redhattraining/openshift-dev-deploy-cli-weather:1.0
+      from:
+        kind: DockerImage
+        name: registry.lab.example.com:8443/redhattraining/openshift-dev-deploy-cli-weather:1.0
+      importPolicy:
+        importMode: Legacy
+      name: "1.0"
+      referencePolicy:
+        type: ""
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"weather:1.0"},"fieldPath":"spec.template.spec.containers[?(@.name==\"weather\")].image"}]'
+    labels:
+      app: weather
+      app.kubernetes.io/component: weather
+      app.kubernetes.io/instance: weather
+    name: weather
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        deployment: weather
+    strategy: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        labels:
+          deployment: weather
+      spec:
+        containers:
+        - image: ' '
+          name: weather
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: weather
+      app.kubernetes.io/component: weather
+      app.kubernetes.io/instance: weather
+    name: weather
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      deployment: weather
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    labels:
+      app: weather
+      app.kubernetes.io/component: weather
+      app.kubernetes.io/instance: weather
+    name: weather
+  spec:
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: weather
+      weight: 100
+    wildcardPolicy: None      
