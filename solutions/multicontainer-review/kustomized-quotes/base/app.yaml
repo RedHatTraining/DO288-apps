@@ -95,7 +95,7 @@ spec:
     spec:
       containers:
       - name: famous-quotes
-        image: registry.ocp4.example.com:8443/redhattraining/ocpdev-redis-quotes:4.18
+        image: registry.lab.example.com:8443/redhattraining/ocpdev-redis-quotes:4.18
         imagePullPolicy: Always
         env:
         - name: DATASTORE_HOST
@@ -141,7 +141,7 @@ spec:
             secretKeyRef:
               key: database-password
               name: quotes-store
-        image: "registry.ocp4.example.com:8443/redhattraining/redis-6-c9s:c9s"
+        image: "registry.lab.example.com:8443/redhattraining/redis-6-c9s:c9s"
         imagePullPolicy: IfNotPresent
         livenessProbe:
           initialDelaySeconds: 30
@@ -184,7 +184,7 @@ kind: Route
 metadata:
   name: famous-quotes
 spec:
-  host: famous-quotes-multicontainer-review.apps.ocp4.example.com
+  host: famous-quotes-multicontainer-review.apps.lab.example.com
   port:
     targetPort: https
   to:

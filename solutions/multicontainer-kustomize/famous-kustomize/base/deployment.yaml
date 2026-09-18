@@ -113,7 +113,7 @@ spec:
         - name: famouschart
           securityContext:
             {}
-          image: "registry.ocp4.example.com:8443/redhattraining/famous-quotes:2.1"
+          image: "registry.lab.example.com:8443/redhattraining/famous-quotes:2.1"
           imagePullPolicy: IfNotPresent
           env:
           - name: QUOTES_HOSTNAME
@@ -183,7 +183,7 @@ spec:
           
       containers:
         - name: mariadb
-          image: registry.ocp4.example.com:8443/bitnami/mariadb:10.5.10-debian-10-r0
+          image: registry.lab.example.com:8443/bitnami/mariadb:10.5.10-debian-10-r0
           imagePullPolicy: "IfNotPresent"
           env:
             - name: BITNAMI_DEBUG

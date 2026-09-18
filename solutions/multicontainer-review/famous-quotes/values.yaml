@@ -6,6 +6,6 @@ redis:
  redis_version: -6-c9s:c9s
 
 quotes:
-  image: registry.ocp4.example.com:8443/redhattraining/ocpdev-redis-quotes:4.18
+  image: registry.lab.example.com:8443/redhattraining/ocpdev-redis-quotes:4.18
   import:
     enabled: true
