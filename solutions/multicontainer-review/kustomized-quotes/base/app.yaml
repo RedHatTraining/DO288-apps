@@ -1,4 +1,3 @@
----
 # Source: famous-quotes/charts/redis/templates/secret.yaml
 apiVersion: v1
 kind: Secret
@@ -78,43 +77,6 @@ spec:
       targetPort: 8080
       name: https
 ---
-# Source: famous-quotes/templates/deployment.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: famous-quotes
-spec:
-  selector:
-    matchLabels:
-      app: famous-quotes
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: famous-quotes
-    spec:
-      containers:
-      - name: famous-quotes
-        image: registry.lab.example.com:8443/redhattraining/ocpdev-redis-quotes:4.18
-        imagePullPolicy: Always
-        env:
-        - name: DATASTORE_HOST
-          value: quotes-store
-        - name: DATASTORE_PASS
-          valueFrom:
-            secretKeyRef:
-              key: database-password
-              name: quotes-store
-        - name: QUOTES_IMPORT_PATH
-          value: /tmp/quotes/import_quotes.csv
-        volumeMounts:
-          - name: import-volume
-            mountPath: /tmp/quotes
-      volumes:
-        - name: import-volume
-          configMap:
-            name: quotes-import-data
----
 # Source: famous-quotes/charts/redis/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -141,7 +103,7 @@ spec:
             secretKeyRef:
               key: database-password
               name: quotes-store
-        image: "registry.lab.example.com:8443/redhattraining/redis-6-c9s:c9s"
+        image: "registry.lab.example.com:8443/rhel9/redis-6:1-64"
         imagePullPolicy: IfNotPresent
         livenessProbe:
           initialDelaySeconds: 30
@@ -177,6 +139,43 @@ spec:
       - name: quotes-store-data
         persistentVolumeClaim:
           claimName: quotes-store
+---
+# Source: famous-quotes/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: famous-quotes
+spec:
+  selector:
+    matchLabels:
+      app: famous-quotes
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: famous-quotes
+    spec:
+      containers:
+      - name: famous-quotes
+        image: registry.lab.example.com:8443/redhattraining/ocpdev-redis-quotes:4.22
+        imagePullPolicy: Always
+        env:
+        - name: DATASTORE_HOST
+          value: quotes-store
+        - name: DATASTORE_PASS
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: quotes-store
+        - name: QUOTES_IMPORT_PATH
+          value: /tmp/quotes/import_quotes.csv
+        volumeMounts:
+          - name: import-volume
+            mountPath: /tmp/quotes
+      volumes:
+        - name: import-volume
+          configMap:
+            name: quotes-import-data
 ---
 # Source: famous-quotes/templates/route.yaml
 apiVersion: route.openshift.io/v1

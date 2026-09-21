@@ -1,4 +1,4 @@
-bases:
+resources:
 - ../../base
 patches:
-- staging_dimensioning.yaml
+- path: staging_dimensioning.yaml
