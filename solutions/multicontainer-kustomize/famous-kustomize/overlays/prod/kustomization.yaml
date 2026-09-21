@@ -1,4 +1,4 @@
-bases:
+resources:
 - ../../base
 patches:
-- replica_limits.yaml 
+- path: replica_limits.yaml
