@@ -1,6 +1,6 @@
 postgres:
-  user: ""
-  pass: ""
+  user: "dbuser"
+  pass: "mypass"
   db: "sampledb"
 
 expenseService:

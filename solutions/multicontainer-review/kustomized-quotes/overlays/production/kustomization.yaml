@@ -1,4 +1,4 @@
-bases:
+resources:
 - ../../base
 patches:
-- prod_dimensioning.yaml
+- path: prod_dimensioning.yaml
