@@ -25,6 +25,7 @@ spec:
 
   tasks:
     - name: clone-repository
+    # Use the cluster resolver to reference the shared git-clone task
       taskRef:
         resolver: cluster
         params:
@@ -34,6 +35,7 @@ spec:
             value: git-clone
           - name: namespace
             value: openshift-pipelines
+      # Map pipeline parameters to the task parameters
       params:
         - name: URL
           value: $(params.GIT_REPO)
@@ -43,6 +45,7 @@ spec:
           value: "true"
         - name: SSL_VERIFY
           value: "false"
+      # Bind the task output workspace to the pipeline shared workspace
       workspaces:
         - name: output
           workspace: shared
@@ -54,8 +57,10 @@ spec:
       params:
         - name: app_path
           value: $(params.MVN_APP_PATH)
+      # Run after the clone task completes
       runAfter:
         - clone-repository
+      # Map pipeline workspaces to the task declared workspaces
       workspaces:
         - workspace: shared
           name: source
@@ -63,6 +68,7 @@ spec:
           name: maven_config
 
     - name: oc-deploy
+      # Use the cluster resolver for the shared openshift-client task
       taskRef:
         resolver: cluster
         params:
@@ -72,8 +78,10 @@ spec:
             value: openshift-client
           - name: namespace
             value: openshift-pipelines
+      # Run after the build task completes
       runAfter:
         - build
+      # Bind workspace to access build artifacts
       workspaces:
         - name: manifest_dir
           workspace: shared
