@@ -3,9 +3,11 @@ kind: Task
 metadata:
   name: maven-task
 spec:
+  # Declare workspaces for source code and Maven settings
   workspaces:
     - name: source
     - name: maven_config
+  # Accept the application path as a parameter
   params:
     - name: app_path
       description: Path to the application source code in the directory
@@ -13,6 +15,7 @@ spec:
   steps:
     - name: build
       image: registry.lab.example.com:8443/ubi8/openjdk-11:1.16-3
+      # Set the working directory using workspace path and app_path parameter
       workingDir: $(workspaces.source.path)/$(params.app_path)
       script: |
         mvn clean package -s $(workspaces.maven_config.path)/settings.xml

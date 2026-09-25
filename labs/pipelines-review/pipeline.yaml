@@ -25,14 +25,17 @@ spec:
 
   tasks:
     - name: clone-repository
+    # Use the cluster resolver to reference the shared git-clone task
       taskRef:
         # TODO
+      # Map pipeline parameters to the task parameters
       params:
         # TODO
         - name: DELETE_EXISTING
           value: "true"
         - name: SSL_VERIFY
           value: "false"
+      # Bind the task output workspace to the pipeline shared workspace
       workspaces:
         # TODO
 
@@ -41,12 +44,19 @@ spec:
         # TODO
       params:
         # TODO
+      # Run after the clone task completes
+      
+      # Map pipeline workspaces to the task declared workspaces
       workspaces:
         # TODO
 
     - name: oc-deploy
+      # Use the cluster resolver for the shared openshift-client task
       taskRef:
         # TODO
+      # Run after the build task completes
+
+      # Bind workspace to access build artifacts
       workspaces:
         # TODO
       params:

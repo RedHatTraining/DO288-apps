@@ -3,8 +3,10 @@ kind: Task
 metadata:
   name: maven-task
 spec:
+  # Declare workspaces for source code and Maven settings
   workspaces:
     # TODO
+  # Accept the application path as a parameter
   params:
     # TODO
   steps:
