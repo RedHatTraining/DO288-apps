@@ -1,0 +1,17 @@
+FROM registry.access.redhat.com/ubi10/go-toolset:1.26.10 AS builder
+
+WORKDIR /opt/app-root/src
+
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux go build \
+      -trimpath \
+      -ldflags="-s -w" \
+      -buildvcs=false .
+
+FROM registry.access.redhat.com/ubi10/ubi-micro:10.2
+
+COPY --from=builder /opt/app-root/src/go-depless-server /usr/local/bin/go-depless-server
+
+EXPOSE 8080
+ENTRYPOINT ["/usr/local/bin/go-depless-server"]
