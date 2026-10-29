@@ -13,9 +13,9 @@ spec:
     kind: ClusterBuildStrategy
   paramValues:
     - name: cnb-builder-image
-      value: paketobuildpacks/builder-jammy-base:0.4.542
+      value: registry.lab.example.com:8443/paketobuildpacks/builder-jammy-base:0.4.542
     - name: run-image
-      value: paketobuildpacks/run-jammy-base
+      value: registry.lab.example.com:8443/paketobuildpacks/run-jammy-base:0.1.197
     - name: source-subpath
       value: "apps/builds-process/go-web"
   output:
