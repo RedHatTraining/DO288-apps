@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Custom S2I assemble script for the fortune-server application.
+#
+# Runs the default assemble script from the go-toolset builder image to
+# compile the application, and then stores the value of the FORTUNES build
+# environment variable in the application image.
+
+set -e
+
+# compile the application with the default assemble script
+${STI_SCRIPTS_PATH:-/usr/libexec/s2i}/assemble
+
+# store the FORTUNES value in the image for the run script to use
+if [ -n "$FORTUNES" ]; then
+    printf '%s' "$FORTUNES" > /opt/app-root/fortunes
+fi

@@ -11,7 +11,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build \
 
 FROM registry.access.redhat.com/ubi10/ubi-micro:10.2
 
-COPY --from=builder /opt/app-root/src/go-depless-server /usr/local/bin/go-depless-server
+COPY --from=builder /opt/app-root/src/fortune-server /usr/local/bin/fortune-server
 
 EXPOSE 8080
-ENTRYPOINT ["/usr/local/bin/go-depless-server"]
+ENTRYPOINT ["/usr/local/bin/fortune-server"]

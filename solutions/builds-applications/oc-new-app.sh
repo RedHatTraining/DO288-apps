@@ -1,8 +1,7 @@
 #!/bin/env bash
 
-oc new-app --name vertx-site \
-  --build-env MAVEN_MIRROR_URL=http://nexus-infra.apps.lab.example.com/repository/java \
-  --env JAVA_APP_JAR=vertx-site-1.0.0-SNAPSHOT-fat.jar \
-  -i redhat-openjdk18-openshift:1.8 \
-  --context-dir apps/builds-applications/vertx-site \
+oc new-app --name fortune-server \
+  --image registry.lab.example.com:8443/ubi10/go-toolset:1.26.10 \
+  --build-env FORTUNES=Absolutely \
+  --context-dir apps/builds-applications/fortune-server \
   https://git.lab.example.com/developer/DO288-apps
