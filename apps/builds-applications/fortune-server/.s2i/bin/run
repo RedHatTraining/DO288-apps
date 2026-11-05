@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# Custom S2I run script for the fortune-server application.
+#
+# Provides the server with the value of the FORTUNES variable that the
+# assemble script stored in the application image at build time.
+
+# serve the fortunes baked into the image, if any
+if [ -f /opt/app-root/fortunes ]; then
+    FORTUNES="$(cat /opt/app-root/fortunes)"
+    export FORTUNES
+fi
+
+# start the server
+exec /opt/app-root/gobinary
