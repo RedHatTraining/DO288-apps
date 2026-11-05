@@ -1,0 +1,7 @@
+apiVersion: shipwright.io/v1beta1
+kind: BuildRun
+metadata:
+  name: go-web-buildrun-1
+spec:
+  build:
+    name: go-web-build

@@ -1,0 +1,22 @@
+apiVersion: shipwright.io/v1beta1
+kind: Build
+metadata:
+  name: go-web-build
+spec:
+  source:
+    type: Git
+    git:
+      url: git@git.lab.example.com:developer/DO288-apps.git
+      cloneSecret: gitlab-ssh
+  strategy:
+    name: buildpacks
+    kind: ClusterBuildStrategy
+  paramValues:
+    - name: cnb-builder-image
+      value: registry.lab.example.com:8443/paketobuildpacks/builder-jammy-base:0.4.542
+    - name: run-image
+      value: registry.lab.example.com:8443/paketobuildpacks/run-jammy-base:0.1.197
+    - name: source-subpath
+      value: "apps/builds-process/go-web"
+  output:
+    image: image-registry.openshift-image-registry.svc:5000/builds-process/go-web
