@@ -1,0 +1,67 @@
+name: Registry audit
+
+# Reports images this repo pulls that the LB0004 classroom registry doesn't
+# mirror, as a PR comment. Warn-only. The check lives in LB0004:
+# tools/registry-audit/README.md ("Content repos").
+#
+# This repo is public, so it can't call LB0004's reusable workflow
+# (registry-audit-content.yml); these steps are a copy of it.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: registry-audit-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    # Fork PRs don't get the secret that reads LB0004.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: content
+          persist-credentials: false
+
+      - uses: actions/checkout@v4
+        with:
+          repository: RedHatTraining/LB0004
+          ref: zgutterm/registry-audit-check
+          token: ${{ secrets.REGISTRY_AUDIT_TOKEN }}
+          path: lb0004
+          persist-credentials: false
+          sparse-checkout: |
+            tools/registry-audit
+            classroom/ansible-playbooks-novello/group_vars
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run audit
+        run: |
+          uv run lb0004/tools/registry-audit/registry_audit.py \
+            --repo content --repo-name "${{ github.event.repository.name }}" \
+            --markdown "$RUNNER_TEMP/report.md" > /dev/null
+
+      - name: Comment on the PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          marker='<!-- registry-audit -->'
+          body="$(printf '%s\n%s' "$marker" "$(cat "$RUNNER_TEMP/report.md")")"
+          id=$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --paginate \
+                 -q ".[] | select(.body | startswith(\"$marker\")) | .id" | head -1)
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -f body="$body" > /dev/null
+          else
+            gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$body"
+          fi
